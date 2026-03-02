@@ -514,3 +514,90 @@ html[data-view="desktop"] .g-nav__links { display: flex; order: 0; width: auto; 
 html[data-view="desktop"] .g-nav__link { flex: 0 0 auto; padding: .42rem 1.1rem; font-size: .67rem; }
 html[data-view="desktop"] .g-nav__badge { display: flex; }
 html[data-view="desktop"] .g-page { padding-top: var(--nav-h); }
+
+/* Final mobile layout overrides */
+@media (max-width: 700px) {
+  .g-nav {
+    height: auto;
+    min-height: var(--nav-h);
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: .5rem .8rem .65rem;
+    gap: .45rem;
+  }
+  .g-nav__logo {
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+    font-size: 1rem;
+  }
+  .g-nav__links {
+    order: 2;
+    width: 100%;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .35rem;
+  }
+  .g-nav__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+    text-align: center;
+    padding: .42rem .35rem;
+    font-size: .56rem;
+  }
+  .g-nav__link .hnb-ico {
+    margin-right: 0;
+    vertical-align: middle;
+  }
+  .g-page {
+    padding-top: 170px;
+  }
+}
+
+html[data-view="mobile"] .g-nav {
+  height: auto;
+  min-height: var(--nav-h);
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: .5rem .8rem .65rem;
+  gap: .45rem;
+}
+html[data-view="mobile"] .g-nav__logo {
+  width: 100%;
+  margin-right: 0;
+  text-align: center;
+  font-size: 1rem;
+}
+html[data-view="mobile"] .g-nav__links {
+  order: 2;
+  width: 100%;
+  margin-right: 0;
+  margin-top: 0;
+  padding-bottom: 0;
+  overflow: visible;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .35rem;
+}
+html[data-view="mobile"] .g-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .3rem;
+  text-align: center;
+  padding: .42rem .35rem;
+  font-size: .56rem;
+}
+html[data-view="mobile"] .g-nav__link .hnb-ico {
+  margin-right: 0;
+  vertical-align: middle;
+}
+html[data-view="mobile"] .g-page {
+  padding-top: 170px;
+}

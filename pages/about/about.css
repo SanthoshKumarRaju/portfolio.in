@@ -11,9 +11,9 @@
 .alink { display: flex; align-items: center; gap: .9rem; padding: .95rem 1.1rem; background: var(--surf); border: 1px solid var(--bdr); border-radius: var(--r); cursor: none; transition: all .2s; text-decoration: none; color: inherit; }
 .alink:hover { border-color: rgba(0,232,122,.4); background: var(--grndim); transform: translateX(4px); }
 .alink-ico  { font-size: 1.15rem; width: 1.4rem; text-align: center; flex-shrink: 0; }
-.alink-body { flex: 1; display: flex; flex-direction: column; gap: .12rem; }
+.alink-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .12rem; }
 .alink-label { font-size: .88rem; color: var(--txt); font-weight: 500; }
-.alink-url   { font-family: var(--fm); font-size: .58rem; color: var(--txt3); }
+.alink-url   { font-family: var(--fm); font-size: .58rem; color: var(--txt3); overflow-wrap: anywhere; word-break: break-word; }
 .alink:hover .alink-url { color: var(--txt2); }
 .alink-arr   { color: var(--txt3); font-size: .85rem; transition: all .2s; flex-shrink: 0; }
 .alink:hover .alink-arr { color: var(--grn); transform: translateX(3px); }

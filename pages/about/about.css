@@ -1,0 +1,43 @@
+/* ABOUT.CSS */
+.about-body { max-width: 1200px; margin: 0 auto; padding: 3rem 2.5rem; }
+.about-grid { display: grid; grid-template-columns: 1fr 360px; gap: 3rem; align-items: start; }
+
+/* LEFT */
+.about-name { font-family: var(--fh); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -.01em; line-height: 1.05; margin-bottom: .3rem; }
+.about-role { font-family: var(--fm); font-size: .66rem; color: var(--grn); margin-bottom: 2rem; letter-spacing: .05em; }
+.about-bio  { font-size: .89rem; color: var(--txt2); line-height: 1.9; font-weight: 300; margin-bottom: 2.5rem; max-width: 540px; }
+.about-bio strong { color: var(--txt); font-weight: 500; }
+.about-links { display: flex; flex-direction: column; gap: .65rem; }
+.alink { display: flex; align-items: center; gap: .9rem; padding: .95rem 1.1rem; background: var(--surf); border: 1px solid var(--bdr); border-radius: var(--r); cursor: none; transition: all .2s; text-decoration: none; color: inherit; }
+.alink:hover { border-color: rgba(0,232,122,.4); background: var(--grndim); transform: translateX(4px); }
+.alink-ico  { font-size: 1.15rem; width: 1.4rem; text-align: center; flex-shrink: 0; }
+.alink-body { flex: 1; display: flex; flex-direction: column; gap: .12rem; }
+.alink-label { font-size: .88rem; color: var(--txt); font-weight: 500; }
+.alink-url   { font-family: var(--fm); font-size: .58rem; color: var(--txt3); }
+.alink:hover .alink-url { color: var(--txt2); }
+.alink-arr   { color: var(--txt3); font-size: .85rem; transition: all .2s; flex-shrink: 0; }
+.alink:hover .alink-arr { color: var(--grn); transform: translateX(3px); }
+
+/* RIGHT */
+.hire-card { background: linear-gradient(135deg, rgba(0,232,122,.06), rgba(0,200,239,.04)); border: 1px solid rgba(0,232,122,.25); border-radius: var(--r); padding: 2rem; margin-bottom: 1.1rem; position: relative; overflow: hidden; }
+.hire-glow { position: absolute; top: -30px; right: -30px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(0,232,122,.15), transparent 70%); border-radius: 50%; pointer-events: none; }
+.hire-otw  { display: flex; align-items: center; gap: .5rem; font-family: var(--fm); font-size: .6rem; color: var(--grn); margin-bottom: .75rem; }
+.hire-title { font-family: var(--fh); font-size: 1.8rem; font-weight: 800; margin-bottom: .2rem; }
+.hire-sub   { font-family: var(--fm); font-size: .63rem; color: var(--cyn); margin-bottom: 1rem; }
+.hire-desc  { font-size: .83rem; color: var(--txt2); line-height: 1.75; font-weight: 300; margin-bottom: 1.5rem; }
+
+.info-card  { background: var(--surf); border: 1px solid var(--bdr); border-radius: var(--r); padding: 1.4rem; margin-bottom: 1.1rem; }
+.ic-title   { font-family: var(--fm); font-size: .58rem; color: var(--grn); text-transform: uppercase; letter-spacing: .14em; margin-bottom: .9rem; }
+.ic-pills   { display: flex; flex-wrap: wrap; gap: .38rem; }
+
+.work-entry {}
+.we-role { font-size: .88rem; color: var(--txt); font-weight: 500; margin-bottom: .2rem; }
+.we-co   { font-family: var(--fm); font-size: .62rem; color: var(--grn); margin-bottom: .8rem; }
+.we-co span { color: var(--txt3); }
+.we-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-body { padding: 2rem 1.2rem; }
+  .g-page-hero { padding: 2rem 1.2rem; }
+}

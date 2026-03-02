@@ -80,6 +80,13 @@ body.ch #g-cur-r { border-color: var(--cyn); transform: scale(1.4) translateZ(0)
   border: 1px solid transparent; transition: all .18s; cursor: none;
   white-space: nowrap; display: inline-block;
 }
+.g-nav__link .hnb-ico {
+  display: inline-block;
+  font-size: .86rem;
+  line-height: 1;
+  margin-right: .32rem;
+  vertical-align: -1px;
+}
 .g-nav__link:hover, .g-nav__link.active {
   color: var(--grn); background: var(--grndim);
   border-color: rgba(0,232,122,.28);

@@ -67,28 +67,74 @@
     var particles = fx.querySelectorAll('.dl-paper, .dl-spark');
     document.body.appendChild(fx);
 
-    var thanks = document.createElement('div');
-    thanks.className = 'dl-thanks';
-    thanks.setAttribute('role', 'status');
-    thanks.setAttribute('aria-live', 'polite');
-    thanks.textContent = "Thanks for downloading my resume. Let's connect.";
-    document.body.appendChild(thanks);
-
     var isBusy = false;
-    var thanksTimer = null;
+    var linkedinUrl = 'https://linkedin.com/in/santhosh-kumar-raju-dasararaju-5905a81b3';
+    var dlPop = document.createElement('div');
+    dlPop.className = 'dl-pop';
+    dlPop.innerHTML =
+      '<div class="dl-pop__back"></div>' +
+      '<div class="dl-pop__card" role="dialog" aria-modal="true" aria-label="Download completed">' +
+      '<button type="button" class="dl-pop__close" aria-label="Close">x</button>' +
+      '<div class="dl-pop__head">Thanks for downloading my resume.</div>' +
+      '<div class="dl-pop__sub">Let&apos;s connect.</div>' +
+      '<a class="dl-pop__cta" href="' + linkedinUrl + '" target="_blank" rel="noopener noreferrer">View LinkedIn Profile</a>' +
+      '</div>';
+    document.body.appendChild(dlPop);
 
-    function showThanks() {
-      if (thanksTimer) {
-        clearTimeout(thanksTimer);
-        thanksTimer = null;
+    var dlPopClose = dlPop.querySelector('.dl-pop__close');
+    var dlPopBack = dlPop.querySelector('.dl-pop__back');
+    var dlPopTimer = null;
+
+    function closeDlPop() {
+      dlPop.classList.remove('on');
+      document.body.classList.remove('dl-pop-open');
+    }
+    function openDlPop() {
+      if (dlPopTimer) {
+        clearTimeout(dlPopTimer);
+        dlPopTimer = null;
       }
-      thanks.classList.remove('on');
-      void thanks.offsetWidth;
-      thanks.classList.add('on');
-      thanksTimer = setTimeout(function () {
-        thanks.classList.remove('on');
-        thanksTimer = null;
-      }, 3400);
+      dlPop.classList.add('on');
+      document.body.classList.add('dl-pop-open');
+      dlPopTimer = setTimeout(closeDlPop, 9000);
+    }
+
+    dlPopClose.addEventListener('click', closeDlPop);
+    dlPopBack.addEventListener('click', closeDlPop);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeDlPop();
+    });
+
+    function queuePopupAfterFileDialogClose() {
+      var shown = false;
+      var fallbackTimer = null;
+
+      function cleanup() {
+        window.removeEventListener('focus', onFocusReturn);
+        document.removeEventListener('visibilitychange', onVisibilityReturn);
+        if (fallbackTimer) {
+          clearTimeout(fallbackTimer);
+          fallbackTimer = null;
+        }
+      }
+      function showOnce() {
+        if (shown) return;
+        shown = true;
+        cleanup();
+        openDlPop();
+      }
+      function tryShow() {
+        if (document.visibilityState === 'visible' && document.hasFocus()) {
+          setTimeout(showOnce, 150);
+        }
+      }
+      function onFocusReturn() { tryShow(); }
+      function onVisibilityReturn() { tryShow(); }
+
+      window.addEventListener('focus', onFocusReturn);
+      document.addEventListener('visibilitychange', onVisibilityReturn);
+      fallbackTimer = setTimeout(showOnce, 4200);
+      tryShow();
     }
 
     function triggerBlobDownload(blob, filename) {
@@ -124,7 +170,7 @@
         xhr.onload = function () {
           if ((xhr.status >= 200 && xhr.status < 300) || (xhr.status === 0 && xhr.response)) {
             triggerBlobDownload(xhr.response, name);
-            showThanks();
+            queuePopupAfterFileDialogClose();
           } else {
             showDownloadError();
           }

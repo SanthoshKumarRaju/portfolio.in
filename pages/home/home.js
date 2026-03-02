@@ -86,7 +86,7 @@
       fx.classList.remove('on');
       void fx.offsetWidth;
       fx.classList.add('on');
-      setTimeout(function () { fx.classList.remove('on'); }, 3400);
+      setTimeout(function () { fx.classList.remove('on'); }, 5200);
     }
 
     function startDownload(a) {
@@ -122,7 +122,7 @@
         if (Math.abs(ty) < 80) ty += ty < 0 ? -110 : 110;
         var rot = (Math.random() * 780 - 390).toFixed(0) + 'deg';
         var delay = (Math.random() * 0.16).toFixed(2) + 's';
-        var dur = (0.72 + Math.random() * 0.58).toFixed(2) + 's';
+        var dur = (2.6 + Math.random() * 1.6).toFixed(2) + 's';
         var hue = Math.floor(Math.random() * 360);
         paper.style.setProperty('--tx', tx.toFixed(0) + 'px');
         paper.style.setProperty('--ty', ty.toFixed(0) + 'px');
@@ -145,7 +145,7 @@
       fx.classList.remove('on');
       void fx.offsetWidth;
       fx.classList.add('on');
-      setTimeout(function () { fx.classList.remove('on'); }, 1160);
+      setTimeout(function () { fx.classList.remove('on'); }, 5200);
     }
 
     dlLinks.forEach(function (a) {
@@ -158,8 +158,8 @@
         var label = /cv/i.test(a.textContent) ? 'CV' : 'Resume';
 
         if (!reduceMotion) prepBlast(label);
-        setTimeout(function () { startDownload(a); }, reduceMotion ? 0 : 190);
-        setTimeout(function () { isBusy = false; }, reduceMotion ? 120 : 1180);
+        setTimeout(function () { startDownload(a); }, reduceMotion ? 0 : 280);
+        setTimeout(function () { isBusy = false; }, reduceMotion ? 120 : 5300);
       });
     });
   }

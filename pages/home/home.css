@@ -212,6 +212,40 @@
   animation: dl-spark-fly var(--dur, .85s) ease-out forwards;
   animation-delay: var(--delay);
 }
+
+/* Download success note */
+.dl-thanks {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%) translateY(16px) scale(.98);
+  z-index: 1350;
+  width: min(92vw, 560px);
+  padding: .9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,232,122,.35);
+  background:
+    linear-gradient(135deg, rgba(0,232,122,.14), rgba(0,200,239,.18)),
+    rgba(10,16,24,.96);
+  box-shadow: 0 12px 30px rgba(0,0,0,.42), 0 0 0 1px rgba(0,200,239,.18) inset;
+  color: var(--txt);
+  font-family: var(--fm);
+  font-size: .67rem;
+  letter-spacing: .05em;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+}
+.dl-thanks.on {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  animation: dl-thanks-pulse .9s ease-in-out 2;
+}
+@keyframes dl-thanks-pulse {
+  0%,100% { box-shadow: 0 12px 30px rgba(0,0,0,.42), 0 0 0 1px rgba(0,200,239,.18) inset; }
+  50% { box-shadow: 0 14px 34px rgba(0,0,0,.5), 0 0 0 1px rgba(0,232,122,.34) inset; }
+}
 @keyframes dl-veil {
   0% { opacity: 0; }
   22% { opacity: 1; }
@@ -360,4 +394,10 @@
   .expertise { padding: 1.6rem 1.2rem; }
   .exp-grid { grid-template-columns: 1fr; }
   .stat-sep { display: none; }
+  .dl-thanks {
+    font-size: .58rem;
+    letter-spacing: .03em;
+    width: min(94vw, 520px);
+    bottom: 16px;
+  }
 }

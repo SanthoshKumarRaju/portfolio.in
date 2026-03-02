@@ -67,7 +67,29 @@
     var particles = fx.querySelectorAll('.dl-paper, .dl-spark');
     document.body.appendChild(fx);
 
+    var thanks = document.createElement('div');
+    thanks.className = 'dl-thanks';
+    thanks.setAttribute('role', 'status');
+    thanks.setAttribute('aria-live', 'polite');
+    thanks.textContent = "Thanks for downloading my resume. Let's connect.";
+    document.body.appendChild(thanks);
+
     var isBusy = false;
+    var thanksTimer = null;
+
+    function showThanks() {
+      if (thanksTimer) {
+        clearTimeout(thanksTimer);
+        thanksTimer = null;
+      }
+      thanks.classList.remove('on');
+      void thanks.offsetWidth;
+      thanks.classList.add('on');
+      thanksTimer = setTimeout(function () {
+        thanks.classList.remove('on');
+        thanksTimer = null;
+      }, 3400);
+    }
 
     function triggerBlobDownload(blob, filename) {
       var blobUrl = URL.createObjectURL(blob);
@@ -102,6 +124,7 @@
         xhr.onload = function () {
           if ((xhr.status >= 200 && xhr.status < 300) || (xhr.status === 0 && xhr.response)) {
             triggerBlobDownload(xhr.response, name);
+            showThanks();
           } else {
             showDownloadError();
           }

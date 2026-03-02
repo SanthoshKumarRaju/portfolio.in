@@ -215,11 +215,14 @@ body.ch #g-cur-r { border-color: var(--cyn); transform: scale(1.4) translateZ(0)
 .g-mail-note::after {
   content: attr(data-tip);
   position: absolute;
-  left: 50%;
   bottom: calc(100% + 9px);
-  transform: translateX(-50%) translateY(4px);
-  min-width: 220px;
-  max-width: 280px;
+  right: 0;
+  left: auto;
+  transform: translateY(4px);
+  /* bottom: calc(100% + 9px);
+  transform: translateX(-50%) translateY(4px); */
+  width: clamp(180px, 60vw, 280px);
+  max-width: calc(100vw - 24px);  /* prevents overflow */
   padding: .45rem .55rem;
   border-radius: 6px;
   border: 1px solid var(--bdr);
@@ -236,7 +239,38 @@ body.ch #g-cur-r { border-color: var(--cyn); transform: scale(1.4) translateZ(0)
 }
 .g-mail-note:hover::after {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  /* transform: translateX(-50%) translateY(0); */
+  transform: translateY(0);
+}
+@media (max-width: 700px) {
+  .g-mail-note::after {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 56px;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    transform: translateY(4px);
+    z-index: 1605;
+  }
+  .g-mail-note:hover::after {
+    transform: translateY(0);
+  }
+}
+html[data-view="mobile"] .g-mail-note::after {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 56px;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  transform: translateY(4px);
+  z-index: 1605;
+}
+html[data-view="mobile"] .g-mail-note:hover::after {
+  transform: translateY(0);
 }
 
 /* Contact popup */

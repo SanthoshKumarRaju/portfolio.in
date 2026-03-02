@@ -71,7 +71,7 @@
     thanks.className = 'dl-thanks';
     thanks.setAttribute('role', 'status');
     thanks.setAttribute('aria-live', 'polite');
-    thanks.textContent = "Thanks for downloading my resume. Let's connect.";
+    thanks.textContent = "Thanks for downloading my '" + label + "' . Let's connect.";
     document.body.appendChild(thanks);
 
     var isBusy = false;

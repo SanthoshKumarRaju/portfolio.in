@@ -83,17 +83,22 @@
 
     var dlPopClose = dlPop.querySelector('.dl-pop__close');
     var dlPopBack = dlPop.querySelector('.dl-pop__back');
+    var dlPopHead = dlPop.querySelector('.dl-pop__head');
+    var dlPopSub = dlPop.querySelector('.dl-pop__sub');
     var dlPopTimer = null;
 
     function closeDlPop() {
       dlPop.classList.remove('on');
       document.body.classList.remove('dl-pop-open');
     }
-    function openDlPop() {
+    function openDlPop(fileLabel) {
       if (dlPopTimer) {
         clearTimeout(dlPopTimer);
         dlPopTimer = null;
       }
+      var label = /cv/i.test(fileLabel || '') ? 'CV' : 'Resume';
+      dlPopHead.textContent = 'Thanks for downloading my ' + label + '.';
+      dlPopSub.textContent = "Let's connect.";
       dlPop.classList.add('on');
       document.body.classList.add('dl-pop-open');
       dlPopTimer = setTimeout(closeDlPop, 9000);
@@ -105,36 +110,38 @@
       if (e.key === 'Escape') closeDlPop();
     });
 
-    function queuePopupAfterFileDialogClose() {
+    function queuePopupAfterFileDialogClose(fileLabel) {
       var shown = false;
-      var fallbackTimer = null;
+      var wasBackgrounded = false;
 
       function cleanup() {
+        window.removeEventListener('blur', onBlur);
         window.removeEventListener('focus', onFocusReturn);
         document.removeEventListener('visibilitychange', onVisibilityReturn);
-        if (fallbackTimer) {
-          clearTimeout(fallbackTimer);
-          fallbackTimer = null;
-        }
       }
       function showOnce() {
         if (shown) return;
         shown = true;
         cleanup();
-        openDlPop();
+        openDlPop(fileLabel);
       }
-      function tryShow() {
-        if (document.visibilityState === 'visible' && document.hasFocus()) {
+      function onBlur() {
+        wasBackgrounded = true;
+      }
+      function tryShowAfterReturn() {
+        if (wasBackgrounded && document.visibilityState === 'visible' && document.hasFocus()) {
           setTimeout(showOnce, 150);
         }
       }
-      function onFocusReturn() { tryShow(); }
-      function onVisibilityReturn() { tryShow(); }
+      function onFocusReturn() { tryShowAfterReturn(); }
+      function onVisibilityReturn() {
+        if (document.visibilityState === 'hidden') wasBackgrounded = true;
+        tryShowAfterReturn();
+      }
 
+      window.addEventListener('blur', onBlur);
       window.addEventListener('focus', onFocusReturn);
       document.addEventListener('visibilitychange', onVisibilityReturn);
-      fallbackTimer = setTimeout(showOnce, 4200);
-      tryShow();
     }
 
     function triggerBlobDownload(blob, filename) {
@@ -157,7 +164,7 @@
       setTimeout(function () { fx.classList.remove('on'); }, 5200);
     }
 
-    function startDownload(a) {
+    function startDownload(a, label) {
       var href = a.getAttribute('data-file') || a.getAttribute('href') || '';
       var name = a.getAttribute('data-name') || a.getAttribute('download') || (href.split('/').pop() || 'download.pdf');
       if (!href) return;
@@ -170,7 +177,7 @@
         xhr.onload = function () {
           if ((xhr.status >= 200 && xhr.status < 300) || (xhr.status === 0 && xhr.response)) {
             triggerBlobDownload(xhr.response, name);
-            queuePopupAfterFileDialogClose();
+            queuePopupAfterFileDialogClose(label);
           } else {
             showDownloadError();
           }
@@ -227,7 +234,7 @@
         var label = /cv/i.test(a.textContent) ? 'CV' : 'Resume';
 
         if (!reduceMotion) prepBlast(label);
-        setTimeout(function () { startDownload(a); }, reduceMotion ? 0 : 280);
+        setTimeout(function () { startDownload(a, label); }, reduceMotion ? 0 : 280);
         setTimeout(function () { isBusy = false; }, reduceMotion ? 120 : 5300);
       });
     });

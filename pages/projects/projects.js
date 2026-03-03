@@ -127,19 +127,21 @@
       };
     }
 
-    // Use panel-native scroll signals with top-edge intent detection.
-    // Extra upward scroll at top reveals hero on both sidebar and detail panel.
+    // Desktop behavior:
+    // - Scroll down: hide hero.
+    // - When panel reaches top and stays there for a short time, show hero.
     var lastToggleTs = 0;
-    var TOGGLE_GAP_MS = 70;
+    var TOGGLE_GAP_MS = 120;
+    var TOP_SHOW_DELAY_MS = 1400;
     var workspacePanels = [sidebar, detail].filter(Boolean);
 
     function enterWorkspaceView() {
       hideHero(true);
     }
 
-    function showHero() {
+    function showHero(force) {
       if (!pageRoot.classList.contains('pj-hero-hidden')) return;
-      if (Date.now() - lastToggleTs < TOGGLE_GAP_MS) return;
+      if (!force && Date.now() - lastToggleTs < TOGGLE_GAP_MS) return;
       pageRoot.classList.remove('pj-hero-hidden');
       lastToggleTs = Date.now();
     }
@@ -152,50 +154,51 @@
     }
 
     workspacePanels.forEach(function (panel) {
-      var state = {
-        lastTop: panel.scrollTop || 0,
-        upIntentAtTop: 0
-      };
+      var lastTop = panel.scrollTop || 0;
+      var showTimer = null;
+
+      function clearTopShowTimer() {
+        if (!showTimer) return;
+        clearTimeout(showTimer);
+        showTimer = null;
+      }
+
+      function scheduleTopShow() {
+        clearTopShowTimer();
+        showTimer = setTimeout(function () {
+          showTimer = null;
+          if ((panel.scrollTop || 0) <= 2) {
+            showHero(true);
+          }
+        }, TOP_SHOW_DELAY_MS);
+      }
 
       panel.addEventListener('scroll', function () {
-        var currentTop = panel.scrollTop || 0;
-        var delta = currentTop - state.lastTop;
-        state.lastTop = currentTop;
-        if (Math.abs(delta) < 3) return;
-        if (delta > 0) {
-          state.upIntentAtTop = 0;
-          hideHero(false);
+        var top = panel.scrollTop || 0;
+        var reachedTopNow = lastTop > 2 && top <= 2;
+        lastTop = top;
+
+        if (top > 2) {
+          clearTopShowTimer();
           return;
         }
-        if (currentTop <= 2) {
-          state.upIntentAtTop += Math.abs(delta);
-          if (state.upIntentAtTop >= 16) {
-            showHero();
-            state.upIntentAtTop = 0;
-          }
-        } else {
-          state.upIntentAtTop = 0;
+
+        if (reachedTopNow) {
+          scheduleTopShow();
         }
       }, { passive: true });
 
       panel.addEventListener('wheel', function (e) {
-        if (e.deltaY > 8) {
-          state.upIntentAtTop = 0;
+        if (e.deltaY > 6) {
+          clearTopShowTimer();
           hideHero(false);
           return;
         }
-        if (e.deltaY < -8) {
-          if (panel.scrollTop <= 2) {
-            state.upIntentAtTop += Math.min(Math.abs(e.deltaY), 60);
-            if (state.upIntentAtTop >= 36) {
-              showHero();
-              state.upIntentAtTop = 0;
-            }
-          } else {
-            state.upIntentAtTop = 0;
-          }
+        if (e.deltaY < -6 && (panel.scrollTop || 0) <= 2 && !showTimer) {
+          // If already at top, upward push arms the delayed header reveal.
+          scheduleTopShow();
         }
-      }, { passive: true });
+      }, { passive: true, capture: true });
     });
 
     if (hero && detail) {

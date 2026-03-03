@@ -284,8 +284,27 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.pj-sidebar::-webkit-scrollbar { width: 3px; }
-.pj-sidebar::-webkit-scrollbar-thumb { background: var(--bdr); }
+.pj-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,232,122,.9) rgba(7,12,20,.95);
+}
+
+.pj-sidebar::-webkit-scrollbar { width: 7px; }
+.pj-sidebar::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, rgba(8,12,20,.96), rgba(14,22,34,.96));
+  border-right: 1px solid rgba(82,112,150,.2);
+}
+.pj-sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(0,232,122,.95), rgba(106,242,255,.9));
+  background-size: 100% 200%;
+  animation: pjScrollShine 2.8s ease-in-out infinite;
+  border: 2px solid rgba(9,14,22,.95);
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(0,232,122,.28);
+}
+.pj-sidebar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(24,245,140,.98), rgba(143,246,255,.95));
+}
 .pj-sidebar-inner { padding: .5rem 0; }
 
 .cg {
@@ -454,13 +473,15 @@
   scrollbar-color: rgba(0,232,122,.9) rgba(7,12,20,.95);
 }
 
-.pj-detail::-webkit-scrollbar { width: 11px; }
+.pj-detail::-webkit-scrollbar { width: 7px; }
 .pj-detail::-webkit-scrollbar-track {
   background: linear-gradient(180deg, rgba(8,12,20,.96), rgba(14,22,34,.96));
   border-left: 1px solid rgba(82,112,150,.2);
 }
 .pj-detail::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, rgba(0,232,122,.95), rgba(106,242,255,.9));
+  background-size: 100% 200%;
+  animation: pjScrollShine 2.8s ease-in-out infinite;
   border: 2px solid rgba(9,14,22,.95);
   border-radius: 999px;
   box-shadow: 0 0 12px rgba(0,232,122,.28);
@@ -739,6 +760,12 @@
   100% { transform: translateY(0); }
 }
 
+@keyframes pjScrollShine {
+  0% { background-position: 0% 0%; box-shadow: 0 0 10px rgba(0,232,122,.2); }
+  50% { background-position: 0% 100%; box-shadow: 0 0 14px rgba(106,242,255,.28); }
+  100% { background-position: 0% 0%; box-shadow: 0 0 10px rgba(0,232,122,.2); }
+}
+
 @media (max-width: 1020px) {
   .pj-hero-grid {
     grid-template-columns: 1fr;
@@ -750,17 +777,21 @@
 }
 
 @media (max-width: 900px) {
-  .pj-body { overflow: auto; }
+  .pj-body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 
   .pj-body .g-page {
+    display: block;
     height: auto;
     min-height: 100vh;
     overflow: visible;
-    grid-template-rows: auto auto auto;
   }
 
   .pj-body .g-page.pj-hero-hidden {
-    grid-template-rows: auto auto auto;
+    display: block;
   }
 
   .pj-hero {
@@ -778,21 +809,24 @@
   }
 
   .pj-workspace {
-    flex-direction: column;
+    display: block;
     min-height: 0;
     overflow: visible;
   }
 
   .pj-sidebar {
     width: 100%;
-    max-height: 300px;
+    max-height: none;
     border-right: none;
     border-bottom: 1px solid var(--bdr);
+    overflow: visible;
+    overscroll-behavior: auto;
   }
 
   .pj-detail {
     min-height: 55vh;
     overflow: visible;
+    overscroll-behavior: auto;
   }
 
   .pj-proj {

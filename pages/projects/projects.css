@@ -759,10 +759,22 @@
     grid-template-rows: auto auto auto;
   }
 
+  .pj-body .g-page.pj-hero-hidden {
+    grid-template-rows: auto auto auto;
+  }
+
   .pj-hero {
     max-height: none;
     overflow: visible;
     padding: 1rem 1.2rem .8rem;
+  }
+
+  .pj-body .g-page.pj-hero-hidden .pj-hero {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    padding: 1rem 1.2rem .8rem;
+    border-color: var(--bdr);
   }
 
   .pj-workspace {
@@ -780,6 +792,7 @@
 
   .pj-detail {
     min-height: 55vh;
+    overflow: visible;
   }
 
   .pj-proj {

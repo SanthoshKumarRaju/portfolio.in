@@ -115,6 +115,17 @@
   function initHeroAutoHide() {
     if (!pageRoot) return;
     pageRoot.classList.remove('pj-hero-hidden');
+    var forcedMobileView = document.documentElement.getAttribute('data-view') === 'mobile';
+    var isMobileLayout = window.matchMedia('(max-width: 900px)').matches || forcedMobileView;
+    var isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    // On mobile/touch, keep native page flow and avoid hero-hide scroll logic.
+    if (isMobileLayout || isTouchDevice) {
+      return {
+        enterWorkspaceView: function () {},
+        showHero: function () {}
+      };
+    }
 
     // Use panel-native scroll signals with top-edge intent detection.
     // Extra upward scroll at top reveals hero on both sidebar and detail panel.

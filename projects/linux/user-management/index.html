@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>User Management — SKR</title>
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+<div class="g-page proj-page">
+  <div class="proj-header">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span>linux</span>
+      <span>/</span>
+      <span class="proj-bc-cur">user-management</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div class="proj-concept">// Linux</div>
+        <h1 class="proj-title">User Management</h1>
+        <span class="g-tag tc">&bull; server</span>
+      </div>
+    </div>
+    <p class="proj-desc">User and group administration on a Linux server — service accounts, sudo rules, SSH key-based auth and file permission auditing.</p>
+    <div class="proj-section-title">Setup Steps</div>
+    <ol class="proj-steps">
+      <li>Create service user: <strong>useradd -m -s /bin/bash deploy</strong></li>
+      <li>Add to sudo: <strong>usermod -aG sudo deploy</strong></li>
+      <li>Create .ssh/authorized_keys with your public key</li>
+      <li>Verify with: <strong>su - deploy</strong></li>
+    </ol>
+    <div class="g-code">
+      <div class="g-code__bar">
+        <div class="g-code__dots">
+          <div class="g-code__dot" style="background:#ff5f57"></div>
+          <div class="g-code__dot" style="background:#febc2e"></div>
+          <div class="g-code__dot" style="background:#28c840"></div>
+        </div>
+        <span class="g-code__fname">user-setup.sh</span>
+        <span class="g-code__lang">bash</span>
+      </div>
+      <div class="g-code__body"><span class="kw">useradd</span> -m -s /bin/bash deploy
+<span class="kw">usermod</span> -aG sudo deploy
+<span class="kw">mkdir</span> -p /home/deploy/.ssh
+<span class="kw">chmod</span> <span class="num">700</span> /home/deploy/.ssh
+echo <span class="str">"ssh-rsa AAAA..."</span> &gt;&gt; /home/deploy/.ssh/authorized_keys
+<span class="kw">chmod</span> <span class="num">600</span> /home/deploy/.ssh/authorized_keys
+<span class="kw">chown</span> -R deploy:deploy /home/deploy/.ssh</div>
+    </div>
+    <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val" style="">Ubuntu 22.04</div></div>
+      <div class="pm-cell"><div class="pm-key">Where</div><div class="pm-val" style="">Production Server</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+    </div>
+  </div>
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

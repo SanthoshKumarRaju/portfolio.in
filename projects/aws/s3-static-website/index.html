@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>S3 Static Website — SKR</title>
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+<div class="g-page proj-page">
+  <div class="proj-header">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span>aws</span>
+      <span>/</span>
+      <span class="proj-bc-cur">s3-static-website</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div class="proj-concept">// AWS</div>
+        <h1 class="proj-title">S3 Static Website</h1>
+        <span class="g-tag tgd">&bull; free tier</span>
+      </div>
+    </div>
+    <p class="proj-desc">Static site hosted on S3 with public bucket policy, versioning, CloudFront CDN for global caching and HTTPS — entirely within AWS free tier.</p>
+    <div class="proj-section-title">Setup Steps</div>
+    <ol class="proj-steps">
+      <li>Create S3 bucket matching your domain name</li>
+      <li>Enable Static Website Hosting in bucket Properties</li>
+      <li>Add public GetObject bucket policy</li>
+      <li>Upload: <strong>aws s3 sync ./dist s3://my-bucket/ --delete</strong></li>
+      <li>Create CloudFront distribution → S3 endpoint</li>
+      <li>Set error page to index.html for SPA routing</li>
+      <li>Create Route 53 A-record alias → CloudFront</li>
+    </ol>
+    <div class="g-code">
+      <div class="g-code__bar">
+        <div class="g-code__dots">
+          <div class="g-code__dot" style="background:#ff5f57"></div>
+          <div class="g-code__dot" style="background:#febc2e"></div>
+          <div class="g-code__dot" style="background:#28c840"></div>
+        </div>
+        <span class="g-code__fname">deploy.sh</span>
+        <span class="g-code__lang">bash</span>
+      </div>
+      <div class="g-code__body"><span class="kw">aws</span> s3 mb s3://my-site --region ap-south-1
+
+<span class="kw">aws</span> s3 website s3://my-site/ \
+  --index-document index.html \
+  --error-document index.html
+
+<span class="kw">aws</span> s3 sync ./dist s3://my-site/ \
+  --delete --cache-control <span class="str">"max-age=31536000"</span>
+
+<span class="kw">aws</span> cloudfront create-invalidation \
+  --distribution-id EXXXXX --paths <span class="str">"/*"</span></div>
+    </div>
+    <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">Services</div><div class="pm-val" style="">S3+CloudFront+R53</div></div>
+      <div class="pm-cell"><div class="pm-key">Cost</div><div class="pm-val" style="">~$0 free tier</div></div>
+      <div class="pm-cell"><div class="pm-key">Region</div><div class="pm-val" style="">ap-south-1</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+    </div>
+  </div>
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; AWS</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

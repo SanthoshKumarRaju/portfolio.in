@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>VPC Architecture — SKR</title>
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+<div class="g-page proj-page">
+  <div class="proj-header">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span>aws</span>
+      <span>/</span>
+      <span class="proj-bc-cur">vpc-architecture</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div class="proj-concept">// AWS</div>
+        <h1 class="proj-title">VPC Architecture</h1>
+        <span class="g-tag tc">&bull; server</span>
+      </div>
+    </div>
+    <p class="proj-desc">Custom multi-tier VPC: public subnets for ALB and NAT Gateway, private subnets for application servers and RDS. Bastion host for secure SSH.</p>
+    <div class="proj-section-title">Setup Steps</div>
+    <ol class="proj-steps">
+      <li>Create VPC: CIDR 10.0.0.0/16</li>
+      <li>Create 2 public subnets (10.0.1.0/24, 10.0.2.0/24) across AZs</li>
+      <li>Create 2 private subnets (10.0.10.0/24, 10.0.11.0/24)</li>
+      <li>Create and attach Internet Gateway</li>
+      <li>Create NAT Gateway in public subnet with Elastic IP</li>
+      <li>Route tables: public→IGW, private→NAT GW</li>
+      <li>Security Groups per tier (web/app/db)</li>
+    </ol>
+    <div class="g-code">
+      <div class="g-code__bar">
+        <div class="g-code__dots">
+          <div class="g-code__dot" style="background:#ff5f57"></div>
+          <div class="g-code__dot" style="background:#febc2e"></div>
+          <div class="g-code__dot" style="background:#28c840"></div>
+        </div>
+        <span class="g-code__fname">vpc-plan.sh</span>
+        <span class="g-code__lang">bash</span>
+      </div>
+      <div class="g-code__body"><span class="cm"># VPC CIDR Layout</span>
+VPC:             <span class="num">10.0.0.0/16</span>
+
+<span class="cm"># Public (ALB + NAT)</span>
+pub-south-1a:    <span class="num">10.0.1.0/24</span>
+pub-south-1b:    <span class="num">10.0.2.0/24</span>
+
+<span class="cm"># Private (App + RDS)</span>
+prv-south-1a:    <span class="num">10.0.10.0/24</span>
+prv-south-1b:    <span class="num">10.0.11.0/24</span>
+
+Public RT  → igw-xxxxxxxx
+Private RT → nat-xxxxxxxx</div>
+    </div>
+    <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">CIDR</div><div class="pm-val" style="">10.0.0.0/16</div></div>
+      <div class="pm-cell"><div class="pm-key">AZs</div><div class="pm-val" style="">ap-south-1a/b</div></div>
+      <div class="pm-cell"><div class="pm-key">Subnets</div><div class="pm-val" style="">4</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+    </div>
+  </div>
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; AWS</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Sample Compose App — SKR</title>
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+<div class="g-page proj-page">
+  <div class="proj-header">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span>docker</span>
+      <span>/</span>
+      <span class="proj-bc-cur">sample-compose-app</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div class="proj-concept">// Docker</div>
+        <h1 class="proj-title">Sample Compose App</h1>
+        <span class="g-tag tg">&bull; localhost</span>
+      </div>
+    </div>
+    <p class="proj-desc">Full-stack multi-container app: React frontend + Node.js API + PostgreSQL + Nginx. Demonstrates healthchecks, depends_on ordering, named volumes and env injection.</p>
+    <div class="proj-section-title">Setup Steps</div>
+    <ol class="proj-steps">
+      <li>cd into the project directory</li>
+      <li>Copy <strong>.env.example</strong> to <strong>.env</strong> and fill values</li>
+      <li>Run <strong>docker compose up --build -d</strong></li>
+      <li>Frontend: http://localhost:3000 &nbsp; API: http://localhost:4000/api</li>
+      <li>Logs: <strong>docker compose logs -f api</strong></li>
+    </ol>
+    <div class="g-code">
+      <div class="g-code__bar">
+        <div class="g-code__dots">
+          <div class="g-code__dot" style="background:#ff5f57"></div>
+          <div class="g-code__dot" style="background:#febc2e"></div>
+          <div class="g-code__dot" style="background:#28c840"></div>
+        </div>
+        <span class="g-code__fname">docker-compose.yml</span>
+        <span class="g-code__lang">yaml</span>
+      </div>
+      <div class="g-code__body"><span class="kw">services</span>:
+  <span class="vr">db</span>:
+    <span class="kw">image</span>: postgres:15-alpine
+    <span class="kw">environment</span>:
+      POSTGRES_DB: <span class="str">"${DB_NAME}"</span>
+      POSTGRES_USER: <span class="str">"${DB_USER}"</span>
+      POSTGRES_PASSWORD: <span class="str">"${DB_PASS}"</span>
+    <span class="kw">healthcheck</span>:
+      test: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U ${DB_USER}"</span>]
+  <span class="vr">api</span>:
+    <span class="kw">build</span>: ./api
+    <span class="kw">depends_on</span>: {db: {condition: service_healthy}}
+    <span class="kw">ports</span>: [<span class="str">"4000:4000"</span>]
+  <span class="vr">frontend</span>:
+    <span class="kw">build</span>: ./frontend
+    <span class="kw">ports</span>: [<span class="str">"3000:80"</span>]</div>
+    </div>
+    <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">Where</div><div class="pm-val" style="">Localhost</div></div>
+      <div class="pm-cell"><div class="pm-key">Stack</div><div class="pm-val" style="">React+Node+PG</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+    </div>
+  </div>
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; Docker</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

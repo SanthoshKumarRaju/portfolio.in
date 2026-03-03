@@ -1,7 +1,7 @@
 /* projects-data.js — all concepts and project details */
 window.PDATA = [
   { id:'linux', label:'Linux', icon:'🐧', projects:[
-    { id:'basic-commands', title:'Basic Commands', env:'local',
+    { id:'basic-commands', title:'Basic Commands', env:'local', status:'completed',
       page:'../../projects/linux/basic-commands/index.html',
       desc:'Core Linux command-line operations on Ubuntu VM. File navigation, permissions, process management, apt package manager and systemd service control.',
       steps:['Install Ubuntu 22.04 on VirtualBox or use WSL2','Run <strong>sudo apt update &amp;&amp; sudo apt upgrade -y</strong>','Practise commands below inside a safe /tmp/lab directory','Use <strong>journalctl -u nginx -f</strong> to follow service logs'],
@@ -16,23 +16,23 @@ window.PDATA = [
 <span class="kw">df</span> -h &amp;&amp; <span class="kw">free</span> -m` },
       meta:[{k:'OS',v:'Ubuntu 22.04'},{k:'Where',v:'VirtualBox / WSL2'},{k:'Status',v:'✓ Done',g:true}] },
 
-    { id:'shell-scripting', title:'Shell Scripting', env:'local',
+    { id:'shell-scripting', title:'Shell Scripting', env:'local', status:'in_progress',
       page:'../../projects/linux/shell-scripting/index.html',
       desc:'Bash automation scripts for sysadmin tasks — backup rotation, log archiving, health check pings and cron scheduling.',
       steps:['Create a <strong>scripts/</strong> directory in your home folder','Write backup.sh that tarballs /var/app and uploads to S3','Add execute permission: <strong>chmod +x backup.sh</strong>','Schedule with <strong>crontab -e</strong> for nightly runs at 2 AM'],
       code:{ fname:'backup.sh', lang:'bash', body:`<span class="cm">#!/bin/bash</span>
 DATE=$(<span class="kw">date</span> +%Y%m%d-%H%M)
 APP_DIR=<span class="str">"/var/app"</span>
-BACKUP=<span class="str">"/tmp/backup-${DATE}.tar.gz"</span>
+BACKUP=<span class="str">"/tmp/backup-\${DATE}.tar.gz"</span>
 S3_BUCKET=<span class="str">"s3://my-backups"</span>
 
 <span class="kw">tar</span> -czf $BACKUP $APP_DIR
 <span class="kw">aws</span> s3 cp $BACKUP $S3_BUCKET/
 <span class="kw">rm</span> -f $BACKUP
-echo <span class="str">"✓ Backup ${DATE} uploaded"</span>` },
+echo <span class="str">"✓ Backup \${DATE} uploaded"</span>` },
       meta:[{k:'OS',v:'Ubuntu 22.04'},{k:'Where',v:'Localhost'},{k:'Status',v:'✓ Done',g:true}] },
 
-    { id:'user-management', title:'User Management', env:'server',
+    { id:'user-management', title:'User Management', env:'server', status:'not_completed',
       page:'../../projects/linux/user-management/index.html',
       desc:'User and group administration on a Linux server — creating service accounts, sudo rules, SSH key-based auth and file permission auditing.',
       steps:['Create service user: <strong>useradd -m -s /bin/bash deploy</strong>','Add to sudo: <strong>usermod -aG sudo deploy</strong>','Set up SSH key: create .ssh/authorized_keys','Verify with: su - deploy'],
@@ -74,18 +74,18 @@ echo <span class="str">"ssh-rsa AAAA..."</span> &gt;&gt; /home/deploy/.ssh/autho
       code:{ fname:'Jenkinsfile', lang:'groovy', body:`<span class="kw">pipeline</span> {
   <span class="kw">agent</span> any
   <span class="kw">environment</span> {
-    IMAGE = <span class="str">"myapp:${BUILD_NUMBER}"</span>
+    IMAGE = <span class="str">"myapp:\${BUILD_NUMBER}"</span>
   }
   <span class="kw">stages</span> {
     <span class="kw">stage</span>(<span class="str">'Checkout'</span>) { <span class="kw">steps</span> { checkout scm } }
     <span class="kw">stage</span>(<span class="str">'Build'</span>)    { <span class="kw">steps</span> { sh <span class="str">'npm ci'</span> } }
     <span class="kw">stage</span>(<span class="str">'Test'</span>)     { <span class="kw">steps</span> { sh <span class="str">'npm test'</span> } }
     <span class="kw">stage</span>(<span class="str">'Docker'</span>)   {
-      <span class="kw">steps</span> { sh <span class="str">"docker build -t ${IMAGE} ."</span> }
+      <span class="kw">steps</span> { sh <span class="str">"docker build -t \${IMAGE} ."</span> }
     }
     <span class="kw">stage</span>(<span class="str">'Deploy'</span>) {
       <span class="kw">steps</span> {
-        sh <span class="str">"docker service update --image ${IMAGE} app_web"</span>
+        sh <span class="str">"docker service update --image \${IMAGE} app_web"</span>
       }
     }
   }
@@ -104,8 +104,8 @@ JENKINS_URL=<span class="str">"http://jenkins:8080"</span>
 JENKINS_USER=<span class="str">"gitlab-trigger"</span>
 JENKINS_TOKEN=<span class="str">"your-api-token"</span>
 
-<span class="kw">curl</span> -X POST <span class="str">"${JENKINS_URL}/job/my-pipeline/build"</span> \\
-  --user <span class="str">"${JENKINS_USER}:${JENKINS_TOKEN}"</span>` },
+<span class="kw">curl</span> -X POST <span class="str">"\${JENKINS_URL}/job/my-pipeline/build"</span> \\
+  --user <span class="str">"\${JENKINS_USER}:\${JENKINS_TOKEN}"</span>` },
       meta:[{k:'Where',v:'Server'},{k:'Trigger',v:'GitLab Push'},{k:'Status',v:'✓ Done',g:true}] }
   ]},
 
@@ -119,12 +119,12 @@ JENKINS_TOKEN=<span class="str">"your-api-token"</span>
   <span class="vr">db</span>:
     <span class="kw">image</span>: postgres:15-alpine
     <span class="kw">environment</span>:
-      POSTGRES_DB: <span class="str">"${DB_NAME}"</span>
-      POSTGRES_USER: <span class="str">"${DB_USER}"</span>
-      POSTGRES_PASSWORD: <span class="str">"${DB_PASS}"</span>
+      POSTGRES_DB: <span class="str">"\${DB_NAME}"</span>
+      POSTGRES_USER: <span class="str">"\${DB_USER}"</span>
+      POSTGRES_PASSWORD: <span class="str">"\${DB_PASS}"</span>
     <span class="kw">volumes</span>: [pg_data:/var/lib/postgresql/data]
     <span class="kw">healthcheck</span>:
-      test: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U ${DB_USER}"</span>]
+      test: [<span class="str">"CMD-SHELL"</span>, <span class="str">"pg_isready -U \${DB_USER}"</span>]
   <span class="vr">api</span>:
     <span class="kw">build</span>: ./api
     <span class="kw">depends_on</span>: {db: {condition: service_healthy}}
@@ -359,7 +359,7 @@ Private RT → nat-xxxxxxxx` },
       code:{ fname:'.gitlab-ci.yml', lang:'yaml', body:`<span class="kw">stages</span>: [lint, test, build, deploy]
 
 <span class="kw">variables</span>:
-  IMAGE: <span class="str">"${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}"</span>
+  IMAGE: <span class="str">"\${CI_REGISTRY_IMAGE}:\${CI_COMMIT_SHORT_SHA}"</span>
 
 <span class="vr">test</span>:
   <span class="kw">stage</span>: test
@@ -403,3 +403,4 @@ Private RT → nat-xxxxxxxx` },
       meta:[{k:'CIDR',v:'10.0.0.0/16'},{k:'Subnets',v:'4 / 2 AZs'},{k:'Status',v:'✓ Done',g:true}] }
   ]}
 ];
+

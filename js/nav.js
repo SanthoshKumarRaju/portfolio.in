@@ -11,6 +11,211 @@
     document.documentElement.setAttribute('data-view', viewMode);
   }
 
+  function ensureGlobalLoader() {
+    var existing = document.getElementById('g-app-loader');
+    if (existing) return existing;
+
+    var loader = document.createElement('div');
+    loader.id = 'g-app-loader';
+    loader.className = 'g-app-loader';
+    loader.innerHTML =
+      '<div class="g-loader-box">' +
+        '<div class="g-loader-spin" aria-hidden="true"></div>' +
+        '<div class="g-loader-txt">Loading...</div>' +
+      '</div>';
+    document.body.appendChild(loader);
+    return loader;
+  }
+
+  function showGlobalLoader() {
+    var loader = ensureGlobalLoader();
+    loader.classList.add('on');
+    document.body.classList.add('g-loading');
+  }
+
+  function hideGlobalLoader() {
+    var loader = document.getElementById('g-app-loader');
+    if (loader) loader.classList.remove('on');
+    document.body.classList.remove('g-loading');
+  }
+
+  function addClickPop(target) {
+    if (!target) return;
+    target.classList.remove('g-click-pop');
+    target.offsetWidth;
+    target.classList.add('g-click-pop');
+    setTimeout(function () {
+      target.classList.remove('g-click-pop');
+    }, 260);
+  }
+
+  function markClickables(root) {
+    var scope = root || document;
+    scope.querySelectorAll(
+      'a, button, [role="button"], input[type="button"], input[type="submit"], .cg-item, .cg-toggle'
+    ).forEach(function (el) {
+      el.classList.add('g-clickable');
+    });
+  }
+
+  function shouldShowLoaderForClick(target, event) {
+    if (!target) return false;
+    if (event && (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)) return false;
+    if (target.closest('.ct-pop') || target.closest('[data-contact-popup="true"]')) return false;
+
+    var link = target.closest('a[href]');
+    if (link) {
+      var href = (link.getAttribute('href') || '').trim();
+      if (!href || href.charAt(0) === '#') return false;
+      if (/^javascript:/i.test(href)) return false;
+      if (/^(mailto:|tel:)/i.test(href)) return false;
+      if (link.hasAttribute('download')) return false;
+      var targetAttr = (link.getAttribute('target') || '').toLowerCase();
+      if (targetAttr === '_blank') return false;
+      return true;
+    }
+
+    var submit = target.closest('button[type="submit"], input[type="submit"]');
+    if (submit) return true;
+
+    return false;
+  }
+
+  markClickables(document);
+  var clickableObserver = new MutationObserver(function (mutations) {
+    mutations.forEach(function (m) {
+      m.addedNodes.forEach(function (node) {
+        if (!node || node.nodeType !== 1) return;
+        if (node.matches && node.matches('a, button, [role="button"], input[type="button"], input[type="submit"], .cg-item, .cg-toggle')) {
+          node.classList.add('g-clickable');
+        }
+        markClickables(node);
+      });
+    });
+  });
+  clickableObserver.observe(document.documentElement, { childList: true, subtree: true });
+
+  document.addEventListener('pointerdown', function (e) {
+    var target = e.target.closest('a, button, [role="button"], input[type="button"], input[type="submit"], .cg-item, .cg-toggle');
+    if (!target) return;
+    addClickPop(target);
+  }, true);
+
+  document.addEventListener('click', function (e) {
+    if (shouldShowLoaderForClick(e.target, e)) {
+      showGlobalLoader();
+    }
+  }, true);
+
+  document.addEventListener('submit', function () {
+    showGlobalLoader();
+  }, true);
+
+  window.addEventListener('beforeunload', function () {
+    showGlobalLoader();
+  });
+  window.addEventListener('pageshow', hideGlobalLoader);
+  window.addEventListener('load', hideGlobalLoader);
+  function initThemeMode() {
+    var media = window.matchMedia('(prefers-color-scheme: dark)');
+    var storageKey = 'skr-theme-mode';
+    var allowed = { auto: true, light: true, dark: true };
+    var mode = (localStorage.getItem(storageKey) || 'auto').toLowerCase();
+    if (!allowed[mode]) mode = 'auto';
+
+    function resolvedTheme(nextMode) {
+      if (nextMode === 'light') return 'light';
+      if (nextMode === 'dark') return 'dark';
+      return media.matches ? 'dark' : 'light';
+    }
+
+    function labelFor(resolved) {
+      return resolved === 'dark' ? 'Light' : 'Dark';
+    }
+
+    function apply(nextMode) {
+      mode = nextMode;
+      var resolved = resolvedTheme(mode);
+      document.documentElement.setAttribute('data-theme', resolved);
+      document.documentElement.setAttribute('data-theme-mode', mode);
+      localStorage.setItem(storageKey, mode);
+
+      var btn = document.getElementById('g-theme-btn');
+      if (btn) {
+        btn.textContent = labelFor(resolved);
+        btn.setAttribute('aria-label', 'Theme mode: ' + mode + '. Click to change.');
+        btn.setAttribute('title', 'Theme: ' + mode + ' (click to switch)');
+        btn.classList.toggle('g-theme-pulse', resolved === 'light');
+      }
+    }
+
+    function toggleMode() {
+      var resolved = resolvedTheme(mode);
+      if (resolved === 'dark') apply('light');
+      else apply('dark');
+    }
+
+    function mountButton() {
+      var nav = document.querySelector('.g-nav');
+      if (!nav || document.getElementById('g-theme-btn')) return;
+      var btn = document.createElement('button');
+      btn.id = 'g-theme-btn';
+      btn.type = 'button';
+      btn.className = 'g-theme-btn g-clickable';
+      btn.setAttribute('data-h', '');
+      btn.addEventListener('click', function () {
+        toggleMode();
+      });
+      nav.appendChild(btn);
+      apply(mode);
+    }
+
+    function showLightHintToast() {
+      var resolved = resolvedTheme(mode);
+      if (resolved !== 'light') return;
+
+      var btn = document.getElementById('g-theme-btn');
+      if (btn) {
+        btn.classList.add('g-theme-pulse');
+        btn.classList.add('g-theme-toast-focus');
+      }
+
+      var toast = document.createElement('div');
+      toast.className = 'g-theme-toast';
+      toast.innerHTML =
+        '<div class="g-theme-toast__title">Better Visual Mode</div>' +
+        '<div class="g-theme-toast__msg">For better viewing, click <strong>Dark</strong> on the top bar.</div>';
+      document.body.appendChild(toast);
+
+      setTimeout(function () {
+        toast.classList.add('on');
+      }, 120);
+
+      setTimeout(function () {
+        toast.classList.remove('on');
+        if (btn) btn.classList.remove('g-theme-toast-focus');
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 240);
+      }, 5000);
+    }
+
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', function () {
+        if (mode === 'auto') apply('auto');
+      });
+    } else if (typeof media.addListener === 'function') {
+      media.addListener(function () {
+        if (mode === 'auto') apply('auto');
+      });
+    }
+
+    apply(mode);
+    mountButton();
+    showLightHintToast();
+  }
+  initThemeMode();
+
 
   /* ── Cursor ── */
   const cur  = document.getElementById('g-cur');
@@ -239,5 +444,6 @@
   })();
 
 })();
+
 
 

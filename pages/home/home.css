@@ -585,6 +585,21 @@ body.dl-pop-open { overflow: hidden; }
 }
 @media (max-width: 700px) {
   .hero-inner { padding: 1.25rem 1.2rem 1.2rem; }
+  .hero-left { padding-left: .12rem; }
+  .hero-name {
+    line-height: 1.02;
+    letter-spacing: 0;
+    margin-bottom: 1.1rem;
+    overflow: visible;
+  }
+  .hn1,
+  .hn2 {
+    padding-left: .02em;
+    overflow: visible;
+  }
+  .hn1 { font-size: clamp(2.1rem, 11.5vw, 3rem); }
+  .hn2 { font-size: clamp(1.82rem, 9.5vw, 2.55rem); }
+  .hero-desc { margin-bottom: 1.35rem; }
   .hero-nav-btns { grid-template-columns: repeat(2, 1fr); }
   .hnb { border-right: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); }
   .hnb:nth-child(2n) { border-right: none; }
@@ -594,4 +609,12 @@ body.dl-pop-open { overflow: hidden; }
   .stat-sep { display: none; }
   .dl-pop__sub { letter-spacing: .06em; font-size: .56rem; }
   .dl-pop__cta { width: 100%; font-size: .6rem; }
+}
+
+@media (max-width: 420px) {
+  .hero-inner { padding-left: 1rem; padding-right: 1rem; }
+  .hero-left { padding-left: .18rem; }
+  .hero-name { line-height: 1.04; }
+  .hn1 { font-size: clamp(1.95rem, 11.2vw, 2.75rem); }
+  .hn2 { font-size: clamp(1.7rem, 9.2vw, 2.35rem); }
 }

@@ -17,11 +17,15 @@
   var progressMeterEl = document.getElementById('pj-meter-progress');
   var pendingMeterEl = document.getElementById('pj-meter-pending');
   var filterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-status-filter]'));
+  var envFilterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-env-filter]'));
   var statusValidationPrinted = false;
   var statusValidationErrors = [];
-  var currentFilter = 'all';
+  var activeStatusFilters = { completed: false, in_progress: false, not_completed: false };
+  var activeEnvFilters = { local: false, server: false, free: false };
   var selectedProjectKey = '';
   var flat = []; // { ci, pi, concept, proj }
+  var LAST_OPENED_KEY = 'pj:last-opened-project';
+  var filterInfoEl = null;
 
   function resolveProjectPage(concept, proj) {
     var fallback = '../../projects/' + concept.id + '/' + proj.id + '/index.html';
@@ -30,6 +34,22 @@
     var raw = proj.page.trim().replace(/\\/g, '/');
     if (/^\.\.\/\.\.\/projects\/[^/]+\/[^/]+\/index\.html$/i.test(raw)) return raw;
     return fallback;
+  }
+
+  function rememberOpenedProject(concept, proj) {
+    var key = concept.id + '/' + proj.id;
+    try {
+      window.sessionStorage.setItem(LAST_OPENED_KEY, key);
+    } catch (e) {}
+    return key;
+  }
+
+  function lastOpenedProjectKey() {
+    try {
+      return window.sessionStorage.getItem(LAST_OPENED_KEY) || '';
+    } catch (e) {
+      return '';
+    }
   }
 
   function addTap(el) {
@@ -115,104 +135,10 @@
   function initHeroAutoHide() {
     if (!pageRoot) return;
     pageRoot.classList.remove('pj-hero-hidden');
-    var forcedMobileView = document.documentElement.getAttribute('data-view') === 'mobile';
-    var isMobileLayout = window.matchMedia('(max-width: 900px)').matches || forcedMobileView;
-    var isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-
-    // On mobile/touch, keep native page flow and avoid hero-hide scroll logic.
-    if (isMobileLayout || isTouchDevice) {
-      return {
-        enterWorkspaceView: function () {},
-        showHero: function () {}
-      };
-    }
-
-    // Desktop behavior:
-    // - Scroll down: hide hero.
-    // - When panel reaches top and stays there for a short time, show hero.
-    var lastToggleTs = 0;
-    var TOGGLE_GAP_MS = 120;
-    var TOP_SHOW_DELAY_MS = 1400;
-    var workspacePanels = [sidebar, detail].filter(Boolean);
-
-    function enterWorkspaceView() {
-      hideHero(true);
-    }
-
-    function showHero(force) {
-      if (!pageRoot.classList.contains('pj-hero-hidden')) return;
-      if (!force && Date.now() - lastToggleTs < TOGGLE_GAP_MS) return;
-      pageRoot.classList.remove('pj-hero-hidden');
-      lastToggleTs = Date.now();
-    }
-
-    function hideHero(force) {
-      if (pageRoot.classList.contains('pj-hero-hidden')) return;
-      if (!force && Date.now() - lastToggleTs < TOGGLE_GAP_MS) return;
-      pageRoot.classList.add('pj-hero-hidden');
-      lastToggleTs = Date.now();
-    }
-
-    workspacePanels.forEach(function (panel) {
-      var lastTop = panel.scrollTop || 0;
-      var showTimer = null;
-
-      function clearTopShowTimer() {
-        if (!showTimer) return;
-        clearTimeout(showTimer);
-        showTimer = null;
-      }
-
-      function scheduleTopShow() {
-        clearTopShowTimer();
-        showTimer = setTimeout(function () {
-          showTimer = null;
-          if ((panel.scrollTop || 0) <= 2) {
-            showHero(true);
-          }
-        }, TOP_SHOW_DELAY_MS);
-      }
-
-      panel.addEventListener('scroll', function () {
-        var top = panel.scrollTop || 0;
-        var reachedTopNow = lastTop > 2 && top <= 2;
-        lastTop = top;
-
-        if (top > 2) {
-          clearTopShowTimer();
-          return;
-        }
-
-        if (reachedTopNow) {
-          scheduleTopShow();
-        }
-      }, { passive: true });
-
-      panel.addEventListener('wheel', function (e) {
-        if (e.deltaY > 6) {
-          clearTopShowTimer();
-          hideHero(false);
-          return;
-        }
-        if (e.deltaY < -6 && (panel.scrollTop || 0) <= 2 && !showTimer) {
-          // If already at top, upward push arms the delayed header reveal.
-          scheduleTopShow();
-        }
-      }, { passive: true, capture: true });
-    });
-
-    if (hero && detail) {
-      hero.addEventListener('wheel', function (e) {
-        if (e.deltaY <= 0) return;
-        hideHero(false);
-        detail.scrollTop += e.deltaY;
-        e.preventDefault();
-      }, { passive: false });
-    }
-
+    // Keep hero fixed and rely on native scrolling for a stable UX.
     return {
-      enterWorkspaceView: enterWorkspaceView,
-      showHero: showHero
+      enterWorkspaceView: function () {},
+      showHero: function () {}
     };
   }
 
@@ -277,6 +203,59 @@
     return { label: 'Not Completed', color: 'var(--gold)' };
   }
 
+  function hasActiveStatusFilters() {
+    return activeStatusFilters.completed || activeStatusFilters.in_progress || activeStatusFilters.not_completed;
+  }
+
+  function clearStatusFilters() {
+    activeStatusFilters.completed = false;
+    activeStatusFilters.in_progress = false;
+    activeStatusFilters.not_completed = false;
+  }
+
+  function statusFilterKeys() {
+    return Object.keys(activeStatusFilters).filter(function (k) { return activeStatusFilters[k]; });
+  }
+
+  function isStatusVisible(itemStatusKey) {
+    if (!hasActiveStatusFilters()) return true;
+    return !!activeStatusFilters[itemStatusKey];
+  }
+
+  function normalizeEnv(raw) {
+    var key = String(raw || '').trim().toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_');
+    if (!key) return 'free';
+    if (key === 'local' || key === 'localhost') return 'local';
+    if (key === 'server' || key === 'prod' || key === 'production') return 'server';
+    if (key === 'free' || key === 'free_tier' || key === 'freetier') return 'free';
+    return 'free';
+  }
+
+  function hasActiveEnvFilters() {
+    return activeEnvFilters.local || activeEnvFilters.server || activeEnvFilters.free;
+  }
+
+  function clearEnvFilters() {
+    activeEnvFilters.local = false;
+    activeEnvFilters.server = false;
+    activeEnvFilters.free = false;
+  }
+
+  function envFilterKeys() {
+    return Object.keys(activeEnvFilters).filter(function (k) { return activeEnvFilters[k]; });
+  }
+
+  function envLabel(key) {
+    if (key === 'local') return 'localhost';
+    if (key === 'server') return 'server';
+    return 'free tier';
+  }
+
+  function isEnvVisible(itemEnvKey) {
+    if (!hasActiveEnvFilters()) return true;
+    return !!activeEnvFilters[itemEnvKey];
+  }
+
   function renderPlaceholder(msg) {
     detail.innerHTML =
       '<div class="pj-placeholder">' +
@@ -286,12 +265,56 @@
       '</div>';
   }
 
-  function updateFilterUi(activeKey, visibleCount) {
+  function updateFilterUi(visibleCount) {
     filterButtons.forEach(function (btn) {
-      btn.classList.toggle('act', btn.getAttribute('data-status-filter') === activeKey);
-      btn.setAttribute('aria-pressed', btn.classList.contains('act') ? 'true' : 'false');
+      var key = btn.getAttribute('data-status-filter') || 'all';
+      var isAll = key === 'all';
+      var active = isAll ? (!hasActiveStatusFilters() && !hasActiveEnvFilters()) : !!activeStatusFilters[key];
+      btn.classList.toggle('act', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
     });
-    document.title = 'Projects - ' + statusLabel(activeKey) + ' (' + visibleCount + ')';
+    var statusSelected = statusFilterKeys();
+    var envSelected = envFilterKeys();
+    var statusPart = statusSelected.length ? 'Status: ' + statusSelected.map(statusLabel).join(', ') + ' | ' : '';
+    var envPart = envSelected.length ? ' | Env: ' + envSelected.join(', ') : '';
+    document.title = 'Projects - ' + statusPart + 'Projects' + envPart + ' (' + visibleCount + ')';
+  }
+
+  function updateEnvFilterUi() {
+    envFilterButtons.forEach(function (btn) {
+      var key = normalizeEnv(btn.getAttribute('data-env-filter'));
+      var active = !!activeEnvFilters[key];
+      btn.classList.toggle('act', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderFilterInfo(visibleCount) {
+    if (!filterInfoEl) return;
+    var statusSelected = statusFilterKeys();
+    var envSelected = envFilterKeys();
+    var statusActive = statusSelected.length > 0;
+    var envActive = envSelected.length > 0;
+
+    if (!statusActive && !envActive) {
+      filterInfoEl.classList.add('hidden');
+      filterInfoEl.innerHTML = '';
+      return;
+    }
+
+    var chips = [];
+    statusSelected.forEach(function (k) {
+      chips.push('<span class="pj-filter-chip pj-filter-chip--status">Status: ' + statusLabel(k) + '</span>');
+    });
+    envSelected.forEach(function (k) {
+      chips.push('<span class="pj-filter-chip pj-filter-chip--env">Env: ' + envLabel(k) + '</span>');
+    });
+
+    filterInfoEl.classList.remove('hidden');
+    filterInfoEl.innerHTML =
+      '<div class="pj-filter-info__title">Active Filters</div>' +
+      '<div class="pj-filter-info__chips">' + chips.join('') + '</div>' +
+      '<div class="pj-filter-info__count">Showing ' + visibleCount + ' project' + (visibleCount === 1 ? '' : 's') + '</div>';
   }
 
   function openFirstVisibleGroup() {
@@ -309,8 +332,7 @@
     if (list) list.classList.add('op');
   }
 
-  function applyStatusFilter(filterKey) {
-    currentFilter = filterKey || 'all';
+  function applyStatusFilter() {
     var visibleProjects = 0;
     var selectedStillVisible = false;
 
@@ -318,7 +340,10 @@
       var groupVisible = 0;
       group.querySelectorAll('.cg-item').forEach(function (item) {
         var itemStatus = item.getAttribute('data-status-key') || 'not_completed';
-        var show = currentFilter === 'all' || itemStatus === currentFilter;
+        var itemEnv = normalizeEnv(item.getAttribute('data-env-key'));
+        var showByStatus = isStatusVisible(itemStatus);
+        var showByEnv = isEnvVisible(itemEnv);
+        var show = showByStatus && showByEnv;
         item.classList.toggle('fh', !show);
         if (show) {
           groupVisible += 1;
@@ -333,7 +358,15 @@
 
     closeAllGroups();
     openFirstVisibleGroup();
-    updateFilterUi(currentFilter, visibleProjects);
+    updateEnvFilterUi();
+    updateFilterUi(visibleProjects);
+    renderFilterInfo(visibleProjects);
+
+    if (!visibleProjects) {
+      selectedProjectKey = '';
+      renderPlaceholder('No projects match the selected filters');
+      return;
+    }
 
     if (selectedProjectKey && !selectedStillVisible) {
       selectedProjectKey = '';
@@ -419,6 +452,10 @@
 
   animateStatusCounts();
 
+  filterInfoEl = document.createElement('div');
+  filterInfoEl.className = 'pj-filter-info hidden';
+  sidebar.appendChild(filterInfoEl);
+
   // Build sidebar
   data.forEach(function (concept) {
     var cg = document.createElement('div');
@@ -449,6 +486,7 @@
       item.setAttribute('data-project-id', proj.id);
       item.setAttribute('data-project-key', concept.id + '/' + proj.id);
       item.setAttribute('data-status-key', projectStatusKey(proj));
+      item.setAttribute('data-env-key', normalizeEnv(proj.env));
       item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
 
       item.addEventListener('click', function () {
@@ -484,79 +522,80 @@
     var pos = flat.findIndex(function (f) { return f.concept.id === concept.id && f.proj.id === proj.id; });
     var prev = pos > 0 ? flat[pos - 1] : null;
     var next = pos < flat.length - 1 ? flat[pos + 1] : null;
+    var projectPage = resolveProjectPage(concept, proj);
+    var statusKey = projectStatusKey(proj);
+    var statusVisual = statusVisualByKey(statusKey);
+    var summary = String(proj.summary || proj.desc || '').trim();
+    var purpose = String(proj.purpose || '').trim();
+    var overview = Array.isArray(proj.overview) ? proj.overview : [];
+    var projectKey = concept.id + '/' + proj.id;
+    var isLastOpened = lastOpenedProjectKey() === projectKey;
+    var safeTitle = String(proj.title || 'Untitled Project');
+    var updateNoteHtml = '';
+
+    if (statusKey === 'in_progress') {
+      updateNoteHtml =
+        '<div class="pj-update-note"><strong>Daily Update:</strong> This project is actively in progress and updated every day as work continues toward completion.</div>';
+    } else if (statusKey === 'not_completed') {
+      updateNoteHtml =
+        '<div class="pj-update-note"><strong>Upcoming Project:</strong> This project is planned and will be completed based on current task priorities.</div>';
+    }
 
     var envBadge =
       proj.env === 'local' ? '<span class="g-tag tg">&#9679; localhost</span>' :
       proj.env === 'server' ? '<span class="g-tag tc">&#9679; server</span>' :
       '<span class="g-tag tgd">&#9679; free tier</span>';
-
-    var stepsHtml = proj.steps.map(function (s) { return '<li>' + s + '</li>'; }).join('');
-
-    var statusKey = projectStatusKey(proj);
-    var statusVisual = statusVisualByKey(statusKey);
-
-    var metaHtml = proj.meta.map(function (m) {
-      var mk = String(m.k || '').toLowerCase();
-      var valueText = m.v;
-      var valueStyle = m.g ? 'color:var(--grn)' : '';
-
-      if (mk === 'status') {
-        valueText = statusVisual.label;
-        valueStyle = 'color:' + statusVisual.color;
-      }
-
-      return '<div class="pj-mc"><div class="pj-mk">' + m.k + '</div>' +
-             '<div class="pj-mv" style="' + valueStyle + '">' + valueText + '</div></div>';
-    }).join('');
-
-    var codeHtml = '';
-    if (proj.code) {
-      codeHtml = '<div class="g-code">' +
-        '<div class="g-code__bar">' +
-          '<div class="g-code__dots">' +
-            '<div class="g-code__dot" style="background:#ff5f57"></div>' +
-            '<div class="g-code__dot" style="background:#febc2e"></div>' +
-            '<div class="g-code__dot" style="background:#28c840"></div>' +
-          '</div>' +
-          '<span class="g-code__fname">' + proj.code.fname + '</span>' +
-          '<span class="g-code__lang">' + proj.code.lang + '</span>' +
-        '</div>' +
-        '<div class="g-code__body">' + proj.code.body + '</div>' +
+    var openLinkHtml =
+      '<div class="pj-link-row">' +
+        '<a class="pj-open-btn pj-open-btn--primary' + (isLastOpened ? ' is-opened' : '') + '" data-open-page="1" href="' + projectPage + '" target="_blank" rel="noopener">' +
+          '<span class="pj-open-btn__dot"></span>Guide &#8599;' +
+        '</a>' +
+        // '<a class="pj-open-btn pj-open-btn--subtle" data-open-page="1" href="' + projectPage + '">' +
+        //   'Open' +
+        // '</a>' +
+        '<div class="pj-open-help">Complete steps, commands, and configs are inside the guide page.</div>' +
       '</div>';
-    }
-
-    var projectPage = resolveProjectPage(concept, proj);
-    var openLinkHtml = '<a class="pj-open-btn" href="' + projectPage + '" target="_blank">Open full page &#8599;</a>';
 
     detail.innerHTML =
       '<div class="pj-proj">' +
-        '<div class="pj-bc">' +
-          '<span>projects</span>' +
-          '<span class="pj-bc-sep">/</span>' +
-          '<span>' + concept.id + '</span>' +
-          '<span class="pj-bc-sep">/</span>' +
-          '<span class="pj-bc-cur">' + proj.id + '</span>' +
-        '</div>' +
-        '<div class="pj-hdr">' +
-          '<div>' +
-            '<div class="pj-concept">// ' + concept.label + '</div>' +
-            '<div class="pj-title">' + proj.title + '</div>' +
-            '<div>' + envBadge + '</div>' +
+        '<div class="pj-layout">' +
+          '<div class="pj-main">' +
+            '<div class="pj-bc">' +
+              '<span>projects</span>' +
+              '<span class="pj-bc-sep">/</span>' +
+              '<span>' + concept.id + '</span>' +
+              '<span class="pj-bc-sep">/</span>' +
+              '<span class="pj-bc-cur">' + proj.id + '</span>' +
+            '</div>' +
+            '<div class="pj-hdr">' +
+              '<div>' +
+                '<div class="pj-concept"><span class="pj-concept-pill">' + concept.label + '</span></div>' +
+                '<div class="pj-title" title="' + safeTitle.replace(/"/g, '&quot;') + '">' + safeTitle + '</div>' +
+                '<div class="pj-badge-row">' + envBadge +
+                  '<span class="g-tag" style="border-color:' + statusVisual.color + ';color:' + statusVisual.color + '">' +
+                    '&#9679; ' + statusVisual.label +
+                  '</span>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="pj-steps-title">Project Overview</div>' +
+            (summary ? '<p class="pj-desc pj-desc--hero">' + summary + '</p>' : '') +
+            (purpose ? '<div class="pj-steps-title">Purpose</div><p class="pj-desc">' + purpose + '</p>' : '') +
+            (overview.length ? '<div class="pj-steps-title">Overview</div><ol class="pj-steps">' +
+              overview.map(function (item) { return '<li>' + item + '</li>'; }).join('') +
+              '</ol>' : '') +
+            '<div class="pj-motivate"><strong>Execution Promise:</strong> The full guide page contains everything needed to perform this project end-to-end on your own.</div>' +
+            updateNoteHtml +
+            '<div class="pj-nav">' +
+              '<button class="pj-nb" id="pj-prev" ' + (!prev ? 'disabled' : '') + '>' +
+                '&#8592; ' + (prev ? prev.proj.title : 'First') +
+              '</button>' +
+              '<button class="pj-nb" id="pj-next" ' + (!next ? 'disabled' : '') + '>' +
+                (next ? next.proj.title : 'Last') + ' &#8594;' +
+              '</button>' +
+            '</div>' +
           '</div>' +
-          openLinkHtml +
-        '</div>' +
-        '<p class="pj-desc">' + proj.desc + '</p>' +
-        '<div class="pj-steps-title">Setup Steps</div>' +
-        '<ol class="pj-steps">' + stepsHtml + '</ol>' +
-        codeHtml +
-        '<div class="pj-meta">' + metaHtml + '</div>' +
-        '<div class="pj-nav">' +
-          '<button class="pj-nb" id="pj-prev" ' + (!prev ? 'disabled' : '') + '>' +
-            '&#8592; ' + (prev ? prev.proj.title : 'First') +
-          '</button>' +
-          '<button class="pj-nb" id="pj-next" ' + (!next ? 'disabled' : '') + '>' +
-            (next ? next.proj.title : 'Last') + ' &#8594;' +
-          '</button>' +
+          '<aside class="pj-action-rail">' + openLinkHtml + '</aside>' +
         '</div>' +
       '</div>';
 
@@ -580,6 +619,12 @@
         renderDetail(next.concept, next.proj);
       });
     }
+
+    detail.querySelectorAll('.pj-open-btn[data-open-page]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        rememberOpenedProject(concept, proj);
+      });
+    });
 
     detail.querySelectorAll('a, button, [data-h]').forEach(function (el) {
       el.addEventListener('mouseenter', function () { document.body.classList.add('ch'); });
@@ -610,6 +655,49 @@
     selectedProjectKey = concept.id + '/' + proj.id;
   }
 
+  function openFromQuery() {
+    var params = new URLSearchParams(window.location.search);
+    var conceptId = String(params.get('concept') || '').trim().toLowerCase();
+    var projectId = String(params.get('project') || '').trim().toLowerCase();
+    if (!conceptId) return;
+
+    var concept = null;
+    for (var ci = 0; ci < data.length; ci += 1) {
+      if (String(data[ci].id || '').toLowerCase() === conceptId) {
+        concept = data[ci];
+        break;
+      }
+    }
+    if (!concept || !Array.isArray(concept.projects) || !concept.projects.length) return;
+
+    var proj = null;
+    if (projectId) {
+      for (var pi = 0; pi < concept.projects.length; pi += 1) {
+        if (String(concept.projects[pi].id || '').toLowerCase() === projectId) {
+          proj = concept.projects[pi];
+          break;
+        }
+      }
+    }
+
+    if (!proj) {
+      for (var vi = 0; vi < concept.projects.length; vi += 1) {
+        var candidate = concept.projects[vi];
+        if (isStatusVisible(projectStatusKey(candidate)) && isEnvVisible(normalizeEnv(candidate.env))) {
+          proj = candidate;
+          break;
+        }
+      }
+    }
+    if (!proj) proj = concept.projects[0];
+    if (!proj) return;
+
+    openGroup(concept.id);
+    markActive(concept, proj);
+    if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+    renderDetail(concept, proj);
+  }
+
   initClickFx();
   var heroAutoHide = initHeroAutoHide() || {};
   initSmoothWheelScrolling();
@@ -619,12 +707,30 @@
     btn.addEventListener('click', function () {
       addTap(btn);
       if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
-      applyStatusFilter(btn.getAttribute('data-status-filter') || 'all');
+      var key = btn.getAttribute('data-status-filter') || 'all';
+      if (key === 'all') {
+        clearStatusFilters();
+        clearEnvFilters();
+      } else {
+        activeStatusFilters[key] = !activeStatusFilters[key];
+      }
+      applyStatusFilter();
+    });
+  });
+
+  envFilterButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = normalizeEnv(btn.getAttribute('data-env-filter'));
+      addTap(btn);
+      if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+      activeEnvFilters[key] = !activeEnvFilters[key];
+      applyStatusFilter();
     });
   });
 
   // Initial state: all groups collapsed, detail placeholder visible.
   closeAllGroups();
   renderPlaceholder();
-  applyStatusFilter('all');
+  applyStatusFilter();
+  openFromQuery();
 })();

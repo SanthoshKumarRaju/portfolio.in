@@ -42,13 +42,44 @@
   var mq = document.getElementById('marquee');
   if (mq) {
     mq.innerHTML += mq.innerHTML;
+    var wrap = document.querySelector('.marquee-wrap');
     var pos = 0;
-    (function tick() {
-      pos -= 0.42;
-      if (pos < -(mq.scrollWidth / 2)) pos = 0;
-      mq.style.transform = 'translateX(' + pos + 'px)';
+    var baseSpeed = 38; // px/s
+    var boost = 0;
+    var paused = false;
+    var lastTs = null;
+
+    function setPaused(v) {
+      paused = v;
+      if (wrap) wrap.classList.toggle('is-paused', v);
+    }
+
+    if (wrap) {
+      wrap.addEventListener('mouseenter', function () { setPaused(true); });
+      wrap.addEventListener('mouseleave', function () { setPaused(false); });
+    }
+
+    window.addEventListener('wheel', function (e) {
+      boost += Math.abs(e.deltaY) * 0.06;
+      if (boost > 150) boost = 150;
+    }, { passive: true });
+
+    (function tick(ts) {
+      if (!lastTs) lastTs = ts;
+      var dt = Math.min((ts - lastTs) / 1000, 0.05);
+      lastTs = ts;
+
+      if (!paused) {
+        var speed = baseSpeed + boost;
+        pos -= speed * dt;
+        if (pos < -(mq.scrollWidth / 2)) pos = 0;
+        mq.style.transform = 'translateX(' + pos + 'px)';
+      }
+
+      boost *= 0.92;
+      if (boost < 0.2) boost = 0;
       requestAnimationFrame(tick);
-    })();
+    })(0);
   }
   /* -- Download Blast -- */
   var dlLinks = document.querySelectorAll('.hero-dl');

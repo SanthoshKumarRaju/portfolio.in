@@ -2,12 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta http-equiv="refresh" content="0; url=pages/home/home.html"/>
-  <title>Santhosh Kumar Raju — Redirecting…</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="refresh" content="1; url=pages/home/home.html"/>
+  <title>Santhosh Kumar Raju | Loading</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Sora", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(0, 232, 122, 0.16), transparent 38%),
+        radial-gradient(circle at 84% 78%, rgba(0, 200, 239, 0.15), transparent 42%),
+        #070a10;
+      color: #d8e6f7;
+    }
+    .gate {
+      width: min(92vw, 420px);
+      border: 1px solid rgba(0, 232, 122, 0.34);
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+      background: linear-gradient(160deg, rgba(17, 23, 34, 0.94), rgba(10, 15, 24, 0.97));
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42);
+      text-align: center;
+    }
+    .spin {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 0.8rem;
+      border-radius: 50%;
+      border: 3px solid rgba(0, 232, 122, 0.24);
+      border-top-color: #00e87a;
+      border-right-color: #00c8ef;
+      animation: spin 0.85s linear infinite;
+    }
+    .title {
+      margin: 0 0 0.28rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .sub {
+      margin: 0;
+      font-size: 0.77rem;
+      color: #8a9dbb;
+    }
+    .sub a {
+      color: #68e6ff;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(104, 230, 255, 0.5);
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+  <script>
+    window.location.replace("pages/home/home.html");
+  </script>
 </head>
 <body>
-  <p style="font-family:monospace;color:#00e87a;background:#070a10;padding:2rem">
-    Redirecting to portfolio… <a href="pages/home/home.html" style="color:#00c8ef">click here</a> if not redirected.
-  </p>
+  <div class="gate" role="status" aria-live="polite">
+    <div class="spin" aria-hidden="true"></div>
+    <p class="title">Opening Portfolio</p>
+    <p class="sub">If it does not open, <a href="pages/home/home.html">continue here</a>.</p>
+  </div>
 </body>
 </html>

@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Projects - Santhosh Kumar Raju</title>
+  <title>Project Portfolio | Santhosh Kumar Raju</title>
   <link rel="icon" type="image/png" href="../../assets/logo-1.png">
-  <link rel="stylesheet" href="../../css/global.css?v=20260303s"/>
-  <link rel="stylesheet" href="projects.css?v=20260303s"/>
+  <link rel="stylesheet" href="../../css/global.css?v=20260304c"/>
+  <link rel="stylesheet" href="projects.css?v=20260304o"/>
 </head>
 <body class="pj-body">
 
@@ -36,11 +36,11 @@
       <div class="pj-hero-left">
         <div class="g-stag">All Projects</div>
         <div class="g-stitle">Lab &amp; <em>Production</em> Projects</div>
-        <p class="pj-hero-desc">Click a concept to expand, then select a project to view setup steps, commands and config files.</p>
+        <p class="pj-hero-desc">Click a concept to expand, then select a project to read its description, purpose and overview. Use the <span class="pj-guide-hl">Guide</span> button to open the full project page with step-by-step details.</p>
         <div class="pj-legend">
-          <span class="g-tag tg">&#9679; localhost</span>
-          <span class="g-tag tc">&#9679; server</span>
-          <span class="g-tag tgd">&#9679; free tier</span>
+          <button class="g-tag tg pj-env-filter" type="button" data-env-filter="local" aria-pressed="false">&#9679; localhost</button>
+          <button class="g-tag tc pj-env-filter" type="button" data-env-filter="server" aria-pressed="false">&#9679; server</button>
+          <button class="g-tag tgd pj-env-filter" type="button" data-env-filter="free" aria-pressed="false">&#9679; free tier</button>
         </div>
       </div>
       <div class="pj-hero-right">
@@ -68,9 +68,6 @@
               <div class="pj-stat-meter"><span id="pj-meter-pending"></span></div>
             </button>
           </div>
-        </div>
-        <div class="pj-stat-note">
-          Status logic: uses <code>project.status</code> first (<code>completed</code>, <code>in_progress</code>, <code>not_completed</code>), fallback to <code>meta: Status</code>.
         </div>
       </div>
     </div>
@@ -101,9 +98,9 @@
   </footer>
 </div>
 
-<script src="../../js/nav.js?v=20260303s"></script>
+<script src="../../js/nav.js?v=20260304b"></script>
 <script src="projects-data.js?v=20260303s"></script>
-<script src="projects.js?v=20260303s"></script>
+<script src="projects.js?v=20260304g"></script>
 </body>
 </html>
 

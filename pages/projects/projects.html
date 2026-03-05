@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Projects — Santhosh Kumar Raju</title>
-  <link rel="stylesheet" href="../../css/global.css?v=20260302d"/>
-  <link rel="stylesheet" href="projects.css?v=20260302d"/>
+  <title>Project Portfolio | Santhosh Kumar Raju</title>
+  <link rel="icon" type="image/png" href="../../assets/logo-1.png">
+  <link rel="stylesheet" href="../../css/global.css?v=20260304c"/>
+  <link rel="stylesheet" href="projects.css?v=20260304o"/>
 </head>
-<body>
+<body class="pj-body">
 
 <!-- CURSOR -->
 <div id="g-cur"></div>
@@ -28,14 +29,47 @@
 <div class="g-page">
 
   <!-- PAGE HERO -->
-  <div class="g-page-hero">
-    <div class="g-stag">All Projects</div>
-    <div class="g-stitle">Lab &amp; <em>Production</em> Projects</div>
-    <p class="pj-hero-desc">Click a concept to expand, then select a project to view setup steps, commands and config files.</p>
-    <div class="pj-legend">
-      <span class="g-tag tg">&#9679; localhost</span>
-      <span class="g-tag tc">&#9679; server</span>
-      <span class="g-tag tgd">&#9679; free tier</span>
+  <div class="g-page-hero pj-hero">
+    <div class="pj-hero-glow pj-hero-glow-a"></div>
+    <div class="pj-hero-glow pj-hero-glow-b"></div>
+    <div class="pj-hero-grid">
+      <div class="pj-hero-left">
+        <div class="g-stag">All Projects</div>
+        <div class="g-stitle">Lab &amp; <em>Production</em> Projects</div>
+        <p class="pj-hero-desc">Click a concept to expand, then select a project to read its description, purpose and overview. Use the <span class="pj-guide-hl">Guide</span> button to open the full project page with step-by-step details.</p>
+        <div class="pj-legend">
+          <button class="g-tag tg pj-env-filter" type="button" data-env-filter="local" aria-pressed="false">&#9679; localhost</button>
+          <button class="g-tag tc pj-env-filter" type="button" data-env-filter="server" aria-pressed="false">&#9679; server</button>
+          <button class="g-tag tgd pj-env-filter" type="button" data-env-filter="free" aria-pressed="false">&#9679; free tier</button>
+        </div>
+      </div>
+      <div class="pj-hero-right">
+        <div class="pj-stat-tree">
+          <button class="pj-stat-card pj-stat-btn pj-stat-all act" type="button" data-status-filter="all">
+            <div class="pj-stat-k"><span class="pj-stat-ico">#</span> Overall Projects</div>
+            <div class="pj-stat-v"><span id="pj-total-count">0</span></div>
+          </button>
+          <div class="pj-tree-line pj-tree-line-v"></div>
+          <div class="pj-tree-line pj-tree-line-h"></div>
+          <div class="pj-stat-children">
+            <button class="pj-stat-card pj-stat-btn pj-stat-done" type="button" data-status-filter="completed">
+              <div class="pj-stat-k"><span class="pj-stat-ico">✓</span> Completed</div>
+              <div class="pj-stat-v"><span id="pj-count-completed">0</span></div>
+              <div class="pj-stat-meter"><span id="pj-meter-completed"></span></div>
+            </button>
+            <button class="pj-stat-card pj-stat-btn pj-stat-progress" type="button" data-status-filter="in_progress">
+              <div class="pj-stat-k"><span class="pj-stat-ico">~</span> In Progress</div>
+              <div class="pj-stat-v"><span id="pj-count-progress">0</span></div>
+              <div class="pj-stat-meter"><span id="pj-meter-progress"></span></div>
+            </button>
+            <button class="pj-stat-card pj-stat-btn pj-stat-pending" type="button" data-status-filter="not_completed">
+              <div class="pj-stat-k"><span class="pj-stat-ico">!</span> Not Completed</div>
+              <div class="pj-stat-v"><span id="pj-count-pending">0</span></div>
+              <div class="pj-stat-meter"><span id="pj-meter-pending"></span></div>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -64,10 +98,15 @@
   </footer>
 </div>
 
-<script src="../../js/nav.js?v=20260302d"></script>
-<script src="projects-data.js?v=20260302d"></script>
-<script src="projects.js?v=20260302d"></script>
+<script src="../../js/nav.js?v=20260304b"></script>
+<script src="projects-data.js?v=20260303s"></script>
+<script src="projects.js?v=20260304g"></script>
 </body>
 </html>
+
+
+
+
+
 
 

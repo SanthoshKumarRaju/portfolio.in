@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Basic VPC Setup — SKR</title>
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+<div class="g-page proj-page">
+  <div class="proj-header">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span>vpc & networking</span>
+      <span>/</span>
+      <span class="proj-bc-cur">basic-vpc</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div class="proj-concept">// VPC & Networking</div>
+        <h1 class="proj-title">Basic VPC Setup</h1>
+        <span class="g-tag tc">&bull; server</span>
+      </div>
+    </div>
+    <p class="proj-desc">Custom multi-tier AWS VPC from scratch — IGW, route tables, NAT Gateway, Security Groups for web/app/db tiers and NACLs.</p>
+    <div class="proj-section-title">Setup Steps</div>
+    <ol class="proj-steps">
+      <li>Create VPC with CIDR 10.0.0.0/16</li>
+      <li>Create public subnets across 2 AZs — enable auto-assign public IP</li>
+      <li>Create private subnets in same AZs</li>
+      <li>Create and attach Internet Gateway</li>
+      <li>Allocate Elastic IP → Create NAT Gateway in public subnet</li>
+      <li>Route tables: public→IGW, private→NAT</li>
+      <li>Create Security Groups per tier</li>
+    </ol>
+    <div class="g-code">
+      <div class="g-code__bar">
+        <div class="g-code__dots">
+          <div class="g-code__dot" style="background:#ff5f57"></div>
+          <div class="g-code__dot" style="background:#febc2e"></div>
+          <div class="g-code__dot" style="background:#28c840"></div>
+        </div>
+        <span class="g-code__fname">sg-rules.sh</span>
+        <span class="g-code__lang">bash</span>
+      </div>
+      <div class="g-code__body"><span class="cm"># Web tier SG — public facing</span>
+<span class="kw">aws</span> ec2 authorize-security-group-ingress \
+  --group-id sg-web --protocol tcp \
+  --port 443 --cidr 0.0.0.0/0
+
+<span class="cm"># App tier — from web SG only</span>
+<span class="kw">aws</span> ec2 authorize-security-group-ingress \
+  --group-id sg-app --protocol tcp \
+  --port 3000 --source-group sg-web
+
+<span class="cm"># DB tier — from app SG only</span>
+<span class="kw">aws</span> ec2 authorize-security-group-ingress \
+  --group-id sg-db --protocol tcp \
+  --port 5432 --source-group sg-app</div>
+    </div>
+    <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">CIDR</div><div class="pm-val" style="">10.0.0.0/16</div></div>
+      <div class="pm-cell"><div class="pm-key">Subnets</div><div class="pm-val" style="">4 / 2 AZs</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+    </div>
+  </div>
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; VPC & Networking</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

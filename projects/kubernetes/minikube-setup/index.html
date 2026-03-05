@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Minikube Setup — SKR</title>
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+<div class="g-page proj-page">
+  <div class="proj-header">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span>kubernetes</span>
+      <span>/</span>
+      <span class="proj-bc-cur">minikube-setup</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div class="proj-concept">// Kubernetes</div>
+        <h1 class="proj-title">Minikube Setup</h1>
+        <span class="g-tag tg">&bull; localhost</span>
+      </div>
+    </div>
+    <p class="proj-desc">Local Kubernetes cluster with Minikube. Deployed multi-container app using Deployments, Services, ConfigMaps, Secrets and Ingress controller.</p>
+    <div class="proj-section-title">Setup Steps</div>
+    <ol class="proj-steps">
+      <li>Install Minikube from storage.googleapis.com</li>
+      <li>Start: <strong>minikube start --driver=docker --cpus=2 --memory=4096</strong></li>
+      <li>Enable ingress: <strong>minikube addons enable ingress</strong></li>
+      <li>Apply manifests: <strong>kubectl apply -f k8s/</strong></li>
+      <li>Access: <strong>minikube service app-service</strong></li>
+    </ol>
+    <div class="g-code">
+      <div class="g-code__bar">
+        <div class="g-code__dots">
+          <div class="g-code__dot" style="background:#ff5f57"></div>
+          <div class="g-code__dot" style="background:#febc2e"></div>
+          <div class="g-code__dot" style="background:#28c840"></div>
+        </div>
+        <span class="g-code__fname">deployment.yaml</span>
+        <span class="g-code__lang">yaml</span>
+      </div>
+      <div class="g-code__body"><span class="kw">apiVersion</span>: apps/v1
+<span class="kw">kind</span>: Deployment
+<span class="kw">metadata</span>: {name: myapp}
+<span class="kw">spec</span>:
+  <span class="kw">replicas</span>: <span class="num">3</span>
+  <span class="kw">selector</span>: {matchLabels: {app: myapp}}
+  <span class="kw">template</span>:
+    <span class="kw">metadata</span>: {labels: {app: myapp}}
+    <span class="kw">spec</span>:
+      <span class="kw">containers</span>:
+      - <span class="kw">name</span>: myapp
+        <span class="kw">image</span>: myapp:latest
+        <span class="kw">ports</span>: [{containerPort: <span class="num">3000</span>}]
+        <span class="kw">resources</span>:
+          <span class="kw">limits</span>: {cpu: <span class="str">"500m"</span>, memory: <span class="str">"256Mi"</span>}</div>
+    </div>
+    <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">Where</div><div class="pm-val" style="">Localhost</div></div>
+      <div class="pm-cell"><div class="pm-key">Driver</div><div class="pm-val" style="">Docker</div></div>
+      <div class="pm-cell"><div class="pm-key">K8s</div><div class="pm-val" style="">v1.28</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+    </div>
+  </div>
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; Kubernetes</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

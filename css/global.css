@@ -62,7 +62,22 @@
 /* ══ RESET ══ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: auto; }
-body { font-family: var(--fb); background: var(--bg); color: var(--txt); overflow-x: hidden; cursor: none; min-height: 100vh; }
+/* body { font-family: var(--fb); background: var(--bg); color: var(--txt); overflow-x: hidden; cursor: none; min-height: 100vh; } */
+body { font-family: var(--fb); background: var(--bg); color: var(--txt); overflow-x: hidden; cursor: auto; min-height: 100vh; }
+/* ensure system cursor for project pages and everywhere clickable */
+/* this rule sits late in the cascade and uses !important so that any later
+   definitions of cursor:none (even in page-specific CSS) cannot hide the
+   pointer. */
+body,
+body * {
+  cursor: auto !important;
+}
+/* legacy button/link selectors remain for clarity */
+.proj-bc a,
+.proj-back-btn,
+.proj-bc a:hover {
+  cursor: pointer !important;
+}
 html {
   scrollbar-color: var(--sb-thumb-b) var(--sb-track);
 }
@@ -79,7 +94,22 @@ html {
   background: linear-gradient(180deg, var(--sb-thumb-a-hover), var(--sb-thumb-b-hover));
 }
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; border: none; background: none; cursor: none; }
+/* button { font-family: inherit; border: none; background: none; cursor: none; } */
+button,
+a,
+[role="button"],
+.g-btn,
+.pj-btn,
+.pj-nb,
+.pj-open-btn,
+.cg-toggle,
+.cg-item,
+.pj-stat-btn,
+.pj-env-filter {
+  user-select: none !important;
+  cursor: pointer !important;
+}
+button { font-family: inherit; border: none; background: none; cursor: pointer; }
 img { display: block; max-width: 100%; }
 
 /* Global loader + clickable affordance */
@@ -203,7 +233,8 @@ body.g-loading {
 
 /* ══ CURSOR ══ */
 #g-cur, #g-cur-r {
-  position: fixed; pointer-events: none; z-index: 9999;
+  display: none !important;
+  /* position: fixed; pointer-events: none; z-index: 9999;
   border-radius: 100%; will-change: transform;
 }
 #g-cur {
@@ -251,7 +282,7 @@ body.g-loading {
   border-radius: 50%;
   border: 1px solid rgba(196,246,255,.52);
   opacity: .85;
-  animation: gCursorBreath 1.7s ease-in-out infinite;
+  animation: gCursorBreath 1.7s ease-in-out infinite; */
 }
 body.ch #g-cur-r {
   border-color: var(--grn);
@@ -274,7 +305,8 @@ body.ch #g-cur-r {
 }
 .g-nav__logo {
   font-family: var(--fh); font-size: 1.1rem; font-weight: 800;
-  color: var(--grn); letter-spacing: .04em; cursor: none;
+  /* color: var(--grn); letter-spacing: .04em; cursor: none; */
+  color: var(--grn); letter-spacing: .04em; cursor: pointer;
   margin-right: auto; white-space: nowrap;
 }
 .g-nav__logo span { color: var(--txt3); font-weight: 400; }
@@ -290,7 +322,8 @@ body.ch #g-cur-r {
   border: 1px solid transparent;
   background: transparent;
   transition: color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
-  cursor: none;
+  /* cursor: none; */
+  cursor: pointer;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
@@ -341,7 +374,8 @@ body.ch #g-cur-r {
   font-size: .56rem;
   letter-spacing: .05em;
   text-transform: uppercase;
-  cursor: none;
+  /* cursor: none; */
+  cursor: pointer;
   transition: border-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
 }
 
@@ -431,27 +465,33 @@ body.ch #g-cur-r {
 }
 
 :root[data-theme="light"] #g-cur {
-  border-color: rgba(9,108,145,.78);
+  background: #000000;
+  /* border-color: rgba(9,108,145,.78);
   background: radial-gradient(circle, #ffffff 0 36%, #4ad1ff 70%, rgba(74,209,255,.22) 100%);
   box-shadow:
     0 0 0 2px rgba(10,126,168,.22),
     0 0 12px rgba(10,126,168,.32),
-    0 0 22px rgba(0,143,95,.24);
+    0 0 22px rgba(0,143,95,.24); */
 }
 
 :root[data-theme="light"] #g-cur-r {
-  border-color: rgba(11,122,166,.62);
+  display: none;
+  /* border-color: rgba(11,122,166,.62);
   background: radial-gradient(circle, rgba(66,177,221,.12) 0%, rgba(66,177,221,0) 68%);
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.55),
-    0 0 14px rgba(26,118,165,.22);
+    0 0 14px rgba(26,118,165,.22); */
 }
 
-:root[data-theme="light"] #g-cur-r::before {
-  background: conic-gradient(from 0deg, rgba(10,126,168,0) 0deg, rgba(10,126,168,.85) 42deg, rgba(0,143,95,.72) 94deg, rgba(0,143,95,0) 158deg, rgba(10,126,168,0) 360deg);
-}
-
+:root[data-theme="light"] #g-cur-r::before,
 :root[data-theme="light"] #g-cur-r::after {
+  display: none;
+}
+/* {
+  background: conic-gradient(from 0deg, rgba(10,126,168,0) 0deg, rgba(10,126,168,.85) 42deg, rgba(0,143,95,.72) 94deg, rgba(0,143,95,0) 158deg, rgba(10,126,168,0) 360deg);
+} */
+
+/* :root[data-theme="light"] #g-cur-r::after {
   border-color: rgba(10,126,168,.56);
 }
 
@@ -476,7 +516,7 @@ body.ch #g-cur-r {
 @keyframes gCursorCore {
   0%, 100% { box-shadow: 0 0 8px rgba(0,232,122,.36), 0 0 18px rgba(0,200,239,.18); }
   50% { box-shadow: 0 0 16px rgba(0,232,122,.62), 0 0 30px rgba(0,200,239,.32); }
-}
+} */
 @keyframes gpulse {
   0%,100% { box-shadow: 0 0 0 0 rgba(0,232,122,.7); }
   50%      { box-shadow: 0 0 0 6px rgba(0,232,122,0); }
@@ -535,7 +575,9 @@ body.ch #g-cur-r {
   font-family: var(--fm); font-size: .7rem; font-weight: 600;
   letter-spacing: .1em; text-transform: uppercase;
   padding: .78rem 1.8rem; border-radius: var(--r);
-  cursor: none; transition: all .2s;
+  /* cursor: none; */
+  cursor: pointer;
+  transition: all .2s;
   position: relative; overflow: hidden;
 }
 .g-btn::after {

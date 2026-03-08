@@ -591,6 +591,200 @@ body.ch #g-cur-r {
 .g-btn-g { color: var(--txt); border: 1px solid var(--bdr); }
 .g-btn-g:hover { border-color: var(--grn); color: var(--grn); background: var(--grndim); transform: translateY(-2px); }
 
+/* ══ TERMINAL UI ══ */
+.terminal-btn {
+  position: absolute;
+  top: 1rem;
+  right: 2.5rem;
+  background: linear-gradient(135deg, var(--cyn), var(--grn));
+  color: #000;
+  font-family: var(--fm);
+  font-size: .75rem;
+  padding: .5rem 1rem;
+  border-radius: var(--r);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,.4);
+  transition: transform .2s, box-shadow .2s;
+  z-index: 1500;
+}
+.terminal-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0,0,0,.5);
+}
+.terminal-btn:active {
+  transform: translateY(0) scale(.98);
+}
+
+.terminal-panel {
+  background: var(--surf); border: 1px solid var(--bdr); border-radius: var(--r); overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,232,122,.05), 0 20px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04);
+  animation: termIn .9s cubic-bezier(.2,.8,.2,1);
+  position: relative;
+  margin: 1.8rem 0;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+.terminal-panel.hidden { display: none; }
+.terminal-panel .header {
+  background: var(--surfhi); border-bottom: 1px solid var(--bdr);
+  padding: .65rem 1rem; display: flex; align-items: center; gap: .38rem;
+}
+.terminal-panel .header .dots {
+  display: flex; gap: .32rem; margin-right: .6rem;
+}
+.terminal-panel .header .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.terminal-panel .header .close-btn {
+  background: transparent;
+  border: none;
+  color: var(--txt2);
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+.terminal-panel .output {
+  padding: 1.1rem; font-family: var(--fm); font-size: .68rem; line-height: 1.9; min-height: 220px; max-height: 270px; overflow-y: auto; overflow-x: hidden;
+  background: var(--bg);
+  color: var(--txt);
+}
+.terminal-panel .output::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-panel .output::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-b);
+  border-radius: 3px;
+}
+.terminal-panel .tl { display: flex; gap: .4rem; animation: tlin .15s ease; }
+.terminal-panel .tp { color: var(--grn); flex-shrink: 0; }
+.terminal-panel .tc { color: var(--txt); }
+.terminal-panel .to { padding-left: 1.1rem; color: var(--txt2); }
+.terminal-panel .tok { color: var(--grn); }
+.terminal-panel .thi { color: var(--cyn); }
+.terminal-panel .tcur { display: inline-block; width: 7px; height: 13px; background: var(--grn); vertical-align: middle; margin-left: 2px; animation: bk 1s step-end infinite; }
+
+.terminal-panel .term-cmd::before { content: "ubuntu@vm:~$ "; color: var(--grn); }
+
+/* Terminal Modal */
+.terminal-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+.terminal-modal.on {
+  opacity: 1;
+  pointer-events: auto;
+}
+.terminal-modal__back {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  backdrop-filter: blur(8px);
+}
+.terminal-modal__content {
+  position: absolute;
+  inset: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.terminal-fullscreen {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  animation: termExpand .4s cubic-bezier(.2,.8,.2,1);
+}
+.terminal-fullscreen .output {
+  min-height: calc(100vh - 8rem);
+  max-height: calc(100vh - 8rem);
+}
+
+/* Expand button */
+.expand-btn {
+  background: transparent;
+  border: none;
+  color: var(--txt2);
+  font-size: 1rem;
+  cursor: pointer;
+  margin-right: .5rem;
+  transition: color .2s;
+}
+.expand-btn:hover {
+  color: var(--grn);
+}
+
+/* Improved animations */
+@keyframes termIn {
+  from { opacity: 0; transform: translateX(12px) scale(.98); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes termExpand {
+  from { opacity: 0; transform: scale(.8) rotateY(15deg); }
+  to { opacity: 1; transform: scale(1) rotateY(0deg); }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .terminal-modal__content {
+    inset: 1rem;
+  }
+  .terminal-fullscreen .output {
+    min-height: calc(100vh - 6rem);
+    max-height: calc(100vh - 6rem);
+  }
+}
+
+:root[data-theme="light"] .terminal-modal__back {
+  background: rgba(255,255,255,.9);
+}
+
+:root[data-theme="light"] .expand-btn {
+  color: var(--txt3);
+}
+
+:root[data-theme="light"] .expand-btn:hover {
+  color: var(--grn);
+}
+
+/* terminal theme colors */
+:root {
+  --term-bg-dark: #000;
+  --term-text-dark: #0f0;
+  --term-cmd-dark: #0f0;
+  --term-out-dark: #fff;
+  --term-bg-light: #fdfdfd;
+  --term-text-light: #111;
+  --term-cmd-light: #006400;
+  --term-out-light: #000;
+}
+
+.terminal-panel .output {
+  background: var(--term-bg-dark);
+  color: var(--term-text-dark);
+}
+.terminal-panel .term-cmd { color: var(--term-cmd-dark); }
+.terminal-panel .term-out { color: var(--term-out-dark); }
+
+:root[data-theme="light"] .terminal-panel {
+  border-color: #bbb;
+}
+:root[data-theme="light"] .terminal-panel .header {
+  background: #eee;
+}
+:root[data-theme="light"] .terminal-panel .output {
+  background: var(--term-bg-light);
+  color: var(--term-text-light);
+}
+:root[data-theme="light"] .terminal-panel .term-cmd { color: var(--term-cmd-light); }
+:root[data-theme="light"] .terminal-panel .term-out { color: var(--term-out-light); }
+
 /* ══ CODE BLOCK ══ */
 .g-code { background: var(--bg2); border: 1px solid var(--bdr); border-radius: var(--r); overflow: hidden; margin: 1.4rem 0; }
 .g-code__bar { display: flex; align-items: center; gap: .4rem; padding: .6rem 1rem; background: var(--surfhi); border-bottom: 1px solid var(--bdr); }
@@ -1125,4 +1319,17 @@ html[data-view="mobile"] .g-nav__link .hnb-ico {
 }
 html[data-view="mobile"] .g-page {
   padding-top: 170px;
+}
+
+/* Terminal animations */
+@keyframes termIn {
+  from { opacity: 0; transform: translateY(20px) scale(.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes tlin {
+  from { opacity: 0; transform: translateX(-4px); }
+  to { opacity: 1; }
+}
+@keyframes bk {
+  50% { opacity: 0; }
 }

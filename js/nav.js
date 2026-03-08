@@ -266,6 +266,74 @@
   /* ── Active nav link ──
      Match current filename against nav link hrefs */
   var current = window.location.pathname.replace(/\\/g, '/');
+
+  /* ── Task-card toggling ──
+     reused across multiple project pages; moved from inline scripts */
+  (function(){
+    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-task]'));
+    if (!cards.length) return;
+    function panel(card) {
+      return card.querySelector('.task-panel');
+    }
+    function button(card) {
+      return card.querySelector('.task-toggle');
+    }
+    function openCard(card) {
+      var p = panel(card);
+      var b = button(card);
+      card.classList.add('is-open');
+      b.setAttribute('aria-expanded', 'true');
+      p.style.maxHeight = p.scrollHeight + 'px';
+    }
+    function closeCard(card) {
+      var p = panel(card);
+      var b = button(card);
+      card.classList.remove('is-open');
+      b.setAttribute('aria-expanded', 'false');
+      p.style.maxHeight = '0px';
+    }
+    cards.forEach(function (card, index) {
+      var btn = button(card);
+      if (card.classList.contains('is-open') && index === 0) {
+        openCard(card);
+      } else {
+        closeCard(card);
+      }
+      btn.addEventListener('click', function () {
+        var isOpen = card.classList.contains('is-open');
+        cards.forEach(closeCard);
+        if (!isOpen) {
+          openCard(card);
+          // Center the card in the viewport after opening
+          setTimeout(function() {
+            var rect = card.getBoundingClientRect();
+            var cardTop = window.scrollY + rect.top;
+            var cardHeight = rect.height;
+            var viewportHeight = window.innerHeight;
+            var centerScroll = cardTop - (viewportHeight - cardHeight) / 2;
+            window.scrollTo({top: centerScroll, behavior: 'smooth'});
+          }, 50);
+        }
+      });
+    });
+    window.addEventListener('resize', function () {
+      cards.forEach(function (card) {
+        if (card.classList.contains('is-open')) {
+          var p = panel(card);
+          p.style.maxHeight = p.scrollHeight + 'px';
+          // Re-center the card when resizing
+          setTimeout(function() {
+            var rect = card.getBoundingClientRect();
+            var cardTop = window.scrollY + rect.top;
+            var cardHeight = rect.height;
+            var viewportHeight = window.innerHeight;
+            var centerScroll = cardTop - (viewportHeight - cardHeight) / 2;
+            window.scrollTo({top: centerScroll, behavior: 'smooth'});
+          }, 100);
+        }
+      });
+    });
+  })();
   document.querySelectorAll('.g-nav__link').forEach(function (a) {
     var href = (a.getAttribute('href') || '').replace(/\\/g, '/');
     // normalise to just the filename part
@@ -512,7 +580,185 @@
     });
   })();
 
+// ═════════ TERMINAL FUNCTIONALITY ═════════
+(function(){
+  function getSampleOutputs(){
+    return window.terminalData && window.terminalData.outputs
+      ? window.terminalData.outputs
+      : {};
+  }
+  // Terminal engine (runs commands sequentially)
+  function runTerminal(outputEl){
+    var commands = window.terminalData && window.terminalData.commands
+      ? window.terminalData.commands
+      : [];
+    var outputs = getSampleOutputs();
+    var index = 0;
+    function addLine(className,text){
+      var div = document.createElement("div");
+      div.className = "tl " + className;
+      div.textContent = text;
+      outputEl.appendChild(div);
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+    function runNext(){
+      if(index >= commands.length) return;
+      var cmd = commands[index];
+      // print command
+      addLine("term-cmd",cmd);
+      setTimeout(function(){
+        var result = outputs[cmd] || [];
+        result.forEach(function(line){
+          addLine("term-out",line);
+        });
+        // blank prompt line
+        addLine("term-cmd","");
+        index++;
+        setTimeout(runNext,600);
+      },400);
+    }
+    runNext();
+  }
+  // ═════ Bottom Terminal Elements ═════
+  var bottomPanel  = document.getElementById("bottomTerminalPanel");
+  var bottomOutput = document.getElementById("bottomTermOutput");
+  var bottomClose  = document.getElementById("bottomTermClose");
+  var expandBtn    = document.getElementById("terminalExpand");
+  if(bottomOutput){
+    bottomOutput.innerHTML = "";
+  }
+  if(bottomClose){
+    bottomClose.addEventListener("click",function(){
+      if(bottomPanel){
+        bottomPanel.style.display = "none";
+      }
+    });
+  }
+  // ═════ Modal Terminal Elements ═════
+  var modal       = document.getElementById("terminalModal");
+  var modalBack   = document.getElementById("terminalModalBack");
+  var modalClose  = document.getElementById("modalTermClose");
+  var modalOutput = document.getElementById("modalTermOutput");
+  function openModal(){
+    if(modal && modalOutput){
+      modalOutput.innerHTML = "";
+      runTerminal(modalOutput);
+      modal.classList.add("on");
+      document.body.style.overflow = "hidden";
+    }
+  }
+  function closeModal(){
+    if(modal){
+      modal.classList.remove("on");
+      document.body.style.overflow = "";
+    }
+  }
+  if(expandBtn){
+    expandBtn.addEventListener("click",openModal);
+  }
+  if(modalBack){
+    modalBack.addEventListener("click",closeModal);
+  }
+  if(modalClose){
+    modalClose.addEventListener("click",closeModal);
+  }
+  // ESC key closes modal
+  document.addEventListener("keydown",function(e){
+    if(e.key === "Escape" && modal && modal.classList.contains("on")){
+      closeModal();
+    }
+  });
+  // ═════ Terminal Button ═════
+  var btn = document.getElementById("terminalBtn");
+  if(btn){
+    btn.addEventListener("click",function(){
+      if(bottomPanel){
+        bottomPanel.style.display = "block";
+      }
+      if(bottomOutput){
+        bottomOutput.innerHTML = "";
+        runTerminal(bottomOutput);
+      }
+      // center terminal on screen
+      setTimeout(function(){
+        if(bottomPanel){
+          var rect = bottomPanel.getBoundingClientRect();
+          var terminalTop = window.scrollY + rect.top;
+          var terminalHeight = rect.height;
+          var viewportHeight = window.innerHeight;
+          var centerScroll = terminalTop - (viewportHeight - terminalHeight) / 2;
+          window.scrollTo({
+            top:centerScroll,
+            behavior:"smooth"
+          });
+        }
+      },100);
+    });
+  }
 })();
 
+// ══ DISABLE INSPECT/DEV TOOLS ══
+  (function() {
+    'use strict';
+
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // Disable common developer tool keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // F12 - Developer Tools
+      if (e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+Shift+I - Developer Tools
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+Shift+J - Console
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+Shift+C - Inspect Element
+      if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+        e.preventDefault();
+        return false;
+      }
+
+      // Ctrl+U - View Source (though this doesn't prevent it completely)
+      if (e.ctrlKey && e.keyCode === 85) {
+        e.preventDefault();
+        return false;
+      }
+
+      // F11 - Fullscreen (optional, but can be annoying)
+      if (e.keyCode === 122) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Disable text selection (optional, for extra protection)
+    document.addEventListener('selectstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // Disable drag and drop (optional)
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+  })();
 
 
+})();

@@ -5,12 +5,11 @@ window.PDATA = [
     id: 'basic-linux-commands',
     title: 'Basic Linux Commands',
     env: 'local',
-    status: 'in_progress',
+    status: 'completed',
     summary: 'Core Linux command-line operations on an Ubuntu VM covering navigation, filesystem structure, essential commands, permissions, process monitoring, package management, networking basics, storage management, and service control.',
     purpose: 'Build a strong command-line foundation so learners can confidently operate Linux systems for daily administration, troubleshooting, and DevOps workflows.',
     overview: [
       'Set up Ubuntu 22.04 using VirtualBox, VMware, or WSL2 to create a safe local Linux practice environment.',
-      'Understand the Linux filesystem hierarchy and the purpose of important directories such as /, /home, /etc, /var, /usr, /bin, /sbin, /tmp, and /opt.',
       'Learn basic terminal navigation commands like pwd, ls, cd, tree, and how to explore directories efficiently.',
       'Work with files and directories using commands such as touch, mkdir, rm, cp, mv, and understand file paths (absolute vs relative).',
       'Read and inspect file content using cat, less, more, head, tail, and follow logs with tail -f.',
@@ -19,14 +18,12 @@ window.PDATA = [
       'Learn how to monitor system processes using ps, top, htop, kill, killall, and understand process IDs.',
       'Understand disk usage and storage management using df, du, lsblk, mount, and basic disk inspection.',
       'Manage software packages using apt, apt update, apt install, apt remove, and apt upgrade.',
-      'Understand system services and background processes using systemctl, service, and check logs using journalctl.',
       'Learn basic networking commands such as ip, ping, curl, wget, netstat, ss, and checking connectivity.',
       'Use text processing and filtering tools like grep, awk, cut, sort, uniq, and wc for analyzing command output.',
       'Understand command chaining and redirection using pipes (|), output redirection (> , >>), and input redirection (<).',
       'Learn environment variables, PATH, and how Linux executes commands.',
       'Understand basic user management with useradd, passwd, usermod, and groups.',
       'Practice using sudo for privilege escalation and understand root vs normal users.',
-      'Learn how to view system logs and troubleshoot issues using journalctl, dmesg, and log files in /var/log.',
       'Develop command-line efficiency using command history, tab completion, aliases, and shortcuts.'
     ],
     page: '../../projects/linux/basic-commands/index.html'

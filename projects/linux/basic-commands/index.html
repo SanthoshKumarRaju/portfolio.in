@@ -3,74 +3,2968 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Basic Commands — SKR</title>
+  <title>Basic Linux Commands</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
   <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 <div id="g-cur"></div>
 <div id="g-cur-r"></div>
+
 <nav class="g-nav">
-  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
   <div class="g-nav__links">
-    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
-    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
-    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
-    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
   </div>
   <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
 </nav>
+
 <div class="g-page proj-page">
-  <div class="proj-header">
+  <div class="proj-header" style="position:relative;">
     <div class="proj-bc">
       <a href="../../../pages/projects/projects.html">projects</a>
       <span>/</span>
-      <span>linux</span>
+      <span >linux</span>
       <span>/</span>
-      <span class="proj-bc-cur">basic-commands</span>
+      <span class="proj-bc-cur">basic-linux-commands</span>
     </div>
     <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
   </div>
+
   <div class="proj-body">
     <div class="proj-title-row">
       <div>
-        <div class="proj-concept">Linux</div>
-        <h1 class="proj-title">Basic Commands</h1>
-        <span class="g-tag tg">&bull; localhost</span>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Basic Linux Commands</h1>
+        <span class="g-tag tg">&bull; local lab</span>
+        <!-- terminal toggle button defined globally -->
+        <button class="terminal-btn" id="terminalBtn" type="button">Terminal</button>
       </div>
     </div>
-    <p class="proj-desc">Core Linux command-line operations on Ubuntu VM. File navigation, permissions, process management, apt package manager and systemd service control.</p>
-    <div class="proj-section-title">Setup Steps</div>
-    <ol class="proj-steps">
-      <li>Install Ubuntu 22.04 on VirtualBox or use WSL2 on Windows</li>
-      <li>Run <strong>sudo apt update &amp;&amp; sudo apt upgrade -y</strong></li>
-      <li>Practise commands below in a safe /tmp/lab directory</li>
-      <li>Use <strong>journalctl -u nginx -f</strong> to follow service logs</li>
-    </ol>
-    <div class="g-code">
-      <div class="g-code__bar">
-        <div class="g-code__dots">
-          <div class="g-code__dot" style="background:#ff5f57"></div>
-          <div class="g-code__dot" style="background:#febc2e"></div>
-          <div class="g-code__dot" style="background:#28c840"></div>
+    <div class="proj-desc">
+      <span class="task-summary">Summary</span>
+      <p></p>
+        This project is designed to help you get hands-on experience with essential Linux commands and concepts. You'll set up a local Ubuntu VM using VMware or VirtualBox, then practice navigating the filesystem, managing files and permissions, checking system resources, and troubleshooting services using logs. By completing the structured tasks, you'll build a solid foundation in Linux that will be valuable for any admin or DevOps role.
+      </p>
+    </div>
+    <section class="task-board" aria-label="Linux setup and command tasks">
+      <div class="proj-section-title">Task Checklist</div>
+
+      <article class="task-card is-open" data-task style="--i:0">
+        <button class="task-toggle" type="button" aria-expanded="true">
+          <span class="task-pill">Task 1</span>
+          <span class="task-title">Install VMware Workstation Player</span>
+          <span class="task-meta">15-20 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+          <div class="task-panel-inner">
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Install the virtualization tool required to run Ubuntu.
+            </p>
+            <ol class="task-steps-list">
+              <li>
+                Open your browser and go to VMware official downloads page for 
+                <strong>
+                  <a  class="task-link"
+                    href="https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Workstation Player
+                  </a>
+                </strong>.
+              </li>
+              <li>Select the installer matching your host OS and download it to <code>Downloads Now</code>.</li>
+              <li>Run the installer with administrator permissions and accept the license agreement.</li>
+              <li>Keep default install path and default feature options unless your lab has custom requirements.</li>
+              <li>Complete installation, restart your host machine if prompted, then launch VMware once.</li>
+              <li>Confirm the app opens to the VMware home dashboard without any startup error.</li>
+            </ol>
+            <div class="task-check">Completion check: VMware opens and shows the home screen.</div>
+          </div>
         </div>
-        <span class="g-code__fname">commands.sh</span>
-        <span class="g-code__lang">bash</span>
+      </article>
+
+      <article class="task-card" data-task style="--i:1">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 2</span>
+          <span class="task-title">Download Ubuntu 22.04 ISO</span>
+          <span class="task-meta">5-10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+          <div class="task-panel-inner">
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Get the OS image needed for VM installation.
+            </p>
+            <ol class="task-steps-list">
+              <li>Go to the Ubuntu official download page and choose
+                <strong>
+                  <a class="task-link"
+                    href="https://ubuntu.com/download/desktop"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Ubuntu 22.04 LTS Desktop
+                  </a>
+                </strong>.
+              </li>
+              <li>Select the OS version you prefer; The recommended version - <strong> 22.04 LTS Desktop</strong> - click on <code>Download</code>.</li>
+              <li>Start the ISO download and wait for the file to fully complete before closing browser.</li>
+              <li>Move the ISO to a stable folder path such as <code>D:\ISO\ubuntu-22.04.iso</code>.</li>
+              <li>Open file properties and confirm the file size is not zero and extension is <code>.iso</code>.</li>
+              <li>Recommended: compare SHA256 checksum with Ubuntu website to verify file integrity.</li>
+            </ol>
+            <div class="task-check">Completion check: ISO file is fully downloaded and accessible.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:2">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 3</span>
+          <span class="task-title">Create and Configure Ubuntu VM</span>
+          <span class="task-meta">10-15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+          <div class="task-panel-inner">
+            <p class="task-goal">Goal: create a VM with practical resources for Linux learning.</p>
+            <ol class="task-steps-list">
+              <li>Click <strong>Create a New Virtual Machine</strong> from VMware home screen.</li>
+              <li>Choose <strong>Installer disc image file (iso)</strong> and browse to your Ubuntu ISO path.</li>
+              <li>Set guest OS type to <strong>Linux</strong> and version to <strong>Ubuntu 64-bit</strong>.</li>
+              <li>Enter VM name such as <strong>Ubuntu-Lab</strong> and select a folder with enough free space.</li>
+              <li>Allocate disk size <strong>40 GB</strong> (single file is fine for a local learning VM).</li>
+              <li>Open hardware settings and configure RAM at least <strong>4 GB</strong>, CPU <strong>2 cores</strong>, network <strong>NAT</strong>.</li>
+              <li>Save configuration and power on the VM to confirm it boots to Ubuntu installer.</li>
+            </ol>
+            <div class="task-check">Completion check: VM boots from ISO and Ubuntu installer screen appears.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:3">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 4</span>
+          <span class="task-title">Install Ubuntu Inside the VM</span>
+          <span class="task-meta">20-30 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+          <div class="task-panel-inner">
+            <p class="task-goal">Goal: complete OS installation and first boot.</p>
+            <ol class="task-steps-list">
+              <li>Select <strong>Install Ubuntu</strong> in the booted installer screen.</li>
+              <li>Pick your keyboard layout and test typing in the installer input box.</li>
+              <li>Choose <strong>Normal installation</strong> and enable downloading updates during setup.</li>
+              <li>Select <strong>Erase disk and install Ubuntu</strong> only because this is an isolated VM disk.</li>
+              <li>Set timezone correctly, create username, hostname, and a strong password.</li>
+              <li>Allow installation to finish, then click restart and remove ISO if prompted.</li>
+              <li>Log in after reboot and confirm desktop, terminal, and settings open normally.</li>
+            </ol>
+            <div class="task-check">Completion check: You can log in to Ubuntu desktop normally.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:4">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 5</span>
+          <span class="task-title">Update the System and Prepare Practice Folder</span>
+          <span class="task-meta">8-10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+          <div class="task-panel-inner">
+            <p class="task-goal">Goal: keep OS updated and create a safe lab directory.</p>
+            <ol class="task-steps-list">
+              <li>Open terminal using <strong>Ctrl + Alt + T</strong> immediately after first login.</li>
+              <li>Refresh package index: <code>sudo apt update</code> and check for successful completion.</li>
+              <li>Apply upgrades: <code>sudo apt upgrade -y</code> and wait until prompt returns.</li>
+              <li>Install key tools: <code>sudo apt install -y curl wget git htop tree</code>.</li>
+              <li>Create your practice folder and enter it: <code>mkdir -p /tmp/lab &amp;&amp; cd /tmp/lab</code>.</li>
+              <li>Confirm location with <code>pwd</code> and verify output shows <code>/tmp/lab</code>.</li>
+            </ol>
+            <div class="task-check">Completion check: package update completed and <code>/tmp/lab</code> exists.</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:5">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 6</span>
+          <span class="task-title">First Basic Linux Commands</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+          <div class="task-panel">
+          <div class="task-panel-inner">
+          <ul class="task-points">
+            <li>
+              <div class="cmd">man</div>
+              <div class="cmd-desc">
+              Displays the <span class="hl"> manual (help documentation)</span> for any Linux command.
+              <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div> 
+                <code class="cmd-line">man &lt;command&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">man ls</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Usage</div>
+                <div>Press <span class="hl">q</span> to exit manual</div>
+                <div>Use <span class="hl">space</span> to scroll</div>
+              </div>
+              </div>
+              </div>
+            </li>
+            <li>
+              <div class="cmd">--help</div>
+              <div class="cmd-desc">
+                Displays quick help information for commands.
+                <div class="cmd-info">
+                  <div class="cmd-block">
+                    <div class="cmd-label">Syntax</div>
+                    <code class="cmd-line">&lt;command&gt; --help</code>
+                  </div>
+                  <div class="cmd-block">
+                    <div class="cmd-label">Example</div>
+                    <code class="cmd-line">ls --help</code>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="cmd">whoami</div>
+              <div class="cmd-desc">
+              Displays the <span class="hl">current logged-in user</span>.
+                <div class="cmd-info">
+                  <div class="cmd-block">
+                    <div class="cmd-label">Syntax</div>
+                    <code class="cmd-line">whoami</code>
+                  </div>
+                  <div class="cmd-block">
+                    <div class="cmd-label">Example</div>
+                    <code class="cmd-line">whoami</code>
+                  </div>
+                  <div class="cmd-block">
+                    <div class="cmd-label">Output Example</div>
+                    <code class="cmd-line">santhosh</code>
+                  </div>
+                </div>
+                </div>
+            </li>
+            <li>
+              <div class="cmd">uname</div>
+              <div class="cmd-desc">
+                Displays system information.
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Options</div>
+                  <div>-a → all system information</div>
+                  <div>-r → kernel version</div>
+                  <div>-s → kernel name</div>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Examples</div>
+                  <code class="cmd-line">uname</code>
+                  <code class="cmd-line">uname -a</code>
+                </div>
+              </div>
+            </div>
+            </li>
+            <li>
+              <div class="cmd">hostname</div>
+                <div class="cmd-desc">
+                  Displays the system hostname.
+                  <div class="cmd-info">
+                    <div class="cmd-block">
+                      <div class="cmd-label">Syntax</div>
+                      <code class="cmd-line">hostname</code>
+                    </div>
+                    <div class="cmd-block">
+                      <div class="cmd-label">Example</div>
+                      <code class="cmd-line">hostname</code>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+              <div class="cmd">date</div>
+                <div class="cmd-desc">
+                  Displays the current system date and time.
+                  <div class="cmd-info">
+                    <div class="cmd-block">
+                    <div class="cmd-label">Syntax</div>
+                    <code class="cmd-line">date</code>
+                    </div>
+                    <div class="cmd-block">
+                    <div class="cmd-label">Example</div>
+                    <code class="cmd-line">date</code>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+              <div class="cmd">uptime</div>
+                <div class="cmd-desc">
+                  Shows how long the system has been running.
+                  <div class="cmd-info">
+                    <div class="cmd-block">
+                      <div class="cmd-label">Syntax</div>
+                      <code class="cmd-line">uptime</code>
+                    </div>
+                    <div class="cmd-block">
+                      <div class="cmd-label">Example</div>
+                      <code class="cmd-line">uptime</code>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+              <div class="cmd">clear</div>
+                <div class="cmd-desc">
+                  Clears the terminal screen.
+                  <div class="cmd-info">
+                    <div class="cmd-block">
+                      <div class="cmd-label">Example</div>
+                      <code class="cmd-line">clear</code>
+                    </div>
+                    <div class="cmd-block">
+                      <div class="cmd-label">Shortcut</div>
+                      <div>Press <span class="hl">Ctrl + L</span></div>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+              <div class="cmd">history</div>
+                <div class="cmd-desc">
+                  Shows previously executed commands.
+                  <div class="cmd-info">
+                    <div class="cmd-block">
+                      <div class="cmd-label">Example</div>
+                      <code class="cmd-line">history</code>
+                    </div>
+                    <div class="cmd-block">
+                      <div class="cmd-label">Useful Tip</div>
+                      <div>Run previous command using <span class="hl">!number</span></div>
+                    </div>
+                  </div>
+                </div>
+            </li>
+          </ul>
+            <div class="task-check">
+            Completion check: you understand how to get help, identify your user, and view system information.
+            </div>
+          </div>
+          </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:6">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 7</span>
+          <span class="task-title">Navigation & File System Basics</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+          <div class="task-panel-inner">
+          <ul class="task-points">
+          <!-- pwd -->
+          <li>
+            <div class="cmd">pwd</div>
+            <div class="cmd-desc">
+              Displays the <span class="hl">current working directory</span> path in the Linux filesystem.
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Syntax</div>
+                  <code class="cmd-line">pwd</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Example</div>
+                  <code class="cmd-line">pwd</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Output Example</div>
+                  <code class="cmd-line">/home/santhosh/projects</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Description</div>
+                  <div>Shows the full path of the directory you are currently working in.</div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- ls -->
+          <li>
+            <div class="cmd">ls</div>
+            <div class="cmd-desc">
+              Lists files and directories inside the current directory.
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Syntax</div>
+                  <code class="cmd-line">ls [options] [directory]</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Common Options</div>
+                  <div>-l → long listing format</div>
+                  <div>-a → show hidden files</div>
+                  <div>-h → human readable file sizes</div>
+                  <div>-t → sort by modification time</div>
+                  <div>-r → reverse order</div>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Examples</div>
+                  <code class="cmd-line">ls</code>
+                  <code class="cmd-line">ls /etc</code>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- ls -lah -->
+          <li>
+            <div class="cmd">ls -lah</div>
+            <div class="cmd-desc">
+              Displays a <span class="hl">detailed list of files including hidden files</span> with readable sizes.
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Explanation</div>
+                  <div>-l → detailed list</div>
+                  <div>-a → include hidden files</div>
+                  <div>-h → human readable sizes (KB, MB)</div>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Example</div>
+                  <code class="cmd-line">ls -lah</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Output Example</div>
+                  <code class="cmd-line">
+                    <div>drwxr-xr-x  2 user user 4.0K Jan 20 docs</div>
+                    <div>-rw-r--r--  1 user user 1.2K Jan 20 file.txt</div>
+                  </code>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- cd -->
+          <li>
+            <div class="cmd">cd</div>
+            <div class="cmd-desc">
+              Changes the <span class="hl">current directory</span>.
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Syntax</div>
+                  <code class="cmd-line">cd &lt;directory&gt;</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Examples</div>
+                  <code class="cmd-line">cd /etc</code>
+                  <code class="cmd-line">cd /var/log</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Description</div>
+                  <div>Used to move between directories in the filesystem.</div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- cd .. -->
+          <li>
+            <div class="cmd">cd ..</div>
+            <div class="cmd-desc">
+              Moves to the <span class="hl">parent directory</span> (one level up).
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Syntax</div>
+                  <code class="cmd-line">cd ..</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Example</div>
+                  <code class="cmd-line">cd ..</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Explanation</div>
+                  <div><span class="hl">..</span> represents the parent directory.</div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- cd ~ -->
+          <li>
+            <div class="cmd">cd ~</div>
+            <div class="cmd-desc">
+              Moves to the <span class="hl">home directory</span> of the current user.
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Syntax</div>
+                  <code class="cmd-line">cd ~</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Example</div>
+                  <code class="cmd-line">cd ~</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Output Example</div>
+                  <code class="cmd-line">/home/santhosh</code>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- tree -->
+          <li>
+            <div class="cmd">tree</div>
+            <div class="cmd-desc">
+              Displays the <span class="hl">directory structure in a tree format</span>.
+              <div class="cmd-info">
+                <div class="cmd-block">
+                  <div class="cmd-label">Syntax</div>
+                  <code class="cmd-line">tree [directory]</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Common Options</div>
+                  <div>-L → limit directory depth</div>
+                  <div>-a → show hidden files</div>
+                  <div>-d → show directories only</div>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Examples</div>
+                  <code class="cmd-line">tree</code>
+                  <code class="cmd-line">tree -L 2</code>
+                </div>
+                <div class="cmd-block">
+                  <div class="cmd-label">Output Example</div>
+                  <pre class="cmd-output">
+        <code>
+        projects
+        ├── app
+        │   ├── index.html
+        │   └── style.css
+        └── docs
+        </code>
+        </pre>
+                  </code>
+                </div>
+              </div>
+            </div>
+          </li>
+          </ul>
+          <div class="task-check">
+            Completion check: you understand how to navigate the Linux filesystem, view directories, and move between folders.
+          </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:7">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 8</span>
+          <span class="task-title">File & Directory Management</span>
+          <span class="task-meta">10 -15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- touch -->
+        <li>
+          <div class="cmd">touch</div>
+          <div class="cmd-desc">
+            Creates a <span class="hl">new empty file</span> or updates the timestamp of an existing file.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">touch &lt;filename&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">touch file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Creates an empty file named <span class="hl">file.txt</span>.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- mkdir -->
+        <li>
+          <div class="cmd">mkdir</div>
+          <div class="cmd-desc">
+            Creates a <span class="hl">new directory (folder)</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">mkdir &lt;directory_name&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">mkdir project</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+                <pre class="cmd-output"><code>project/</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- mkdir -p -->
+        <li>
+          <div class="cmd">mkdir -p</div>
+          <div class="cmd-desc">
+            Creates <span class="hl">nested directories</span> in one command.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Option</div>
+                <div>-p → creates parent directories if they do not exist</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">mkdir -p dir1/dir2</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Result</div>
+                <pre class="cmd-output"><code>dir1/
+      └── dir2/</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- cp -->
+        <li>
+          <div class="cmd">cp</div>
+          <div class="cmd-desc">
+            Copies files or directories from one location to another.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">cp &lt;source&gt; &lt;destination&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">cp file.txt backup.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-r → copy directories recursively</div>
+                <div>-v → verbose output</div>
+                <div>-i → confirm before overwrite</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- mv -->
+        <li>
+          <div class="cmd">mv</div>
+          <div class="cmd-desc">
+            Moves or renames files and directories.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">mv &lt;source&gt; &lt;destination&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example (Rename)</div>
+                <code class="cmd-line">mv file.txt newname.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example (Move)</div>
+                <code class="cmd-line">mv file.txt /home/user/docs</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-i → confirm before overwrite</div>
+                <div>-v → show operation details</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- rm -->
+        <li>
+          <div class="cmd">rm</div>
+          <div class="cmd-desc">
+            Deletes files from the system.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">rm &lt;filename&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">rm file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Warning</div>
+                <div>Deleted files cannot be recovered easily.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- rm -r -->
+        <li>
+          <div class="cmd">rm -r</div>
+          <div class="cmd-desc">
+            Deletes directories and their contents.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Option</div>
+                <div>-r → recursive delete</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">rm -r directory</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Useful Options</div>
+                <div>-f → force delete</div>
+                <div>-i → confirmation before deleting</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <div class="task-check">
+          Completion check: you understand how to create, copy, move, and delete files and directories in Linux.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:8">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 9</span>
+          <span class="task-title">Viewing File Content</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- cat -->
+        <li>
+          <div class="cmd">cat</div>
+          <div class="cmd-desc">
+            Displays the <span class="hl">entire contents of a file</span> in the terminal.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">cat &lt;filename&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">cat file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-n → show line numbers</div>
+                <div>-b → number non-empty lines</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>Hello Linux
+      Learning commands
+      Practice daily</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- less -->
+        <li>
+          <div class="cmd">less</div>
+          <div class="cmd-desc">
+            Opens a file in an <span class="hl">interactive viewer</span> that allows scrolling.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">less &lt;filename&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">less file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Usage</div>
+                <div>Press <span class="hl">Space</span> → scroll down</div>
+                <div>Press <span class="hl">b</span> → scroll up</div>
+                <div>Press <span class="hl">q</span> → exit viewer</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- head -->
+        <li>
+          <div class="cmd">head</div>
+          <div class="cmd-desc">
+            Displays the <span class="hl">first 10 lines</span> of a file by default.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">head &lt;filename&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">head file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option</div>
+                <div>-n → specify number of lines</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example with Option</div>
+                <code class="cmd-line">head -n 5 file.txt</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- tail -->
+        <li>
+          <div class="cmd">tail</div>
+          <div class="cmd-desc">
+            Displays the <span class="hl">last 10 lines</span> of a file.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">tail &lt;filename&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">tail file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option</div>
+                <div>-n → display specific number of lines</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">tail -n 20 file.txt</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- tail -f -->
+        <li>
+          <div class="cmd">tail -f</div>
+          <div class="cmd-desc">
+            Monitors a file in <span class="hl">real-time</span> and displays new lines as they are added.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">tail -f &lt;filename&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">tail -f log.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Use</div>
+                <div>Used to monitor application logs.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Tip</div>
+                <div>Press <span class="hl">Ctrl + C</span> to stop monitoring.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">cat notes.txt</code><br>
+            <code class="cmd-line">head notes.txt</code><br>
+            <code class="cmd-line">tail notes.txt</code><br>
+            <code class="cmd-line">less notes.txt</code>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to read files, preview content, and monitor logs in Linux.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:9">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 10</span>
+          <span class="task-title">Searching Files & Text</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- find -->
+        <li>
+          <div class="cmd">find</div>
+          <div class="cmd-desc">
+            Searches for <span class="hl">files and directories</span> in the filesystem.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">find &lt;path&gt; [options] &lt;expression&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-name → search by file name</div>
+                <div>-type f → search files only</div>
+                <div>-type d → search directories only</div>
+                <div>-size → search by file size</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Examples</div>
+                <code class="cmd-line">find . -name file.txt</code><br>
+                <code class="cmd-line">find /home -type f -name "*.log"</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>./logs/error.log
+      ./logs/system.log</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- grep -->
+        <li>
+          <div class="cmd">grep</div>
+          <div class="cmd-desc">
+            Searches for <span class="hl">text patterns inside files</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">grep [options] "pattern" &lt;file&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-i → ignore case</div>
+                <div>-r → search recursively</div>
+                <div>-n → show line numbers</div>
+                <div>-v → show lines that do NOT match</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Examples</div>
+                <code class="cmd-line">grep "error" log.txt</code><br>
+                <code class="cmd-line">grep -i "warning" log.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>45:error connecting to database
+      78:error timeout</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- find + grep -->
+        <li>
+          <div class="cmd">find + grep</div>
+          <div class="cmd-desc">
+            Combines <span class="hl">file searching and text searching</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">find . -name "*.log" | grep error</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Finds all log files and filters results containing "error".</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Practical Examples -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Practical Examples</div>
+            <code class="cmd-line">find /var/log -name "*.log"</code><br>
+            <code class="cmd-line">grep -i "failed" auth.log</code><br>
+            <code class="cmd-line">grep -rn "password" /etc</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>/etc/ssh/sshd_config:34:PasswordAuthentication yes
+      /etc/pam.d/common-password:12:password required</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to search files and locate text patterns inside files using find and grep.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:10">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 11</span>
+          <span class="task-title">File Permissions & Ownership</span>
+          <span class="task-meta">10 -15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- chmod 755 -->
+        <li>
+          <div class="cmd">chmod 755</div>
+          <div class="cmd-desc">
+            Changes file permissions using <span class="hl">numeric permission mode</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">chmod 755 &lt;file&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">chmod 755 script.sh</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Permission Meaning</div>
+                <div>7 → read + write + execute (owner)</div>
+                <div>5 → read + execute (group)</div>
+                <div>5 → read + execute (others)</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- chmod +x -->
+        <li>
+          <div class="cmd">chmod +x</div>
+          <div class="cmd-desc">
+            Adds <span class="hl">execute permission</span> to a file.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">chmod +x &lt;file&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">chmod +x script.sh</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Makes the file executable so it can run as a script.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- chown user -->
+        <li>
+          <div class="cmd">chown</div>
+          <div class="cmd-desc">
+            Changes the <span class="hl">owner of a file</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">chown &lt;user&gt; &lt;file&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">chown user file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Transfers file ownership to another user.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- chown user:group -->
+        <li>
+          <div class="cmd">chown user:group</div>
+          <div class="cmd-desc">
+            Changes both <span class="hl">owner and group</span> of a file.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">chown &lt;user&gt;:&lt;group&gt; &lt;file&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">chown user:devteam file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Assigns both user ownership and group ownership.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- ls -l -->
+        <li>
+          <div class="cmd">ls -l</div>
+          <div class="cmd-desc">
+            Displays detailed file information including <span class="hl">permissions, owner, and group</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ls -l</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ls -l script.sh</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+    <pre class="cmd-output"><code>-rwxr-xr-x 1 santhosh developers 512 Aug 10 12:00 script.sh</code></pre>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Permission Breakdown</div>
+                <div>- → file type</div>
+                <div>rwx → owner permissions</div>
+                <div>r-x → group permissions</div>
+                <div>r-x → others permissions</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example Workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">touch script.sh</code><br>
+            <code class="cmd-line">chmod +x script.sh</code><br>
+            <code class="cmd-line">chmod 755 script.sh</code><br>
+            <code class="cmd-line">ls -l script.sh</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Result</div>
+      <pre class="cmd-output"><code>-rwxr-xr-x 1 santhosh santhosh 0 Aug 10 12:10 script.sh</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to modify file permissions and change file ownership in Linux.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:11">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 12</span>
+          <span class="task-title">System Information</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- uname -->
+        <li>
+          <div class="cmd">uname</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">system and kernel information</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">uname [options]</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-a → show all system information</div>
+                <div>-r → show kernel version</div>
+                <div>-s → show kernel name</div>
+                <div>-m → show machine architecture</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">uname -a</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>Linux server01 5.15.0-84-generic x86_64 GNU/Linux</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- hostname -->
+        <li>
+          <div class="cmd">hostname</div>
+          <div class="cmd-desc">
+            Displays the <span class="hl">system hostname</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">hostname</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">hostname</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>server01</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- uptime -->
+        <li>
+          <div class="cmd">uptime</div>
+          <div class="cmd-desc">
+            Shows how long the system has been <span class="hl">running since last reboot</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">uptime</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">uptime</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>14:32:10 up 3 days, 4:22, 2 users, load average: 0.12, 0.18, 0.20</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- whoami -->
+        <li>
+          <div class="cmd">whoami</div>
+          <div class="cmd-desc">
+            Displays the <span class="hl">current logged-in user</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">whoami</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">whoami</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>santhosh</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- id -->
+        <li>
+          <div class="cmd">id</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">user ID (UID), group ID (GID), and group memberships</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">id</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">id</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>uid=1000(santhosh) gid=1000(santhosh) groups=1000(santhosh),27(sudo)</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example Section -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">uname -a</code><br>
+            <code class="cmd-line">hostname</code><br>
+            <code class="cmd-line">uptime</code><br>
+            <code class="cmd-line">whoami</code><br>
+            <code class="cmd-line">id</code>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to check system details, user information, and system uptime.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:12">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 13</span>
+          <span class="task-title">Disk & Storage Information</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- df -->
+        <li>
+          <div class="cmd">df</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">disk space usage of mounted filesystems</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">df [options]</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Option</div>
+                <div>-h → human readable format (KB, MB, GB)</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">df -h</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>Filesystem      Size  Used Avail Use% Mounted on
+      /dev/sda1        50G   20G   28G  42% /
+      tmpfs           1.9G     0  1.9G   0% /dev/shm</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- du -->
+        <li>
+          <div class="cmd">du</div>
+          <div class="cmd-desc">
+            Shows <span class="hl">disk usage of files and directories</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">du [options] &lt;directory&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-h → human readable size</div>
+                <div>-s → show summary only</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">du -sh /var/log</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>120M    /var/log</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- lsblk -->
+        <li>
+          <div class="cmd">lsblk</div>
+          <div class="cmd-desc">
+            Lists <span class="hl">block devices and storage disks</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">lsblk</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">lsblk</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+      sda      8:0    0   50G  0 disk
+      ├─sda1   8:1    0   49G  0 part /
+      └─sda2   8:2    0    1G  0 part [SWAP]</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- mount -->
+        <li>
+          <div class="cmd">mount</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">mounted filesystems</span> or mounts a storage device.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">mount</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Mount Example</div>
+                <code class="cmd-line">mount /dev/sdb1 /mnt/data</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Attaches a storage device to the filesystem.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>/dev/sda1 on / type ext4 (rw,relatime)
+      tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">df -h</code><br>
+            <code class="cmd-line">du -sh /home</code><br>
+            <code class="cmd-line">lsblk</code><br>
+            <code class="cmd-line">mount</code>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to check disk usage, view storage devices, and inspect mounted filesystems.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:13">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 14</span>
+          <span class="task-title">Process Management</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- ps -->
+        <li>
+          <div class="cmd">ps</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">currently running processes</span> for the current terminal session.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ps</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ps</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>PID   TTY          TIME CMD
+      2245  pts/0    00:00:00 bash
+      2301  pts/0    00:00:00 ps</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- ps aux -->
+        <li>
+          <div class="cmd">ps aux</div>
+          <div class="cmd-desc">
+            Shows <span class="hl">all running processes on the system</span> with detailed information.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ps aux</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>a → show processes for all users</div>
+                <div>u → display user information</div>
+                <div>x → include processes without terminal</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ps aux</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- top -->
+        <li>
+          <div class="cmd">top</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">real-time system processes and resource usage</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">top</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">top</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Usage</div>
+                <div>Press <span class="hl">q</span> to exit</div>
+                <div>Press <span class="hl">k</span> to kill a process</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- htop -->
+        <li>
+          <div class="cmd">htop</div>
+          <div class="cmd-desc">
+            An <span class="hl">interactive process viewer</span> with better visualization than top.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">htop</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Install (if not available)</div>
+                <code class="cmd-line">sudo apt install htop</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Features</div>
+                <div>Colored CPU and memory usage</div>
+                <div>Interactive process management</div>
+                <div>Scroll and search processes</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- kill -->
+        <li>
+          <div class="cmd">kill</div>
+          <div class="cmd-desc">
+            Sends a <span class="hl">signal to terminate a process</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">kill &lt;PID&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">kill 2345</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Sends a termination signal to the process.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- kill -9 -->
+        <li>
+          <div class="cmd">kill -9</div>
+          <div class="cmd-desc">
+            Forcefully terminates a process using the <span class="hl">SIGKILL signal</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">kill -9 &lt;PID&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">kill -9 2345</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Warning</div>
+                <div>This immediately stops the process and may cause data loss.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example Workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">ps aux</code><br>
+            <code class="cmd-line">top</code><br>
+            <code class="cmd-line">kill 2345</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>USER   PID %CPU %MEM COMMAND
+      root  1023  0.3  1.2 nginx
+      user  2245  0.1  0.5 bash</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to monitor and manage running processes in Linux.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:14">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 15</span>
+          <span class="task-title">Networking Commands</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- ping -->
+        <li>
+          <div class="cmd">ping</div>
+          <div class="cmd-desc">
+            Tests <span class="hl">network connectivity</span> between your system and another host.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ping &lt;host&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ping google.com</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>64 bytes from 142.250.183.206: icmp_seq=1 ttl=118 time=23.4 ms</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- ip a -->
+        <li>
+          <div class="cmd">ip a</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">network interfaces and IP addresses</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ip a</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ip a</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;
+          inet 192.168.1.15/24</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- ip route -->
+        <li>
+          <div class="cmd">ip route</div>
+          <div class="cmd-desc">
+            Shows the <span class="hl">system routing table</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ip route</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ip route</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>default via 192.168.1.1 dev eth0
+      192.168.1.0/24 dev eth0 proto kernel scope link</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- ss -->
+        <li>
+          <div class="cmd">ss</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">network sockets and listening ports</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ss -tulpn</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Options</div>
+                <div>-t → TCP sockets</div>
+                <div>-u → UDP sockets</div>
+                <div>-l → listening sockets</div>
+                <div>-p → process using the socket</div>
+                <div>-n → show numeric addresses</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ss -tulpn</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- netstat -->
+        <li>
+          <div class="cmd">netstat</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">network connections and open ports</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">netstat -tulpn</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">netstat -tulpn</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Note</div>
+                <div>Modern Linux systems prefer <span class="hl">ss</span> instead of netstat.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- curl -->
+        <li>
+          <div class="cmd">curl</div>
+          <div class="cmd-desc">
+            Sends HTTP requests and retrieves data from a URL.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">curl &lt;URL&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">curl example.com</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Use</div>
+                <div>Testing APIs and web servers.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- wget -->
+        <li>
+          <div class="cmd">wget</div>
+          <div class="cmd-desc">
+            Downloads files from the internet.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">wget &lt;URL&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">wget https://example.com/file</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Saves the downloaded file in the current directory.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example Workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">ping google.com</code><br>
+            <code class="cmd-line">ip a</code><br>
+            <code class="cmd-line">ip route</code><br>
+            <code class="cmd-line">ss -tulpn</code><br>
+            <code class="cmd-line">curl example.com</code>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to test connectivity, inspect network interfaces, view open ports, and download files.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:15">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 16</span>
+          <span class="task-title">Package Management (Linux Distributions)</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- apt -->
+        <li>
+          <div class="cmd">apt (Ubuntu / Debian)</div>
+          <div class="cmd-desc">
+            Package manager used in <span class="hl">Ubuntu and Debian based systems</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Update package list</div>
+                <code class="cmd-line">sudo apt update</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Upgrade installed packages</div>
+                <code class="cmd-line">sudo apt upgrade</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Install package</div>
+                <code class="cmd-line">sudo apt install nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Remove package</div>
+                <code class="cmd-line">sudo apt remove nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Search package</div>
+                <code class="cmd-line">sudo apt search docker</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- dnf -->
+        <li>
+          <div class="cmd">dnf (RHEL / CentOS / Rocky Linux)</div>
+          <div class="cmd-desc">
+            Package manager used in <span class="hl">RedHat based distributions</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Update repositories</div>
+                <code class="cmd-line">sudo dnf check-update</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Upgrade packages</div>
+                <code class="cmd-line">sudo dnf upgrade</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Install package</div>
+                <code class="cmd-line">sudo dnf install nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Remove package</div>
+                <code class="cmd-line">sudo dnf remove nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Search package</div>
+                <code class="cmd-line">dnf search docker</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- pacman -->
+        <li>
+          <div class="cmd">pacman (Arch Linux)</div>
+          <div class="cmd-desc">
+            Package manager used in <span class="hl">Arch Linux</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Update system</div>
+                <code class="cmd-line">sudo pacman -Syu</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Install package</div>
+                <code class="cmd-line">sudo pacman -S nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Remove package</div>
+                <code class="cmd-line">sudo pacman -R nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Search package</div>
+                <code class="cmd-line">pacman -Ss docker</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- zypper -->
+        <li>
+          <div class="cmd">zypper (SUSE / openSUSE)</div>
+          <div class="cmd-desc">
+            Package manager used in <span class="hl">SUSE and openSUSE</span> distributions.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Refresh repositories</div>
+                <code class="cmd-line">sudo zypper refresh</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Update packages</div>
+                <code class="cmd-line">sudo zypper update</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Install package</div>
+                <code class="cmd-line">sudo zypper install nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Remove package</div>
+                <code class="cmd-line">sudo zypper remove nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Search package</div>
+                <code class="cmd-line">zypper search docker</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow (Ubuntu)</div>
+            <code class="cmd-line">sudo apt update</code><br>
+            <code class="cmd-line">sudo apt install nginx</code><br>
+            <code class="cmd-line">sudo systemctl start nginx</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Check Service</div>
+      <pre class="cmd-output"><code>systemctl status nginx
+      Active: active (running)</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to install, update, search, and remove software packages across different Linux distributions.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:16">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 17</span>
+          <span class="task-title">Service Management (Systemd)</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- systemctl start -->
+        <li>
+          <div class="cmd">systemctl start</div>
+          <div class="cmd-desc">
+            Starts a <span class="hl">system service</span> immediately.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo systemctl start &lt;service&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo systemctl start nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Starts the nginx web server service.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- systemctl stop -->
+        <li>
+          <div class="cmd">systemctl stop</div>
+          <div class="cmd-desc">
+            Stops a <span class="hl">running system service</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo systemctl stop &lt;service&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo systemctl stop nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Stops the nginx service.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- systemctl restart -->
+        <li>
+          <div class="cmd">systemctl restart</div>
+          <div class="cmd-desc">
+            Restarts a service by <span class="hl">stopping and starting it again</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo systemctl restart &lt;service&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo systemctl restart nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Use</div>
+                <div>Used after configuration changes.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- systemctl status -->
+        <li>
+          <div class="cmd">systemctl status</div>
+          <div class="cmd-desc">
+            Displays the <span class="hl">current status of a service</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">systemctl status &lt;service&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">systemctl status nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>● nginx.service - A high performance web server
+        Loaded: loaded (/lib/systemd/system/nginx.service)
+        Active: active (running)</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- systemctl enable -->
+        <li>
+          <div class="cmd">systemctl enable</div>
+          <div class="cmd-desc">
+            Enables a service to <span class="hl">start automatically at system boot</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo systemctl enable &lt;service&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo systemctl enable nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Ensures nginx starts automatically after reboot.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">sudo apt install nginx</code><br>
+            <code class="cmd-line">sudo systemctl start nginx</code><br>
+            <code class="cmd-line">sudo systemctl enable nginx</code><br>
+            <code class="cmd-line">systemctl status nginx</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>Active: active (running)</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to start, stop, restart, check, and enable system services.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:17">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 18</span>
+          <span class="task-title">Log Management</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- journalctl -->
+        <li>
+          <div class="cmd">journalctl</div>
+          <div class="cmd-desc">
+            Displays <span class="hl">system logs collected by systemd</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">journalctl</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">journalctl</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-b → show logs from current boot</div>
+                <div>-n → show last N lines</div>
+                <div>-xe → show detailed errors</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>Aug 10 10:22:01 server01 systemd[1]: Started nginx.service.
+      Aug 10 10:22:03 server01 sshd[1042]: Accepted password for user</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- journalctl -u -->
+        <li>
+          <div class="cmd">journalctl -u</div>
+          <div class="cmd-desc">
+            Displays logs for a <span class="hl">specific service</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">journalctl -u &lt;service&gt;</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">journalctl -u nginx</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Use</div>
+                <div>Used to troubleshoot service failures.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>Aug 10 10:22:01 server01 nginx[1203]: Starting nginx...
+      Aug 10 10:22:01 server01 nginx[1203]: nginx started successfully</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- journalctl -f -->
+        <li>
+          <div class="cmd">journalctl -f</div>
+          <div class="cmd-desc">
+            Shows logs in <span class="hl">real-time (live log monitoring)</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">journalctl -f</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">journalctl -f</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Continuously prints new log entries.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Tip</div>
+                <div>Press <span class="hl">Ctrl + C</span> to stop viewing logs.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">journalctl -u nginx</code><br>
+            <code class="cmd-line">journalctl -n 50</code><br>
+            <code class="cmd-line">journalctl -f</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>Aug 10 11:02:10 server01 nginx[1401]: configuration reloaded
+      Aug 10 11:02:12 server01 nginx[1401]: worker process started</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to view system logs, inspect service logs, and monitor logs in real-time.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:18">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 19</span>
+          <span class="task-title">Archiving & Compression</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- tar create -->
+        <li>
+          <div class="cmd">tar -cvf</div>
+          <div class="cmd-desc">
+            Creates a <span class="hl">tar archive</span> from files or directories.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">tar -cvf archive.tar folder</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option Breakdown</div>
+                <div>-c → create archive</div>
+                <div>-v → verbose (show files being archived)</div>
+                <div>-f → specify archive file name</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">tar -cvf backup.tar project/</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>project/
+      project/index.html
+      project/style.css</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- tar extract -->
+        <li>
+          <div class="cmd">tar -xvf</div>
+          <div class="cmd-desc">
+            Extracts files from a <span class="hl">tar archive</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">tar -xvf archive.tar</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option Breakdown</div>
+                <div>-x → extract archive</div>
+                <div>-v → verbose output</div>
+                <div>-f → specify archive file</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">tar -xvf backup.tar</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- tar gzip create -->
+        <li>
+          <div class="cmd">tar -czvf</div>
+          <div class="cmd-desc">
+            Creates a <span class="hl">compressed archive using gzip</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">tar -czvf archive.tar.gz folder</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option Breakdown</div>
+                <div>-c → create archive</div>
+                <div>-z → compress with gzip</div>
+                <div>-v → verbose output</div>
+                <div>-f → specify file name</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">tar -czvf project.tar.gz project/</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- tar gzip extract -->
+        <li>
+          <div class="cmd">tar -xzvf</div>
+          <div class="cmd-desc">
+            Extracts a <span class="hl">gzip compressed archive</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">tar -xzvf archive.tar.gz</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option Breakdown</div>
+                <div>-x → extract</div>
+                <div>-z → gzip decompression</div>
+                <div>-v → verbose</div>
+                <div>-f → archive file</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">tar -xzvf project.tar.gz</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">tar -czvf backup.tar.gz project/</code><br>
+            <code class="cmd-line">scp backup.tar.gz server:/backup</code><br>
+            <code class="cmd-line">tar -xzvf backup.tar.gz</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>project/
+      project/index.html
+      project/config.yml</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to create, compress, and extract archive files in Linux.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:19">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 20</span>
+          <span class="task-title">Environment & Variables</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- env -->
+        <li>
+          <div class="cmd">env</div>
+          <div class="cmd-desc">
+            Displays all <span class="hl">environment variables</span> in the current shell session.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">env</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">env</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>HOME=/home/santhosh
+      USER=santhosh
+      PATH=/usr/local/bin:/usr/bin:/bin</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- echo $PATH -->
+        <li>
+          <div class="cmd">echo $PATH</div>
+          <div class="cmd-desc">
+            Displays the <span class="hl">PATH environment variable</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">echo $PATH</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>The PATH variable defines directories where executable programs are searched.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- export -->
+        <li>
+          <div class="cmd">export</div>
+          <div class="cmd-desc">
+            Creates or modifies an <span class="hl">environment variable</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">export VAR=value</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">export APP_ENV=production</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Sets a variable available to child processes.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- printenv -->
+        <li>
+          <div class="cmd">printenv</div>
+          <div class="cmd-desc">
+            Prints the value of <span class="hl">environment variables</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">printenv</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">printenv PATH</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>/usr/local/bin:/usr/bin:/bin</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">env</code><br>
+            <code class="cmd-line">echo $PATH</code><br>
+            <code class="cmd-line">export APP_ENV=development</code><br>
+            <code class="cmd-line">printenv APP_ENV</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>APP_ENV=development</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to view and manage environment variables in Linux.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:20">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 21</span>
+          <span class="task-title">Advanced File Processing</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- awk -->
+        <li>
+          <div class="cmd">awk</div>
+          <div class="cmd-desc">
+            Powerful text processing tool used for <span class="hl">pattern scanning and data extraction</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">awk '{print $1}' file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">awk '{print $1,$3}' data.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Prints specific columns from a file.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- sed -->
+        <li>
+          <div class="cmd">sed</div>
+          <div class="cmd-desc">
+            Stream editor used for <span class="hl">searching and replacing text</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sed 's/old/new/' file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sed 's/error/warning/g' log.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Replaces words in text streams.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- cut -->
+        <li>
+          <div class="cmd">cut</div>
+          <div class="cmd-desc">
+            Extracts <span class="hl">specific columns or fields</span> from text.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">cut -d':' -f1 file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Options</div>
+                <div>-d → delimiter</div>
+                <div>-f → field number</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">cut -d',' -f2 data.csv</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- sort -->
+        <li>
+          <div class="cmd">sort</div>
+          <div class="cmd-desc">
+            Sorts lines of text <span class="hl">alphabetically or numerically</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sort file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-r → reverse order</div>
+                <div>-n → numeric sort</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sort names.txt</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- uniq -->
+        <li>
+          <div class="cmd">uniq</div>
+          <div class="cmd-desc">
+            Filters <span class="hl">duplicate lines</span> from sorted input.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">uniq file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Option</div>
+                <div>-c → count occurrences</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sort file.txt | uniq</code>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- wc -->
+        <li>
+          <div class="cmd">wc</div>
+          <div class="cmd-desc">
+            Counts <span class="hl">lines, words, and characters</span> in a file.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">wc file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-l → line count</div>
+                <div>-w → word count</div>
+                <div>-c → byte count</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">wc -l file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>120 file.txt</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">cat users.txt | cut -d: -f1</code><br>
+            <code class="cmd-line">sort users.txt | uniq</code><br>
+            <code class="cmd-line">wc -l users.txt</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>admin
+      guest
+      santhosh</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to process and analyze text using advanced Linux command-line tools.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:21">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 22</span>
+          <span class="task-title">Shell Redirection & Pipes</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- > -->
+        <li>
+          <div class="cmd">&gt;</div>
+          <div class="cmd-desc">
+            Redirects command output to a <span class="hl">file (overwrite mode)</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">command &gt; file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ls &gt; files.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Creates a file and writes command output to it. If the file exists, it will be overwritten.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>files.txt
+      --------
+      file1.txt
+      file2.txt
+      script.sh</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- >> -->
+        <li>
+          <div class="cmd">&gt;&gt;</div>
+          <div class="cmd-desc">
+            Redirects command output to a file in <span class="hl">append mode</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">command &gt;&gt; file.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">date &gt;&gt; log.txt</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Adds output to the end of the file without deleting existing content.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- pipe -->
+        <li>
+          <div class="cmd">|</div>
+          <div class="cmd-desc">
+            Sends the output of one command as <span class="hl">input to another command</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">command1 | command2</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ls | grep ".txt"</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Filters the output of the first command using another command.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>notes.txt
+      data.txt</code></pre>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">ls &gt; files.txt</code><br>
+            <code class="cmd-line">echo "backup completed" &gt;&gt; log.txt</code><br>
+            <code class="cmd-line">cat files.txt | grep ".txt"</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>file1.txt
+      file2.txt</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to redirect command output and chain commands using pipes.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:22">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 23</span>
+          <span class="task-title">User Management</span>
+          <span class="task-meta">10 - 15 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- useradd -->
+        <li>
+          <div class="cmd">useradd</div>
+          <div class="cmd-desc">
+            Creates a <span class="hl">new user account</span> on the system.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo useradd username</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo useradd devuser</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-m → create home directory</div>
+                <div>-s → specify login shell</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- passwd -->
+        <li>
+          <div class="cmd">passwd</div>
+          <div class="cmd-desc">
+            Sets or changes the <span class="hl">password for a user</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo passwd username</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo passwd devuser</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Prompts to enter a new password for the user.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- usermod -->
+        <li>
+          <div class="cmd">usermod</div>
+          <div class="cmd-desc">
+            Modifies an <span class="hl">existing user account</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo usermod -aG group username</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo usermod -aG sudo devuser</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option Breakdown</div>
+                <div>-a → append user to group</div>
+                <div>-G → specify group</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Adds the user to the sudo group for administrative privileges.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- userdel -->
+        <li>
+          <div class="cmd">userdel</div>
+          <div class="cmd-desc">
+            Deletes a <span class="hl">user account</span> from the system.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">sudo userdel username</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">sudo userdel devuser</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Option</div>
+                <div>-r → remove user home directory</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">sudo useradd -m devuser</code><br>
+            <code class="cmd-line">sudo passwd devuser</code><br>
+            <code class="cmd-line">sudo usermod -aG sudo devuser</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Verify User</div>
+      <pre class="cmd-output"><code>id devuser
+      uid=1001(devuser) gid=1001(devuser) groups=1001(devuser),27(sudo)</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to create, modify, and remove users in Linux.
+        </div>
+        </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:23">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Task 24</span>
+          <span class="task-title">DevOps Important Commands</span>
+          <span class="task-meta">5 - 10 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <ul class="task-points">
+        <!-- ssh -->
+        <li>
+          <div class="cmd">ssh</div>
+          <div class="cmd-desc">
+            Securely connects to a <span class="hl">remote server</span> using SSH.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">ssh user@server</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">ssh ubuntu@192.168.1.10</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Opens a secure remote shell session.</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Useful Option</div>
+                <div>-i → specify SSH private key</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- scp -->
+        <li>
+          <div class="cmd">scp</div>
+          <div class="cmd-desc">
+            Securely copies <span class="hl">files between local and remote systems</span>.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">scp file user@server:/path</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">scp backup.tar.gz user@192.168.1.10:/backup</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Common Options</div>
+                <div>-r → copy directories recursively</div>
+                <div>-i → specify SSH key</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!-- rsync -->
+        <li>
+          <div class="cmd">rsync</div>
+          <div class="cmd-desc">
+            Synchronizes <span class="hl">files and directories between systems</span> efficiently.
+            <div class="cmd-info">
+              <div class="cmd-block">
+                <div class="cmd-label">Syntax</div>
+                <code class="cmd-line">rsync -av folder server:/backup</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Option Breakdown</div>
+                <div>-a → archive mode (preserve permissions)</div>
+                <div>-v → verbose output</div>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Example</div>
+                <code class="cmd-line">rsync -av project/ user@server:/backup/project</code>
+              </div>
+              <div class="cmd-block">
+                <div class="cmd-label">Description</div>
+                <div>Transfers only changed files, making backups faster.</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        </ul>
+        <!-- Example workflow -->
+        <div class="cmd-info">
+          <div class="cmd-block">
+            <div class="cmd-label">Example Workflow</div>
+            <code class="cmd-line">ssh user@server</code><br>
+            <code class="cmd-line">scp config.yml user@server:/etc/app</code><br>
+            <code class="cmd-line">rsync -av project/ user@server:/backup/project</code>
+          </div>
+          <div class="cmd-block">
+            <div class="cmd-label">Output Example</div>
+      <pre class="cmd-output"><code>sending incremental file list
+      project/
+      project/app.py
+      project/config.yml
+      sent 1.2K bytes received 120 bytes</code></pre>
+          </div>
+        </div>
+        <div class="task-check">
+          Completion check: you understand how to connect to remote servers and transfer files using SSH tools.
+        </div>
+        </div>
+        </div>
+      </article>
+
+    </section>
+    <!-- Terminal Panel at bottom -->
+    <div class="terminal-panel" id="bottomTerminalPanel" style="display: none;">
+      <div class="header">
+        <div class="dots">
+          <div class="dot" style="background:#ff5f57"></div>
+          <div class="dot" style="background:#febc2e"></div>
+          <div class="dot" style="background:#28c840"></div>
+        </div>
+        <span style="flex:1; text-align:center;">Terminal Output</span>
+        <button class="expand-btn" id="terminalExpand" aria-label="Expand to full screen" title="Expand Terminal">⤢</button>
+        <button class="close-btn" id="bottomTermClose" aria-label="Close">&times;</button>
       </div>
-      <div class="g-code__body"><span class="kw">pwd</span>                  <span class="cm"># print working directory</span>
-<span class="kw">ls</span> -lah             <span class="cm"># long list + hidden files</span>
-<span class="kw">find</span> / -name <span class="str">"*.conf"</span> 2&gt;/dev/null
-<span class="kw">chmod</span> <span class="num">755</span> script.sh  <span class="cm"># rwxr-xr-x</span>
-<span class="kw">chown</span> deploy:deploy /var/app
-<span class="kw">ps</span> aux | <span class="kw">grep</span> nginx
-<span class="kw">systemctl</span> status nginx
-<span class="kw">journalctl</span> -u nginx -f
-<span class="kw">df</span> -h &amp;&amp; <span class="kw">free</span> -m</div>
+      <div class="output" id="bottomTermOutput">
+        <!-- Terminal output will be populated by JavaScript -->
+      </div>
+      </div>
+    </div>
+    <!-- Full-screen Terminal Modal -->
+    <div class="terminal-modal" id="terminalModal">
+      <div class="terminal-modal__back" id="terminalModalBack"></div>
+      <div class="terminal-modal__content">
+        <div class="terminal-panel terminal-fullscreen">
+          <div class="header">
+            <div class="dots">
+              <div class="dot" style="background:#ff5f57"></div>
+              <div class="dot" style="background:#febc2e"></div>
+              <div class="dot" style="background:#28c840"></div>
+            </div>
+            <span style="flex:1; text-align:center;">Terminal Output</span>
+            <button class="close-btn" id="modalTermClose" aria-label="Close">&times;</button>
+          </div>
+          <div class="output" id="modalTermOutput">
+            <!-- Terminal output will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
     </div>
     <div class="proj-meta">
-      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val" style="">Ubuntu 22.04</div></div>
-      <div class="pm-cell"><div class="pm-key">Where</div><div class="pm-val" style="">VirtualBox / WSL2</div></div>
-      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val">Ubuntu 22.04</div></div>
+      <div class="pm-cell"><div class="pm-key">Platform</div><div class="pm-val">VMware / VirtualBox / WSL2</div></div>
+      <div class="pm-cell"><div class="pm-key">Tasks</div><div class="pm-val">24 Structured Tasks</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val pm-status">Completed</div></div>
     </div>
   </div>
   <footer class="g-footer">
@@ -78,6 +2972,290 @@
     <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
   </footer>
 </div>
+<script>
+window.terminalData = {
+
+commands: [
+'pwd',
+'ls -lah',
+'cd /etc',
+'whoami',
+'uname -a',
+'id',
+'date',
+'history',
+'touch file.txt',
+'mkdir project',
+'cp file.txt backup.txt',
+'mv file.txt newname.txt',
+'rm file.txt',
+'cat file.txt',
+'head file.txt',
+'tail file.txt',
+'grep "error" log.txt',
+'find /etc -name "*.conf"',
+'chmod 755 script.sh',
+'chown ubuntu:ubuntu script.sh',
+'df -h',
+'du -sh /var/log',
+'lsblk',
+'mount',
+'ps aux | head -5',
+'top',
+'ping -c 3 google.com',
+'ip a',
+'ip route',
+'ss -tulpn',
+'curl -I google.com',
+'wget https://example.com/file',
+'sudo apt update',
+'systemctl status nginx',
+'journalctl -u nginx',
+'tar -czvf backup.tar.gz project/',
+'env',
+'echo $PATH',
+'printenv',
+'awk \'{print $1}\' data.txt',
+'sed \'s/error/warning/g\' log.txt',
+'cut -d: -f1 /etc/passwd',
+'sort names.txt',
+'uniq names.txt',
+'wc -l file.txt',
+'ls > files.txt',
+'ls | grep ".txt"',
+'sudo useradd devuser',
+'ssh user@server',
+'scp backup.tar.gz user@server:/backup',
+'rsync -av project/ user@server:/backup'
+],
+
+outputs: {
+
+'pwd': [
+'/home/ubuntu/projects'
+],
+
+'ls -lah': [
+'total 16K',
+'drwxr-xr-x 2 ubuntu ubuntu 4.0K Mar  8 10:00 .',
+'drwxr-xr-x 6 ubuntu ubuntu 4.0K Mar  8 09:55 ..',
+'-rw-r--r-- 1 ubuntu ubuntu 1.2K Mar  8 10:00 file.txt'
+],
+
+'cd /etc': [],
+
+'whoami': [
+'ubuntu'
+],
+
+'uname -a': [
+'Linux server01 5.15.0-84-generic x86_64 GNU/Linux'
+],
+
+'id': [
+'uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu),27(sudo)'
+],
+
+'date': [
+'Sat Mar  8 12:40:22 UTC 2026'
+],
+
+'history': [
+'1 pwd',
+'2 ls -lah',
+'3 cd /etc',
+'4 whoami'
+],
+
+'touch file.txt': [],
+
+'mkdir project': [],
+
+'cp file.txt backup.txt': [],
+
+'mv file.txt newname.txt': [],
+
+'rm file.txt': [],
+
+'cat file.txt': [
+'Hello Linux',
+'Learning terminal commands'
+],
+
+'head file.txt': [
+'Hello Linux'
+],
+
+'tail file.txt': [
+'Learning terminal commands'
+],
+
+'grep "error" log.txt': [
+'45:error connecting to database',
+'78:error timeout'
+],
+
+'find /etc -name "*.conf"': [
+'/etc/adduser.conf',
+'/etc/deluser.conf',
+'/etc/debconf.conf'
+],
+
+'chmod 755 script.sh': [],
+
+'chown ubuntu:ubuntu script.sh': [],
+
+'df -h': [
+'Filesystem      Size  Used Avail Use% Mounted on',
+'/dev/sda1        20G  5.0G   15G  25% /',
+'tmpfs           512M     0  512M   0% /tmp'
+],
+
+'du -sh /var/log': [
+'120M    /var/log'
+],
+
+'lsblk': [
+'NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT',
+'sda      8:0    0  20G  0 disk',
+'└─sda1   8:1    0  20G  0 part /'
+],
+
+'mount': [
+'/dev/sda1 on / type ext4 (rw,relatime)'
+],
+
+'ps aux | head -5': [
+'USER   PID %CPU %MEM COMMAND',
+'root     1  0.0  0.1 /sbin/init',
+'root   350  0.0  0.0 systemd-journald'
+],
+
+'top': [
+'top - 12:40:00 up 2 days,  2:10',
+'%Cpu(s):  2.3 us,  1.0 sy'
+],
+
+'ping -c 3 google.com': [
+'64 bytes from 142.250.183.206: icmp_seq=1 ttl=118 time=23.4 ms',
+'64 bytes from 142.250.183.206: icmp_seq=2 ttl=118 time=22.8 ms',
+'64 bytes from 142.250.183.206: icmp_seq=3 ttl=118 time=24.1 ms'
+],
+
+'ip a': [
+'2: eth0: <BROADCAST,MULTICAST,UP>',
+'inet 192.168.1.15/24'
+],
+
+'ip route': [
+'default via 192.168.1.1 dev eth0'
+],
+
+'ss -tulpn': [
+'tcp LISTEN 0 128 0.0.0.0:22 users:(("sshd",pid=1234))'
+],
+
+'curl -I google.com': [
+'HTTP/2 200',
+'content-type: text/html'
+],
+
+'wget https://example.com/file': [
+'Saving to: file'
+],
+
+'sudo apt update': [
+'Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease',
+'Reading package lists... Done'
+],
+
+'systemctl status nginx': [
+'● nginx.service - A high performance web server',
+'Active: active (running)'
+],
+
+'journalctl -u nginx': [
+'Mar 08 10:00:00 server nginx[1234]: nginx started'
+],
+
+'tar -czvf backup.tar.gz project/': [
+'project/',
+'project/app.js',
+'project/index.html'
+],
+
+'env': [
+'HOME=/home/ubuntu',
+'USER=ubuntu'
+],
+
+'echo $PATH': [
+'/usr/local/bin:/usr/bin:/bin'
+],
+
+'printenv': [
+'HOME=/home/ubuntu',
+'PATH=/usr/local/bin:/usr/bin:/bin'
+],
+
+"awk '{print $1}' data.txt": [
+'admin',
+'user',
+'guest'
+],
+
+"sed 's/error/warning/g' log.txt": [
+'warning connecting to database'
+],
+
+'cut -d: -f1 /etc/passwd': [
+'root',
+'daemon',
+'ubuntu'
+],
+
+'sort names.txt': [
+'alice',
+'bob',
+'charlie'
+],
+
+'uniq names.txt': [
+'alice',
+'bob'
+],
+
+'wc -l file.txt': [
+'12 file.txt'
+],
+
+'ls > files.txt': [],
+
+'ls | grep ".txt"': [
+'notes.txt',
+'data.txt'
+],
+
+'sudo useradd devuser': [],
+
+'ssh user@server': [
+'Connected to server'
+],
+
+'scp backup.tar.gz user@server:/backup': [
+'backup.tar.gz 100% 120KB'
+],
+
+'rsync -av project/ user@server:/backup': [
+'sending incremental file list',
+'project/app.js',
+'project/index.html'
+]
+
+}
+
+};
+</script>
 <script src="../../../js/nav.js"></script>
 </body>
 </html>

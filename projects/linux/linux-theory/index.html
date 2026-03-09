@@ -1,221 +1,873 @@
-<section class="task-board" aria-label="Linux setup and command tasks">
-      <div class="proj-section-title">Task Checklist</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Theory and Basics</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+  <link rel="stylesheet" href="style.css"/>
+</head>
 
-      <article class="task-card is-open" data-task style="--i:0">
-        <button class="task-toggle" type="button" aria-expanded="true">
-          <span class="task-pill">Intro</span>
-          <span class="task-title">Basic introducatio & history of the linux</span>
-          <span class="task-meta">20-30 min</span>
-          <span class="task-chevron">&#9662;</span>
-        </button>
-        <div class="task-panel">
-          <div class="task-panel-inner">
-            <div class="task-info-box">
-              <div class="task-info-label">Concept</div>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
 
-              <p>
-                <strong>Linux</strong> is an open-source operating system kernel created by 
-                <strong>Linus Torvalds</strong> in 1991. Today it powers modern infrastructure
-                including <strong>servers, cloud platforms, embedded systems, and
-                enterprise environments</strong>.
-              </p>
-            </div>
-            <p class="task-goal">Goal: install the virtualization tool required to run Ubuntu.</p>
-            <ol class="task-steps-list">
-              <li>Open your browser and go to VMware official downloads page for <strong>Workstation Player</strong>.</li>
-              <li>Select the installer matching your host OS and download it to <code>Downloads</code>.</li>
-              <li>Run the installer with administrator permissions and accept the license agreement.</li>
-              <li>Keep default install path and default feature options unless your lab has custom requirements.</li>
-              <li>Complete installation, restart your host machine if prompted, then launch VMware once.</li>
-              <li>Confirm the app opens to the VMware home dashboard without any startup error.</li>
-            </ol>
-            <div class="task-check">Completion check: VMware opens and shows the home screen.</div>
-          </div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span >linux</span>
+      <span>/</span>
+      <span class="proj-bc-cur">Linux Theory and Basics</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
         </div>
-      </article>
+        <h1 class="proj-title">Linux Theory and Basics</h1>
+        <span class="g-tag tg">&bull; local lab</span>
+        <!-- terminal toggle button defined globally -->
+        <!-- <button class="terminal-btn" id="terminalBtn" type="button">Terminal</button> -->
+      </div>
+    </div>
 
+    <div class="proj-desc">
+      <span class="task-summary">Summary</span>
+      <p></p>
+      This project explains the history, architecture, and core components of the Linux operating system. It covers how Linux evolved from Unix, the role of the Linux kernel, and the impact of the open-source community. By completing these topics, you will understand how Linux works internally, including distributions, filesystem structure, processes, and system management. The result will be a structured set of HTML pages that form a foundational Linux learning guide.
+      </p>
+    </div>
+
+    <section class="task-board" aria-label="Linux setup and command tasks">
+      <div class="proj-section-title">Linux Fundamentals </div>
       <article class="task-card is-open" data-task style="--i:0">
         <button class="task-toggle" type="button" aria-expanded="true">
-          <span class="task-pill">Task 1</span>
-          <span class="task-title">Install VMware Workstation Player</span>
-          <span class="task-meta">15-20 min</span>
+          <span class="task-pill">Topic-1</span>
+          <span class="task-title">The origin of Unix and how it influenced the development of Linux</span>
+          <span class="task-meta">15–20 min</span>
           <span class="task-chevron">&#9662;</span>
         </button>
         <div class="task-panel">
           <div class="task-panel-inner">
-            <p class="task-goal">Goal: install the virtualization tool required to run Ubuntu.</p>
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Understand how the Unix operating system was created, its core design principles,
+              and how those ideas later influenced the development of the Linux operating system.
+            </p>
             <ol class="task-steps-list">
-              <li>Open your browser and go to VMware official downloads page for <strong>Workstation Player</strong>.</li>
-              <li>Select the installer matching your host OS and download it to <code>Downloads</code>.</li>
-              <li>Run the installer with administrator permissions and accept the license agreement.</li>
-              <li>Keep default install path and default feature options unless your lab has custom requirements.</li>
-              <li>Complete installation, restart your host machine if prompted, then launch VMware once.</li>
-              <li>Confirm the app opens to the VMware home dashboard without any startup error.</li>
+              <li>
+                <strong>Introduction to Unix</strong><br>
+                Unix is one of the most influential operating systems in computing history.
+                It was originally developed in the late 1960s and early 1970s at 
+                <strong>Bell Labs (AT&amp;T)</strong> by developers including 
+                <strong>Ken Thompson</strong> and <strong>Dennis Ritchie</strong>.
+                The system was designed to be simple, efficient, and flexible,
+                which made it suitable for both research and real-world computing environments.
+              </li>
+              <li>
+                <strong>The Creation of Unix</strong><br>
+                In 1969, Ken Thompson began developing Unix after working on a failed
+                operating system project called <strong>Multics</strong>.
+                He wanted to create a simpler and more efficient system.
+                The first version of Unix was written in assembly language and ran on a
+                <strong>PDP-7 computer</strong>.
+                Later, Dennis Ritchie rewrote large parts of Unix using the
+                <strong>C programming language</strong>, which made the system portable
+                across different hardware platforms.
+              </li>
+              <li>
+                <strong>Key Design Principles of Unix</strong><br>
+                Unix introduced several design principles that became extremely important
+                in modern operating systems:
+                <ul>
+                  <li>Build small programs that perform one task very well.</li>
+                  <li>Allow programs to work together using pipelines.</li>
+                  <li>Everything in the system can be treated as a file.</li>
+                  <li>Provide powerful command-line tools and scripting capabilities.</li>
+                </ul>
+                These ideas helped make Unix powerful and flexible for developers
+                and system administrators.
+              </li>
+              <li>
+                <strong>Spread of Unix</strong><br>
+                Because AT&amp;T could not commercially sell software at that time,
+                Unix source code was distributed to universities for research and education.
+                This allowed many academic institutions to study, modify, and improve the system.
+                As a result, many different Unix variants were created, including:
+                <ul>
+                  <li>BSD (Berkeley Software Distribution)</li>
+                  <li>System V</li>
+                  <li>SunOS</li>
+                  <li>AIX</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Unix Influence on Operating System Design</strong><br>
+                Unix introduced many concepts that are still used today:
+                <ul>
+                  <li>Hierarchical filesystem structure</li>
+                  <li>Multiuser and multitasking capabilities</li>
+                  <li>Shell-based command-line interface</li>
+                  <li>Process management and permissions</li>
+                </ul>
+                These features became the foundation of modern operating systems.
+              </li>
+              <li>
+                <strong>The Need for a Free Unix-like System</strong><br>
+                Over time, Unix became commercialized and expensive.
+                Many developers wanted a free and open system that followed Unix principles.
+                This led to several open projects, including the 
+                <strong>GNU Project</strong> started by Richard Stallman in 1983.
+                The GNU project created many Unix-compatible tools but lacked a working kernel.
+              </li>
+              <li>
+                <strong>Birth of Linux</strong><br>
+                In 1991, a Finnish computer science student named
+                <strong>Linus Torvalds</strong> started developing a new kernel
+                as a personal project while studying at the University of Helsinki.
+                His goal was to build a free operating system similar to Unix.
+                He announced the project on an internet forum and shared the code publicly.
+              </li>
+              <li>
+                <strong>How Unix Influenced Linux</strong><br>
+                Linux was heavily inspired by Unix design principles.
+                Although Linux does not contain Unix source code,
+                it follows the same architectural philosophy:
+                <ul>
+                  <li>Unix-like command-line environment</li>
+                  <li>Similar filesystem structure</li>
+                  <li>Multiuser and multitasking support</li>
+                  <li>Use of shells such as Bash</li>
+                  <li>Compatibility with many Unix tools</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Linux and GNU Together</strong><br>
+                When the Linux kernel was combined with GNU tools and utilities,
+                it formed a complete operating system often called
+                <strong>GNU/Linux</strong>.
+                This system became widely adopted because it was free,
+                open-source, and highly customizable.
+              </li>
+              <li>
+                <strong>Impact on Modern Computing</strong><br>
+                Today, Unix principles continue to influence modern operating systems.
+                Linux powers many important technologies including:
+                <ul>
+                  <li>Cloud infrastructure</li>
+                  <li>Web servers</li>
+                  <li>Containers and Kubernetes</li>
+                  <li>Supercomputers</li>
+                  <li>Embedded systems</li>
+                  <li>Android smartphones</li>
+                </ul>
+                The Unix philosophy remains one of the most important design
+                influences in computing history.
+              </li>
             </ol>
-            <div class="task-check">Completion check: VMware opens and shows the home screen.</div>
+            <div class="task-check">
+              Completion check: You should be able to explain what Unix is,
+              who created it, its design principles, and how those principles
+              influenced the creation of Linux.
+            </div>
           </div>
         </div>
       </article>
 
       <article class="task-card" data-task style="--i:1">
         <button class="task-toggle" type="button" aria-expanded="false">
-          <span class="task-pill">Task 2</span>
-          <span class="task-title">Download Ubuntu 22.04 ISO</span>
-          <span class="task-meta">5-10 min</span>
+          <span class="task-pill">Topic-2</span>
+          <span class="task-title">The history of Linux and the role of Linus Torvalds in creating the Linux kernel</span>
+          <span class="task-meta">15–20 min</span>
           <span class="task-chevron">&#9662;</span>
         </button>
         <div class="task-panel">
           <div class="task-panel-inner">
-            <p class="task-goal">Goal: get the OS image needed for VM installation.</p>
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Understand how the Linux operating system began, who created it, and how Linus Torvalds developed the Linux kernel and built one of the most influential open-source projects in the world.
+            </p>
             <ol class="task-steps-list">
-              <li>Go to the Ubuntu official download page and choose <strong>Ubuntu 22.04 LTS Desktop</strong>.</li>
-              <li>Start the ISO download and wait for the file to fully complete before closing browser.</li>
-              <li>Move the ISO to a stable folder path such as <code>D:\ISO\ubuntu-22.04.iso</code>.</li>
-              <li>Open file properties and confirm the file size is not zero and extension is <code>.iso</code>.</li>
-              <li>Recommended: compare SHA256 checksum with Ubuntu website to verify file integrity.</li>
+              <li>
+                <strong>Introduction to Linux</strong><br>
+                Linux is a Unix-like operating system kernel that forms the core of many modern operating systems.
+                It powers servers, cloud platforms, supercomputers, mobile devices, and embedded systems.
+                The Linux project began in 1991 and has grown into one of the largest collaborative software
+                projects in the world.
+              </li>
+              <li>
+                <strong>Who is Linus Torvalds?</strong><br>
+                Linus Torvalds is a Finnish software engineer and the creator of the Linux kernel.
+                He was born in Helsinki, Finland in 1969 and developed an early interest in computers and programming.
+                While studying computer science at the <strong>University of Helsinki</strong>, he began working on a personal project that would later become Linux.
+              </li>
+              <li>
+                <strong>The Problem That Inspired Linux</strong><br>
+                During his studies, Linus used a teaching operating system called <strong>MINIX</strong>,
+                created by Andrew S. Tanenbaum.
+                MINIX was designed for educational purposes and had limitations that prevented developers
+                from modifying it freely.
+                Linus wanted a more powerful and flexible system that he could experiment with and customize.
+              </li>
+              <li>
+                <strong>Development of the Linux Kernel</strong><br>
+                In 1991, Linus Torvalds started developing a new operating system kernel as a personal project.
+                His goal was to create a free operating system similar to Unix that could run on personal computers.
+                Initially, the system was built for Intel 386 processors and was written mostly in the C programming language.
+              </li>
+              <li>
+                <strong>The Famous Linux Announcement</strong><br>
+                On August 25, 1991, Linus posted a message on the internet newsgroup
+                <code>comp.os.minix</code>.
+                In this message, he announced that he was working on a free operating system kernel.
+                He invited other developers to test and contribute to the project.
+                This message is often considered the official beginning of the Linux project.
+              </li>
+              <li>
+                <strong>Open Source Collaboration</strong><br>
+                After releasing the early versions of Linux on the internet,
+                developers around the world began contributing improvements, bug fixes,
+                and new features.
+                This collaborative development model allowed Linux to evolve rapidly
+                and become more stable and powerful.
+              </li>
+              <li>
+                <strong>The Linux Kernel and the GNU Project</strong><br>
+                At the same time that Linux was being developed, the GNU Project had already created many
+                essential system tools such as compilers, libraries, and command-line utilities.
+                When the Linux kernel was combined with these GNU tools,
+                it formed a complete operating system often referred to as <strong>GNU/Linux</strong>.
+              </li>
+              <li>
+                <strong>Growth of the Linux Community</strong><br>
+                As Linux became more popular, a global community of developers,
+                system administrators, and organizations began contributing to the project.
+                Companies, universities, and independent programmers all helped improve the system.
+                Today thousands of developers contribute to Linux development.
+              </li>
+              <li>
+                <strong>Creation of Linux Distributions</strong><br>
+                To make Linux easier to install and use,
+                different organizations created packaged versions of Linux called
+                <strong>distributions</strong>.
+                Examples include:
+                <ul>
+                  <li>Debian</li>
+                  <li>Ubuntu</li>
+                  <li>Red Hat Enterprise Linux</li>
+                  <li>Fedora</li>
+                  <li>Arch Linux</li>
+                </ul>
+                These distributions combine the Linux kernel with software tools,
+                libraries, package managers, and desktop environments.
+              </li>
+              <li>
+                <strong>Linux in Modern Technology</strong><br>
+                Today Linux is one of the most widely used operating systems in the world.
+                It powers many critical systems including:
+                <ul>
+                  <li>Internet servers</li>
+                  <li>Cloud computing platforms</li>
+                  <li>Supercomputers</li>
+                  <li>Container platforms like Docker and Kubernetes</li>
+                  <li>Embedded devices and IoT systems</li>
+                  <li>Android smartphones</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Linus Torvalds Today</strong><br>
+                Linus Torvalds continues to lead the development of the Linux kernel.
+                He reviews contributions from developers and decides which changes
+                are added to the official kernel.
+                He also created <strong>Git</strong>, the widely used version control system,
+                to manage Linux kernel development.
+              </li>
             </ol>
-            <div class="task-check">Completion check: ISO file is fully downloaded and accessible.</div>
+            <div class="task-check">
+              Completion check: You should be able to explain who Linus Torvalds is,
+              why he created Linux, how the Linux kernel was developed,
+              and how the global open-source community helped Linux grow.
+            </div>
           </div>
         </div>
       </article>
 
       <article class="task-card" data-task style="--i:2">
         <button class="task-toggle" type="button" aria-expanded="false">
-          <span class="task-pill">Task 3</span>
-          <span class="task-title">Create and Configure Ubuntu VM</span>
-          <span class="task-meta">10-15 min</span>
+          <span class="task-pill">Topic-3</span>
+          <span class="task-title">How the open-source movement contributed to the growth and success of Linux</span>
+          <span class="task-meta">15–20 min</span>
           <span class="task-chevron">&#9662;</span>
         </button>
         <div class="task-panel">
           <div class="task-panel-inner">
-            <p class="task-goal">Goal: create a VM with practical resources for Linux learning.</p>
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Understand what the open-source movement is, how it started, and how it played a critical role in the rapid growth, development, and global adoption of Linux.
+            </p>
             <ol class="task-steps-list">
-              <li>Click <strong>Create a New Virtual Machine</strong> from VMware home screen.</li>
-              <li>Choose <strong>Installer disc image file (iso)</strong> and browse to your Ubuntu ISO path.</li>
-              <li>Set guest OS type to <strong>Linux</strong> and version to <strong>Ubuntu 64-bit</strong>.</li>
-              <li>Enter VM name such as <strong>Ubuntu-Lab</strong> and select a folder with enough free space.</li>
-              <li>Allocate disk size <strong>40 GB</strong> (single file is fine for a local learning VM).</li>
-              <li>Open hardware settings and configure RAM at least <strong>4 GB</strong>, CPU <strong>2 cores</strong>, network <strong>NAT</strong>.</li>
-              <li>Save configuration and power on the VM to confirm it boots to Ubuntu installer.</li>
+              <li>
+                <strong>Understanding Open Source</strong><br>
+                Open source refers to software whose source code is publicly available for anyone to view,
+                modify, and distribute. Unlike proprietary software, open-source software encourages
+                collaboration among developers across the world. This model allows communities,
+                individuals, and organizations to contribute improvements and innovations.
+              </li>
+              <li>
+                <strong>The Beginning of the Open-Source Movement</strong><br>
+                The open-source movement grew from earlier ideas about free software.
+                In the 1980s, programmer <strong>Richard Stallman</strong> started the
+                <strong>GNU Project</strong> with the goal of creating a completely free operating system.
+                He also founded the <strong>Free Software Foundation (FSF)</strong> to promote software freedom.
+                This movement emphasized the idea that users should have the freedom to run, study,
+                modify, and share software.
+              </li>
+              <li>
+                <strong>The GNU General Public License (GPL)</strong><br>
+                One of the most important contributions of the open-source movement was the creation
+                of the <strong>GNU General Public License (GPL)</strong>.
+                This license ensures that software and its modifications remain free and open.
+                The Linux kernel was released under the GPL license, which allowed developers
+                around the world to contribute to its development.
+              </li>
+              <li>
+                <strong>Collaboration Across the World</strong><br>
+                Because Linux was released as open-source software,
+                developers from different countries and organizations could contribute to its improvement.
+                Thousands of programmers helped fix bugs, add features, improve performance,
+                and enhance security. This global collaboration made Linux evolve faster than
+                many traditional proprietary systems.
+              </li>
+              <li>
+                <strong>Rapid Innovation and Development</strong><br>
+                Open-source development encourages experimentation and innovation.
+                Developers can study the code, learn from it, and build new tools or features.
+                This open environment allowed Linux to grow quickly and adapt to many different
+                computing needs such as servers, embedded systems, and cloud infrastructure.
+              </li>
+              <li>
+                <strong>Transparency and Security</strong><br>
+                Because the source code is publicly available, many developers can review it.
+                This transparency helps identify and fix security vulnerabilities faster.
+                The large community constantly audits and improves the code,
+                making Linux one of the most secure operating systems available.
+              </li>
+              <li>
+                <strong>Community Contributions</strong><br>
+                The Linux ecosystem benefits from contributions by individuals,
+                universities, and technology companies.
+                Developers contribute new drivers, system tools, kernel improvements,
+                and documentation. This community-driven model ensures continuous improvement.
+              </li>
+              <li>
+                <strong>Corporate Support for Linux</strong><br>
+                Over time, major technology companies recognized the potential of Linux
+                and began contributing to its development. Companies such as
+                IBM, Intel, Google, Red Hat, and Microsoft now contribute code and resources
+                to the Linux kernel. This support has helped Linux become reliable and
+                widely adopted in enterprise environments.
+              </li>
+              <li>
+                <strong>Creation of the Linux Ecosystem</strong><br>
+                The open-source model allowed developers to build a large ecosystem
+                around Linux. This includes:
+                <ul>
+                  <li>Linux distributions</li>
+                  <li>Development tools</li>
+                  <li>Package managers</li>
+                  <li>Desktop environments</li>
+                  <li>Server technologies</li>
+                </ul>
+                This ecosystem made Linux flexible and adaptable for many different uses.
+              </li>
+              <li>
+                <strong>Linux in Modern Open-Source Infrastructure</strong><br>
+                Many modern technologies are built on top of Linux and open-source principles.
+                Examples include:
+                <ul>
+                  <li>Docker container platform</li>
+                  <li>Kubernetes orchestration system</li>
+                  <li>Cloud platforms such as AWS and Google Cloud</li>
+                  <li>Web servers like Nginx and Apache</li>
+                  <li>Programming tools such as Git and Python</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Impact of Open Source on Linux Success</strong><br>
+                The open-source movement allowed Linux to grow into a powerful,
+                flexible, and widely used operating system.
+                Because the software is free and community-driven,
+                it can be used and customized by organizations of all sizes.
+                This openness is one of the key reasons Linux dominates
+                server infrastructure and cloud computing today.
+              </li>
             </ol>
-            <div class="task-check">Completion check: VM boots from ISO and Ubuntu installer screen appears.</div>
+            <div class="task-check">
+              Completion check: You should be able to explain what open source means,
+              how the GNU project and GPL license influenced Linux,
+              and how global collaboration helped Linux grow into one of the most
+              important operating systems in modern computing.
+            </div>
           </div>
         </div>
       </article>
 
       <article class="task-card" data-task style="--i:3">
         <button class="task-toggle" type="button" aria-expanded="false">
-          <span class="task-pill">Task 4</span>
-          <span class="task-title">Install Ubuntu Inside the VM</span>
-          <span class="task-meta">20-30 min</span>
+          <span class="task-pill">Topic-4</span>
+          <span class="task-title">Understanding what the Linux kernel is and its responsibilities in an operating system</span>
+          <span class="task-meta">15–20 min</span>
           <span class="task-chevron">&#9662;</span>
         </button>
         <div class="task-panel">
           <div class="task-panel-inner">
-            <p class="task-goal">Goal: complete OS installation and first boot.</p>
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Learn what the Linux kernel is, why it is the core component of the operating system, and understand the major responsibilities it performs in managing system resources and hardware.
+            </p>
             <ol class="task-steps-list">
-              <li>Select <strong>Install Ubuntu</strong> in the booted installer screen.</li>
-              <li>Pick your keyboard layout and test typing in the installer input box.</li>
-              <li>Choose <strong>Normal installation</strong> and enable downloading updates during setup.</li>
-              <li>Select <strong>Erase disk and install Ubuntu</strong> only because this is an isolated VM disk.</li>
-              <li>Set timezone correctly, create username, hostname, and a strong password.</li>
-              <li>Allow installation to finish, then click restart and remove ISO if prompted.</li>
-              <li>Log in after reboot and confirm desktop, terminal, and settings open normally.</li>
+              <li>
+                <strong>What is the Linux Kernel?</strong><br>
+                The Linux kernel is the core component of the Linux operating system.
+                It acts as the central layer between the computer hardware and the software applications.
+                The kernel manages system resources such as CPU, memory, storage devices,
+                and input/output operations. Without the kernel, the operating system
+                would not be able to communicate with hardware.
+              </li>
+              <li>
+                <strong>Kernel as the Core of the Operating System</strong><br>
+                In a Linux system, the kernel is responsible for controlling everything
+                that happens at the system level. It provides essential services
+                that allow programs and applications to run properly.
+                Applications do not interact directly with hardware; instead,
+                they communicate with the kernel which manages the hardware operations.
+              </li>
+              <li>
+                <strong>Interaction Between Hardware and Software</strong><br>
+                The kernel acts as an interface between hardware and software.
+                When a program needs to perform an operation such as reading a file,
+                accessing memory, or sending data over a network, it sends a request
+                to the kernel. The kernel then communicates with the hardware
+                and returns the result to the application.
+              </li>
+              <li>
+                <strong>Process Management</strong><br>
+                One of the key responsibilities of the Linux kernel is managing processes.
+                A process is a running instance of a program.
+                The kernel schedules processes, allocates CPU time,
+                and ensures that multiple programs can run simultaneously
+                without interfering with each other.
+              </li>
+              <li>
+                <strong>Memory Management</strong><br>
+                The kernel manages the system's memory and ensures that
+                each process receives the memory it needs.
+                It allocates memory to programs, keeps track of memory usage,
+                and protects processes from accessing memory that belongs to
+                other programs. This improves system stability and security.
+              </li>
+              <li>
+                <strong>Device Management</strong><br>
+                The Linux kernel manages communication with hardware devices
+                such as hard drives, keyboards, network interfaces, and printers.
+                It uses device drivers to control these devices.
+                Device drivers are small programs that allow the kernel
+                to interact with specific hardware components.
+              </li>
+              <li>
+                <strong>File System Management</strong><br>
+                The kernel is responsible for managing file systems.
+                It controls how data is stored, retrieved, and organized
+                on storage devices. Linux supports many different file systems
+                such as ext4, XFS, and Btrfs.
+              </li>
+              <li>
+                <strong>System Calls</strong><br>
+                Applications interact with the kernel using system calls.
+                System calls provide a controlled interface for programs
+                to request services from the kernel such as file operations,
+                process control, and network communication.
+              </li>
+              <li>
+                <strong>Security and Access Control</strong><br>
+                The kernel enforces security policies within the system.
+                It manages user permissions, access control,
+                and ensures that processes cannot access restricted resources.
+                This helps maintain system integrity and protects sensitive data.
+              </li>
+              <li>
+                <strong>Types of Kernel Architecture</strong><br>
+                Different operating systems use different kernel designs.
+                Linux uses a <strong>monolithic kernel</strong>,
+                which means many core system services run within the kernel space.
+                This design allows Linux to achieve high performance
+                while maintaining flexibility through loadable kernel modules.
+              </li>
+              <li>
+                <strong>Importance of the Linux Kernel</strong><br>
+                The Linux kernel is used in many different systems,
+                including servers, desktop computers, mobile devices,
+                cloud platforms, and embedded systems.
+                It is continuously improved by thousands of developers
+                around the world and is considered one of the most
+                successful open-source software projects.
+              </li>
             </ol>
-            <div class="task-check">Completion check: You can log in to Ubuntu desktop normally.</div>
+            <div class="task-check">
+              Completion check: You should be able to explain what the Linux kernel is,
+              how it acts as the core of the operating system, and describe its major
+              responsibilities such as process management, memory management,
+              device control, and system calls.
+            </div>
           </div>
         </div>
       </article>
 
       <article class="task-card" data-task style="--i:4">
-        <button class="task-toggle" type="button" aria-expanded="false">
-          <span class="task-pill">Task 5</span>
-          <span class="task-title">Update the System and Prepare Practice Folder</span>
-          <span class="task-meta">8-10 min</span>
-          <span class="task-chevron">&#9662;</span>
-        </button>
-        <div class="task-panel">
-          <div class="task-panel-inner">
-            <p class="task-goal">Goal: keep OS updated and create a safe lab directory.</p>
-            <ol class="task-steps-list">
-              <li>Open terminal using <strong>Ctrl + Alt + T</strong> immediately after first login.</li>
-              <li>Refresh package index: <code>sudo apt update</code> and check for successful completion.</li>
-              <li>Apply upgrades: <code>sudo apt upgrade -y</code> and wait until prompt returns.</li>
-              <li>Install key tools: <code>sudo apt install -y curl wget git htop tree</code>.</li>
-              <li>Create your practice folder and enter it: <code>mkdir -p /tmp/lab &amp;&amp; cd /tmp/lab</code>.</li>
-              <li>Confirm location with <code>pwd</code> and verify output shows <code>/tmp/lab</code>.</li>
-            </ol>
-            <div class="task-check">Completion check: package update completed and <code>/tmp/lab</code> exists.</div>
-          </div>
-        </div>
+      <button class="task-toggle" type="button" aria-expanded="false">
+      <span class="task-pill">Topic-5</span>
+      <span class="task-title">How Linux interacts with hardware through drivers and system calls</span>
+      <span class="task-meta">15–20 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how Linux communicates with physical hardware using device drivers and system calls.
+      </p>
+      <ol class="task-steps-list">
+      <li><strong>Hardware and the Operating System</strong><br>
+      Computers contain many hardware devices such as CPUs, memory modules, storage devices, network interfaces, keyboards, and displays. Applications cannot communicate directly with this hardware. Instead, the Linux kernel manages communication between software and hardware.</li>
+      <li><strong>Role of Device Drivers</strong><br>
+      Device drivers are specialized programs within the Linux kernel that allow the operating system to control hardware devices. Each hardware device usually requires a specific driver.</li>
+      <li><strong>Types of Device Drivers</strong>
+      <ul>
+      <li>Block device drivers (hard disks, SSDs)</li>
+      <li>Character device drivers (keyboard, mouse)</li>
+      <li>Network device drivers (Ethernet, Wi-Fi)</li>
+      </ul>
+      </li>
+      <li><strong>Loadable Kernel Modules</strong><br>
+      Linux supports loadable kernel modules which allow drivers to be loaded or removed dynamically without rebooting the system.</li>
+      <li><strong>System Calls</strong><br>
+      Applications communicate with the kernel using system calls. These are controlled entry points that allow programs to request services such as reading files, writing data, or creating processes.</li>
+      <li><strong>Examples of System Calls</strong>
+      <ul>
+      <li>open()</li>
+      <li>read()</li>
+      <li>write()</li>
+      <li>fork()</li>
+      <li>exec()</li>
+      </ul>
+      </li>
+      <li><strong>Flow of Interaction</strong>
+      <ul>
+      <li>Application requests an operation</li>
+      <li>System call sends request to kernel</li>
+      <li>Kernel interacts with hardware through drivers</li>
+      <li>Result returned to application</li>
+      </ul>
+      </li>
+      </ol>
+      <div class="task-check">
+      Completion check: You should understand the relationship between applications, system calls, the Linux kernel, and hardware drivers.
+      </div>
+      </div>
+      </div>
       </article>
 
       <article class="task-card" data-task style="--i:5">
-        <button class="task-toggle" type="button" aria-expanded="false">
-          <span class="task-pill">Task 6</span>
-          <span class="task-title">Learn Linux Directory Structure</span>
-          <span class="task-meta">10-12 min</span>
-          <span class="task-chevron">&#9662;</span>
-        </button>
-        <div class="task-panel">
-          <div class="task-panel-inner">
-            <p class="task-goal">Goal: understand core folders used in admin and DevOps work.</p>
-            <ol class="task-steps-list">
-              <li>Run <code>ls /</code> to list top-level Linux directories from the filesystem root.</li>
-              <li>Run <code>tree -L 1 /</code> to visualize one-level directory structure quickly.</li>
-              <li>Inspect config directory: <code>ls -lah /etc | head</code> and note common config files.</li>
-              <li>Inspect runtime/log data: <code>ls -lah /var/log | head</code> to observe log file storage.</li>
-              <li>Inspect user and binary locations: compare <code>/home</code>, <code>/usr/bin</code>, and <code>/opt</code>.</li>
-              <li>Write 1-line notes for at least five directories so you can recall their purpose later.</li>
-            </ol>
-            <div class="task-check">Completion check: you can explain at least 5 key Linux directories.</div>
-          </div>
-        </div>
+      <button class="task-toggle" type="button" aria-expanded="false">
+      <span class="task-pill">Topic-6</span>
+      <span class="task-title">The role of the GNU project and why Linux is often referred to as GNU/Linux</span>
+      <span class="task-meta">15–20 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand the GNU Project and how GNU tools combined with the Linux kernel created a complete operating system.
+      </p>
+      <ol class="task-steps-list">
+      <li><strong>The GNU Project</strong><br>
+      The GNU Project was started in 1983 by Richard Stallman with the goal of creating a completely free Unix-like operating system.</li>
+      <li><strong>Free Software Philosophy</strong><br>
+      The project emphasized software freedom, allowing users to run, modify, study, and distribute software.</li>
+      <li><strong>GNU Tools</strong>
+      <ul>
+      <li>GNU Compiler Collection (GCC)</li>
+      <li>GNU Bash Shell</li>
+      <li>Core utilities (ls, cp, mv, etc.)</li>
+      <li>Libraries such as glibc</li>
+      </ul>
+      </li>
+      <li><strong>Missing Component</strong><br>
+      Although GNU created many essential tools, it lacked a working kernel.</li>
+      <li><strong>Linux Kernel Integration</strong><br>
+      When Linus Torvalds released the Linux kernel in 1991, it was combined with GNU tools to form a complete operating system.</li>
+      <li><strong>GNU/Linux Naming</strong><br>
+      Because GNU tools make up a large portion of the operating system environment, many people refer to the system as GNU/Linux.</li>
+      </ol>
+      <div class="task-check">
+      Completion check: You should understand why the Linux operating system is often referred to as GNU/Linux.
+      </div>
+      </div>
+      </div>
       </article>
 
       <article class="task-card" data-task style="--i:6">
-        <button class="task-toggle" type="button" aria-expanded="false">
-          <span class="task-pill">Task 7</span>
-          <span class="task-title">Practice Essential Daily Commands</span>
-          <span class="task-meta">15-20 min</span>
-          <span class="task-chevron">&#9662;</span>
-        </button>
-        <div class="task-panel">
-          <div class="task-panel-inner">
-            <p class="task-goal">Goal: practice the most-used commands for navigation, files, and permissions.</p>
-            <ol class="task-steps-list">
-              <li>Navigation drill: run <code>pwd</code>, <code>ls -lah</code>, <code>cd /etc</code>, then return using <code>cd -</code>.</li>
-              <li>File drill: create with <code>touch app.log</code>, copy with <code>cp app.log app.bak</code>, rename with <code>mv app.bak app-old.log</code>.</li>
-              <li>Read content drill: run <code>echo "hello linux" &gt; app.log</code> then verify with <code>cat app.log</code>.</li>
-              <li>Search drill: find config files using <code>find /etc -name "*.conf" 2&gt;/dev/null</code>.</li>
-              <li>Permission drill: create <code>script.sh</code>, then run <code>chmod 755 script.sh</code> and <code>chown $USER:$USER script.sh</code>.</li>
-              <li>Resource drill: check disk and memory with <code>df -h</code>, <code>free -m</code>, and process view with <code>top</code>.</li>
-            </ol>
-            <div class="task-check">Completion check: commands execute correctly without syntax errors.</div>
-          </div>
-        </div>
+      <button class="task-toggle" type="button" aria-expanded="false">
+      <span class="task-pill">Topic-7</span>
+      <span class="task-title">Major milestones in Linux development and how the community contributes</span>
+      <span class="task-meta">15–20 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal"><span class="task-goal-label">Goal: </span>Learn the major milestones that shaped Linux development.</p>
+      <ol class="task-steps-list">
+      <li><strong>1991 – Linux Kernel Released</strong></li>
+      <li><strong>1992 – Linux Licensed Under GPL</strong></li>
+      <li><strong>1993 – First Linux Distributions</strong></li>
+      <li><strong>1998 – Corporate Adoption</strong></li>
+      <li><strong>2005 – Git Created</strong></li>
+      <li><strong>2010+ – Cloud and Container Adoption</strong></li>
+      <li><strong>Community Contribution</strong>
+      <ul>
+      <li>Developers submit code patches</li>
+      <li>Security researchers find vulnerabilities</li>
+      <li>Companies contribute improvements</li>
+      </ul>
+      </li>
+      </ol>
+      <div class="task-check">Completion check: You should know the major historical milestones of Linux.</div>
+      </div>
+      </div>
       </article>
 
       <article class="task-card" data-task style="--i:7">
-        <button class="task-toggle" type="button" aria-expanded="false">
-          <span class="task-pill">Task 8</span>
-          <span class="task-title">Service and Log Troubleshooting Basics</span>
-          <span class="task-meta">10-12 min</span>
-          <span class="task-chevron">&#9662;</span>
-        </button>
-        <div class="task-panel">
-          <div class="task-panel-inner">
-            <p class="task-goal">Goal: verify service state and read logs like a DevOps engineer.</p>
-            <ol class="task-steps-list">
-              <li>Install Nginx package: <code>sudo apt install -y nginx</code> and wait until install completes.</li>
-              <li>Check service state with <code>systemctl status nginx</code> and verify it shows <strong>active (running)</strong>.</li>
-              <li>Enable service at boot: <code>sudo systemctl enable nginx</code>.</li>
-              <li>Tail logs live using <code>journalctl -u nginx -f</code>, then stop stream with <code>Ctrl + C</code>.</li>
-              <li>Restart service and verify: <code>sudo systemctl restart nginx</code> then run status again.</li>
-              <li>Open browser to <code>http://localhost</code> in Ubuntu VM and confirm Nginx default page loads.</li>
-            </ol>
-            <div class="task-check">Completion check: service is active and logs are visible in terminal.</div>
-          </div>
-        </div>
+      <button class="task-toggle" type="button" aria-expanded="false">
+      <span class="task-pill">Topic-8</span>
+      <span class="task-title">What Linux distributions are and how they package the Linux kernel</span>
+      <span class="task-meta">15–20 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal"><span class="task-goal-label">Goal: </span>Understand what Linux distributions are.</p>
+      <ol class="task-steps-list">
+      <li>Linux distribution combines kernel, utilities, libraries and package managers.</li>
+      <li>Distributions simplify installation and system management.</li>
+      <li>They include desktop environments, applications and security updates.</li>
+      <li><strong>Examples</strong>
+      <ul>
+      <li>Ubuntu</li>
+      <li>Debian</li>
+      <li>Red Hat Enterprise Linux</li>
+      <li>Fedora</li>
+      <li>Arch Linux</li>
+      </ul>
+      </li>
+      </ol>
+      <div class="task-check">Completion check: Understand what a Linux distribution is.</div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:8">
+      <button class="task-toggle" type="button" aria-expanded="false">
+      <span class="task-pill">Topic-9</span>
+      <span class="task-title">Differences between major Linux distributions</span>
+      <span class="task-meta">15–20 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <ol class="task-steps-list">
+      <li><strong>Debian</strong> – stable community distribution.</li>
+      <li><strong>Ubuntu</strong> – beginner-friendly distribution based on Debian.</li>
+      <li><strong>Red Hat</strong> – enterprise-focused distribution.</li>
+      <li><strong>Fedora</strong> – cutting-edge technologies.</li>
+      <li><strong>Arch Linux</strong> – minimal and rolling-release distribution.</li>
+      </ol>
+      <div class="task-check">Completion check: Identify differences between popular distributions.</div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:9">
+      <button class="task-toggle" type="button" aria-expanded="false">
+      <span class="task-pill">Topic-10</span>
+      <span class="task-title">Difference between community and enterprise Linux distributions</span>
+      <span class="task-meta">15–20 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <ol class="task-steps-list">
+      <li>Community distributions are maintained by volunteers.</li>
+      <li>Enterprise distributions provide commercial support.</li>
+      <li>Enterprise versions include stability guarantees.</li>
+      <li>Community versions evolve faster.</li>
+      </ol>
+      <div class="task-check">Completion check: Understand community vs enterprise Linux.</div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:10">
+      <button class="task-toggle">
+      <span class="task-pill">Topic-11</span>
+      <span class="task-title">Where Linux is used today</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <ol class="task-steps-list">
+      <li>Servers and web hosting</li>
+      <li>Cloud infrastructure</li>
+      <li>Containers (Docker, Kubernetes)</li>
+      <li>Networking equipment</li>
+      <li>Embedded devices</li>
+      <li>Android mobile devices</li>
+      </ol>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:11">
+      <button class="task-toggle">
+      <span class="task-pill">Topic-12</span>
+      <span class="task-title">Basic architecture of a Linux system</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <ol class="task-steps-list">
+      <li>Hardware Layer</li>
+      <li>Kernel Space</li>
+      <li>User Space</li>
+      <li>Applications</li>
+      </ol>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:13">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-14</span>
+      <span class="task-title">Understanding the Linux Filesystem Hierarchy</span>
+      <span class="task-meta">15–20 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Learn how the Linux filesystem is organized and understand the purpose of major directories.
+      </p>
+      <div class="filesystem-container">
+      <div class="root-node">/ (Root)</div>
+      <div class="filesystem-grid">
+      <div class="fs-card">
+      <h4>📁 /bin</h4>
+      <p>Essential user commands such as <code>ls</code>, <code>cp</code>, <code>mv</code>, and <code>cat</code>.  
+      These commands are required for basic system operation.</p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /etc</h4>
+      <p>Contains system configuration files used by the operating system and services.</p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /home</h4>
+      <p>Personal directories for users.  
+      Example: <code>/home/santhosh</code></p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /var</h4>
+      <p>Stores variable system data such as logs, cache files, mail, and databases.</p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /usr</h4>
+      <p>Contains installed applications, shared libraries, and user utilities.</p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /tmp</h4>
+      <p>Temporary files created by applications and the system.</p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /dev</h4>
+      <p>Device files representing hardware devices such as disks and terminals.</p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /boot</h4>
+      <p>Contains files needed to boot the system including the Linux kernel.</p>
+      </div>
+      <div class="fs-card">
+      <h4>📁 /lib</h4>
+      <p>Shared libraries required by system programs and the kernel.</p>
+      </div>
+      </div>
+      </div>
+      <div class="task-check">
+      Completion check: You should understand the Linux root directory and the purpose of major directories.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:14">
+      <button class="task-toggle">
+      <span class="task-pill">Topic-15</span>
+      <span class="task-title">How Linux manages processes, users, permissions, and system resources</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <ol class="task-steps-list">
+      <li>Processes represent running programs.</li>
+      <li>Linux supports multi-user environments.</li>
+      <li>Permissions control file access.</li>
+      <li>System resources like CPU and memory are managed by the kernel.</li>
+      </ol>
+      <div class="task-check">
+      Completion check: Understand Linux process management and permission systems.
+      </div>
+      </div>
+      </div>
       </article>
     </section>
+    <!-- <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val">Ubuntu 22.04</div></div>
+      <div class="pm-cell"><div class="pm-key">Platform</div><div class="pm-val">VMware / VirtualBox / WSL2</div></div>
+      <div class="pm-cell"><div class="pm-key">Tasks</div><div class="pm-val">24 Structured Tasks</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val pm-status">Completed</div></div>
+    </div>
+  </div> -->
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

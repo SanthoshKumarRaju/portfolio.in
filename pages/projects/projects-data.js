@@ -2,6 +2,32 @@
 window.PDATA = [
   { id:'linux', label:'Linux', icon:'🐧', projects:[
     {
+    id: 'Linux-History',
+    title: 'Linux Theory and Basics',
+    env: 'local',
+    status: 'completed',
+    summary: 'This project covers the history of Linux, its foundations, the Linux kernel, distributions, and the fundamental architecture of a Linux operating system.',
+    purpose: 'The goal is to understand how Linux started, why it became so widely used, and how its ecosystem works across servers, desktops, cloud, and embedded systems.',
+    overview: [
+      'The origin of Unix and how it influenced the development of Linux.',
+      'The history of Linux and the role of Linus Torvalds in creating the Linux kernel.',
+      'How the open-source movement contributed to the growth and success of Linux.',
+      'Understanding what the Linux kernel is and its responsibilities in an operating system.',
+      'How Linux interacts with hardware through drivers and system calls.',
+      'The role of the GNU project and why Linux is often referred to as GNU/Linux.',
+      'Major milestones in Linux development and how the community contributes to its evolution.',
+      'What Linux distributions are and how they package the Linux kernel with software.',
+      'Differences between major Linux distributions such as Ubuntu, Debian, Red Hat, Arch, and Fedora.',
+      'The difference between community distributions and enterprise Linux distributions.',
+      'Where Linux is used today: servers, cloud computing, containers, embedded systems, networking, and mobile devices.',
+      'The basic architecture of a Linux system including kernel space and user space.',
+      'Core components of a Linux system: kernel, shell, utilities, libraries, and system services.',
+      'Understanding the Linux filesystem hierarchy and the purpose of major directories.',
+      'How Linux manages processes, users, permissions, and system resources.'
+    ],
+    page: '../../projects/linux/linux-theory/index.html'
+    },
+    {
     id: 'basic-linux-commands',
     title: 'Basic Linux Commands',
     env: 'local',

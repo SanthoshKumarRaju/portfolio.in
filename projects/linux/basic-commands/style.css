@@ -708,6 +708,54 @@
 .pm-val { font-size: .82rem; color: #dbe7f8; }
 .pm-status { color: var(--wht); font-weight: 560; }
 
+/* tree based desigh fro linux tree*/
+.filesystem-container{
+margin-top:20px;
+text-align:center;
+}
+
+.root-node{
+display:inline-block;
+padding:12px 25px;
+font-weight:600;
+background:#1f2937;
+color:white;
+border-radius:6px;
+margin-bottom:30px;
+font-size:18px;
+}
+
+.filesystem-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+margin-top:20px;
+}
+
+.fs-card{
+background:#f8fafc;
+border:1px solid #e5e7eb;
+padding:18px;
+border-radius:8px;
+text-align:left;
+transition:all 0.2s ease;
+}
+
+.fs-card:hover{
+transform:translateY(-4px);
+box-shadow:0 8px 18px rgba(0,0,0,0.08);
+}
+
+.fs-card h4{
+margin-bottom:8px;
+font-size:16px;
+}
+
+.fs-card p{
+font-size:14px;
+line-height:1.5;
+color:#555;
+}
 @media (max-width: 700px) {
   .proj-body { padding: 1.65rem 1.05rem; }
   .proj-page .proj-header { padding: 1rem 1.05rem; }

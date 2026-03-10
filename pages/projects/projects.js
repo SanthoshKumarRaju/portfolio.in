@@ -256,14 +256,14 @@
     return !!activeEnvFilters[itemEnvKey];
   }
 
-  function renderPlaceholder(msg) {
-    detail.innerHTML =
-      '<div class="pj-placeholder">' +
-        '<div class="pj-ph-ico">&#9881;&#65039;</div>' +
-        '<div class="pj-ph-title">Select a project</div>' +
-        '<div class="pj-ph-sub">' + (msg || '&#8592; Expand a concept from the sidebar') + '</div>' +
-      '</div>';
-  }
+  // function renderPlaceholder(msg) {
+  //   detail.innerHTML =
+  //     '<div class="pj-placeholder">' +
+  //       '<div class="pj-ph-ico">&#9881;&#65039;</div>' +
+  //       '<div class="pj-ph-title">Select a project</div>' +
+  //       '<div class="pj-ph-sub">' + (msg || '&#8592; Expand a concept from the sidebar') + '</div>' +
+  //     '</div>';
+  // }
 
   function updateFilterUi(visibleCount) {
     filterButtons.forEach(function (btn) {

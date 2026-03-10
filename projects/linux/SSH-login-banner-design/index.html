@@ -1,0 +1,3218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Login Banner Design</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <span >linux</span>
+      <span>/</span>
+      <span class="proj-bc-cur">ssh-login_banner_design</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">SSH Login Banner Design</h1>
+        <span class="g-tag tg">&bull; local lab</span>
+        <!-- terminal toggle button defined globally -->
+        <button class="terminal-btn" id="terminalBtn" type="button">Terminal</button>
+      </div>
+    </div>
+
+    <div class="proj-desc">
+      <span class="task-summary">Summary</span>
+      <p>
+        The project will guide you through the process of designing and implementing a custom SSH login banner on a Linux system. 
+        You will learn how to create a banner message that is displayed to users when they log in via SSH, and how to configure the SSH server to use this banner. 
+        This is a common practice for providing important information, legal notices, or welcome messages to users before they access the system.
+      </p>
+    </div>
+
+    <section class="task-board" aria-label="Linux setup and command tasks">
+      <div class="proj-section-title">Linux Fundamentals </div>
+
+<article class="task-card" data-task style="--i:0">
+  <button class="task-toggle" type="button" aria-expanded="true">
+    <span class="task-pill">Overview</span>
+    <span class="task-title">Project Overview – SSH Login Banner Design</span>
+    <span class="task-meta">5–8 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand what SSH login banners are, why they are used in Linux systems,
+        and how they help improve system visibility, user experience, and security
+        awareness when administrators access servers through SSH.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>Introduction to SSH Login Banners</strong><br>
+          An SSH login banner is a message displayed to users when they connect
+          to a Linux server using the Secure Shell (SSH) protocol.
+          This message can appear either before authentication or after a
+          successful login depending on how the system is configured.
+          Login banners are commonly used to display system information,
+          security warnings, and welcome messages.
+        </li>
+
+        <li>
+          <strong>Purpose of a Login Banner</strong><br>
+          Login banners serve multiple purposes in system administration.
+          They provide users with important information about the server,
+          communicate access policies, and inform users that the system
+          is monitored and restricted to authorized use.
+          This helps organizations maintain security awareness and
+          professional system management practices.
+        </li>
+
+        <li>
+          <strong>Improving System Visibility</strong><br>
+          Administrators often need quick insight into the system immediately
+          after logging in. A well-designed login banner can display useful
+          information such as:
+          <ul>
+            <li>Hostname of the server</li>
+            <li>Operating system version</li>
+            <li>System uptime</li>
+            <li>CPU and memory usage</li>
+            <li>Disk space availability</li>
+            <li>Network or IP information</li>
+          </ul>
+          This allows administrators to quickly understand the system state.
+        </li>
+
+        <li>
+          <strong>Security Awareness</strong><br>
+          Many organizations configure SSH banners to display security
+          warnings that notify users that the system is restricted to
+          authorized personnel only. These warnings may also state that
+          system activity is monitored and logged. This helps discourage
+          unauthorized access and supports security compliance policies.
+        </li>
+
+        <li>
+          <strong>User Experience and Professional Appearance</strong><br>
+          A structured and well-formatted login banner improves the user
+          experience for administrators by clearly presenting important
+          information in a readable format. It also gives the system a
+          professional appearance, especially in production environments.
+        </li>
+
+        <li>
+          <strong>Project Objective</strong><br>
+          In this project, the goal is to design and implement a custom
+          SSH login banner that dynamically displays system information
+          and security notices when users connect to a Linux system.
+          The banner will be designed to be clean, informative,
+          customizable, and easy to maintain.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should understand what SSH login banners are,
+        why they are used in Linux systems, and how they help improve
+        system visibility, user awareness, and security communication.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:1">
+  <button class="task-toggle" type="button" aria-expanded="false">
+    <span class="task-pill">Concept - 1</span>
+    <span class="task-title">Problem Statement – Limitations of Default SSH Login Messages</span>
+    <span class="task-meta">5–8 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand the limitations of default SSH login messages in Linux systems
+        and why administrators often need more useful system information
+        immediately after logging into a server.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>Default SSH Login Behavior</strong><br>
+          When a user connects to a Linux server using SSH, the system usually
+          displays a very minimal login message. In many systems, this message
+          only includes basic details such as the operating system version
+          or a short system message. While this information may be helpful,
+          it often does not provide enough operational insight for system
+          administrators who need to quickly understand the system's status.
+        </li>
+
+        <li>
+          <strong>Limited Visibility for Administrators</strong><br>
+          After logging into a server, administrators often need to manually
+          run multiple commands to understand the current condition of the
+          system. For example, they may need to check uptime, system load,
+          memory usage, or disk space before performing any operations.
+          This process can slow down troubleshooting and routine maintenance.
+        </li>
+
+        <li>
+          <strong>Common Information Administrators Need</strong><br>
+          Immediately after login, administrators typically want to know
+          important system details such as:
+          <ul>
+            <li>System uptime</li>
+            <li>CPU load and performance</li>
+            <li>Memory usage</li>
+            <li>Disk space availability</li>
+            <li>Number of logged-in users</li>
+            <li>Network and IP information</li>
+          </ul>
+          Without a structured login banner, administrators must manually
+          execute several commands to gather this information.
+        </li>
+
+        <li>
+          <strong>Inefficiency in System Administration</strong><br>
+          Repeating the same diagnostic commands every time a user logs
+          into a server can become inefficient, especially when managing
+          multiple systems. In large environments with many servers,
+          administrators benefit from having important system information
+          displayed automatically during login.
+        </li>
+
+        <li>
+          <strong>Need for a Structured Login Banner</strong><br>
+          To solve this problem, many administrators create custom
+          SSH login banners that automatically display useful system
+          information when a user logs in. These banners provide a quick
+          overview of the server's current state, helping administrators
+          make faster decisions and improving overall operational efficiency.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should understand why default SSH login
+        messages are limited and why administrators benefit from
+        customized login banners that provide system insights immediately
+        after login.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:2">
+  <button class="task-toggle" type="button" aria-expanded="false">
+    <span class="task-pill">Concept - 2</span>
+    <span class="task-title">Why SSH Login Banners Matter</span>
+    <span class="task-meta">8–10 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand the importance of SSH login banners and how they improve
+        security awareness, system visibility, and communication between
+        administrators and users who access Linux servers.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>Security Awareness</strong><br>
+          One of the primary purposes of an SSH login banner is to inform
+          users about the security policies of the system. Many organizations
+          display warning messages stating that the system is restricted to
+          authorized users and that all activities may be monitored or logged.
+          These warnings help discourage unauthorized access attempts and
+          establish clear security expectations for users connecting to the server.
+        </li>
+
+        <li>
+          <strong>Legal and Compliance Requirements</strong><br>
+          In many enterprise environments, login banners are required for
+          security compliance and legal protection. These banners typically
+          inform users that the system is owned by an organization and that
+          any unauthorized access is prohibited. If a security incident occurs,
+          these warnings can support legal and compliance investigations by
+          showing that users were clearly notified about system policies.
+        </li>
+
+        <li>
+          <strong>System Identification</strong><br>
+          Login banners can help users quickly identify the system they are
+          connected to. This is particularly important in environments where
+          administrators manage multiple servers such as development,
+          staging, and production systems. A banner displaying the hostname,
+          environment type, or system role helps prevent accidental changes
+          on the wrong system.
+        </li>
+
+        <li>
+          <strong>Operational Visibility</strong><br>
+          A well-designed SSH login banner can display important system
+          information immediately after login. This allows administrators
+          to quickly understand the current status of the server without
+          running additional commands. Typical information displayed may include:
+          <ul>
+            <li>System uptime</li>
+            <li>CPU load and performance</li>
+            <li>Memory usage</li>
+            <li>Disk usage and available storage</li>
+            <li>Number of logged-in users</li>
+            <li>System hostname and IP address</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Improved User Experience</strong><br>
+          Structured login banners improve the overall user experience
+          for administrators and developers who frequently access servers.
+          Instead of manually checking system details, the most important
+          information is presented immediately during login. This makes
+          system monitoring more efficient and saves time during daily operations.
+        </li>
+
+        <li>
+          <strong>Communication Channel for Administrators</strong><br>
+          Login banners can also be used as a communication channel
+          between system administrators and users. For example, banners
+          can display important notices such as maintenance schedules,
+          system updates, or operational alerts. This ensures that users
+          are informed about system events as soon as they log in.
+        </li>
+
+        <li>
+          <strong>Professional System Presentation</strong><br>
+          Custom login banners provide a clean and professional
+          presentation for servers, especially in enterprise environments.
+          A structured banner with formatted information, ASCII headers,
+          and organized system data gives administrators a clear and
+          consistent view of the system during every login session.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should understand why SSH login banners are
+        important for system security, administrator awareness, and
+        operational visibility when managing Linux servers.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:3">
+  <button class="task-toggle" type="button" aria-expanded="false">
+    <span class="task-pill">Concept - 3</span>
+    <span class="task-title">Security and Compliance Considerations</span>
+    <span class="task-meta">8–10 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand why SSH login banners are important for security policies,
+        legal compliance, and organizational governance, and how they help
+        protect systems by clearly informing users about access restrictions
+        and monitoring policies.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>Importance of Security Warnings</strong><br>
+          SSH login banners are commonly used to display security warnings
+          before or after a user logs into a system. These warnings inform
+          users that the system is private property and that access is
+          restricted to authorized individuals only. The message also
+          communicates that activities performed on the system may be
+          monitored, recorded, and audited.
+        </li>
+
+        <li>
+          <strong>Legal Protection for Organizations</strong><br>
+          Many organizations require login banners to establish legal
+          protection and clarify ownership of the system. By displaying
+          a warning message before authentication, the organization can
+          clearly inform users that unauthorized access is prohibited.
+          If a user proceeds with login after seeing the warning, it
+          indicates that they have acknowledged the terms of use.
+        </li>
+
+        <li>
+          <strong>Compliance Requirements</strong><br>
+          In regulated industries such as finance, healthcare, and
+          government sectors, login banners are often required as part
+          of security compliance frameworks. These frameworks require
+          organizations to notify users that the system is monitored
+          and that improper use may lead to disciplinary or legal action.
+          Implementing login banners helps organizations meet these
+          compliance standards.
+        </li>
+
+        <li>
+          <strong>Monitoring and Audit Awareness</strong><br>
+          Login banners often inform users that system activities may
+          be logged and monitored. This helps create transparency and
+          encourages responsible use of the system. Knowing that actions
+          are being monitored can discourage misuse and unauthorized
+          behavior within the system.
+        </li>
+
+        <li>
+          <strong>Restricting Unauthorized Access</strong><br>
+          Security banners clearly state that only authorized users
+          are permitted to access the system. This helps discourage
+          attackers or unauthorized users by explicitly informing them
+          that the system is protected and monitored.
+        </li>
+
+        <li>
+          <strong>Best Practices for Security Banners</strong><br>
+          When designing security banners, administrators should follow
+          several best practices:
+          <ul>
+            <li>Clearly state that the system is restricted to authorized users.</li>
+            <li>Inform users that activity may be monitored or logged.</li>
+            <li>Avoid revealing sensitive system information.</li>
+            <li>Use clear and professional language.</li>
+            <li>Ensure the banner complies with organizational policies.</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Placement of Security Banners</strong><br>
+          Security banners are typically displayed in two locations
+          depending on the system configuration:
+          <ul>
+            <li><strong>Pre-login banner:</strong> Displayed before authentication using files such as <code>/etc/issue.net</code>.</li>
+            <li><strong>Post-login banner:</strong> Displayed after authentication using files such as <code>/etc/motd</code>.</li>
+          </ul>
+          Pre-login banners are usually preferred for legal warnings
+          because they appear before the user provides authentication credentials.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should understand how SSH login banners
+        help enforce security policies, support compliance requirements,
+        and inform users about system monitoring and access restrictions.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:4">
+  <button class="task-toggle" type="button" aria-expanded="false">
+    <span class="task-pill">Concept - 4</span>
+    <span class="task-title">Types of SSH Login Banners</span>
+    <span class="task-meta">10–12 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand the two primary types of SSH login banners—pre-login banners
+        and post-login banners—and learn when each type should be used and how
+        they serve different purposes in system administration.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>Overview of SSH Login Banner Types</strong><br>
+          SSH login banners are generally divided into two categories based on
+          when they appear during the login process. These are:
+          <ul>
+            <li>Pre-login banners</li>
+            <li>Post-login banners</li>
+          </ul>
+          Each type serves a different purpose and is configured using
+          different files and system settings within the Linux environment.
+        </li>
+
+        <li>
+          <strong>Pre-Login Banner</strong><br>
+          A pre-login banner is displayed before a user successfully
+          authenticates to the system. This message appears immediately
+          after an SSH connection is established but before the user enters
+          their password or authentication credentials.
+        </li>
+
+        <li>
+          <strong>Purpose of Pre-Login Banners</strong><br>
+          Pre-login banners are primarily used for security and legal
+          notifications. They inform users that the system is private,
+          monitored, and restricted to authorized individuals. This ensures
+          that users are aware of system policies before they proceed with
+          authentication.
+        </li>
+
+        <li>
+          <strong>Common Pre-Login Banner Configuration</strong><br>
+          In most Linux systems, pre-login banners are configured using
+          the file:
+          <ul>
+            <li><code>/etc/issue.net</code></li>
+          </ul>
+          The SSH server configuration file is then updated to reference
+          this banner file using the following directive in
+          <code>/etc/ssh/sshd_config</code>:
+          <pre>Banner /etc/issue.net</pre>
+          Once configured, this banner will be displayed to all users
+          connecting via SSH before login.
+        </li>
+
+        <li>
+          <strong>Post-Login Banner</strong><br>
+          A post-login banner is displayed after a user successfully
+          authenticates to the system. This message appears once the
+          user has logged in and before they begin interacting with
+          the command-line shell.
+        </li>
+
+        <li>
+          <strong>Purpose of Post-Login Banners</strong><br>
+          Post-login banners are commonly used to display operational
+          information and system status details. Instead of legal
+          warnings, these banners typically provide helpful system
+          insights to administrators and users.
+        </li>
+
+        <li>
+          <strong>Common Post-Login Banner Configuration</strong><br>
+          Post-login messages are typically managed using:
+          <ul>
+            <li><code>/etc/motd</code> (Message of the Day)</li>
+            <li><code>/etc/update-motd.d/</code> scripts (dynamic messages)</li>
+          </ul>
+          These files allow administrators to display static messages
+          or dynamically generated system information when users log in.
+        </li>
+
+        <li>
+          <strong>Dynamic Post-Login Information</strong><br>
+          Administrators often configure dynamic MOTD scripts to display
+          real-time system data such as:
+          <ul>
+            <li>System uptime</li>
+            <li>CPU load</li>
+            <li>Memory usage</li>
+            <li>Disk space availability</li>
+            <li>Number of active users</li>
+            <li>System hostname and network information</li>
+          </ul>
+          This helps administrators quickly understand the system state
+          immediately after login.
+        </li>
+
+        <li>
+          <strong>Choosing the Right Banner Type</strong><br>
+          Both banner types serve different roles in system administration:
+          <ul>
+            <li><strong>Pre-login banners</strong> are best used for security warnings and legal notices.</li>
+            <li><strong>Post-login banners</strong> are ideal for operational information and system status.</li>
+          </ul>
+          In many environments, administrators configure both types to
+          provide security warnings before login and useful system
+          information after authentication.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should be able to explain the difference
+        between pre-login and post-login SSH banners, when each type is
+        used, and which system files are responsible for displaying them.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:5">
+
+<button class="task-toggle" type="button" aria-expanded="false">
+<span class="task-pill">Concept - 5</span>
+<span class="task-title">Methods to Implement SSH Login Banners in Linux</span>
+<span class="task-meta">25–40 min</span>
+<span class="task-chevron">&#9662;</span>
+</button>
+
+<div class="task-panel">
+
+<div class="task-panel-inner" data-variant-default="prelogin">
+<!-- METHOD 1 -->
+
+<div data-variant="prelogin">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Display a security warning before SSH authentication using the Banner directive.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Create banner file
+
+<code>sudo nano /etc/issue.net</code>
+
+</li>
+
+<li>Add warning message
+
+<pre>
+AUTHORIZED ACCESS ONLY
+This system is monitored and logged.
+Unauthorized access is prohibited.
+</pre>
+
+</li>
+
+<li>Edit SSH configuration
+
+<code>sudo nano /etc/ssh/sshd_config</code>
+
+</li>
+
+<li>Add banner directive
+
+<pre>
+Banner /etc/issue.net
+</pre>
+
+</li>
+
+<li>Restart SSH
+
+Ubuntu / Debian
+
+<code>sudo systemctl restart ssh</code>
+
+RHEL / CentOS
+
+<code>sudo systemctl restart sshd</code>
+
+</li>
+
+<li>Test SSH login
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+</ol>
+
+</div>
+
+
+<!-- METHOD 2 -->
+
+<div data-variant="motd">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Display login messages after successful SSH authentication.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Edit MOTD file
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Add message
+
+<pre>
+Welcome to DevOps Platform
+
+Maintenance window: Sunday 02:00 AM
+Contact: admin@example.com
+</pre>
+
+</li>
+
+<li>Reconnect SSH to see the message.</li>
+
+</ol>
+
+</div>
+
+
+<!-- METHOD 3 -->
+
+<div data-variant="dynamic">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Generate dynamic system information during login.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Create script
+
+<code>sudo nano /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Add script
+
+<pre>
+#!/bin/bash
+
+echo "Server: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h /
+</pre>
+
+</li>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Reconnect SSH to see the dynamic banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- METHOD 4 -->
+
+<div data-variant="bashrc">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Display user-specific login messages using the bash profile.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Edit user bash configuration
+
+<code>nano ~/.bashrc</code>
+
+</li>
+
+<li>Add login message commands
+
+<pre>
+echo "Welcome $(whoami)"
+echo "Hostname: $(hostname)"
+echo "Login Time: $(date)"
+</pre>
+
+</li>
+
+<li>Reload shell
+
+<code>source ~/.bashrc</code>
+
+</li>
+
+</ol>
+
+</div>
+
+
+<!-- METHOD 5 -->
+
+<div data-variant="ascii">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Create visually styled login banners using ASCII art.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Install figlet
+
+Ubuntu
+
+<code>sudo apt install figlet</code>
+
+RHEL
+
+<code>sudo dnf install figlet</code>
+
+</li>
+
+<li>Create ASCII banner
+
+<code>figlet DEVOPS SERVER</code>
+
+</li>
+
+<li>Copy banner output into
+
+<code>/etc/motd</code>
+
+</li>
+
+</ol>
+
+</div>
+
+
+<!-- METHOD 6 -->
+
+<div data-variant="dashboard">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Display a system dashboard with system metrics during login.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Create script
+
+<code>sudo nano /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Add dashboard script
+
+<pre>
+#!/bin/bash
+
+echo "----------------------------"
+echo " SERVER STATUS DASHBOARD "
+echo "----------------------------"
+
+echo "Hostname: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory:"
+free -h
+
+echo "Disk:"
+df -h /
+
+echo "Users logged in:"
+who
+</pre>
+
+</li>
+
+<li>Make executable
+
+<code>chmod +x /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+</ol>
+
+</div>
+
+
+<!-- METHOD 7 -->
+
+<div data-variant="pam">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Use PAM modules to manage login messages.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Edit SSH PAM configuration
+
+<code>sudo nano /etc/pam.d/sshd</code>
+
+</li>
+
+<li>Ensure MOTD modules exist
+
+<pre>
+session optional pam_motd.so motd=/run/motd.dynamic
+session optional pam_motd.so
+</pre>
+
+</li>
+
+</ol>
+
+</div>
+
+
+<!-- METHOD 8 -->
+
+<div data-variant="console">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Display login messages for local console access.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Edit console banner file
+
+<code>sudo nano /etc/issue</code>
+
+</li>
+
+<li>Add banner message
+
+<pre>
+Authorized Access Only
+System activity is monitored.
+</pre>
+
+</li>
+
+<li>Save the file and switch to a console login to see the message.</li>
+
+</ol>
+
+</div>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:6">
+
+<button class="task-toggle" type="button">
+<span class="task-pill">Method - 1</span>
+<span class="task-title">Post-Login Banner using MOTD</span>
+<span class="task-meta">15–20 min</span>
+<span class="task-chevron">&#9662;</span>
+</button>
+
+<div class="task-panel">
+
+<div class="task-panel-inner" data-variant-default="ubuntu">
+
+<!-- UBUNTU -->
+
+<div data-variant="ubuntu">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Configure a post-login banner on Ubuntu using the MOTD file.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to the server using SSH
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Update package repository (recommended)
+
+<code>sudo apt update</code>
+
+</li>
+<li>Install nano editor if not already installed
+
+<code>sudo apt install nano</code>
+
+</li>
+
+<li>Edit the MOTD file
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Add banner message
+
+<pre>
+Welcome to Ubuntu Production Server
+
+Environment: DevOps Lab
+All activities are monitored.
+</pre>
+
+</li>
+
+<li>Save the file
+
+Press
+
+<code>CTRL + O</code> → Save  
+<code>CTRL + X</code> → Exit
+
+</li>
+
+<li>Logout and reconnect
+
+<code>exit</code>
+
+Then reconnect
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>The MOTD banner should now appear immediately after login.</li>
+
+</ol>
+
+</div>
+
+
+<!-- DEBIAN -->
+
+<div data-variant="debian">
+
+<p class="task-goal">
+Configure login banner on Debian servers.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to the server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Edit MOTD
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Add banner content
+
+<pre>
+Welcome to Debian Server
+
+Authorized access only
+System monitored by DevOps Team
+</pre>
+
+</li>
+
+<li>Save file and exit editor.</li>
+
+<li>Reconnect SSH to verify banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- RHEL -->
+
+<div data-variant="rhel">
+
+<p class="task-goal">
+Configure login message on Red Hat Enterprise Linux.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to RHEL server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Verify MOTD file exists
+
+<code>ls /etc/motd</code>
+
+</li>
+
+<li>Edit file
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Add banner message
+
+<pre>
+Welcome to RHEL Production Server
+Security monitoring enabled
+</pre>
+
+</li>
+
+<li>Save file.</li>
+
+<li>Reconnect SSH to confirm banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- CENTOS -->
+
+<div data-variant="centos">
+
+<p class="task-goal">
+Configure post-login banner in CentOS environment.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Login to server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Edit MOTD
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Add message
+
+<pre>
+CentOS Infrastructure Node
+
+Authorized users only
+</pre>
+
+</li>
+
+<li>Save file.</li>
+
+<li>Reconnect SSH session.</li>
+
+</ol>
+
+</div>
+
+
+<!-- ROCKY -->
+
+<div data-variant="rocky">
+
+<p class="task-goal">
+Configure login banner on Rocky Linux server.
+</p>
+
+<ol class="task-steps-list">
+
+<li>SSH login
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Edit banner file
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Add message
+
+<pre>
+Rocky Linux DevOps Node
+System monitored and logged
+</pre>
+
+</li>
+
+<li>Save and exit.</li>
+
+<li>Reconnect SSH to view message.</li>
+
+</ol>
+
+</div>
+
+
+<!-- AMAZON LINUX -->
+
+<div data-variant="amazon">
+
+<p class="task-goal">
+Configure login message on Amazon Linux instance.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to EC2 instance
+
+<code>ssh ec2-user@public-ip</code>
+
+</li>
+
+<li>Edit MOTD
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Add banner message
+
+<pre>
+Amazon Linux Instance
+
+Managed by DevOps Platform
+</pre>
+
+</li>
+
+<li>Save file.</li>
+
+<li>Reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<div class="task-check">
+Completion check: After reconnecting SSH, the MOTD message should appear immediately after login.
+</div>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:7">
+
+<button class="task-toggle" type="button">
+<span class="task-pill">Method - 2</span>
+<span class="task-title">Dynamic Login Banner using update-motd.d</span>
+<span class="task-meta">20–25 min</span>
+<span class="task-chevron">&#9662;</span>
+</button>
+
+<div class="task-panel">
+
+<div class="task-panel-inner" data-variant-default="ubuntu">
+<!-- UBUNTU -->
+
+<div data-variant="ubuntu">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Generate dynamic system information during login on Ubuntu using the update-motd.d framework.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to the Ubuntu server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Navigate to MOTD scripts directory
+
+<code>cd /etc/update-motd.d</code>
+
+</li>
+
+<li>Create new script
+
+<code>sudo nano /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Add script content
+
+<pre>
+#!/bin/bash
+
+echo "Server: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h /
+</pre>
+
+</li>
+
+<li>Save file
+
+Press
+
+<code>CTRL + O</code> → Save  
+<code>CTRL + X</code> → Exit
+
+</li>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Logout and reconnect SSH
+
+<code>exit</code>
+
+Reconnect
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>The dynamic system information banner should now appear after login.</li>
+
+</ol>
+
+</div>
+
+
+<!-- DEBIAN -->
+
+<div data-variant="debian">
+
+<p class="task-goal">
+Configure a dynamic MOTD banner on Debian servers.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Create banner script
+
+<code>sudo nano /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Add the script
+
+<pre>
+#!/bin/bash
+
+echo "Server: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h /
+</pre>
+
+</li>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Reconnect SSH to view dynamic banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- RHEL -->
+
+<div data-variant="rhel">
+
+<p class="task-goal">
+Implement dynamic login banners in Red Hat Enterprise Linux.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Create MOTD script directory if not present
+
+<code>sudo mkdir -p /etc/update-motd.d</code>
+
+</li>
+
+<li>Create script
+
+<code>sudo nano /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Add script
+
+<pre>
+#!/bin/bash
+
+echo "Server: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h /
+</pre>
+
+</li>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Reconnect SSH to verify banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- CENTOS -->
+
+<div data-variant="centos">
+
+<p class="task-goal">
+Create dynamic login banner in CentOS systems.
+</p>
+
+<ol class="task-steps-list">
+
+<li>SSH into the server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Create MOTD script
+
+<code>sudo nano /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Add the dynamic banner script</li>
+
+<pre>
+#!/bin/bash
+
+echo "Server: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h /
+</pre>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Reconnect SSH to see banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- ROCKY -->
+
+<div data-variant="rocky">
+
+<p class="task-goal">
+Configure dynamic system login message on Rocky Linux.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect via SSH
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Create script
+
+<code>sudo nano /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Add banner script</li>
+
+<pre>
+#!/bin/bash
+
+echo "Server: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h /
+</pre>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Reconnect SSH to verify output.</li>
+
+</ol>
+
+</div>
+
+
+<!-- AMAZON LINUX -->
+
+<div data-variant="amazon">
+
+<p class="task-goal">
+Display dynamic login banner on Amazon Linux instances.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to EC2 instance
+
+<code>ssh ec2-user@public-ip</code>
+
+</li>
+
+<li>Create script
+
+<code>sudo nano /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Add dynamic banner script</li>
+
+<pre>
+#!/bin/bash
+
+echo "Server: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory Usage:"
+free -h
+
+echo "Disk Usage:"
+df -h /
+</pre>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-system-info</code>
+
+</li>
+
+<li>Reconnect SSH to see dynamic system information.</li>
+
+</ol>
+
+</div>
+
+
+<div class="task-check">
+Completion check: After reconnecting SSH, the system should display hostname, uptime, memory usage, and disk usage dynamically.
+</div>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:8">
+
+<button class="task-toggle" type="button">
+<span class="task-pill">Method - 3</span>
+<span class="task-title">User Login Banner using Bash Profile (~/.bashrc)</span>
+<span class="task-meta">15–20 min</span>
+<span class="task-chevron">&#9662;</span>
+</button>
+
+<div class="task-panel">
+
+<div class="task-panel-inner" data-variant-default="ubuntu">
+<!-- UBUNTU -->
+
+<div data-variant="ubuntu">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Display a personalized login message for Ubuntu users using the Bash configuration file.
+</p>
+<p class="task-goal">
+<span class="task-goal-label">Note:</span>
+This method allows only if the shell is bash and the user has permission to edit their own bash configuration. It is ideal for displaying user-specific information rather than system-wide messages.
+</p>  
+</p>
+<ol class="task-steps-list">
+
+<li>Connect to the Ubuntu server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Open the bash configuration file
+
+<code>nano ~/.bashrc</code>
+
+</li>
+
+<li>Add the login message commands at the bottom of the file
+
+<pre>
+echo "Welcome $(whoami)"
+echo "Hostname: $(hostname)"
+echo "Login Time: $(date)"
+</pre>
+
+</li>
+
+<li>Save the file
+
+Press
+
+<code>CTRL + O</code> → Save  
+<code>CTRL + X</code> → Exit
+
+</li>
+
+<li>Reload the bash configuration
+
+<code>source ~/.bashrc</code>
+
+</li>
+
+<li>Logout and reconnect SSH to verify the login message.</li>
+
+</ol>
+
+</div>
+
+
+<!-- DEBIAN -->
+
+<div data-variant="debian">
+
+<p class="task-goal">
+Configure a user login message in Debian using the bash profile.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to the Debian server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Edit the bash configuration file
+
+<code>nano ~/.bashrc</code>
+
+</li>
+
+<li>Add the following commands
+
+<pre>
+echo "Welcome $(whoami)"
+echo "Hostname: $(hostname)"
+echo "Login Time: $(date)"
+</pre>
+
+</li>
+
+<li>Save the file and exit the editor.</li>
+
+<li>Reload configuration
+
+<code>source ~/.bashrc</code>
+
+</li>
+
+<li>Reconnect SSH to see the message.</li>
+
+</ol>
+
+</div>
+
+
+<!-- RHEL -->
+
+<div data-variant="rhel">
+
+<p class="task-goal">
+Configure a login banner for Red Hat Enterprise Linux users.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to the RHEL server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Edit the bash configuration
+
+<code>nano ~/.bashrc</code>
+
+</li>
+
+<li>Add the banner commands
+
+<pre>
+echo "Welcome $(whoami)"
+echo "Hostname: $(hostname)"
+echo "Login Time: $(date)"
+</pre>
+
+</li>
+
+<li>Save the file.</li>
+
+<li>Reload configuration
+
+<code>source ~/.bashrc</code>
+
+</li>
+
+<li>Reconnect SSH to verify the login message.</li>
+
+</ol>
+
+</div>
+
+
+<!-- CENTOS -->
+
+<div data-variant="centos">
+
+<p class="task-goal">
+Display user login messages on CentOS systems.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Login to the server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Edit bash configuration
+
+<code>nano ~/.bashrc</code>
+
+</li>
+
+<li>Add login commands
+
+<pre>
+echo "Welcome $(whoami)"
+echo "Hostname: $(hostname)"
+echo "Login Time: $(date)"
+</pre>
+
+</li>
+
+<li>Save and exit.</li>
+
+<li>Reload bash configuration
+
+<code>source ~/.bashrc</code>
+
+</li>
+
+<li>Reconnect SSH to verify the banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- ROCKY -->
+
+<div data-variant="rocky">
+
+<p class="task-goal">
+Configure user login message on Rocky Linux.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Edit bash configuration file
+
+<code>nano ~/.bashrc</code>
+
+</li>
+
+<li>Add login message script
+
+<pre>
+echo "Welcome $(whoami)"
+echo "Hostname: $(hostname)"
+echo "Login Time: $(date)"
+</pre>
+
+</li>
+
+<li>Save file.</li>
+
+<li>Reload configuration
+
+<code>source ~/.bashrc</code>
+
+</li>
+
+<li>Reconnect SSH to see the login message.</li>
+
+</ol>
+
+</div>
+
+
+<!-- AMAZON LINUX -->
+
+<div data-variant="amazon">
+
+<p class="task-goal">
+Configure login messages on Amazon Linux EC2 instances.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to EC2 instance
+
+<code>ssh ec2-user@public-ip</code>
+
+</li>
+
+<li>Edit bash configuration
+
+<code>nano ~/.bashrc</code>
+
+</li>
+
+<li>Add commands
+
+<pre>
+echo "Welcome $(whoami)"
+echo "Hostname: $(hostname)"
+echo "Login Time: $(date)"
+</pre>
+
+</li>
+
+<li>Save and exit.</li>
+
+<li>Reload bash configuration
+
+<code>source ~/.bashrc</code>
+
+</li>
+
+<li>Reconnect SSH session.</li>
+
+</ol>
+
+</div>
+
+
+<div class="task-check">
+Completion check: After reconnecting SSH, the login message should display the username, hostname, and login time.
+</div>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:9">
+
+<button class="task-toggle" type="button">
+<span class="task-pill">Method - 4</span>
+<span class="task-title">ASCII Login Banner using Figlet</span>
+<span class="task-meta">15–20 min</span>
+<span class="task-chevron">&#9662;</span>
+</button>
+
+<div class="task-panel">
+
+<div class="task-panel-inner" data-variant-default="ubuntu">
+<!-- UBUNTU -->
+
+<div data-variant="ubuntu">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Create visually styled login banners using ASCII art on Ubuntu systems.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to the Ubuntu server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Update package repository
+
+<code>sudo apt update</code>
+
+</li>
+
+<li>Install figlet package
+
+<code>sudo apt install figlet</code>
+
+</li>
+
+<li>Create ASCII banner
+
+<code>figlet DEVOPS SERVER</code>
+
+</li>
+
+<li>Copy the generated ASCII output.</li>
+
+<li>Edit MOTD file
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Paste the ASCII banner into the MOTD file.</li>
+
+<li>Save the file
+
+<code>CTRL + O</code> → Save  
+<code>CTRL + X</code> → Exit
+
+</li>
+
+<li>Reconnect SSH to see the ASCII banner.</li>
+
+</ol>
+
+</div>
+
+
+<!-- DEBIAN -->
+
+<div data-variant="debian">
+
+<p class="task-goal">
+Configure ASCII login banner on Debian systems.
+</p>
+
+<ol class="task-steps-list">
+
+<li>SSH into the Debian server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Install figlet
+
+<code>sudo apt install figlet</code>
+
+</li>
+
+<li>Generate ASCII banner
+
+<code>figlet DEVOPS SERVER</code>
+
+</li>
+
+<li>Edit MOTD
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Paste the ASCII output into the file.</li>
+
+<li>Save and reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<!-- RHEL -->
+
+<div data-variant="rhel">
+
+<p class="task-goal">
+Create ASCII login banners on Red Hat Enterprise Linux systems.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Install figlet
+
+<code>sudo dnf install figlet</code>
+
+</li>
+
+<li>Generate ASCII banner
+
+<code>figlet DEVOPS SERVER</code>
+
+</li>
+
+<li>Edit MOTD
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Paste banner into file.</li>
+
+<li>Save and reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<!-- CENTOS -->
+
+<div data-variant="centos">
+
+<p class="task-goal">
+Configure ASCII login banners in CentOS environment.
+</p>
+
+<ol class="task-steps-list">
+
+<li>SSH login
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Install figlet
+
+<code>sudo dnf install figlet</code>
+
+</li>
+
+<li>Create ASCII banner
+
+<code>figlet DEVOPS SERVER</code>
+
+</li>
+
+<li>Edit MOTD
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Paste ASCII output and save.</li>
+
+<li>Reconnect SSH session.</li>
+
+</ol>
+
+</div>
+
+
+<!-- ROCKY -->
+
+<div data-variant="rocky">
+
+<p class="task-goal">
+Create styled login banners on Rocky Linux systems.
+</p>
+
+<ol class="task-steps-list">
+
+<li>SSH into Rocky Linux server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Install figlet
+
+<code>sudo dnf install figlet</code>
+
+</li>
+
+<li>Generate ASCII banner
+
+<code>figlet DEVOPS SERVER</code>
+
+</li>
+
+<li>Edit MOTD file
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Paste ASCII output.</li>
+
+<li>Save file and reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<!-- AMAZON LINUX -->
+
+<div data-variant="amazon">
+
+<p class="task-goal">
+Create ASCII login banners on Amazon Linux instances.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to EC2 instance
+
+<code>ssh ec2-user@public-ip</code>
+
+</li>
+
+<li>Install figlet
+
+<code>sudo dnf install figlet</code>
+
+</li>
+
+<li>Create ASCII banner
+
+<code>figlet DEVOPS SERVER</code>
+
+</li>
+
+<li>Edit MOTD
+
+<code>sudo nano /etc/motd</code>
+
+</li>
+
+<li>Paste ASCII banner output.</li>
+
+<li>Save and reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<div class="task-check">
+Completion check: After reconnecting SSH, the ASCII banner should appear as part of the login message.
+</div>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:10">
+
+<button class="task-toggle" type="button">
+<span class="task-pill">Method - 5</span>
+<span class="task-title">Server Status Dashboard Login Banner</span>
+<span class="task-meta">20–25 min</span>
+<span class="task-chevron">&#9662;</span>
+</button>
+
+<div class="task-panel">
+
+<div class="task-panel-inner" data-variant-default="ubuntu">
+<!-- UBUNTU -->
+
+<div data-variant="ubuntu">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Display a system dashboard with system metrics during login on Ubuntu using update-motd scripts.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to the Ubuntu server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Navigate to the MOTD scripts directory
+
+<code>cd /etc/update-motd.d</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Add the following script
+
+<pre>
+#!/bin/bash
+
+echo "----------------------------"
+echo " SERVER STATUS DASHBOARD "
+echo "----------------------------"
+
+echo "Hostname: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory:"
+free -h
+
+echo "Disk:"
+df -h /
+
+echo "Users logged in:"
+who
+</pre>
+
+</li>
+
+<li>Save file
+
+<code>CTRL + O</code> → Save  
+<code>CTRL + X</code> → Exit
+
+</li>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Logout and reconnect SSH
+
+<code>exit</code>
+
+Then reconnect
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>The dashboard should appear immediately after login.</li>
+
+</ol>
+
+</div>
+
+
+<!-- DEBIAN -->
+
+<div data-variant="debian">
+
+<p class="task-goal">
+Display system metrics dashboard on Debian login.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to server
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Add dashboard script
+
+<pre>
+#!/bin/bash
+
+echo "----------------------------"
+echo " SERVER STATUS DASHBOARD "
+echo "----------------------------"
+
+echo "Hostname: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory:"
+free -h
+
+echo "Disk:"
+df -h /
+
+echo "Users logged in:"
+who
+</pre>
+
+</li>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH to verify dashboard.</li>
+
+</ol>
+
+</div>
+
+
+<!-- RHEL -->
+
+<div data-variant="rhel">
+
+<p class="task-goal">
+Create login dashboard on Red Hat Enterprise Linux.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Create script directory if not present
+
+<code>sudo mkdir -p /etc/update-motd.d</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Add the dashboard script</li>
+
+<pre>
+#!/bin/bash
+
+echo "----------------------------"
+echo " SERVER STATUS DASHBOARD "
+echo "----------------------------"
+
+echo "Hostname: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory:"
+free -h
+
+echo "Disk:"
+df -h /
+
+echo "Users logged in:"
+who
+</pre>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH session.</li>
+
+</ol>
+
+</div>
+
+
+<!-- CENTOS -->
+
+<div data-variant="centos">
+
+<p class="task-goal">
+Display login dashboard metrics on CentOS servers.
+</p>
+
+<ol class="task-steps-list">
+
+<li>SSH into the server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Add the system dashboard script.</li>
+
+<pre>
+#!/bin/bash
+
+echo "----------------------------"
+echo " SERVER STATUS DASHBOARD "
+echo "----------------------------"
+
+echo "Hostname: $(hostname)"
+echo "Uptime: $(uptime -p)"
+
+echo "Memory:"
+free -h
+
+echo "Disk:"
+df -h /
+
+echo "Users logged in:"
+who
+</pre>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH to view dashboard.</li>
+
+</ol>
+
+</div>
+
+
+<!-- ROCKY -->
+
+<div data-variant="rocky">
+
+<p class="task-goal">
+Create server dashboard banner on Rocky Linux.
+</p>
+
+<ol class="task-steps-list">
+
+<li>SSH into Rocky server
+
+<code>ssh user@server-ip</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Add the script (same as above).</li>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<!-- AMAZON LINUX -->
+
+<div data-variant="amazon">
+
+<p class="task-goal">
+Display system dashboard on Amazon Linux login.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Connect to EC2 instance
+
+<code>ssh ec2-user@public-ip</code>
+
+</li>
+
+<li>Create script
+
+<code>sudo nano /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Add dashboard script (same as above).</li>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/98-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH to see dashboard.</li>
+
+</ol>
+
+</div>
+
+
+<div class="task-check">
+Completion check: After reconnecting SSH, the login screen should display hostname, uptime, memory usage, disk usage, and logged-in users in a dashboard format.
+</div>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:11">
+
+<button class="task-toggle" type="button">
+<span class="task-pill">Bonus Task</span>
+<span class="task-title">Advanced DevOps Colorful SSH Login Dashboard</span>
+<span class="task-meta">25–35 min</span>
+<span class="task-chevron">&#9662;</span>
+</button>
+
+<div class="task-panel">
+
+<div class="task-panel-inner" data-variant-default="ubuntu">
+
+<div class="task-variant-tabs">
+
+<button data-variant-btn="ubuntu">Ubuntu</button>
+<button data-variant-btn="debian">Debian</button>
+<button data-variant-btn="rhel">RHEL</button>
+<button data-variant-btn="centos">CentOS</button>
+<button data-variant-btn="rocky">Rocky Linux</button>
+
+</div>
+
+
+<!-- UBUNTU -->
+
+<div data-variant="ubuntu">
+
+<p class="task-goal">
+<span class="task-goal-label">Goal:</span>
+Create a colorful DevOps SSH login dashboard displaying system metrics and Docker status.
+</p>
+
+<ol class="task-steps-list">
+
+<li>Update packages
+
+<code>sudo apt update</code>
+
+</li>
+
+<li>Install required tools
+
+<code>sudo apt install -y figlet toilet neofetch ruby</code>
+
+</li>
+
+<li>Install lolcat for colored output
+
+<code>sudo gem install lolcat</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Add the following script
+
+<pre>
+#!/usr/bin/env bash
+
+HOST=$(hostname)
+IP=$(hostname -I | awk '{print $1}')
+CPU=$(nproc)
+MEM_TOTAL=$(free -h | awk '/Mem:/ {print $2}')
+MEM_USED=$(free -h | awk '/Mem:/ {print $3}')
+DISK=$(df -h / | awk 'NR==2 {print $5}')
+UPTIME=$(uptime -p | sed 's/up //')
+TIME=$(date)
+
+if command -v docker >/dev/null 2>&1; then
+    DOCKER_COUNT=$(docker ps -q | wc -l)
+else
+    DOCKER_COUNT="Docker not installed"
+fi
+
+clear
+
+figlet -f slant "DEVOPS SERVER" | lolcat
+
+echo "" | lolcat
+
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+printf "                 🚀 SERVER INFORMATION\n" | lolcat
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+
+printf " Hostname        : %s\n" "$HOST" | lolcat
+printf " IP Address      : %s\n" "$IP" | lolcat
+printf " Login Time      : %s\n" "$TIME" | lolcat
+
+echo "" | lolcat
+
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+printf "                 💻 SYSTEM RESOURCES\n" | lolcat
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+
+printf " CPU Cores       : %s\n" "$CPU" | lolcat
+printf " Memory Usage    : %s / %s\n" "$MEM_USED" "$MEM_TOTAL" | lolcat
+printf " Disk Usage      : %s\n" "$DISK" | lolcat
+printf " Uptime          : %s\n" "$UPTIME" | lolcat
+
+echo "" | lolcat
+
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+printf "                 🐳 PLATFORM SERVICES\n" | lolcat
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+
+printf " Docker Containers Running : %s\n" "$DOCKER_COUNT" | lolcat
+
+echo "" | lolcat
+
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+printf "⚠ Authorized access only. All activities are monitored.\n" | lolcat
+printf "══════════════════════════════════════════════════════════════\n" | lolcat
+</pre>
+
+</li>
+
+<li>Make script executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Test banner manually
+
+<code>run-parts /etc/update-motd.d/</code>
+
+</li>
+
+<li>Reconnect SSH
+
+<code>ssh username@server-ip</code>
+
+</li>
+
+</ol>
+
+</div>
+
+
+<!-- DEBIAN -->
+
+<div data-variant="debian">
+
+<ol class="task-steps-list">
+
+<li>Install required tools
+
+<code>sudo apt install -y figlet toilet neofetch ruby</code>
+
+</li>
+
+<li>Install lolcat
+
+<code>sudo gem install lolcat</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Paste the same dashboard script shown in the Ubuntu section.</li>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<!-- RHEL -->
+
+<div data-variant="rhel">
+
+<ol class="task-steps-list">
+
+<li>Install required packages
+
+<code>sudo dnf install figlet ruby</code>
+
+</li>
+
+<li>Install lolcat
+
+<code>sudo gem install lolcat</code>
+
+</li>
+
+<li>Create script
+
+<code>sudo nano /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Add the same dashboard script.</li>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<!-- CENTOS -->
+
+<div data-variant="centos">
+
+<ol class="task-steps-list">
+
+<li>Install packages
+
+<code>sudo dnf install figlet ruby</code>
+
+</li>
+
+<li>Install lolcat
+
+<code>sudo gem install lolcat</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Paste dashboard script.</li>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<!-- ROCKY -->
+
+<div data-variant="rocky">
+
+<ol class="task-steps-list">
+
+<li>Install required tools
+
+<code>sudo dnf install figlet ruby</code>
+
+</li>
+
+<li>Install lolcat
+
+<code>sudo gem install lolcat</code>
+
+</li>
+
+<li>Create dashboard script
+
+<code>sudo nano /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Add the same dashboard script.</li>
+
+<li>Make executable
+
+<code>sudo chmod +x /etc/update-motd.d/99-dashboard</code>
+
+</li>
+
+<li>Reconnect SSH.</li>
+
+</ol>
+
+</div>
+
+
+<div class="task-check">
+Completion check: When users log in through SSH, a colorful DevOps dashboard should display server information, resource usage, and Docker container status.
+</div>
+
+</div>
+</div>
+</article>
+
+
+
+
+
+
+<article class="task-card" data-task style="--i:8">
+<button class="task-toggle">
+<span class="task-pill">Tip - 1</span>
+<span class="task-title">Banner Design Principles</span>
+</button>
+
+<div class="task-panel">
+<div class="task-panel-inner">
+
+<ol class="task-steps-list">
+
+<li>Keep banners concise</li>
+
+<li>Display only important information</li>
+
+<li>Avoid revealing sensitive data</li>
+
+<li>Use structured formatting</li>
+
+<li>Use sections such as:</li>
+
+<ul>
+<li>Server information</li>
+<li>Security warnings</li>
+<li>System health</li>
+</ul>
+
+</ol>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:9">
+<button class="task-toggle">
+<span class="task-pill">tip - 2</span>
+<span class="task-title">ASCII Banner Design</span>
+</button>
+
+<div class="task-panel">
+<div class="task-panel-inner">
+
+<ol class="task-steps-list">
+
+<li>Install figlet<br>
+<code>sudo apt install figlet</code></li>
+
+<li>Generate banner<br>
+<code>figlet DEVOPS SERVER</code></li>
+
+<li>Copy output to MOTD</li>
+
+</ol>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:10">
+<button class="task-toggle">
+<span class="task-pill">tip - 3</span>
+<span class="task-title">System Information Integration</span>
+</button>
+
+<div class="task-panel">
+<div class="task-panel-inner">
+
+<ol class="task-steps-list">
+
+<li>Hostname<br><code>hostname</code></li>
+
+<li>System uptime<br><code>uptime</code></li>
+
+<li>Memory usage<br><code>free -h</code></li>
+
+<li>Disk usage<br><code>df -h</code></li>
+
+<li>Logged in users<br><code>who</code></li>
+
+</ol>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:11">
+<button class="task-toggle">
+<span class="task-pill">tip - 4</span>
+<span class="task-title">Cross Distribution Compatibility</span>
+</button>
+
+<div class="task-panel">
+<div class="task-panel-inner">
+
+<ol class="task-steps-list">
+
+<li>Test script on Ubuntu</li>
+
+<li>Test script on Debian</li>
+
+<li>Test script on RHEL</li>
+
+<li>Test script on CentOS</li>
+
+<li>Ensure commands exist in all systems</li>
+
+</ol>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:12">
+<button class="task-toggle">
+<span class="task-pill">tip - 5</span>
+<span class="task-title">Automation and Maintainability</span>
+</button>
+
+<div class="task-panel">
+<div class="task-panel-inner">
+
+<ol class="task-steps-list">
+
+<li>Create modular scripts</li>
+
+<li>Store scripts in<br>
+<code>/etc/update-motd.d/</code></li>
+
+<li>Use version control</li>
+
+<li>Automate deployment using Ansible</li>
+
+</ol>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:13">
+<button class="task-toggle">
+<span class="task-pill">tip - 6</span>
+<span class="task-title">User Experience Considerations</span>
+</button>
+
+<div class="task-panel">
+<div class="task-panel-inner">
+
+<ol class="task-steps-list">
+
+<li>Avoid too much text</li>
+
+<li>Use spacing and formatting</li>
+
+<li>Highlight important metrics</li>
+
+<li>Keep load time minimal</li>
+
+</ol>
+
+</div>
+</div>
+</article>
+
+<article class="task-card" data-task style="--i:14">
+<button class="task-toggle">
+<span class="task-pill">tip - 7</span>
+<span class="task-title">Future Enhancements</span>
+</button>
+
+<div class="task-panel">
+<div class="task-panel-inner">
+
+<ol class="task-steps-list">
+
+<li>Display Docker container status</li>
+
+<li>Show Kubernetes node info</li>
+
+<li>Add monitoring metrics</li>
+
+<li>Integrate Prometheus data</li>
+
+</ol>
+
+</div>
+</div>
+</article>
+
+    </section>
+    <!-- Terminal Panel at bottom -->
+    <div class="terminal-panel" id="bottomTerminalPanel" style="display: none;">
+      <div class="header">
+        <div class="dots">
+          <div class="dot" style="background:#ff5f57"></div>
+          <div class="dot" style="background:#febc2e"></div>
+          <div class="dot" style="background:#28c840"></div>
+        </div>
+        <span style="flex:1; text-align:center;">santhosh@wsl</span>
+        <button class="expand-btn" id="terminalExpand" aria-label="Expand to full screen" title="Expand Terminal">⤢</button>
+        <button class="close-btn" id="bottomTermClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="output" id="bottomTermOutput">
+        <!-- Terminal output will be populated by JavaScript -->
+      </div>
+      </div>
+    </div>
+    <!-- Full-screen Terminal Modal -->
+    <div class="terminal-modal" id="terminalModal">
+      <div class="terminal-modal__back" id="terminalModalBack"></div>
+      <div class="terminal-modal__content">
+        <div class="terminal-panel terminal-fullscreen">
+          <div class="header">
+            <div class="dots">
+              <div class="dot" style="background:#ff5f57"></div>
+              <div class="dot" style="background:#febc2e"></div>
+              <div class="dot" style="background:#28c840"></div>
+            </div>
+            <span style="flex:1; text-align:center;">santhosh@wsl</span>
+            <button class="close-btn" id="modalTermClose" aria-label="Close">&times;</button>
+          </div>
+          <div class="output" id="modalTermOutput">
+            <!-- Terminal output will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val">All Linux Distributions</div></div>
+      <div class="pm-cell"><div class="pm-key">Platform</div><div class="pm-val">WSL</div></div>
+      <div class="pm-cell"><div class="pm-key">Tasks</div><div class="pm-val"><div>5-concepts</div> <div>5-Methods</div> <div>1-Bonus task</div>7-Tips</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val pm-status">Completed</div></div>
+    </div>
+  </div>
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script>
+window.terminalData = {
+
+commands: [
+'Method - 1: MOTD',
+'ssh devuser@localhost -p 2222 (motd)',
+
+'Method - 2: Dynamic MOTD Script',
+'ssh devuser@localhost -p 2222 (dynamic)',
+
+'Method - 3: Bashrc Login Message',
+'ssh devuser@localhost -p 2222 (bashrc)',
+
+'Method - 4: Figlet Banner',
+'ssh devuser@localhost -p 2222 (figlet)',
+
+'Method - 5: Server Dashboard',
+'ssh devuser@localhost -p 2222 (dashboard)'
+],
+
+outputs: {
+
+'Method - 1: MOTD': [
+'Using /etc/motd file for static login banner'
+],
+
+'ssh devuser@localhost -p 2222 (motd)': [
+'Welcome to DevOps Platform',
+'Maintenance window: Sunday 02:00 AM',
+'Contact: dssanthoshraju1999@gmail.com'
+],
+
+
+'Method - 2: Dynamic MOTD Script': [
+'Using /etc/update-motd.d scripts to generate dynamic system information'
+],
+
+'ssh devuser@localhost -p 2222 (dynamic)': [
+'Server: 29742657d1a8',
+'Uptime: up 4 hours, 35 minutes',
+'Memory Usage:',
+'Mem: 7.6Gi total, 840Mi used, 2.2Gi free',
+'Swap: 2.0Gi total, 0B used',
+'Disk Usage:',
+'overlay 1007G 39G 918G 4% /',
+'Last login: Tue Mar 10 11:29:38 2026'
+],
+
+
+'Method - 3: Bashrc Login Message': [
+'Displaying custom login message from ~/.bashrc'
+],
+
+'ssh devuser@localhost -p 2222 (bashrc)': [
+'----------------------------',
+'Welcome devuser',
+'Hostname : d6541261e5e6',
+'Login Time : Tue Mar 10 11:55:50 UTC 2026',
+'----------------------------'
+],
+
+
+'Method - 4: Figlet Banner': [
+'Displaying DEVOPS SERVER banner using figlet'
+],
+
+'ssh devuser@localhost -p 2222 (figlet)': [
+' ____  _______     _____  ____  ____    ____  _____ ______     _______ ____',
+'|  _ \\| ____\\ \\   / / _ \\|  _ \\/ ___|  / ___|| ____|  _ \\ \\   / / ____|  _ \\',
+'| | | |  _|  \\ \\ / / | | | |_) \\___ \\  \\___ \\|  _| | |_) \\ \\ / /|  _| | |_) |',
+'| |_| | |___  \\ V /| |_| |  __/ ___) |  ___) | |___|  _ < \\ V / | |___|  _ <',
+'|____/|_____|  \\_/  \\___/|_|   |____/  |____/|_____|_| \\_\\ \\_/  |_____|_| \\_\\'
+],
+
+
+'Method - 5: Server Dashboard': [
+'Displaying system dashboard with CPU, Memory, Disk and Users'
+],
+
+'ssh devuser@localhost -p 2222 (dashboard)': [
+'----------------------------',
+' SERVER STATUS DASHBOARD',
+'----------------------------',
+'Hostname: ab2f0c91f75b',
+'Uptime: up 5 hours, 6 minutes',
+'Memory:',
+'Mem: 7.6Gi total, 869Mi used, 2.2Gi free',
+'Swap: 2.0Gi total',
+'Disk:',
+'overlay 1007G 39G 918G 4% /',
+'Users logged in:',
+'Last login: Tue Mar 10 12:06:51 2026'
+]
+
+}
+
+};
+</script>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

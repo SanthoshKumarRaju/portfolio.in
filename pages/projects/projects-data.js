@@ -53,7 +53,38 @@ window.PDATA = [
       'Develop command-line efficiency using command history, tab completion, aliases, and shortcuts.'
     ],
     page: '../../projects/linux/basic-commands/index.html'
-    }
+    },
+    {
+  id: 'login-banner-design',
+  title: 'SSH Login Banner Design',
+  env: 'local',
+  status: 'in_progress',
+
+  summary: 'Design and implementation of a customizable SSH login banner for Linux systems that displays structured system information, security notices, and environment details when users connect to a server.',
+
+  purpose: 'The purpose of this project is to enhance security awareness, improve system visibility for administrators, and create a professional login experience for users accessing Linux servers via SSH.',
+
+  overview: [
+    'Project Overview – Introduction to SSH login banners and their role in improving system usability, visibility, and security awareness when users access a Linux system.',
+    'Problem Statement – Default SSH login messages provide very limited information. Administrators often need quick system insights such as uptime, system load, or disk status immediately after login.',
+    'Why SSH Login Banners Matter – SSH banners help communicate security policies, system ownership, and monitoring notices while also providing useful operational information to administrators.',
+    'Security and Compliance Considerations – Many organizations require login banners to display legal warnings that inform users that the system is monitored and restricted to authorized access only.',
+    'Types of SSH Login Banners – Explanation of pre-login banners and post-login banners, including when each should be used and how they serve different purposes in system administration.',
+    'Pre-Login Banner Implementation – Using SSH configuration with files such as /etc/issue.net to display warnings before authentication.',
+    'Post-Login Banner (MOTD) Implementation – Using /etc/motd and /etc/update-motd.d scripts to display dynamic information after successful authentication.',
+    'Dynamic Banner Generation – Creating scripts that dynamically collect and display system information such as CPU usage, memory usage, disk space, system uptime, and logged-in users.',
+    'Banner Design Principles – Best practices for creating effective login banners including clarity, minimalism, structured formatting, and avoiding exposure of sensitive system information.',
+    'ASCII Banner Design – Using ASCII art and formatting techniques to create visually structured headers and branded login banners.',
+    'System Information Integration – Using Linux commands such as uptime, free, df, hostname, and who to dynamically generate real-time system insights.',
+    'Cross-Distribution Compatibility – Designing scripts that work across multiple Linux distributions such as Ubuntu, Debian, CentOS, and RHEL.',
+    'Automation and Maintainability – Organizing banner scripts in a modular way so that administrators can easily maintain and extend the banner functionality.',
+    'User Experience Considerations – Designing login banners that provide useful information quickly without overwhelming users with excessive output.',
+    'Future Enhancements – Possibility to integrate container information, Kubernetes node status, service health indicators, and automation deployment tools.',
+    'Learning Outcomes – Demonstrates practical skills in Linux system administration, SSH configuration, shell scripting, and system monitoring integration.'
+  ],
+
+  page: '../../projects/linux/SSH-login-banner-design/index.html'
+}
 
     // { id:'shell-scripting', title:'Shell Scripting', env:'local', status:'in_progress',
     //   summary:'Bash automation scripts for repeatable sysadmin tasks including backups, cleanup routines and scheduled jobs.',

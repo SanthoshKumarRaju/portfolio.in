@@ -7,9 +7,68 @@
   var qp = new URLSearchParams(window.location.search);
   var viewMode = (qp.get('view') || '').toLowerCase();
   var isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  var NAV_HEIGHT = null;
   if (viewMode === 'mobile' || viewMode === 'desktop') {
     document.documentElement.setAttribute('data-view', viewMode);
   }
+
+  function navHeight() {
+    if (NAV_HEIGHT !== null) return NAV_HEIGHT;
+    var raw = getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '';
+    var parsed = parseInt(raw, 10);
+    NAV_HEIGHT = isNaN(parsed) ? 0 : parsed;
+    return NAV_HEIGHT;
+  }
+
+  function scrollElementIntoView(el, options) {
+    if (!el) return;
+    var behavior = (options && options.behavior) || 'smooth';
+    var align = (options && options.align) || 'start';
+    var rect = el.getBoundingClientRect();
+    var navH = navHeight();
+    var target;
+
+    if (align === 'center') {
+      var elTop = window.scrollY + rect.top;
+      var elMid = elTop + rect.height / 2;
+      var visibleMid = window.scrollY + navH + (Math.max(window.innerHeight - navH, 0) / 2);
+      target = window.scrollY + (elMid - visibleMid);
+    } else {
+      target = window.scrollY + rect.top - navH - 16;
+    }
+
+    window.scrollTo({
+      top: Math.max(0, target),
+      behavior: behavior
+    });
+  }
+
+  function forceTop() {
+    try {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+    } catch (e) {}
+    requestAnimationFrame(function () {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
+  }
+
+  window.addEventListener('load', forceTop);
+  window.addEventListener('pageshow', function (e) {
+    if (e && e.persisted) forceTop();
+  });
+
+  document.addEventListener('click', function (e) {
+    var navLink = e.target.closest('.g-nav__link, .g-nav__logo');
+    if (!navLink) return;
+    var href = (navLink.getAttribute('href') || '').split('#')[0];
+    var current = window.location.pathname.split('/').pop();
+    var target = href.split('/').pop();
+    if (href && target && target === current) {
+      forceTop();
+    }
+  }, true);
 
   function ensureGlobalLoader() {
     var existing = document.getElementById('g-app-loader');
@@ -278,12 +337,74 @@
     function button(card) {
       return card.querySelector('.task-toggle');
     }
+    function initVariantSwitcher(card) {
+      var p = panel(card);
+      if (!p) return;
+      var inner = p.querySelector('.task-panel-inner') || p;
+      var blocks = Array.prototype.slice.call(inner.querySelectorAll('[data-variant]'));
+      if (!blocks.length) return;
+
+      var variants = [];
+      blocks.forEach(function (blk) {
+        var key = String(blk.getAttribute('data-variant') || '').trim().toLowerCase();
+        if (!key) return;
+        blk.dataset.variant = key;
+        if (variants.indexOf(key) === -1) variants.push(key);
+      });
+      if (!variants.length) return;
+
+      var switcher = document.createElement('div');
+      switcher.className = 'task-variant-switch';
+      var defaultKey = String(inner.getAttribute('data-variant-default') || '').trim().toLowerCase() || variants[0];
+      function applyVariant(nextKey) {
+        variants.forEach(function (key) {
+          var active = key === nextKey;
+          switcher.querySelectorAll('[data-variant-key="' + key + '"]').forEach(function (btn) {
+            btn.classList.toggle('act', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          blocks.forEach(function (blk) {
+            if (blk.dataset.variant === key) {
+              blk.style.display = active ? '' : 'none';
+            }
+          });
+        });
+        if (card.classList.contains('is-open')) {
+          p.style.maxHeight = p.scrollHeight + 'px';
+        }
+      }
+
+      variants.forEach(function (key, idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'task-variant-btn';
+        btn.textContent = key;
+        btn.setAttribute('data-variant-key', key);
+        btn.setAttribute('aria-pressed', 'false');
+        btn.addEventListener('click', function () {
+          applyVariant(key);
+        });
+        if (idx === 0) btn.classList.add('first');
+        switcher.appendChild(btn);
+      });
+
+      inner.insertBefore(switcher, inner.firstChild);
+      applyVariant(defaultKey);
+    }
+    function scrollTaskCard(card) {
+      [60, 450].forEach(function (delay) {
+        setTimeout(function () {
+          scrollElementIntoView(card, { behavior: 'smooth', align: 'start' });
+        }, delay);
+      });
+    }
     function openCard(card) {
       var p = panel(card);
       var b = button(card);
       card.classList.add('is-open');
       b.setAttribute('aria-expanded', 'true');
       p.style.maxHeight = p.scrollHeight + 'px';
+      scrollTaskCard(card);
     }
     function closeCard(card) {
       var p = panel(card);
@@ -292,27 +413,15 @@
       b.setAttribute('aria-expanded', 'false');
       p.style.maxHeight = '0px';
     }
-    cards.forEach(function (card, index) {
+    cards.forEach(function (card) {
+      initVariantSwitcher(card);
       var btn = button(card);
-      if (card.classList.contains('is-open') && index === 0) {
-        openCard(card);
-      } else {
-        closeCard(card);
-      }
+      closeCard(card);
       btn.addEventListener('click', function () {
         var isOpen = card.classList.contains('is-open');
         cards.forEach(closeCard);
         if (!isOpen) {
           openCard(card);
-          // Center the card in the viewport after opening
-          setTimeout(function() {
-            var rect = card.getBoundingClientRect();
-            var cardTop = window.scrollY + rect.top;
-            var cardHeight = rect.height;
-            var viewportHeight = window.innerHeight;
-            var centerScroll = cardTop - (viewportHeight - cardHeight) / 2;
-            window.scrollTo({top: centerScroll, behavior: 'smooth'});
-          }, 50);
         }
       });
     });
@@ -323,12 +432,7 @@
           p.style.maxHeight = p.scrollHeight + 'px';
           // Re-center the card when resizing
           setTimeout(function() {
-            var rect = card.getBoundingClientRect();
-            var cardTop = window.scrollY + rect.top;
-            var cardHeight = rect.height;
-            var viewportHeight = window.innerHeight;
-            var centerScroll = cardTop - (viewportHeight - cardHeight) / 2;
-            window.scrollTo({top: centerScroll, behavior: 'smooth'});
+            scrollElementIntoView(card, { behavior: 'smooth', align: 'start' });
           }, 100);
         }
       });
@@ -681,17 +785,7 @@
       }
       // center terminal on screen
       setTimeout(function(){
-        if(bottomPanel){
-          var rect = bottomPanel.getBoundingClientRect();
-          var terminalTop = window.scrollY + rect.top;
-          var terminalHeight = rect.height;
-          var viewportHeight = window.innerHeight;
-          var centerScroll = terminalTop - (viewportHeight - terminalHeight) / 2;
-          window.scrollTo({
-            top:centerScroll,
-            behavior:"smooth"
-          });
-        }
+        scrollElementIntoView(bottomPanel, { behavior: "smooth", align: "center" });
       },100);
     });
   }

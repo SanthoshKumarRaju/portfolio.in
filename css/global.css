@@ -1321,6 +1321,34 @@ html[data-view="mobile"] .g-page {
   padding-top: 170px;
 }
 
+/* Task variant switcher (shared across project pages) */
+.task-variant-switch {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 0 .75rem;
+}
+.task-variant-btn {
+  font-family: var(--fm);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: .34rem .68rem;
+  border-radius: 999px;
+  border: 1px solid var(--bdr);
+  background: var(--surfhi);
+  color: var(--txt2);
+  cursor: pointer;
+  transition: color .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.task-variant-btn.act {
+  border-color: rgba(0,232,122,.7);
+  color: var(--grn);
+  background: var(--grndim);
+  box-shadow: 0 0 0 1px rgba(0,232,122,.16);
+}
+
 /* Terminal animations */
 @keyframes termIn {
   from { opacity: 0; transform: translateY(20px) scale(.95); }

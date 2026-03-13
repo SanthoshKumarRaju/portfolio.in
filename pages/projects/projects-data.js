@@ -58,7 +58,7 @@ window.PDATA = [
   id: 'login-banner-design',
   title: 'SSH Login Banner Design',
   env: 'local',
-  status: 'in_progress',
+  status: 'completed',
 
   summary: 'Design and implementation of a customizable SSH login banner for Linux systems that displays structured system information, security notices, and environment details when users connect to a server.',
 

@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var data = window.PDATA;
+  var data = normalizeData(window.PDATA || []);
   if (!data) { console.error('projects-data.js not loaded'); return; }
 
   var sidebar = document.getElementById('pj-sidebar');
@@ -21,19 +21,197 @@
   var statusValidationPrinted = false;
   var statusValidationErrors = [];
   var activeStatusFilters = { completed: false, in_progress: false, not_completed: false };
-  var activeEnvFilters = { local: false, server: false, free: false };
+  var activeEnvFilters = { local: false, server: false, cloud: false, free: false };
   var selectedProjectKey = '';
   var flat = []; // { ci, pi, concept, proj }
   var LAST_OPENED_KEY = 'pj:last-opened-project';
   var filterInfoEl = null;
 
+  function normalizeData(raw) {
+    var list = Array.isArray(raw) ? raw.slice() : [];
+    list = list.map(applyConceptTags);           // respect pre-set tags; no hardcoding required
+    list = normalizeConceptSectionsByMap(list);  // apply explicit section map (any concept)
+    list = injectSharedProjects(list);           // add shared projects across concepts
+    return list;
+  }
+
+  function applyConceptTags(concept) {
+    var c = Object.assign({}, concept);
+
+    function inferTag(proj) {
+      if (proj.conceptTag) return String(proj.conceptTag);
+      if (proj.sectionKey) return String(proj.sectionKey);
+      return '';
+    }
+
+    function tagProject(proj) {
+      var clone = Object.assign({}, proj);
+      var tag = inferTag(clone);
+      if (tag) clone.conceptTag = tag;
+      return clone;
+    }
+
+    if (Array.isArray(c.projects)) {
+      c.projects = c.projects.map(tagProject);
+    }
+    if (Array.isArray(c.sections)) {
+      c.sections = c.sections.map(function (s) {
+        var sc = Object.assign({}, s);
+        if (Array.isArray(sc.projects)) sc.projects = sc.projects.map(tagProject);
+        return sc;
+      });
+    }
+    return c;
+  }
+
+  function normalizeCloudConcept(list) {
+    // Legacy no-op: keep list unchanged (sections are now defined in projects-data.js via PDATA_SECTION_MAP).
+    return list;
+  }
+
+  // Optional: allow sharing a project across concepts via window.PDATA_SHARED = [{ projectId, targets:[conceptId], sectionId }]
+  function injectSharedProjects(list) {
+    var config = Array.isArray(window.PDATA_SHARED) ? window.PDATA_SHARED : [];
+    if (!config.length) return list;
+
+    var projectIndex = {};
+    list.forEach(function (concept) {
+      (concept.projects || []).forEach(function (proj) {
+        projectIndex[proj.id] = proj;
+      });
+      (concept.sections || []).forEach(function (section) {
+        (section.projects || []).forEach(function (proj) { projectIndex[proj.id] = proj; });
+      });
+    });
+
+    config.forEach(function (entry) {
+      var proj = projectIndex[entry.projectId];
+      if (!proj || !Array.isArray(entry.targets)) return;
+      entry.targets.forEach(function (cid) {
+        var concept = list.find(function (c) { return c.id === cid; });
+        if (!concept) return;
+        if (Array.isArray(concept.sections) && concept.sections.length) {
+          var targetSection = concept.sections[0];
+          if (entry.sectionId) {
+            var found = concept.sections.find(function (s) { return s.id === entry.sectionId; });
+            if (found) targetSection = found;
+          }
+          if (!targetSection.projects) targetSection.projects = [];
+          if (!targetSection.projects.find(function (p) { return p.id === proj.id; })) {
+            targetSection.projects.push(proj);
+          }
+        } else {
+          if (!concept.projects) concept.projects = [];
+          if (!concept.projects.find(function (p) { return p.id === proj.id; })) {
+            concept.projects.push(proj);
+          }
+        }
+      });
+    });
+    return list;
+  }
+
+  // Optional: external section mapping per concept (works for any concept, not just Cloud).
+  // window.PDATA_SECTION_MAP = { conceptId: { sections: [ { id,label, ids:[], env:null } , ... ] } }
+  function normalizeConceptSectionsByMap(list) {
+    var map = window.PDATA_SECTION_MAP || {};
+    if (!map || typeof map !== 'object') return list;
+
+    function envKey(raw) {
+      var key = String(raw || '').trim().toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_');
+      if (!key) return '';
+      if (key === 'localhost') return 'local';
+      if (key === 'prod' || key === 'production') return 'server';
+      return key;
+    }
+
+    function matchField(proj, field, value) {
+      if (!field) return false;
+      var lhs = String(proj && proj[field] !== undefined ? proj[field] : '').toLowerCase();
+      var rhs = String(value || '').toLowerCase();
+      return !!lhs && lhs === rhs;
+    }
+
+    return list.map(function (concept) {
+      var cfg = map[concept.id];
+      if (!cfg || !Array.isArray(cfg.sections) || !cfg.sections.length) return concept;
+      if (Array.isArray(concept.sections) && !cfg.force) return concept;
+
+      var remaining = Array.isArray(concept.projects) ? concept.projects.slice() : [];
+      // If projects already split into sections, pull them back into the pool so remapping doesn't lose items.
+      if (!remaining.length && Array.isArray(concept.sections)) {
+        concept.sections.forEach(function (s) {
+          (s.projects || []).forEach(function (p) { remaining.push(p); });
+        });
+      }
+      var sections = cfg.sections.map(function (sec) {
+        var collected = [];
+        remaining = remaining.filter(function (proj) {
+          var matchesId = Array.isArray(sec.ids) && sec.ids.includes(proj.id);
+          var matchesEnv = sec.env && envKey(proj.env) === envKey(sec.env);
+          var matchesConcept = sec.concept && String(proj.concept || '').toLowerCase() === String(sec.concept).toLowerCase();
+          var matchesField = sec.field && matchField(proj, sec.field, sec.value);
+          if (matchesId || matchesEnv || matchesConcept || matchesField) {
+            collected.push(proj);
+            return false;
+          }
+          return true;
+        });
+        return {
+          id: sec.id,
+          label: sec.label,
+          projects: collected,
+          theme: sec.theme || null
+        };
+      });
+
+      if (remaining.length) {
+        sections.push({ id: 'other', label: 'Other', projects: remaining });
+      }
+
+      return Object.assign({}, concept, { sections: sections, projects: undefined });
+    });
+  }
+
+  function conceptSections(concept) {
+    if (Array.isArray(concept.sections) && concept.sections.length) {
+      return concept.sections;
+    }
+    return [];
+  }
+
+  function conceptProjects(concept) {
+    var arr = [];
+    var sections = conceptSections(concept);
+    if (sections.length) {
+      sections.forEach(function (section) {
+        var list = Array.isArray(section.projects) ? section.projects : [];
+        for (var i = 0; i < list.length; i += 1) {
+          arr.push({ section: section, proj: list[i] });
+        }
+      });
+    } else {
+      var fallbackProjects = Array.isArray(concept.projects) ? concept.projects : [];
+      fallbackProjects.forEach(function (proj) {
+        arr.push({ section: null, proj: proj });
+      });
+    }
+    return arr;
+  }
+
   function resolveProjectPage(concept, proj) {
     var fallback = '../../projects/' + concept.id + '/' + proj.id + '/index.html';
-    if (!proj || typeof proj.page !== 'string' || !proj.page.trim()) return fallback;
+    if (!proj || typeof proj.page !== 'string') return fallback;
 
-    var raw = proj.page.trim().replace(/\\/g, '/');
-    if (/^\.\.\/\.\.\/projects\/[^/]+\/[^/]+\/index\.html$/i.test(raw)) return raw;
-    return fallback;
+    var raw = proj.page.trim();
+    if (!raw) return fallback;
+
+    // Normalize slashes so callers can use Windows-style paths in data.
+    raw = raw.replace(/\\/g, '/');
+
+    // Respect any author-supplied path (relative, root-absolute, or full URL).
+    // Only fall back to the legacy convention if no page is provided.
+    return raw;
   }
 
   function rememberOpenedProject(concept, proj) {
@@ -227,17 +405,19 @@
     if (!key) return 'free';
     if (key === 'local' || key === 'localhost') return 'local';
     if (key === 'server' || key === 'prod' || key === 'production') return 'server';
+    if (key === 'cloud') return 'cloud';
     if (key === 'free' || key === 'free_tier' || key === 'freetier') return 'free';
     return 'free';
   }
 
   function hasActiveEnvFilters() {
-    return activeEnvFilters.local || activeEnvFilters.server || activeEnvFilters.free;
+    return activeEnvFilters.local || activeEnvFilters.server || activeEnvFilters.cloud || activeEnvFilters.free;
   }
 
   function clearEnvFilters() {
     activeEnvFilters.local = false;
     activeEnvFilters.server = false;
+    activeEnvFilters.cloud = false;
     activeEnvFilters.free = false;
   }
 
@@ -248,6 +428,7 @@
   function envLabel(key) {
     if (key === 'local') return 'localhost';
     if (key === 'server') return 'server';
+    if (key === 'cloud') return 'cloud';
     return 'free tier';
   }
 
@@ -256,14 +437,15 @@
     return !!activeEnvFilters[itemEnvKey];
   }
 
-  // function renderPlaceholder(msg) {
-  //   detail.innerHTML =
-  //     '<div class="pj-placeholder">' +
-  //       '<div class="pj-ph-ico">&#9881;&#65039;</div>' +
-  //       '<div class="pj-ph-title">Select a project</div>' +
-  //       '<div class="pj-ph-sub">' + (msg || '&#8592; Expand a concept from the sidebar') + '</div>' +
-  //     '</div>';
-  // }
+  function renderPlaceholder(msg) {
+    if (!detail) return;
+    detail.innerHTML =
+      '<div class="pj-placeholder">' +
+        '<div class="pj-ph-ico">&#9881;&#65039;</div>' +
+        '<div class="pj-ph-title">Select a project</div>' +
+        '<div class="pj-ph-sub">' + (msg || '&#8592; Expand a concept from the sidebar') + '</div>' +
+      '</div>';
+  }
 
   function updateFilterUi(visibleCount) {
     filterButtons.forEach(function (btn) {
@@ -356,8 +538,6 @@
       group.classList.toggle('fh', groupVisible === 0);
     });
 
-    closeAllGroups();
-    openFirstVisibleGroup();
     updateEnvFilterUi();
     updateFilterUi(visibleProjects);
     renderFilterInfo(visibleProjects);
@@ -445,8 +625,9 @@
 
   // Build flat list for count + prev/next
   data.forEach(function (concept, ci) {
-    concept.projects.forEach(function (proj, pi) {
-      flat.push({ ci: ci, pi: pi, concept: concept, proj: proj });
+    var entries = conceptProjects(concept);
+    entries.forEach(function (entry, pi) {
+      flat.push({ ci: ci, pi: pi, concept: concept, section: entry.section, proj: entry.proj });
     });
   });
 
@@ -462,44 +643,118 @@
     cg.className = 'cg';
     cg.setAttribute('data-concept-id', concept.id);
 
+    var conceptProjectEntries = conceptProjects(concept);
+    var sections = conceptSections(concept);
+
     var toggle = document.createElement('button');
     toggle.className = 'cg-toggle';
     toggle.innerHTML =
       '<span class="cg-ico">' + concept.icon + '</span>' +
       '<span class="cg-lbl">' + concept.label + '</span>' +
-      '<span class="cg-cnt">' + concept.projects.length + '</span>' +
+      '<span class="cg-cnt">' + conceptProjectEntries.length + '</span>' +
       '<span class="cg-ext">Expand</span>' +
       '<span class="cg-arr">&#9658;</span>';
 
     var list = document.createElement('div');
     list.className = 'cg-list';
 
-    concept.projects.forEach(function (proj) {
-      var envTag =
-        proj.env === 'local' ? '<span class="g-tag tg" style="font-size:.5rem;padding:.07rem .36rem">local</span>' :
-        proj.env === 'server' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">server</span>' :
-        '<span class="g-tag tgd" style="font-size:.5rem;padding:.07rem .36rem">free</span>';
+    if (sections.length) {
+      sections.forEach(function (section) {
+        var secWrap = document.createElement('div');
+        secWrap.className = 'cg-sec';
+        secWrap.setAttribute('data-section-id', section.id || '');
+        if (section.theme) secWrap.classList.add('cg-sec--' + section.theme);
 
-      var item = document.createElement('div');
-      item.className = 'cg-item';
-      item.setAttribute('data-concept-id', concept.id);
-      item.setAttribute('data-project-id', proj.id);
-      item.setAttribute('data-project-key', concept.id + '/' + proj.id);
-      item.setAttribute('data-status-key', projectStatusKey(proj));
-      item.setAttribute('data-env-key', normalizeEnv(proj.env));
-      item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
+        var secHead = document.createElement('div');
+        secHead.className = 'cg-sec-head';
+        secHead.setAttribute('role', 'button');
+        secHead.setAttribute('tabindex', '0');
+        secHead.innerHTML =
+          '<span class="cg-sec-lbl">' + (section.label || 'Projects') + '</span>' +
+          '<span class="cg-sec-count">' + (Array.isArray(section.projects) ? section.projects.length : 0) + '</span>' +
+          '<span class="cg-sec-arr">&#9658;</span>';
+        secWrap.appendChild(secHead);
 
-      item.addEventListener('click', function () {
-        addTap(item);
-        document.querySelectorAll('.cg-item').forEach(function (i) { i.classList.remove('act'); });
-        item.classList.add('act');
-        selectedProjectKey = concept.id + '/' + proj.id;
-        if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
-        renderDetail(concept, proj);
+        var secList = document.createElement('div');
+        secList.className = 'cg-sec-list';
+
+        (Array.isArray(section.projects) ? section.projects : []).forEach(function (proj) {
+          var envKey = normalizeEnv(proj.env);
+          var envTag =
+            envKey === 'local' ? '<span class="g-tag tg" style="font-size:.5rem;padding:.07rem .36rem">local</span>' :
+            envKey === 'server' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">server</span>' :
+            envKey === 'cloud' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">cloud</span>' :
+            '<span class="g-tag tgd" style="font-size:.5rem;padding:.07rem .36rem">free</span>';
+
+          var item = document.createElement('div');
+          item.className = 'cg-item';
+          item.setAttribute('data-concept-id', concept.id);
+          item.setAttribute('data-section-id', section.id || '');
+          item.setAttribute('data-project-id', proj.id);
+          item.setAttribute('data-project-key', concept.id + '/' + proj.id);
+          item.setAttribute('data-status-key', projectStatusKey(proj));
+          item.setAttribute('data-env-key', envKey);
+          item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
+
+          item.addEventListener('click', function () {
+            addTap(item);
+            document.querySelectorAll('.cg-item').forEach(function (i) { i.classList.remove('act'); });
+            item.classList.add('act');
+            selectedProjectKey = concept.id + '/' + proj.id;
+            if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+            renderDetail(concept, proj);
+          });
+
+          secList.appendChild(item);
+        });
+
+        function toggleSection() {
+          var isOpen = secList.classList.contains('op');
+          secList.classList.toggle('op', !isOpen);
+          secHead.classList.toggle('op', !isOpen);
+        }
+
+        secHead.addEventListener('click', toggleSection);
+        secHead.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSection();
+          }
+        });
+
+        secWrap.appendChild(secList);
+        list.appendChild(secWrap);
       });
+    } else {
+      (Array.isArray(concept.projects) ? concept.projects : []).forEach(function (proj) {
+        var envKey = normalizeEnv(proj.env);
+        var envTag =
+          envKey === 'local' ? '<span class="g-tag tg" style="font-size:.5rem;padding:.07rem .36rem">local</span>' :
+          envKey === 'server' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">server</span>' :
+          envKey === 'cloud' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">cloud</span>' :
+          '<span class="g-tag tgd" style="font-size:.5rem;padding:.07rem .36rem">free</span>';
 
-      list.appendChild(item);
-    });
+        var item = document.createElement('div');
+        item.className = 'cg-item';
+        item.setAttribute('data-concept-id', concept.id);
+        item.setAttribute('data-project-id', proj.id);
+        item.setAttribute('data-project-key', concept.id + '/' + proj.id);
+        item.setAttribute('data-status-key', projectStatusKey(proj));
+        item.setAttribute('data-env-key', envKey);
+        item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
+
+        item.addEventListener('click', function () {
+          addTap(item);
+          document.querySelectorAll('.cg-item').forEach(function (i) { i.classList.remove('act'); });
+          item.classList.add('act');
+          selectedProjectKey = concept.id + '/' + proj.id;
+          if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+          renderDetail(concept, proj);
+        });
+
+        list.appendChild(item);
+      });
+    }
 
     toggle.addEventListener('click', function () {
       addTap(toggle);
@@ -541,9 +796,11 @@
         '<div class="pj-update-note"><strong>Upcoming Project:</strong> This project is planned and will be completed based on current task priorities.</div>';
     }
 
+    var envKey = normalizeEnv(proj.env);
     var envBadge =
-      proj.env === 'local' ? '<span class="g-tag tg">&#9679; localhost</span>' :
-      proj.env === 'server' ? '<span class="g-tag tc">&#9679; server</span>' :
+      envKey === 'local' ? '<span class="g-tag tg">&#9679; localhost</span>' :
+      envKey === 'server' ? '<span class="g-tag tc">&#9679; server</span>' :
+      envKey === 'cloud' ? '<span class="g-tag tc">&#9679; cloud</span>' :
       '<span class="g-tag tgd">&#9679; free tier</span>';
     var openLinkHtml =
       '<div class="pj-link-row">' +
@@ -668,34 +925,37 @@
         break;
       }
     }
-    if (!concept || !Array.isArray(concept.projects) || !concept.projects.length) return;
+    if (!concept) return;
 
-    var proj = null;
+    var conceptEntries = conceptProjects(concept);
+    if (!conceptEntries.length) return;
+
+    var projEntry = null;
     if (projectId) {
-      for (var pi = 0; pi < concept.projects.length; pi += 1) {
-        if (String(concept.projects[pi].id || '').toLowerCase() === projectId) {
-          proj = concept.projects[pi];
+      for (var pi = 0; pi < conceptEntries.length; pi += 1) {
+        if (String(conceptEntries[pi].proj.id || '').toLowerCase() === projectId) {
+          projEntry = conceptEntries[pi];
           break;
         }
       }
     }
 
-    if (!proj) {
-      for (var vi = 0; vi < concept.projects.length; vi += 1) {
-        var candidate = concept.projects[vi];
+    if (!projEntry) {
+      for (var vi = 0; vi < conceptEntries.length; vi += 1) {
+        var candidate = conceptEntries[vi].proj;
         if (isStatusVisible(projectStatusKey(candidate)) && isEnvVisible(normalizeEnv(candidate.env))) {
-          proj = candidate;
+          projEntry = conceptEntries[vi];
           break;
         }
       }
     }
-    if (!proj) proj = concept.projects[0];
-    if (!proj) return;
+    if (!projEntry) projEntry = conceptEntries[0];
+    if (!projEntry) return;
 
     openGroup(concept.id);
-    markActive(concept, proj);
+    markActive(concept, projEntry.proj);
     if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
-    renderDetail(concept, proj);
+    renderDetail(concept, projEntry.proj);
   }
 
   initClickFx();
@@ -733,4 +993,9 @@
   renderPlaceholder();
   applyStatusFilter();
   openFromQuery();
+
+  // Keep new section lists collapsed on first load.
+  document.querySelectorAll('.cg-sec-list').forEach(function (secList) {
+    secList.classList.remove('op');
+  });
 })();

@@ -792,67 +792,67 @@
 })();
 
 // ══ DISABLE INSPECT/DEV TOOLS ══
-  (function() {
-    'use strict';
+  // (function() {
+  //   'use strict';
 
-    // Disable right-click context menu
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      return false;
-    });
+  //   // Disable right-click context menu
+  //   document.addEventListener('contextmenu', function(e) {
+  //     e.preventDefault();
+  //     return false;
+  //   });
 
-    // Disable common developer tool keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-      // F12 - Developer Tools
-      if (e.keyCode === 123) {
-        e.preventDefault();
-        return false;
-      }
+  //   // Disable common developer tool keyboard shortcuts
+  //   document.addEventListener('keydown', function(e) {
+  //     // F12 - Developer Tools
+  //     if (e.keyCode === 123) {
+  //       e.preventDefault();
+  //       return false;
+  //     }
 
-      // Ctrl+Shift+I - Developer Tools
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-        e.preventDefault();
-        return false;
-      }
+  //     // Ctrl+Shift+I - Developer Tools
+  //     if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+  //       e.preventDefault();
+  //       return false;
+  //     }
 
-      // Ctrl+Shift+J - Console
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-        e.preventDefault();
-        return false;
-      }
+  //     // Ctrl+Shift+J - Console
+  //     if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+  //       e.preventDefault();
+  //       return false;
+  //     }
 
-      // Ctrl+Shift+C - Inspect Element
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
-        e.preventDefault();
-        return false;
-      }
+  //     // Ctrl+Shift+C - Inspect Element
+  //     if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+  //       e.preventDefault();
+  //       return false;
+  //     }
 
-      // Ctrl+U - View Source (though this doesn't prevent it completely)
-      if (e.ctrlKey && e.keyCode === 85) {
-        e.preventDefault();
-        return false;
-      }
+  //     // Ctrl+U - View Source (though this doesn't prevent it completely)
+  //     if (e.ctrlKey && e.keyCode === 85) {
+  //       e.preventDefault();
+  //       return false;
+  //     }
 
-      // F11 - Fullscreen (optional, but can be annoying)
-      if (e.keyCode === 122) {
-        e.preventDefault();
-        return false;
-      }
-    });
+  //     // F11 - Fullscreen (optional, but can be annoying)
+  //     if (e.keyCode === 122) {
+  //       e.preventDefault();
+  //       return false;
+  //     }
+  //   });
 
-    // Disable text selection (optional, for extra protection)
-    document.addEventListener('selectstart', function(e) {
-      e.preventDefault();
-      return false;
-    });
+  //   // Disable text selection (optional, for extra protection)
+  //   document.addEventListener('selectstart', function(e) {
+  //     e.preventDefault();
+  //     return false;
+  //   });
 
-    // Disable drag and drop (optional)
-    document.addEventListener('dragstart', function(e) {
-      e.preventDefault();
-      return false;
-    });
+  //   // Disable drag and drop (optional)
+  //   document.addEventListener('dragstart', function(e) {
+  //     e.preventDefault();
+  //     return false;
+  //   });
 
-  })();
+  // })();
 
 
 })();

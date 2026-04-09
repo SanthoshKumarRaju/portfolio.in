@@ -18,10 +18,12 @@
   var pendingMeterEl = document.getElementById('pj-meter-pending');
   var filterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-status-filter]'));
   var envFilterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-env-filter]'));
+  var viewButtons = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
   var statusValidationPrinted = false;
   var statusValidationErrors = [];
   var activeStatusFilters = { completed: false, in_progress: false, not_completed: false };
   var activeEnvFilters = { local: false, server: false, cloud: false, free: false };
+  var activeViewKinds = { project: true, concept: false };
   var selectedProjectKey = '';
   var flat = []; // { ci, pi, concept, proj }
   var LAST_OPENED_KEY = 'pj:last-opened-project';
@@ -437,14 +439,43 @@
     return !!activeEnvFilters[itemEnvKey];
   }
 
+  function normalizeViewKey(raw) {
+    return String(raw || '').trim().toLowerCase();
+  }
+
+  function isConceptProjectTag(raw) {
+    var tag = String(raw || '').toLowerCase();
+    return tag.indexOf('theory') >= 0 || tag.indexOf('fundamentals') >= 0;
+  }
+
+  function viewKindForProject(proj) {
+    var tag = String(proj.conceptTag || proj.sectionKey || '').toLowerCase();
+    if (isConceptProjectTag(tag)) return 'concept';
+    if (tag.indexOf('project') >= 0) return 'project';
+    return 'project';
+  }
+
+  function isViewVisible(item) {
+    if (!item) return true;
+    var kind = String(item.getAttribute('data-view-kind') || 'project');
+    return !!activeViewKinds[kind];
+  }
+
+  var placeholderOriginalSub = '';
+
   function renderPlaceholder(msg) {
     if (!detail) return;
-    detail.innerHTML =
-      '<div class="pj-placeholder">' +
-        '<div class="pj-ph-ico">&#9881;&#65039;</div>' +
-        '<div class="pj-ph-title">Select a project</div>' +
-        '<div class="pj-ph-sub">' + (msg || '&#8592; Expand a concept from the sidebar') + '</div>' +
-      '</div>';
+    var ph = document.getElementById('pj-ph');
+    if (!ph) return;
+    detail.innerHTML = '';
+    detail.appendChild(ph);
+    var subtitle = ph.querySelector('.pj-ph-sub');
+    if (subtitle) {
+      if (!placeholderOriginalSub) {
+        placeholderOriginalSub = subtitle.textContent;
+      }
+      subtitle.textContent = msg || placeholderOriginalSub;
+    }
   }
 
   function updateFilterUi(visibleCount) {
@@ -459,7 +490,8 @@
     var envSelected = envFilterKeys();
     var statusPart = statusSelected.length ? 'Status: ' + statusSelected.map(statusLabel).join(', ') + ' | ' : '';
     var envPart = envSelected.length ? ' | Env: ' + envSelected.join(', ') : '';
-    document.title = 'Projects - ' + statusPart + 'Projects' + envPart + ' (' + visibleCount + ')';
+    var viewPart = currentViewLabel();
+    document.title = 'Projects - ' + viewPart + (statusPart ? ' - ' + statusPart : '') + envPart + ' (' + visibleCount + ')';
   }
 
   function updateEnvFilterUi() {
@@ -471,20 +503,47 @@
     });
   }
 
+  function selectedViewLabels() {
+    var labels = [];
+    if (activeViewKinds.project) labels.push('Projects');
+    if (activeViewKinds.concept) labels.push('Concepts');
+    return labels;
+  }
+
+  function currentViewLabel() {
+    var labels = selectedViewLabels();
+    return labels.length ? labels.join(' + ') : 'All';
+  }
+
+  function hasActiveViews() {
+    return activeViewKinds.project || activeViewKinds.concept;
+  }
+
+  function hasViewFilter() {
+    return (activeViewKinds.project === false && activeViewKinds.concept === true) ||
+           (activeViewKinds.project === false && activeViewKinds.concept === false);
+  }
+
+  function hasAnyFilters() {
+    return hasActiveStatusFilters() || hasActiveEnvFilters() || hasViewFilter();
+  }
+
   function renderFilterInfo(visibleCount) {
     if (!filterInfoEl) return;
-    var statusSelected = statusFilterKeys();
-    var envSelected = envFilterKeys();
-    var statusActive = statusSelected.length > 0;
-    var envActive = envSelected.length > 0;
-
-    if (!statusActive && !envActive) {
+    if (!hasAnyFilters()) {
       filterInfoEl.classList.add('hidden');
       filterInfoEl.innerHTML = '';
       return;
     }
 
+    var statusSelected = statusFilterKeys();
+    var envSelected = envFilterKeys();
+    var viewLabels = hasViewFilter() ? selectedViewLabels() : [];
+
     var chips = [];
+    viewLabels.forEach(function (label) {
+      chips.push('<span class="pj-filter-chip">View: ' + label + '</span>');
+    });
     statusSelected.forEach(function (k) {
       chips.push('<span class="pj-filter-chip pj-filter-chip--status">Status: ' + statusLabel(k) + '</span>');
     });
@@ -494,7 +553,7 @@
 
     filterInfoEl.classList.remove('hidden');
     filterInfoEl.innerHTML =
-      '<div class="pj-filter-info__title">Active Filters</div>' +
+      '<div class="pj-filter-info__title">Active Filters <button class="pj-filter-clear" type="button" aria-label="Clear all filters">×</button></div>' +
       '<div class="pj-filter-info__chips">' + chips.join('') + '</div>' +
       '<div class="pj-filter-info__count">Showing ' + visibleCount + ' project' + (visibleCount === 1 ? '' : 's') + '</div>';
   }
@@ -514,9 +573,24 @@
     if (list) list.classList.add('op');
   }
 
+  function openFirstVisibleItem() {
+    var firstItem = sidebar.querySelector('.cg-item:not(.fh)');
+    if (!firstItem) return;
+    var conceptId = firstItem.getAttribute('data-concept-id');
+    if (conceptId) {
+      openGroup(conceptId);
+    }
+    firstItem.click();
+  }
+
   function applyStatusFilter() {
     var visibleProjects = 0;
     var selectedStillVisible = false;
+    var anyActiveFilters = hasAnyFilters();
+
+    if (anyActiveFilters) {
+      closeAllGroups();
+    }
 
     sidebar.querySelectorAll('.cg').forEach(function (group) {
       var groupVisible = 0;
@@ -525,7 +599,8 @@
         var itemEnv = normalizeEnv(item.getAttribute('data-env-key'));
         var showByStatus = isStatusVisible(itemStatus);
         var showByEnv = isEnvVisible(itemEnv);
-        var show = showByStatus && showByEnv;
+        var showByView = isViewVisible(item);
+        var show = showByStatus && showByEnv && showByView;
         item.classList.toggle('fh', !show);
         if (show) {
           groupVisible += 1;
@@ -535,22 +610,28 @@
           }
         }
       });
+      group.querySelectorAll('.cg-sec').forEach(function (section) {
+        var sectionVisible = section.querySelectorAll('.cg-item:not(.fh)').length > 0;
+        section.classList.toggle('fh', !sectionVisible);
+      });
       group.classList.toggle('fh', groupVisible === 0);
     });
 
     updateEnvFilterUi();
     updateFilterUi(visibleProjects);
     renderFilterInfo(visibleProjects);
+    updateSidebarCounts();
 
     if (!visibleProjects) {
       selectedProjectKey = '';
-      renderPlaceholder('No projects match the selected filters');
+      renderPlaceholder('No items match the selected view and filters');
       return;
     }
 
-    if (selectedProjectKey && !selectedStillVisible) {
+    if (!selectedProjectKey || !selectedStillVisible) {
       selectedProjectKey = '';
-      renderPlaceholder('Select from filtered projects');
+      renderPlaceholder();
+      return;
     }
   }
 
@@ -595,6 +676,8 @@
       t.classList.remove('op');
       setExtendState(t, false);
     });
+    document.querySelectorAll('.cg-sec-head').forEach(function (h) { h.classList.remove('op'); });
+    document.querySelectorAll('.cg-sec-list').forEach(function (l) { l.classList.remove('op'); });
   }
 
   function animateStatusCounts() {
@@ -623,6 +706,23 @@
     printStatusValidationOnce();
   }
 
+  function updateSidebarCounts() {
+    sidebar.querySelectorAll('.cg').forEach(function (group) {
+      var groupCount = group.querySelectorAll('.cg-item:not(.fh)').length;
+      var groupCountEl = group.querySelector('.cg-cnt');
+      if (groupCountEl) {
+        groupCountEl.textContent = groupCount;
+      }
+
+      group.querySelectorAll('.cg-sec').forEach(function (section) {
+        var sectionCountEl = section.querySelector('.cg-sec-count');
+        if (!sectionCountEl) return;
+        var sectionCount = section.querySelectorAll('.cg-item:not(.fh)').length;
+        sectionCountEl.textContent = sectionCount;
+      });
+    });
+  }
+
   // Build flat list for count + prev/next
   data.forEach(function (concept, ci) {
     var entries = conceptProjects(concept);
@@ -633,9 +733,16 @@
 
   animateStatusCounts();
 
-  filterInfoEl = document.createElement('div');
-  filterInfoEl.className = 'pj-filter-info hidden';
-  sidebar.appendChild(filterInfoEl);
+  filterInfoEl = document.getElementById('pj-filter-info');
+  if (filterInfoEl) {
+    filterInfoEl.addEventListener('click', function (event) {
+      var clearBtn = event.target.closest('.pj-filter-clear');
+      if (!clearBtn) return;
+      event.preventDefault();
+      event.stopPropagation();
+      clearAllFilters();
+    });
+  }
 
   // Build sidebar
   data.forEach(function (concept) {
@@ -694,6 +801,7 @@
           item.setAttribute('data-project-key', concept.id + '/' + proj.id);
           item.setAttribute('data-status-key', projectStatusKey(proj));
           item.setAttribute('data-env-key', envKey);
+          item.setAttribute('data-view-kind', viewKindForProject(proj));
           item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
 
           item.addEventListener('click', function () {
@@ -741,6 +849,7 @@
         item.setAttribute('data-project-key', concept.id + '/' + proj.id);
         item.setAttribute('data-status-key', projectStatusKey(proj));
         item.setAttribute('data-env-key', envKey);
+        item.setAttribute('data-view-kind', viewKindForProject(proj));
         item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
 
         item.addEventListener('click', function () {
@@ -913,6 +1022,7 @@
   }
 
   function openFromQuery() {
+    if (hasAnyFilters()) return;
     var params = new URLSearchParams(window.location.search);
     var conceptId = String(params.get('concept') || '').trim().toLowerCase();
     var projectId = String(params.get('project') || '').trim().toLowerCase();
@@ -988,11 +1098,48 @@
     });
   });
 
+  function resetViewButtons() {
+    viewButtons.forEach(function (btnInner) {
+      var btnKey = normalizeViewKey(btnInner.getAttribute('data-view'));
+      var active = !!activeViewKinds[btnKey];
+      btnInner.classList.toggle('act', active);
+      btnInner.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function clearAllFilters() {
+    clearStatusFilters();
+    clearEnvFilters();
+    activeViewKinds.project = true;
+    activeViewKinds.concept = true;
+    resetViewButtons();
+    applyStatusFilter();
+  }
+
+  viewButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = normalizeViewKey(btn.getAttribute('data-view'));
+      if (!key) return;
+      addTap(btn);
+      activeViewKinds[key] = !activeViewKinds[key];
+      if (!hasActiveViews()) {
+        activeViewKinds[key] = true;
+      }
+      resetViewButtons();
+      if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+      applyStatusFilter();
+    });
+  });
+
   // Initial state: all groups collapsed, detail placeholder visible.
   closeAllGroups();
-  renderPlaceholder();
   applyStatusFilter();
-  openFromQuery();
+  if (!hasAnyFilters()) {
+    openFromQuery();
+  }
+  if (!selectedProjectKey) {
+    renderPlaceholder();
+  }
 
   // Keep new section lists collapsed on first load.
   document.querySelectorAll('.cg-sec-list').forEach(function (secList) {

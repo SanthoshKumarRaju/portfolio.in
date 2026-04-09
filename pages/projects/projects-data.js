@@ -1,4 +1,107 @@
 ﻿/* projects-data.js - concept/project index (page-first) */
+// Rebuild Cloud concept in place (keeps original ordering) with Fundamentals + AWS + Azure sections.
+// note: structural normalization is now done in pages/projects/projects.js
+
+// Optional section mapping for concepts (used by projects.js).
+// This keeps group definitions close to the data while allowing the renderer to build sections.
+window.PDATA_SECTION_MAP = {
+  linux: {
+    force: true,
+    sections: [
+      { id: 'fundamentals', label: 'Linux Fundamentals', field: 'conceptTag', value: 'theory.linux' },
+      { id: 'projects', label: 'Projects', field: 'conceptTag', value: 'project.linux' }
+    ]
+  },
+  Shell: {
+    force: true,
+    sections: [
+      { id: 'fundamentals', label: 'Shell Fundamentals', field: 'conceptTag', value: 'theory.shell' },
+      { id: 'projects', label: 'Projects', field: 'conceptTag', value: 'project.shell' }
+    ]
+  },
+  networking: {
+    force: true,
+    sections: [
+      { id: 'fundamentals', label: 'Network Fundamentals', field: 'conceptTag', value: 'theory.network' },
+      { id: 'projects', label: 'Projects', field: 'conceptTag', value: 'project.network' }
+    ]
+  },
+  jenkins: {
+    force: true,
+    sections: [
+      { id: 'fundamentals', label: 'CI/CD Fundamentals', field: 'conceptTag', value: 'theory.cicd' },
+      { id: 'fundamentals', label: 'Jenkins Fundamentals', field: 'conceptTag', value: 'theory.jenkins' },
+      { id: 'projects', label: 'Jenkins Projects', field: 'conceptTag', value: 'project.jenkins' }
+    ]
+  },
+  aws: { /* concept id in data is 'aws' (Cloud - AWS) */
+    force: true,
+    sections: [
+      { id: 'fundamentals', label: 'Cloud Fundamentals', field: 'conceptTag', value: 'cloud.fundamentals' },
+      { id: 'aws', label: 'AWS', field: 'conceptTag', value: 'cloud.aws.theory' },
+      { id: 'aws-projects', label: 'AWS Projects', field: 'conceptTag', value: 'cloud.aws.project' },
+      // { id: 'azure', label: 'Azure', field: 'conceptTag', value: 'cloud.azure.core' }
+    ]
+  },
+  docker: {
+    force: true,
+    sections: [
+      { id: 'Containerization ', label: 'Containerization - fundamentals', field: 'conceptTag', value: 'container.theory' },
+      { id: 'docker-projects', label: 'Docker Fundamentals', field: 'conceptTag', value: 'docker.theory' },
+      { id: 'docker-projects', label: 'Docker Projects', field: 'conceptTag', value: 'docker.project' }
+    ]
+  },
+  registry: {
+    force: true,
+    sections: [
+      { id: 'Registry', label: 'Registry - fundamentals', field: 'conceptTag', value: 'registry.theory' },
+      { id: 'docker-registry', label: 'Docker Hub', field: 'conceptTag', value: 'dockerhub' },
+      { id: 'harbor-registry', label: 'Harbor', field: 'conceptTag', value: 'harbor' }
+    ]
+  },
+  swarm: {
+    force: true,
+    sections: [
+      { id: 'Registry', label: 'Fundamentals', field: 'conceptTag', value: 'swarm.theory' },
+      { id: 'docker-registry', label: 'projects', field: 'conceptTag', value: 'swarm.project' }
+    ]
+  },
+  kubernetes: {
+    force: true,
+    sections: [
+      { id: 'Kubernetes', label: 'Fundamentals', field: 'conceptTag', value: 'k8s.theory' },
+      { id: 'Kubernetes-projects', label: 'projects', field: 'conceptTag', value: 'k8s.project' }
+    ]
+  },
+  iac: {
+    force: true,
+    sections: [
+      { id: 'IAC', label: 'IAC Fundamentals', field: 'conceptTag', value: 'iac.theory' },
+      { id: 'Terraform', label: 'Terraform Fundamentals', field: 'conceptTag', value: 'terraform.theory' },
+      { id: 'Opentofy', label: 'OpenTofu Fundamentals', field: 'conceptTag', value: 'opentofu.theory' },
+      { id: 'IAC-projects', label: 'Projects', field: 'conceptTag', value: 'iac.project' }
+    ]
+  },
+  ansible: {
+    force: true,
+    sections: [
+      { id: 'Configuration', label: 'Configuration Fundamentals', field: 'conceptTag', value: 'config.theory' },
+      { id: 'Ansible', label: 'Ansible Fundamentals', field: 'conceptTag', value: 'ansible.theory' },
+      { id: 'Ansible-projects', label: 'Projects', field: 'conceptTag', value: 'ansible.theory' }
+    ]
+  },
+  observability: {
+    force: true,
+    sections: [
+      { id: 'observability', label: 'Observability Fundamentals', field: 'conceptTag', value: 'obser.theory' },
+      { id: 'ELK', label: 'ELK Fundamentals', field: 'conceptTag', value: 'elk.theory' },
+      { id: 'Grafana', label: 'Grafana Fundamentals', field: 'conceptTag', value: 'grafana.theory' },
+      // { id: 'Projects', label: 'Projects', field: 'conceptTag', value: 'obser.project' },
+    ]
+  }
+  
+};
+
 window.PDATA = [
   { id:'linux', label:'Linux', icon:'🐧', projects:
     [
@@ -62,7 +165,7 @@ window.PDATA = [
       title: 'Linux Filesystem and Directory Structure',
       env: 'local',
       conceptTag: 'theory.linux',
-      status: 'not_completed',
+      status: 'completed',
       summary:
         'Deep dive into the Linux filesystem hierarchy including directory purposes, file types, links, mounting, and storage structure.',
       purpose:
@@ -76,14 +179,14 @@ window.PDATA = [
         'Working with partitions and filesystems',
         'Understanding inode structure'
       ],
-      page: '../../projects/maintenance-page.html'
+      page: '../../projects/linux/linux-filesystem/index.html'
     },
     {
       id: 'linux-permissions-security',
       title: 'Linux Permissions and Security',
       env: 'server',
       conceptTag: 'theory.linux',
-      status: 'not_completed',
+      status: 'completed',
       summary:
         'Understanding Linux security fundamentals including permissions, access control, and secure system configuration.',
       purpose:
@@ -96,63 +199,216 @@ window.PDATA = [
         'Understanding ACLs',
         'Security best practices for Linux servers'
       ],
-      page: '../../projects/maintenance-page.html'
+      page: '../../projects/linux/Permissions-Security/index.html'
     },
     { 
       id:'user-management', 
       title:'User Management', 
       env:'server', 
       conceptTag: 'theory.linux',
-      status:'not_completed',
+      status:'completed',
       summary:'Linux user and group administration for secure multi-user server operations.',
       purpose:'Implement safe access control patterns using user accounts, sudo delegation and SSH key-based authentication.',
       overview:[
-        'Create and manage service users and permission boundaries.',
-        'Apply least-privilege access with groups and sudo roles.',
-        'Configure SSH key auth and secure home-directory permissions.',
-        'Audit account setup for production readiness.'
+        'Understanding Linux user types (root, system users, service users, normal users).',
+        'Creating and managing users with useradd, usermod, and userdel.',
+        'Managing groups and implementing group-based access control.',
+        'Understanding /etc/passwd, /etc/shadow, and /etc/group files.',
+        'Applying least-privilege access with groups and sudo roles.',
+        'Configuring sudo delegation using visudo and /etc/sudoers.',
+        'Configuring SSH key authentication and securing SSH access.',
+        'Setting password policies and managing password expiration.',
+        'Securing home directories and SSH key permissions.',
+        'Monitoring login activity and auditing user accounts.',
+        'Managing resource limits and preventing resource abuse.',
+        'Locking, disabling, and managing inactive user accounts.'
       ],
-      page: '../../projects/maintenance-page.html' 
+      page: '../../projects/linux/user-management/index.html'
     },
     {
       id: 'linux-process-management',
       title: 'Linux Process and Resource Management',
       env: 'server',
       conceptTag: 'theory.linux',
-      status: 'not_completed',
+      status: 'completed',
       summary:
         'Learn how Linux manages processes and system resources.',
       purpose:
         'Understand how to monitor and control running applications and system services.',
       overview: [
-        'Understanding processes and process IDs',
-        'Foreground vs background processes',
-        'Monitoring processes using ps, top, htop',
-        'Killing and controlling processes',
-        'Process priorities and nice values',
-        'Resource monitoring tools'
+        'Understanding processes, process lifecycle, and process IDs (PID, PPID).',
+        'Process states (running, sleeping, stopped, zombie).',
+        'Foreground vs background processes and job control.',
+        'Monitoring processes using ps, top, htop, and uptime.',
+        'Advanced process inspection using pstree, pidof, and pgrep.',
+        'Killing and controlling processes using kill, pkill, killall, and signals.',
+        'Understanding Linux signals and process termination.',
+        'Process priorities and scheduling (nice and renice).',
+        'System resource monitoring (CPU, memory, disk, load average).',
+        'Managing system services with systemd and systemctl.',
+        'Analyzing system performance bottlenecks.',
+        'Logging and debugging processes using logs and strace.',
+        'Resource limits and process control (ulimit, cgroups basics).',
+        'Real-world troubleshooting of high CPU and memory usage processes.'
       ],
-      page: '../../projects/maintenance-page.html'
+      page: '../../projects/linux/process-resource/index.html'
     },
     {
       id: 'linux-networking',
       title: 'Linux Networking Fundamentals',
       env: 'server',
       conceptTag: 'theory.linux',
-      status: 'not_completed',
+      status: 'in_progress',
       summary:
         'Understanding networking configuration and troubleshooting in Linux systems.',
       purpose:
         'Learn how Linux systems communicate over networks and how to diagnose connectivity issues.',
       overview: [
-        'Understanding network interfaces',
-        'IP addressing and routing',
-        'Using ip command for network configuration',
-        'Network troubleshooting using ping, traceroute, curl',
-        'Checking open ports using ss and netstat',
-        'DNS resolution and troubleshooting'
+        // Basics
+        'Networking is the process of connecting systems to share data using protocols and communication rules.',
+        'The OSI model defines 7 layers that explain how data moves from application to physical transmission.',
+        'The TCP/IP model is a practical networking model used in real systems, combining multiple OSI layers.',
+        'IPv4 and IPv6 are addressing systems used to uniquely identify devices on a network.',
+        'Public IPs are globally reachable, while private IPs are used inside internal networks.',
+        'Subnetting and CIDR help divide networks into smaller segments for better management.',
+        'MAC addresses uniquely identify hardware devices, and ARP maps IP addresses to MAC addresses.',
+        'TCP is connection-oriented and reliable, while UDP is faster but connectionless.',
+        'Ports identify specific services running on a system (e.g., 80 for HTTP, 22 for SSH).',
+        'DNS translates domain names into IP addresses for communication.',
+        'DHCP automatically assigns IP addresses to devices in a network.',
+
+        // Interfaces
+        'Network interfaces represent network devices in Linux, such as eth0 or ens33.',
+        'The loopback interface (lo) is used for internal communication within the same system.',
+        'Virtual interfaces like bridges, veth pairs, and tun/tap are used in advanced networking.',
+        'The ip link command shows network interfaces and their states.',
+        'The ip addr command displays IP addresses assigned to interfaces.',
+        'Interfaces can be enabled or disabled using system commands.',
+        'Persistent configuration ensures network settings remain after reboot.',
+
+        // IP & Routing
+        'IP addresses can be manually assigned using the ip command.',
+        'Static IPs remain fixed, while dynamic IPs are assigned via DHCP.',
+        'The default gateway allows communication with external networks.',
+        'Routing tables define how packets are forwarded between networks.',
+        'Routes can be added or removed to control traffic flow.',
+        'Policy-based routing allows advanced traffic control using rules.',
+
+        // Commands
+        'Ping is used to test connectivity between systems.',
+        'Traceroute and tracepath show the path packets take across networks.',
+        'MTR combines ping and traceroute for real-time diagnostics.',
+        'Curl is used to test HTTP/HTTPS endpoints and APIs.',
+        'Wget is used to download files from remote servers.',
+        'The ip command is a powerful modern tool for managing networking.',
+
+        // DNS
+        'DNS resolution converts domain names into IP addresses.',
+        '/etc/resolv.conf defines which DNS servers are used.',
+        '/etc/hosts allows manual hostname-to-IP mapping.',
+        'nsswitch.conf controls the order of name resolution.',
+        'systemd-resolved and dnsmasq provide DNS caching services.',
+        'Dig, nslookup, and host are used to troubleshoot DNS issues.',
+
+        // Ports
+        'Ports and sockets represent communication endpoints in networking.',
+        'The ss command shows active connections and listening ports.',
+        'Netstat is an older tool for viewing network connections.',
+        'Connections can be in listening, established, or closed states.',
+
+        // Config
+        'Netplan is used for network configuration in Ubuntu systems.',
+        'NetworkManager simplifies network management using GUI and CLI tools.',
+        'Nmcli and nmtui provide command-line interfaces for network configuration.',
+        'Ifcfg files are used in RHEL-based systems for network setup.',
+
+        // Security
+        'Firewalls control incoming and outgoing network traffic.',
+        'Iptables is a traditional Linux firewall tool.',
+        'Nftables is a modern replacement for iptables.',
+        'UFW provides a simplified firewall interface for Ubuntu.',
+        'Firewalld is commonly used in enterprise Linux systems.',
+        'NAT allows private networks to communicate with external networks.',
+        'Port forwarding redirects traffic from one port to another.',
+
+        // Services
+        'SSH allows secure remote access to systems.',
+        'Web servers like Nginx and Apache serve web content over HTTP/HTTPS.',
+        'FTP and SFTP are used for file transfers over networks.',
+        'NFS and SMB enable file sharing between systems.',
+
+        // Troubleshooting
+        'Network troubleshooting starts by checking interfaces and IP addresses.',
+        'Routing issues can be diagnosed using routing tables.',
+        'Gateway connectivity ensures access to external networks.',
+        'Testing external IPs helps verify internet connectivity.',
+        'DNS issues can prevent domain resolution even if network is working.',
+        'Checking open ports ensures services are running correctly.',
+        'A structured step-by-step approach helps isolate network problems.',
+
+        // Monitoring
+        'Tcpdump captures and analyzes network packets from the command line.',
+        'Wireshark provides a graphical interface for packet analysis.',
+        'Iftop monitors real-time bandwidth usage.',
+        'Nload shows incoming and outgoing traffic visually.',
+        'Vnstat tracks long-term network usage statistics.',
+
+        // Advanced
+        'Linux bridges connect multiple interfaces into a single network.',
+        'Bonding combines multiple interfaces for redundancy or performance.',
+        'VLANs segment networks logically within the same physical network.',
+        'Overlay networks are used in distributed systems like Docker Swarm.',
+        'Advanced routing enables fine-grained traffic control.',
+
+        // Containers
+        'Docker provides different network modes like bridge, host, and overlay.',
+        'Containers use internal DNS for service discovery.',
+        'Port mapping exposes container services to the host system.',
+        'Service discovery allows containers to communicate by name.',
+        'Docker Swarm uses overlay networks for multi-node communication.',
+
+        // Proxy
+        'Reverse proxies route client requests to backend services.',
+        'Load balancing distributes traffic across multiple servers.',
+        'SSL termination handles HTTPS encryption at the proxy level.',
+        'Traefik is a dynamic reverse proxy for container environments.',
+        'Nginx is widely used for reverse proxy and load balancing.',
+        'HAProxy is a high-performance load balancer.',
+
+        // VPN
+        'SSH tunneling securely forwards traffic through encrypted channels.',
+        'OpenVPN provides secure remote access to private networks.',
+        'WireGuard is a modern and efficient VPN solution.',
+        'GRE tunnels encapsulate traffic between networks.',
+
+        // Performance
+        'MTU defines the maximum packet size for transmission.',
+        'TCP tuning improves network performance using kernel parameters.',
+        'Connection limits control the number of concurrent connections.',
+        'Kernel parameters can be adjusted for better networking performance.',
+
+        // HA
+        'Keepalived provides failover using virtual IP addresses.',
+        'Virtual IPs allow seamless service availability during failures.',
+        'Redundant networking ensures high availability systems.',
+
+        // Logs
+        'System logs store network-related events and errors.',
+        'Journalctl is used to query system logs in modern Linux systems.',
+        'Service logs help debug networking issues in applications.',
+
+        // Automation
+        'Bash scripting automates repetitive networking tasks.',
+        'Ansible enables infrastructure automation and configuration management.',
+
+        // Cloud
+        'VPCs isolate networks in cloud environments.',
+        'Subnets divide cloud networks into smaller segments.',
+        'Security groups act as virtual firewalls.',
+        'Kubernetes networking enables communication between pods and services.',
+        'CNI plugins manage networking in Kubernetes clusters.'
       ],
-      page: '../../projects/maintenance-page.html'
+      page: '../../projects/linux/linux-networking/index.html'
     },
     {
       id: 'linux-storage-management',
@@ -2653,106 +2909,6 @@ window.PDATA = [
   }
 ];
 
-// Rebuild Cloud concept in place (keeps original ordering) with Fundamentals + AWS + Azure sections.
-// note: structural normalization is now done in pages/projects/projects.js
 
-// Optional section mapping for concepts (used by projects.js).
-// This keeps group definitions close to the data while allowing the renderer to build sections.
-window.PDATA_SECTION_MAP = {
-  linux: {
-    force: true,
-    sections: [
-      { id: 'fundamentals', label: 'Linux Fundamentals', field: 'conceptTag', value: 'theory.linux' },
-      { id: 'projects', label: 'Projects', field: 'conceptTag', value: 'project.linux' }
-    ]
-  },
-  Shell: {
-    force: true,
-    sections: [
-      { id: 'fundamentals', label: 'Shell Fundamentals', field: 'conceptTag', value: 'theory.shell' },
-      { id: 'projects', label: 'Projects', field: 'conceptTag', value: 'project.shell' }
-    ]
-  },
-  networking: {
-    force: true,
-    sections: [
-      { id: 'fundamentals', label: 'Network Fundamentals', field: 'conceptTag', value: 'theory.network' },
-      { id: 'projects', label: 'Projects', field: 'conceptTag', value: 'project.network' }
-    ]
-  },
-  jenkins: {
-    force: true,
-    sections: [
-      { id: 'fundamentals', label: 'CI/CD Fundamentals', field: 'conceptTag', value: 'theory.cicd' },
-      { id: 'fundamentals', label: 'Jenkins Fundamentals', field: 'conceptTag', value: 'theory.jenkins' },
-      { id: 'projects', label: 'Jenkins Projects', field: 'conceptTag', value: 'project.jenkins' }
-    ]
-  },
-  aws: { /* concept id in data is 'aws' (Cloud - AWS) */
-    force: true,
-    sections: [
-      { id: 'fundamentals', label: 'Cloud Fundamentals', field: 'conceptTag', value: 'cloud.fundamentals' },
-      { id: 'aws', label: 'AWS', field: 'conceptTag', value: 'cloud.aws.core' },
-      // { id: 'azure', label: 'Azure', field: 'conceptTag', value: 'cloud.azure.core' }
-    ]
-  },
-  docker: {
-    force: true,
-    sections: [
-      { id: 'Containerization ', label: 'Containerization - fundamentals', field: 'conceptTag', value: 'container.theory' },
-      { id: 'docker-projects', label: 'Docker Fundamentals', field: 'conceptTag', value: 'docker.theory' },
-      { id: 'docker-projects', label: 'Docker Projects', field: 'conceptTag', value: 'docker.project' }
-    ]
-  },
-  registry: {
-    force: true,
-    sections: [
-      { id: 'Registry', label: 'Registry - fundamentals', field: 'conceptTag', value: 'registry.theory' },
-      { id: 'docker-registry', label: 'Docker Hub', field: 'conceptTag', value: 'dockerhub' },
-      { id: 'harbor-registry', label: 'Harbor', field: 'conceptTag', value: 'harbor' }
-    ]
-  },
-  swarm: {
-    force: true,
-    sections: [
-      { id: 'Registry', label: 'Fundamentals', field: 'conceptTag', value: 'swarm.theory' },
-      { id: 'docker-registry', label: 'projects', field: 'conceptTag', value: 'swarm.project' }
-    ]
-  },
-  kubernetes: {
-    force: true,
-    sections: [
-      { id: 'Kubernetes', label: 'Fundamentals', field: 'conceptTag', value: 'k8s.theory' },
-      { id: 'Kubernetes-projects', label: 'projects', field: 'conceptTag', value: 'k8s.project' }
-    ]
-  },
-  iac: {
-    force: true,
-    sections: [
-      { id: 'IAC', label: 'IAC Fundamentals', field: 'conceptTag', value: 'iac.theory' },
-      { id: 'Terraform', label: 'Terraform Fundamentals', field: 'conceptTag', value: 'terraform.theory' },
-      { id: 'Opentofy', label: 'OpenTofu Fundamentals', field: 'conceptTag', value: 'opentofu.theory' },
-      { id: 'IAC-projects', label: 'Projects', field: 'conceptTag', value: 'iac.project' }
-    ]
-  },
-  ansible: {
-    force: true,
-    sections: [
-      { id: 'Configuration', label: 'Configuration Fundamentals', field: 'conceptTag', value: 'config.theory' },
-      { id: 'Ansible', label: 'Ansible Fundamentals', field: 'conceptTag', value: 'ansible.theory' },
-      { id: 'Ansible-projects', label: 'Projects', field: 'conceptTag', value: 'ansible.theory' }
-    ]
-  },
-  observability: {
-    force: true,
-    sections: [
-      { id: 'observability', label: 'Observability Fundamentals', field: 'conceptTag', value: 'obser.theory' },
-      { id: 'ELK', label: 'ELK Fundamentals', field: 'conceptTag', value: 'elk.theory' },
-      { id: 'Grafana', label: 'Grafana Fundamentals', field: 'conceptTag', value: 'grafana.theory' },
-      // { id: 'Projects', label: 'Projects', field: 'conceptTag', value: 'obser.project' },
-    ]
-  }
-  
-};
 
 

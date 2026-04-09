@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:84">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-84</span>
+    <span class="task-title">SSH Tunneling (Secure Traffic Forwarding over Encrypted Channels)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how SSH tunneling securely forwards traffic using encrypted channels and acts as a lightweight VPN mechanism.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is SSH Tunneling</strong><br>
+          SSH tunneling is a method of forwarding network traffic securely through an encrypted SSH connection.
+        </li>
+
+        <li>
+          <strong>Why SSH Tunneling</strong><br>
+          <ul>
+            <li>Secure data transmission</li>
+            <li>Access restricted services</li>
+            <li>Bypass firewalls</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → SSH Tunnel → Remote Server → Target Service
+          </pre>
+        </li>
+
+        <li>
+          <strong>Encryption Layer</strong><br>
+          <pre class="cmd-line">
+Data → Encrypted → SSH Tunnel → Decrypted → Destination
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Protocol</strong><br>
+          <ul>
+            <li>Secure Shell (SSH)</li>
+            <li>Uses port 22</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Types of SSH Tunneling</strong><br>
+          <ul>
+            <li>Local Port Forwarding</li>
+            <li>Remote Port Forwarding</li>
+            <li>Dynamic Port Forwarding</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Local Port Forwarding</strong><br>
+          <pre class="cmd-line">
+ssh -L local_port:target_host:target_port user@ssh_server
+          </pre>
+          Access remote service locally.
+        </li>
+
+        <li>
+          <strong>Example (Local Forwarding)</strong><br>
+          <pre class="cmd-line">
+ssh -L 8080:localhost:3000 user@remote-server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Remote Port Forwarding</strong><br>
+          <pre class="cmd-line">
+ssh -R remote_port:localhost:local_port user@ssh_server
+          </pre>
+          Exposes local service to remote server.
+        </li>
+
+        <li>
+          <strong>Dynamic Port Forwarding</strong><br>
+          <pre class="cmd-line">
+ssh -D 1080 user@ssh_server
+          </pre>
+          Creates a SOCKS proxy (acts like VPN).
+        </li>
+
+        <li>
+          <strong>SOCKS Proxy</strong><br>
+          <ul>
+            <li>Routes traffic dynamically</li>
+            <li>Used by browsers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use Cases</strong><br>
+          <ul>
+            <li>Access private servers</li>
+            <li>Secure database connections</li>
+            <li>Bypass network restrictions</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SSH Tunnel vs VPN</strong><br>
+          <ul>
+            <li>SSH → application-level</li>
+            <li>VPN → full network-level</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Authentication</strong><br>
+          <ul>
+            <li>Password</li>
+            <li>SSH key-based authentication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Key-Based Authentication</strong><br>
+          <pre class="cmd-line">
+ssh-keygen
+ssh-copy-id user@server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Benefits</strong><br>
+          <ul>
+            <li>Encrypted communication</li>
+            <li>Prevents data interception</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Port Forwarding Flow</strong><br>
+          <pre class="cmd-line">
+Local App → Local Port → SSH Tunnel → Remote Service
+          </pre>
+        </li>
+
+        <li>
+          <strong>Firewall Bypass</strong><br>
+          Uses SSH port (22) to bypass restrictions.
+        </li>
+
+        <li>
+          <strong>Background Execution</strong><br>
+          <pre class="cmd-line">
+ssh -N -f -L 8080:localhost:3000 user@server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Keep Alive Settings</strong><br>
+          <pre class="cmd-line">
+ServerAliveInterval 60
+          </pre>
+        </li>
+
+        <li>
+          <strong>Compression</strong><br>
+          <pre class="cmd-line">
+ssh -C user@server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debug Mode</strong><br>
+          <pre class="cmd-line">
+ssh -v user@server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port already in use</li>
+            <li>Firewall blocking SSH</li>
+            <li>Wrong host configuration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check SSH connection
+Check ports
+Check logs
+Test connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Considerations</strong><br>
+          <ul>
+            <li>Encryption overhead</li>
+            <li>Latency increase</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Disable root login</li>
+            <li>Use key-based auth</li>
+            <li>Change default SSH port</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+Access private DB securely via SSH tunnel
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          SSH tunneling securely forwards traffic through encrypted channels, enabling safe communication, remote access, and lightweight VPN functionality.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how SSH tunneling works and how it securely forwards traffic across networks.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:85">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-85</span>
+    <span class="task-title">OpenVPN (Secure Remote Access to Private Networks)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how OpenVPN enables secure remote access to private networks using encrypted tunnels over public internet.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is OpenVPN</strong><br>
+          OpenVPN is an open-source VPN solution that creates secure tunnels between client and private network.
+        </li>
+
+        <li>
+          <strong>Why OpenVPN</strong><br>
+          <ul>
+            <li>Secure remote access</li>
+            <li>Encrypts internet traffic</li>
+            <li>Access private resources</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → Internet → OpenVPN Server → Private Network
+          </pre>
+        </li>
+
+        <li>
+          <strong>VPN Tunnel Concept</strong><br>
+          <pre class="cmd-line">
+User Traffic → Encrypted Tunnel → Secure Network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Protocols Used</strong><br>
+          <ul>
+            <li>TCP</li>
+            <li>UDP (preferred for performance)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Ports Used</strong><br>
+          <ul>
+            <li>1194 (default)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Encryption</strong><br>
+          <ul>
+            <li>AES encryption</li>
+            <li>TLS for key exchange</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Authentication Methods</strong><br>
+          <ul>
+            <li>Username & Password</li>
+            <li>Certificates (most secure)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Certificate-Based Auth</strong><br>
+          <pre class="cmd-line">
+CA → Server Cert → Client Cert
+          </pre>
+        </li>
+
+        <li>
+          <strong>Client-Server Architecture</strong><br>
+          <pre class="cmd-line">
+Multiple Clients → OpenVPN Server → Internal Network
+          </pre>
+        </li>
+
+        <li>
+          <strong>TUN vs TAP</strong><br>
+          <ul>
+            <li>TUN → Layer 3 (IP routing)</li>
+            <li>TAP → Layer 2 (Ethernet bridging)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing Through VPN</strong><br>
+          <pre class="cmd-line">
+Client → VPN → Internal IP (10.x.x.x)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Split Tunneling</strong><br>
+          <ul>
+            <li>Only specific traffic goes through VPN</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Full Tunnel</strong><br>
+          <ul>
+            <li>All traffic routed through VPN</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS Handling</strong><br>
+          <ul>
+            <li>VPN can push DNS settings</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Firewall Integration</strong><br>
+          <ul>
+            <li>Allow UDP 1194</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>OpenVPN Server Setup (Basic)</strong><br>
+          <pre class="cmd-line">
+apt install openvpn
+          </pre>
+        </li>
+
+        <li>
+          <strong>Server Config Example</strong><br>
+          <pre class="cmd-line">
+port 1194
+proto udp
+dev tun
+server 10.8.0.0 255.255.255.0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Client Config</strong><br>
+          <pre class="cmd-line">
+client
+dev tun
+proto udp
+remote server-ip 1194
+          </pre>
+        </li>
+
+        <li>
+          <strong>IP Address Assignment</strong><br>
+          <ul>
+            <li>Clients get virtual IPs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NAT & Routing</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability</strong><br>
+          <ul>
+            <li>Multiple VPN servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Considerations</strong><br>
+          <ul>
+            <li>Encryption overhead</li>
+            <li>Latency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Use strong encryption</li>
+            <li>Rotate certificates</li>
+            <li>Restrict access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+systemctl status openvpn
+tail -f /var/log/syslog
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port blocked</li>
+            <li>Certificate mismatch</li>
+            <li>Routing issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check service
+Check port
+Check config
+Check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use Cases</strong><br>
+          <ul>
+            <li>Remote employee access</li>
+            <li>Secure cloud access</li>
+            <li>Site-to-site connectivity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          OpenVPN creates secure encrypted tunnels over the internet, enabling safe remote access to private networks and resources.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how OpenVPN provides secure remote connectivity and protects network traffic.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:86">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-86</span>
+    <span class="task-title">WireGuard (Modern & Efficient VPN Solution)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how WireGuard provides fast, secure, and modern VPN connectivity using simple configuration and efficient cryptography.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is WireGuard</strong><br>
+          WireGuard is a modern VPN protocol designed to be simple, fast, and secure.
+        </li>
+
+        <li>
+          <strong>Why WireGuard</strong><br>
+          <ul>
+            <li>High performance</li>
+            <li>Minimal configuration</li>
+            <li>Strong cryptography</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → Internet → WireGuard Server → Private Network
+          </pre>
+        </li>
+
+        <li>
+          <strong>VPN Tunnel Concept</strong><br>
+          <pre class="cmd-line">
+Traffic → Encrypted → Tunnel → Decrypted → Destination
+          </pre>
+        </li>
+
+        <li>
+          <strong>Protocol</strong><br>
+          <ul>
+            <li>Uses UDP only</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Default Port</strong><br>
+          <ul>
+            <li>51820 (UDP)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Modern Cryptography</strong><br>
+          <ul>
+            <li>ChaCha20 encryption</li>
+            <li>Poly1305 authentication</li>
+            <li>Curve25519 key exchange</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Key-Based Authentication</strong><br>
+          <pre class="cmd-line">
+Private Key + Public Key
+          </pre>
+        </li>
+
+        <li>
+          <strong>Peer-to-Peer Model</strong><br>
+          <pre class="cmd-line">
+Client ↔ Server (Peers)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Configuration Simplicity</strong><br>
+          Uses simple config files instead of complex certificates.
+        </li>
+
+        <li>
+          <strong>Interface Concept</strong><br>
+          <pre class="cmd-line">
+wg0 → virtual network interface
+          </pre>
+        </li>
+
+        <li>
+          <strong>Server Config Example</strong><br>
+          <pre class="cmd-line">
+[Interface]
+Address = 10.0.0.1/24
+PrivateKey = SERVER_PRIVATE_KEY
+ListenPort = 51820
+          </pre>
+        </li>
+
+        <li>
+          <strong>Peer Config Example</strong><br>
+          <pre class="cmd-line">
+[Peer]
+PublicKey = CLIENT_PUBLIC_KEY
+AllowedIPs = 10.0.0.2/32
+          </pre>
+        </li>
+
+        <li>
+          <strong>Client Config Example</strong><br>
+          <pre class="cmd-line">
+[Interface]
+PrivateKey = CLIENT_PRIVATE_KEY
+Address = 10.0.0.2/24
+
+[Peer]
+PublicKey = SERVER_PUBLIC_KEY
+Endpoint = server-ip:51820
+AllowedIPs = 0.0.0.0/0
+          </pre>
+        </li>
+
+        <li>
+          <strong>AllowedIPs</strong><br>
+          Defines which traffic goes through VPN.
+        </li>
+
+        <li>
+          <strong>Full Tunnel</strong><br>
+          <pre class="cmd-line">
+AllowedIPs = 0.0.0.0/0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Split Tunnel</strong><br>
+          <pre class="cmd-line">
+AllowedIPs = 10.0.0.0/24
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing</strong><br>
+          Traffic routed through wg0 interface.
+        </li>
+
+        <li>
+          <strong>NAT Configuration</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Up Interface</strong><br>
+          <pre class="cmd-line">
+wg-quick up wg0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Status</strong><br>
+          <pre class="cmd-line">
+wg show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Benefits</strong><br>
+          <ul>
+            <li>Low latency</li>
+            <li>High throughput</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Benefits</strong><br>
+          <ul>
+            <li>Modern encryption</li>
+            <li>Small attack surface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Roaming Support</strong><br>
+          Automatically reconnects when IP changes.
+        </li>
+
+        <li>
+          <strong>Firewall Integration</strong><br>
+          <ul>
+            <li>Allow UDP 51820</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>High Availability</strong><br>
+          <ul>
+            <li>Multiple peers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+wg show
+ip a
+journalctl -u wg-quick@wg0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong keys</li>
+            <li>Firewall blocking UDP</li>
+            <li>Routing issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check keys
+Check port
+Check routing
+Check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>WireGuard vs OpenVPN</strong><br>
+          <ul>
+            <li>WireGuard → faster, simpler</li>
+            <li>OpenVPN → more mature, flexible</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use Cases</strong><br>
+          <ul>
+            <li>Remote access VPN</li>
+            <li>Site-to-site VPN</li>
+            <li>Cloud networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          WireGuard is a fast, modern VPN solution that uses simple configuration and strong cryptography to provide secure and efficient networking.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how WireGuard provides modern, secure, and high-performance VPN connectivity.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:87">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-87</span>
+    <span class="task-title">GRE Tunnels (Generic Routing Encapsulation)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how GRE tunnels encapsulate traffic between networks to enable communication across different network segments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is GRE Tunnel</strong><br>
+          GRE (Generic Routing Encapsulation) is a tunneling protocol used to encapsulate packets inside another IP packet.
+        </li>
+
+        <li>
+          <strong>Why GRE</strong><br>
+          <ul>
+            <li>Connect remote networks</li>
+            <li>Transport different protocols</li>
+            <li>Enable site-to-site connectivity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Network A → GRE Tunnel → Network B
+          </pre>
+        </li>
+
+        <li>
+          <strong>Encapsulation Concept</strong><br>
+          <pre class="cmd-line">
+Original Packet → GRE Header → New IP Header → Transmission
+          </pre>
+        </li>
+
+        <li>
+          <strong>Packet Flow</strong><br>
+          <pre class="cmd-line">
+Source → Encapsulation → Internet → Decapsulation → Destination
+          </pre>
+        </li>
+
+        <li>
+          <strong>Protocol Number</strong><br>
+          <ul>
+            <li>IP Protocol 47 (not port-based)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>GRE vs VPN</strong><br>
+          <ul>
+            <li>GRE → no encryption</li>
+            <li>VPN → encrypted</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use Cases</strong><br>
+          <ul>
+            <li>Site-to-site connectivity</li>
+            <li>Routing protocols over internet</li>
+            <li>Cloud networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Supports Multiple Protocols</strong><br>
+          <ul>
+            <li>IPv4</li>
+            <li>IPv6</li>
+            <li>Multicast</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Tunnel Endpoints</strong><br>
+          <pre class="cmd-line">
+Local IP ↔ Remote IP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Linux GRE Tunnel Setup</strong><br>
+          <pre class="cmd-line">
+ip tunnel add gre1 mode gre remote 2.2.2.2 local 1.1.1.1 ttl 255
+ip link set gre1 up
+ip addr add 10.0.0.1/30 dev gre1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Remote Side Setup</strong><br>
+          <pre class="cmd-line">
+ip tunnel add gre1 mode gre remote 1.1.1.1 local 2.2.2.2 ttl 255
+ip link set gre1 up
+ip addr add 10.0.0.2/30 dev gre1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing Through Tunnel</strong><br>
+          <pre class="cmd-line">
+ip route add 192.168.2.0/24 via 10.0.0.2
+          </pre>
+        </li>
+
+        <li>
+          <strong>GRE Interface</strong><br>
+          <pre class="cmd-line">
+gre1 → virtual tunnel interface
+          </pre>
+        </li>
+
+        <li>
+          <strong>MTU Considerations</strong><br>
+          <ul>
+            <li>Encapsulation reduces MTU</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Keepalive (Optional)</strong><br>
+          <ul>
+            <li>Detect tunnel failure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance</strong><br>
+          <ul>
+            <li>Low overhead</li>
+            <li>No encryption cost</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>No built-in encryption</li>
+            <li>Use IPsec with GRE for security</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>GRE over IPsec</strong><br>
+          <pre class="cmd-line">
+GRE Tunnel → IPsec Encryption → Secure Tunnel
+          </pre>
+        </li>
+
+        <li>
+          <strong>Firewall Requirements</strong><br>
+          <ul>
+            <li>Allow protocol 47 (GRE)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+ip tunnel show
+ip addr
+ping 10.0.0.2
+tcpdump -i gre1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Protocol 47 blocked</li>
+            <li>Wrong tunnel IP</li>
+            <li>Routing misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check tunnel interface
+Check routes
+Check firewall
+Check connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Comparison with IPsec</strong><br>
+          <ul>
+            <li>GRE → flexible, no encryption</li>
+            <li>IPsec → secure, encrypted</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+Connect two cloud VPC networks using GRE tunnel
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability</strong><br>
+          <ul>
+            <li>Multiple GRE tunnels for redundancy</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Routing Protocols</strong><br>
+          <ul>
+            <li>OSPF over GRE</li>
+            <li>BGP over GRE</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          GRE tunnels encapsulate traffic between networks, enabling flexible and efficient communication across different network environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how GRE tunnels encapsulate and transport traffic between networks.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

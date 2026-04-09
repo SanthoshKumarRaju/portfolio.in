@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - IP & Routing</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-ip & routing</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - IP & Routing</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+
+
+
+<article class="task-card" data-task style="--i:19">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-19</span>
+    <span class="task-title">Manual IP Assignment using ip Command</span>
+    <span class="task-meta">45–65 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to manually assign IP addresses using the ip command, including configuration, verification, and troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Manual IP Assignment</strong><br>
+          Manual IP assignment means configuring an IP address directly on a network interface using system commands instead of DHCP.
+        </li>
+
+        <li>
+          <strong>Why Manual IP is Used</strong><br>
+          <ul>
+            <li>Servers require fixed IPs</li>
+            <li>Testing network configurations</li>
+            <li>Troubleshooting DHCP issues</li>
+            <li>Static infrastructure setup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>ip Command Overview</strong><br>
+          The <code>ip</code> command is used to manage networking in Linux.
+          <div>For IP assignment:</div>
+          <pre class="cmd-line">ip addr add</pre>
+        </li>
+
+        <li>
+          <strong>Basic Syntax</strong><br>
+          <pre class="cmd-line">
+ip addr add &lt;IP_ADDRESS&gt;/&lt;CIDR&gt; dev &lt;INTERFACE&gt;
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Command</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding the Command</strong><br>
+          <ul>
+            <li><strong>192.168.1.100:</strong> IP address</li>
+            <li><strong>/24:</strong> Subnet mask (255.255.255.0)</li>
+            <li><strong>eth0:</strong> Interface name</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Checking Assigned IP</strong><br>
+          <pre class="cmd-line">
+ip addr show eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Removing IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr del 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assigning Multiple IPs</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.101/24 dev eth0
+          </pre>
+          <div>Interfaces can have multiple IPs.</div>
+        </li>
+
+        <li>
+          <strong>Bringing Interface Up</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assigning Gateway (Routing)</strong><br>
+          <pre class="cmd-line">
+ip route add default via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Verifying Connectivity</strong><br>
+          <pre class="cmd-line">
+ping 192.168.1.1
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Temporary Configuration</strong><br>
+          Changes made using <code>ip</code> are temporary and lost after reboot.
+        </li>
+
+        <li>
+          <strong>Manual vs DHCP</strong><br>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Behavior</th>
+            </tr>
+            <tr>
+              <td>Manual</td>
+              <td>Static, fixed IP</td>
+            </tr>
+            <tr>
+              <td>DHCP</td>
+              <td>Dynamic, automatic</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>IPv6 Assignment</strong><br>
+          <pre class="cmd-line">
+ip addr add 2001:db8::1/64 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Use Case</strong><br>
+          <ul>
+            <li>Assign static IP to server</li>
+            <li>Configure test environment</li>
+            <li>Fix broken DHCP setup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Containers get IP automatically</li>
+            <li>Manual assignment used for debugging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Instances usually use DHCP</li>
+            <li>Static IP configured via cloud settings</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Mistakes</strong><br>
+          <ul>
+            <li>Wrong subnet</li>
+            <li>Missing gateway</li>
+            <li>Interface down</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Steps</strong><br>
+          <pre class="cmd-line">
+ip addr
+ip route
+ping gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use static IP for servers</li>
+            <li>Verify configuration after assignment</li>
+            <li>Use persistent config for production</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Manual IP assignment using the ip command is a powerful way to configure network interfaces, especially for testing, troubleshooting, and server setup.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to manually assign, verify, and manage IP addresses using the ip command.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:20">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-20</span>
+    <span class="task-title">Static vs Dynamic IP Addressing</span>
+    <span class="task-meta">40–55 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand the differences between static and dynamic IP addresses, how they work, and when to use each in real-world systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is an IP Address</strong><br>
+          An IP address uniquely identifies a device in a network and enables communication between systems.
+        </li>
+
+        <li>
+          <strong>Types of IP Assignment</strong><br>
+          <ul>
+            <li>Static IP Address</li>
+            <li>Dynamic IP Address</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is a Static IP Address</strong><br>
+          A static IP is manually assigned to a device and does not change unless modified by an administrator.
+        </li>
+
+        <li>
+          <strong>Characteristics of Static IP</strong><br>
+          <ul>
+            <li>Fixed and permanent</li>
+            <li>Configured manually</li>
+            <li>Used for servers and infrastructure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is a Dynamic IP Address</strong><br>
+          A dynamic IP is automatically assigned by a DHCP server and can change over time.
+        </li>
+
+        <li>
+          <strong>Characteristics of Dynamic IP</strong><br>
+          <ul>
+            <li>Automatically assigned</li>
+            <li>Changes periodically</li>
+            <li>Used for client devices</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How Dynamic IP Works</strong><br>
+          DHCP assigns IP using:
+          <pre class="cmd-line">
+Discover → Offer → Request → Acknowledge
+          </pre>
+        </li>
+
+        <li>
+          <strong>Static IP Configuration Example</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Dynamic IP Configuration</strong><br>
+          <pre class="cmd-line">
+dhclient eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Static vs Dynamic Comparison</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Static IP</th>
+              <th>Dynamic IP</th>
+            </tr>
+            <tr>
+              <td>Assignment</td>
+              <td>Manual</td>
+              <td>Automatic (DHCP)</td>
+            </tr>
+            <tr>
+              <td>Change</td>
+              <td>Fixed</td>
+              <td>Can change</td>
+            </tr>
+            <tr>
+              <td>Use Case</td>
+              <td>Servers</td>
+              <td>Clients</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Advantages of Static IP</strong><br>
+          <ul>
+            <li>Stable and predictable</li>
+            <li>Required for servers</li>
+            <li>Easy remote access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Disadvantages of Static IP</strong><br>
+          <ul>
+            <li>Manual configuration required</li>
+            <li>Risk of IP conflicts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advantages of Dynamic IP</strong><br>
+          <ul>
+            <li>Automatic management</li>
+            <li>No manual setup needed</li>
+            <li>Efficient IP utilization</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Disadvantages of Dynamic IP</strong><br>
+          <ul>
+            <li>IP may change</li>
+            <li>Not suitable for servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DHCP Reservation (Hybrid)</strong><br>
+          Assigns fixed IP via DHCP based on MAC address.
+        </li>
+
+        <li>
+          <strong>Use Cases</strong><br>
+          <ul>
+            <li>Static → Web servers, databases</li>
+            <li>Dynamic → Laptops, mobile devices</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Static IP in Cloud</strong><br>
+          <ul>
+            <li>Elastic IP (AWS)</li>
+            <li>Reserved IP (GCP/Azure)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Dynamic IP in Cloud</strong><br>
+          <ul>
+            <li>Assigned at instance startup</li>
+            <li>May change after restart</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Containers and IPs</strong><br>
+          <ul>
+            <li>Containers use dynamic IPs</li>
+            <li>Service discovery used instead of static IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>IP conflict (static misconfiguration)</li>
+            <li>DHCP failure</li>
+            <li>Wrong subnet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+ip addr
+dhclient
+ip route
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use static IP for servers</li>
+            <li>Use DHCP for clients</li>
+            <li>Use DHCP reservation when needed</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Web server → Static IP</li>
+            <li>Laptop → Dynamic IP from router</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Static IPs provide stability and are used for servers, while dynamic IPs offer flexibility and automation using DHCP.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand static and dynamic IP addressing and when to use each in real-world systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:21">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-21</span>
+    <span class="task-title">Default Gateway (Accessing External Networks)</span>
+    <span class="task-meta">45–60 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand what a default gateway is, how it works, and how it enables communication between local networks and external networks like the internet.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Default Gateway</strong><br>
+          A default gateway is the device (usually a router) that forwards traffic from a local network to external networks.
+        </li>
+
+        <li>
+          <strong>Why Default Gateway is Needed</strong><br>
+          <ul>
+            <li>Allows access to internet</li>
+            <li>Routes traffic outside local network</li>
+            <li>Acts as exit point for all external communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          If a destination IP is not in the local network:
+          <pre class="cmd-line">
+Send packet → Default Gateway → Internet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Network</strong><br>
+          <pre class="cmd-line">
+Device IP:       192.168.1.10
+Gateway IP:      192.168.1.1
+Destination:     8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>How Default Gateway Works</strong><br>
+          <pre class="cmd-line">
+1 → Device checks destination IP
+2 → Not in local subnet
+3 → Sends packet to gateway
+4 → Router forwards to internet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Local vs External Communication</strong><br>
+          <ul>
+            <li><strong>Local:</strong> Direct communication</li>
+            <li><strong>External:</strong> Uses gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Subnet Role in Gateway Decision</strong><br>
+          Subnet determines if destination is local:
+          <pre class="cmd-line">
+192.168.1.10/24 → Local range: 192.168.1.0–255
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route
+          </pre>
+
+          <div>Example output:</div>
+          <pre class="cmd-line">
+default via 192.168.1.1 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route add default via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deleting Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route del default
+          </pre>
+        </li>
+
+        <li>
+          <strong>Multiple Gateways</strong><br>
+          Systems can have multiple routes with priorities (metrics).
+        </li>
+
+        <li>
+          <strong>Gateway in DHCP</strong><br>
+          DHCP automatically assigns default gateway to clients.
+        </li>
+
+        <li>
+          <strong>Gateway vs Router</strong><br>
+          <ul>
+            <li>Gateway → Concept</li>
+            <li>Router → Device implementing gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Home router → default gateway</li>
+            <li>Cloud VPC router → default gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Testing Gateway Connectivity</strong><br>
+          <pre class="cmd-line">
+ping 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No internet access</li>
+            <li>Wrong gateway configured</li>
+            <li>Gateway unreachable</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Steps</strong><br>
+          <pre class="cmd-line">
+ip addr
+ip route
+ping gateway
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Default Gateway in Containers</strong><br>
+          <ul>
+            <li>Docker bridge acts as gateway</li>
+            <li>Containers route through host</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Default Gateway in Cloud</strong><br>
+          <ul>
+            <li>Defined in VPC routing table</li>
+            <li>Internet Gateway used for outbound traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Routing Concept</strong><br>
+          <ul>
+            <li>Default route = 0.0.0.0/0</li>
+            <li>Catch-all route for unknown destinations</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Gateway controls outbound traffic</li>
+            <li>Firewalls often placed at gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always verify gateway configuration</li>
+            <li>Use consistent network design</li>
+            <li>Monitor gateway availability</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          The default gateway enables communication between local networks and external networks by routing traffic to appropriate destinations.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how the default gateway works and how it enables internet connectivity.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:22">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-22</span>
+    <span class="task-title">Routing Tables (ip route – Packet Forwarding)</span>
+    <span class="task-meta">60–80 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand routing tables, how packets are forwarded, and how to configure and troubleshoot routing in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Routing Table</strong><br>
+          A routing table is a set of rules used by a system to determine where to send network packets.
+        </li>
+
+        <li>
+          <strong>Why Routing Tables are Important</strong><br>
+          <ul>
+            <li>Determine packet path</li>
+            <li>Enable communication between networks</li>
+            <li>Core of internet routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          When sending data:
+          <pre class="cmd-line">
+Check routing table → Select route → Forward packet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing Routing Table</strong><br>
+          <pre class="cmd-line">
+ip route
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Output</strong><br>
+          <pre class="cmd-line">
+default via 192.168.1.1 dev eth0
+192.168.1.0/24 dev eth0 proto kernel
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding Routing Table Fields</strong><br>
+          <ul>
+            <li><strong>Destination:</strong> Target network</li>
+            <li><strong>Gateway:</strong> Next hop</li>
+            <li><strong>Interface:</strong> Outgoing interface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Types of Routes</strong><br>
+          <ul>
+            <li><strong>Direct Route:</strong> Local network</li>
+            <li><strong>Default Route:</strong> External networks</li>
+            <li><strong>Static Route:</strong> Manually added</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Default Route</strong><br>
+          <pre class="cmd-line">
+default via 192.168.1.1
+          </pre>
+          <div>Used when no specific route matches.</div>
+        </li>
+
+        <li>
+          <strong>Network Route</strong><br>
+          <pre class="cmd-line">
+192.168.1.0/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding a Route</strong><br>
+          <pre class="cmd-line">
+ip route add 10.0.0.0/24 via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deleting a Route</strong><br>
+          <pre class="cmd-line">
+ip route del 10.0.0.0/24
+          </pre>
+        </li>
+
+        <li>
+          <strong>Route Selection Process</strong><br>
+          <ul>
+            <li>Longest prefix match wins</li>
+            <li>More specific routes preferred</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing Metrics</strong><br>
+          Used to prioritize routes:
+          <pre class="cmd-line">
+metric 100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Packet Flow Example</strong><br>
+          <pre class="cmd-line">
+Destination: 8.8.8.8
+→ Not local
+→ Use default route
+→ Send to gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Static vs Dynamic Routing</strong><br>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>Static</td>
+              <td>Manually configured</td>
+            </tr>
+            <tr>
+              <td>Dynamic</td>
+              <td>Learned automatically (routing protocols)</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Routing in Linux</strong><br>
+          Commands:
+          <pre class="cmd-line">
+ip route
+route -n
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing in Containers</strong><br>
+          <ul>
+            <li>Containers have their own routing table</li>
+            <li>Default route via bridge</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Cloud</strong><br>
+          <ul>
+            <li>VPC route tables</li>
+            <li>Internet gateway routes</li>
+            <li>Private vs public routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Policy-Based Routing (Advanced)</strong><br>
+          Allows routing based on:
+          <ul>
+            <li>Source IP</li>
+            <li>Interface</li>
+            <li>Traffic type</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No route to host</li>
+            <li>Wrong gateway</li>
+            <li>Missing route</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Steps</strong><br>
+          <pre class="cmd-line">
+ip route
+ip addr
+ping gateway
+traceroute 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server sends request → routing table decides path</li>
+            <li>Router forwards packet → reaches destination</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Keep routing simple</li>
+            <li>Validate routes after changes</li>
+            <li>Use proper subnetting</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Routing tables define how packets are forwarded between networks, making them the backbone of communication across systems and the internet.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand routing tables, route configuration, and packet forwarding in Linux.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:23">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-23</span>
+    <span class="task-title">Route Management (ip route add / del)</span>
+    <span class="task-meta">50–70 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to add, modify, and remove routes using the ip route command to control network traffic flow in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Route Management</strong><br>
+          Route management involves adding or removing routing rules that define how network traffic is forwarded.
+        </li>
+
+        <li>
+          <strong>Why Route Management is Important</strong><br>
+          <ul>
+            <li>Control traffic flow between networks</li>
+            <li>Enable communication across subnets</li>
+            <li>Fix routing issues</li>
+            <li>Support complex network setups</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Viewing Current Routes</strong><br>
+          <pre class="cmd-line">
+ip route
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic Route Add Syntax</strong><br>
+          <pre class="cmd-line">
+ip route add &lt;DESTINATION&gt; via &lt;GATEWAY&gt;
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example: Add Network Route</strong><br>
+          <pre class="cmd-line">
+ip route add 10.0.0.0/24 via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example: Add Host Route</strong><br>
+          <pre class="cmd-line">
+ip route add 10.0.0.5 via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Default Route</strong><br>
+          <pre class="cmd-line">
+ip route add default via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Route Without Gateway</strong><br>
+          Direct route:
+          <pre class="cmd-line">
+ip route add 192.168.2.0/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Specifying Interface</strong><br>
+          <pre class="cmd-line">
+ip route add 10.0.0.0/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Route with Metric</strong><br>
+          <pre class="cmd-line">
+ip route add 10.0.0.0/24 via 192.168.1.1 metric 100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deleting Route</strong><br>
+          <pre class="cmd-line">
+ip route del 10.0.0.0/24
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deleting Default Route</strong><br>
+          <pre class="cmd-line">
+ip route del default
+          </pre>
+        </li>
+
+        <li>
+          <strong>Replacing Route</strong><br>
+          <pre class="cmd-line">
+ip route replace 10.0.0.0/24 via 192.168.1.2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Route Selection Logic</strong><br>
+          <ul>
+            <li>Longest prefix match</li>
+            <li>Lowest metric wins</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Temporary vs Persistent Routes</strong><br>
+          <ul>
+            <li><strong>Temporary:</strong> Using ip command</li>
+            <li><strong>Persistent:</strong> Configured in network config files</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Use Case</strong><br>
+          <ul>
+            <li>Access another subnet via router</li>
+            <li>Configure multi-network servers</li>
+            <li>Set custom routing paths</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Containers</strong><br>
+          <ul>
+            <li>Each container has its own routes</li>
+            <li>Default route points to bridge</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Cloud</strong><br>
+          <ul>
+            <li>Routes defined in VPC route tables</li>
+            <li>Used for internet and private traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Routing</strong><br>
+          <ul>
+            <li>Multiple routing tables</li>
+            <li>Policy-based routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Errors</strong><br>
+          <ul>
+            <li>Network unreachable</li>
+            <li>No route to host</li>
+            <li>Invalid gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+ip route
+ip addr
+ping gateway
+traceroute destination
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Avoid incorrect routing paths</li>
+            <li>Prevent traffic leaks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Verify routes after adding</li>
+            <li>Use meaningful subnet design</li>
+            <li>Avoid overlapping routes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Route management allows precise control over how traffic flows between networks, making it essential for advanced networking and troubleshooting.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to add, remove, and manage routes using ip route commands.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:24">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-24</span>
+    <span class="task-title">Policy-Based Routing (Advanced Traffic Control)</span>
+    <span class="task-meta">70–90 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand policy-based routing, how it differs from traditional routing, and how to control traffic using rules and multiple routing tables.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Policy-Based Routing (PBR)</strong><br>
+          Policy-based routing allows routing decisions based on rules such as source IP, interface, or traffic type instead of only destination IP.
+        </li>
+
+        <li>
+          <strong>Why PBR is Needed</strong><br>
+          <ul>
+            <li>Multiple network interfaces</li>
+            <li>Different gateways for different traffic</li>
+            <li>Advanced traffic control</li>
+            <li>VPN routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Traditional vs Policy Routing</strong><br>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Behavior</th>
+            </tr>
+            <tr>
+              <td>Traditional</td>
+              <td>Based on destination IP</td>
+            </tr>
+            <tr>
+              <td>PBR</td>
+              <td>Based on rules (source, interface, etc.)</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Key Components of PBR</strong><br>
+          <ul>
+            <li>Routing Tables</li>
+            <li>Rules</li>
+            <li>Selectors (source, destination, interface)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Multiple Routing Tables</strong><br>
+          Linux supports multiple routing tables:
+          <pre class="cmd-line">
+/etc/iproute2/rt_tables
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Routing Table Entry</strong><br>
+          <pre class="cmd-line">
+100 custom_table
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Route to Custom Table</strong><br>
+          <pre class="cmd-line">
+ip route add default via 192.168.1.1 table custom_table
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Policy Rule</strong><br>
+          <pre class="cmd-line">
+ip rule add from 192.168.1.100 table custom_table
+          </pre>
+        </li>
+
+        <li>
+          <strong>How PBR Works</strong><br>
+          <pre class="cmd-line">
+1 → Packet arrives
+2 → System checks rules
+3 → Matching rule selects routing table
+4 → Route is applied
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing Rules</strong><br>
+          <pre class="cmd-line">
+ip rule show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing Table Routes</strong><br>
+          <pre class="cmd-line">
+ip route show table custom_table
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deleting Rule</strong><br>
+          <pre class="cmd-line">
+ip rule del from 192.168.1.100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use Case: Multiple ISPs</strong><br>
+          <ul>
+            <li>Traffic from interface A → ISP1</li>
+            <li>Traffic from interface B → ISP2</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use Case: Source-Based Routing</strong><br>
+          Route traffic differently based on source IP.
+        </li>
+
+        <li>
+          <strong>Use Case: VPN Routing</strong><br>
+          <ul>
+            <li>Specific traffic routed through VPN</li>
+            <li>Other traffic via normal gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interface-Based Routing</strong><br>
+          <pre class="cmd-line">
+ip rule add iif eth1 table custom_table
+          </pre>
+        </li>
+
+        <li>
+          <strong>Mark-Based Routing (Advanced)</strong><br>
+          Uses firewall marks:
+          <pre class="cmd-line">
+iptables -t mangle -A PREROUTING -j MARK
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing Priority</strong><br>
+          Rules have priorities:
+          <pre class="cmd-line">
+ip rule add priority 100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Default Rules</strong><br>
+          Linux has built-in rules:
+          <pre class="cmd-line">
+0 → local
+32766 → main
+32767 → default
+          </pre>
+        </li>
+
+        <li>
+          <strong>Persistence of PBR</strong><br>
+          Must be configured in:
+          <ul>
+            <li>Netplan</li>
+            <li>Network scripts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>PBR in Containers</strong><br>
+          <ul>
+            <li>Used in advanced networking setups</li>
+            <li>Managed by CNI plugins</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>PBR in Cloud</strong><br>
+          <ul>
+            <li>Simulated using route tables and policies</li>
+            <li>Used for traffic segmentation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Rules not matching</li>
+            <li>Wrong routing table</li>
+            <li>Priority conflicts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+ip rule
+ip route show table all
+ip addr
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Keep rules simple</li>
+            <li>Use clear table naming</li>
+            <li>Document configurations</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Policy-based routing enables advanced traffic control by allowing routing decisions based on rules rather than just destination IP, making it essential for complex networking environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand policy-based routing, rule configuration, and advanced traffic control in Linux.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

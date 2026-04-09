@@ -146,6 +146,42 @@
   margin-bottom: .95rem;
 }
 
+.proj-section-title.has-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.proj-next-btn {
+  font-family: var(--fb);
+  font-size: .85rem;
+  color: #0d2f22;
+  background: linear-gradient(140deg, #53ffb3, #9dffe0);
+  border: 1px solid rgba(0, 232, 122, 0.45);
+  border-radius: 999px;
+  padding: .32rem .82rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  display: inline-flex;
+  align-items: center;
+  gap: .38rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+
+.proj-next-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.proj-next-btn:focus-visible {
+  outline: 2px solid rgba(0, 232, 122, 0.5);
+  outline-offset: 3px;
+}
+
 .task-board {
   margin-bottom: 2rem;
 }
@@ -733,8 +769,8 @@ margin-top:20px;
 }
 
 .fs-card{
-background:#f8fafc;
-border:1px solid #e5e7eb;
+background:#131313;
+border:1px solid #3c3c3d;
 padding:18px;
 border-radius:8px;
 text-align:left;
@@ -1029,6 +1065,32 @@ color:#555;
   background:#f3f7fb;
   color:#0f172a;
   border:1px solid rgba(10,126,168,.25);
+}
+:root[data-theme="light"] .fs-card {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  padding: 18px;
+  border-radius: 8px;
+  text-align: left;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05); /* Light shadow */
+}
+
+:root[data-theme="light"] .fs-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow on hover */
+}
+
+:root[data-theme="light"] .fs-card h4 {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333; /* Darker heading color for contrast */
+}
+
+:root[data-theme="light"] .fs-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555; /* Slightly darker text */
 }
 @media (prefers-reduced-motion: reduce) {
   .proj-page::after,

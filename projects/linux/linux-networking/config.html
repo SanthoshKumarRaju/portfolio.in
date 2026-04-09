@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+<article class="task-card" data-task style="--i:41">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-41</span>
+    <span class="task-title">Netplan (Ubuntu Network Configuration)</span>
+    <span class="task-meta">90–120 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master Netplan to configure networking in Ubuntu systems, including static IP, DHCP, advanced networking, and real-world troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Netplan</strong><br>
+          Netplan is a YAML-based network configuration tool used in Ubuntu.
+          <ul>
+            <li>Introduced in Ubuntu 17.10+</li>
+            <li>Replaces /etc/network/interfaces</li>
+            <li>Acts as a configuration abstraction layer</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Netplan is Important</strong><br>
+          <ul>
+            <li>Simplifies network configuration</li>
+            <li>Supports modern networking</li>
+            <li>Used in servers, cloud, and containers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Netplan Architecture</strong><br>
+          Netplan does not configure networking directly.
+          <ul>
+            <li>Frontend → Netplan YAML</li>
+            <li>Backend → systemd-networkd / NetworkManager</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Configuration File Location</strong><br>
+          <pre class="cmd-line">
+/etc/netplan/*.yaml
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic YAML Structure</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  renderer: networkd
+          </pre>
+        </li>
+
+        <li>
+          <strong>Identify Network Interfaces</strong><br>
+          <pre class="cmd-line">
+ip a
+          </pre>
+        </li>
+
+        <li>
+          <strong>DHCP Configuration</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+          </pre>
+        </li>
+
+        <li>
+          <strong>Static IP Configuration</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: false
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 8.8.4.4
+          </pre>
+        </li>
+
+        <li>
+          <strong>Apply Configuration</strong><br>
+          <pre class="cmd-line">
+netplan apply
+          </pre>
+        </li>
+
+        <li>
+          <strong>Safe Testing</strong><br>
+          <pre class="cmd-line">
+netplan try
+          </pre>
+          Automatically rolls back if misconfigured.
+        </li>
+
+        <li>
+          <strong>Check Generated Config</strong><br>
+          <pre class="cmd-line">
+netplan generate
+          </pre>
+        </li>
+
+        <li>
+          <strong>Multiple Interfaces</strong><br>
+          <pre class="cmd-line">
+ethernets:
+  eth0:
+    dhcp4: true
+  eth1:
+    addresses: [10.0.0.10/24]
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set Hostname</strong><br>
+          <pre class="cmd-line">
+hostnamectl set-hostname my-server
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Configuration</strong><br>
+          Managed via:
+          <pre class="cmd-line">
+nameservers:
+  addresses: [8.8.8.8]
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing Configuration</strong><br>
+          <pre class="cmd-line">
+routes:
+  - to: 0.0.0.0/0
+    via: 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: VLAN Configuration</strong><br>
+          <pre class="cmd-line">
+vlans:
+  vlan100:
+    id: 100
+    link: eth0
+    addresses: [192.168.100.10/24]
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bridge Configuration</strong><br>
+          <pre class="cmd-line">
+bridges:
+  br0:
+    interfaces: [eth0]
+    dhcp4: true
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bonding (NIC Teaming)</strong><br>
+          <pre class="cmd-line">
+bonds:
+  bond0:
+    interfaces: [eth0, eth1]
+    parameters:
+      mode: active-backup
+          </pre>
+        </li>
+
+        <li>
+          <strong>Renderer Types</strong><br>
+          <ul>
+            <li>networkd → servers</li>
+            <li>NetworkManager → desktops</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Errors</strong><br>
+          <ul>
+            <li>YAML indentation errors</li>
+            <li>Wrong interface name</li>
+            <li>Invalid IP/gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Netplan</strong><br>
+          <pre class="cmd-line">
+netplan --debug apply
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Connectivity</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8
+ping google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Netplan in Cloud</strong><br>
+          <ul>
+            <li>Used in AWS, Azure Ubuntu images</li>
+            <li>Configured via cloud-init</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Netplan in DevOps</strong><br>
+          <ul>
+            <li>Automate server provisioning</li>
+            <li>Used in CI/CD environments</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Netplan in Containers</strong><br>
+          <ul>
+            <li>Rarely used directly</li>
+            <li>Used in host networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check config file
+netplan try
+ip a
+ip route
+ping gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always test with netplan try</li>
+            <li>Use correct indentation (YAML sensitive)</li>
+            <li>Backup configs before changes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server setup → static IP via Netplan</li>
+            <li>Cloud VM → DHCP auto config</li>
+            <li>Production → VLAN + bonding setup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Netplan is the modern standard for configuring networking in Ubuntu, providing a flexible, declarative, and scalable way to manage network interfaces.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to configure and troubleshoot networking using Netplan from basic to advanced scenarios.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:42">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-42</span>
+    <span class="task-title">NetworkManager (Dynamic Network Management)</span>
+    <span class="task-meta">90–120 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master NetworkManager for managing network connections dynamically using GUI and CLI tools, including advanced configurations and troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is NetworkManager</strong><br>
+          NetworkManager is a service that manages network connections dynamically in Linux systems.
+          <ul>
+            <li>Simplifies network configuration</li>
+            <li>Supports GUI and CLI tools</li>
+            <li>Used in desktops and modern servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why NetworkManager is Important</strong><br>
+          <ul>
+            <li>Automatic network detection</li>
+            <li>Easy switching between networks</li>
+            <li>Supports Wi-Fi, Ethernet, VPN</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Architecture</strong><br>
+          <ul>
+            <li>NetworkManager daemon (service)</li>
+            <li>CLI tools → nmcli</li>
+            <li>UI tools → nmtui / GUI</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check NetworkManager Status</strong><br>
+          <pre class="cmd-line">
+systemctl status NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>Start / Stop Service</strong><br>
+          <pre class="cmd-line">
+systemctl start NetworkManager
+systemctl stop NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Network Devices</strong><br>
+          <pre class="cmd-line">
+nmcli device status
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Connections</strong><br>
+          <pre class="cmd-line">
+nmcli connection show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Up a Connection</strong><br>
+          <pre class="cmd-line">
+nmcli connection up eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Down a Connection</strong><br>
+          <pre class="cmd-line">
+nmcli connection down eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create DHCP Connection</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type ethernet ifname eth0 con-name my-dhcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Configure Static IP</strong><br>
+          <pre class="cmd-line">
+nmcli connection modify eth0 ipv4.addresses 192.168.1.100/24
+nmcli connection modify eth0 ipv4.gateway 192.168.1.1
+nmcli connection modify eth0 ipv4.dns "8.8.8.8"
+nmcli connection modify eth0 ipv4.method manual
+nmcli connection up eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete Connection</strong><br>
+          <pre class="cmd-line">
+nmcli connection delete eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Modify DNS</strong><br>
+          <pre class="cmd-line">
+nmcli connection modify eth0 ipv4.dns "8.8.8.8 8.8.4.4"
+          </pre>
+        </li>
+
+        <li>
+          <strong>nmtui (Text UI Tool)</strong><br>
+          <pre class="cmd-line">
+nmtui
+          </pre>
+          Provides interactive configuration.
+        </li>
+
+        <li>
+          <strong>GUI Usage</strong><br>
+          <ul>
+            <li>Used in desktop environments</li>
+            <li>Easy Wi-Fi and VPN management</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Connection Profiles</strong><br>
+          Stored in:
+          <pre class="cmd-line">
+/etc/NetworkManager/system-connections/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Multiple Interfaces</strong><br>
+          Manage multiple NICs with separate configs.
+        </li>
+
+        <li>
+          <strong>Advanced: VLAN Configuration</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type vlan dev eth0 id 100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bridge Configuration</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type bridge ifname br0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bonding</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type bond ifname bond0 mode active-backup
+          </pre>
+        </li>
+
+        <li>
+          <strong>Wi-Fi Management</strong><br>
+          <pre class="cmd-line">
+nmcli device wifi list
+nmcli device wifi connect "SSID" password "password"
+          </pre>
+        </li>
+
+        <li>
+          <strong>VPN Configuration</strong><br>
+          <ul>
+            <li>Supports OpenVPN, IPSec</li>
+            <li>Configured via GUI or nmcli</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NetworkManager vs Netplan</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>NetworkManager</th>
+              <th>Netplan</th>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>Dynamic</td>
+              <td>Declarative</td>
+            </tr>
+            <tr>
+              <td>Use Case</td>
+              <td>Desktop</td>
+              <td>Server</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Dynamic network changes</li>
+            <li>Automation using nmcli scripts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Manage multiple interfaces</li>
+            <li>Handle dynamic IP assignment</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Mostly used on host systems</li>
+            <li>Controls bridge networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Connection not activating</li>
+            <li>Wrong DNS</li>
+            <li>Interface unmanaged</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug NetworkManager</strong><br>
+          <pre class="cmd-line">
+journalctl -u NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+nmcli device status
+nmcli connection show
+ip a
+ping gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use nmcli for automation</li>
+            <li>Keep configs consistent</li>
+            <li>Monitor connection states</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Laptop → Wi-Fi switching</li>
+            <li>Server → dynamic IP updates</li>
+            <li>Production → VLAN + bonding via nmcli</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          NetworkManager provides a powerful and flexible way to manage networking dynamically using both CLI and GUI tools, making it essential for modern Linux environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to configure and manage networking dynamically using NetworkManager and nmcli.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:43">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-43</span>
+    <span class="task-title">nmcli & nmtui (Command-Line Network Management)</span>
+    <span class="task-meta">100–130 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master nmcli and nmtui to configure, automate, and troubleshoot networking using command-line tools in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are nmcli & nmtui</strong><br>
+          <ul>
+            <li>nmcli → Command-line interface for NetworkManager</li>
+            <li>nmtui → Text-based UI tool</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why These Tools are Important</strong><br>
+          <ul>
+            <li>Used in servers (no GUI)</li>
+            <li>Automation-friendly</li>
+            <li>Full control over networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nmcli Command Structure</strong><br>
+          <pre class="cmd-line">
+nmcli [OPTIONS] OBJECT { COMMAND }
+          </pre>
+        </li>
+
+        <li>
+          <strong>Main nmcli Objects</strong><br>
+          <ul>
+            <li>device → network interfaces</li>
+            <li>connection → saved configs</li>
+            <li>general → overall status</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check Network Status</strong><br>
+          <pre class="cmd-line">
+nmcli general status
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Devices</strong><br>
+          <pre class="cmd-line">
+nmcli device status
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Connections</strong><br>
+          <pre class="cmd-line">
+nmcli connection show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Detailed Info</strong><br>
+          <pre class="cmd-line">
+nmcli device show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Interface Up</strong><br>
+          <pre class="cmd-line">
+nmcli device connect eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Interface Down</strong><br>
+          <pre class="cmd-line">
+nmcli device disconnect eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create New Connection</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type ethernet ifname eth0 con-name my-conn
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set Static IP</strong><br>
+          <pre class="cmd-line">
+nmcli connection modify my-conn ipv4.addresses 192.168.1.100/24
+nmcli connection modify my-conn ipv4.gateway 192.168.1.1
+nmcli connection modify my-conn ipv4.dns "8.8.8.8"
+nmcli connection modify my-conn ipv4.method manual
+nmcli connection up my-conn
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set DHCP</strong><br>
+          <pre class="cmd-line">
+nmcli connection modify my-conn ipv4.method auto
+          </pre>
+        </li>
+
+        <li>
+          <strong>Modify Existing Connection</strong><br>
+          <pre class="cmd-line">
+nmcli connection modify eth0 ipv4.dns "1.1.1.1"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete Connection</strong><br>
+          <pre class="cmd-line">
+nmcli connection delete my-conn
+          </pre>
+        </li>
+
+        <li>
+          <strong>Wi-Fi Scanning</strong><br>
+          <pre class="cmd-line">
+nmcli device wifi list
+          </pre>
+        </li>
+
+        <li>
+          <strong>Connect to Wi-Fi</strong><br>
+          <pre class="cmd-line">
+nmcli device wifi connect "SSID" password "password"
+          </pre>
+        </li>
+
+        <li>
+          <strong>nmtui Overview</strong><br>
+          <pre class="cmd-line">
+nmtui
+          </pre>
+          Menu options:
+          <ul>
+            <li>Edit connection</li>
+            <li>Activate connection</li>
+            <li>Set hostname</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>When to Use nmtui</strong><br>
+          <ul>
+            <li>Quick setup</li>
+            <li>Beginner-friendly</li>
+            <li>No need to remember commands</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nmcli vs nmtui</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>nmcli</th>
+              <th>nmtui</th>
+            </tr>
+            <tr>
+              <td>Interface</td>
+              <td>CLI</td>
+              <td>Text UI</td>
+            </tr>
+            <tr>
+              <td>Automation</td>
+              <td>Yes</td>
+              <td>No</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Advanced: VLAN</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type vlan dev eth0 id 100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bridge</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type bridge ifname br0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bonding</strong><br>
+          <pre class="cmd-line">
+nmcli connection add type bond ifname bond0 mode active-backup
+          </pre>
+        </li>
+
+        <li>
+          <strong>Automation with nmcli</strong><br>
+          <pre class="cmd-line">
+#!/bin/bash
+nmcli connection add type ethernet ifname eth0 con-name auto-ip
+nmcli connection up auto-ip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Automate server networking</li>
+            <li>CI/CD environment setup</li>
+            <li>Infrastructure as Code scripts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Dynamic IP changes</li>
+            <li>Multiple network interfaces</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Connection not activating</li>
+            <li>Interface unmanaged</li>
+            <li>Wrong DNS or gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+nmcli general status
+nmcli device status
+journalctl -u NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check device → nmcli device status
+Check connection → nmcli connection show
+Restart → systemctl restart NetworkManager
+Test → ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use nmcli for automation</li>
+            <li>Use nmtui for quick setup</li>
+            <li>Keep consistent naming</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server provisioning → nmcli scripts</li>
+            <li>Quick fix → nmtui</li>
+            <li>Production → VLAN + bonding via nmcli</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          nmcli and nmtui provide powerful command-line tools to manage networking efficiently, enabling automation, troubleshooting, and advanced configurations in Linux environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to configure, automate, and troubleshoot networking using nmcli and nmtui.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:44">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-44</span>
+    <span class="task-title">ifcfg Files (RHEL Network Configuration)</span>
+    <span class="task-meta">100–130 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master ifcfg-based network configuration in RHEL systems, including static IP setup, advanced networking, and enterprise troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are ifcfg Files</strong><br>
+          ifcfg files are configuration files used in RHEL-based systems to define network interface settings.
+          <ul>
+            <li>Used in RHEL, CentOS, Rocky Linux</li>
+            <li>Stored as key-value pairs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why ifcfg is Important</strong><br>
+          <ul>
+            <li>Widely used in enterprise environments</li>
+            <li>Simple and readable format</li>
+            <li>Compatible with automation tools</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>File Location</strong><br>
+          <pre class="cmd-line">
+/etc/sysconfig/network-scripts/
+          </pre>
+        </li>
+
+        <li>
+          <strong>File Naming Convention</strong><br>
+          <pre class="cmd-line">
+ifcfg-eth0
+ifcfg-ens33
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic File Structure</strong><br>
+          <pre class="cmd-line">
+DEVICE=eth0
+BOOTPROTO=dhcp
+ONBOOT=yes
+          </pre>
+        </li>
+
+        <li>
+          <strong>DHCP Configuration</strong><br>
+          <pre class="cmd-line">
+DEVICE=eth0
+BOOTPROTO=dhcp
+ONBOOT=yes
+TYPE=Ethernet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Static IP Configuration</strong><br>
+          <pre class="cmd-line">
+DEVICE=eth0
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR=192.168.1.100
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Important Parameters</strong><br>
+          <ul>
+            <li>DEVICE → Interface name</li>
+            <li>BOOTPROTO → dhcp / none</li>
+            <li>ONBOOT → Start at boot</li>
+            <li>IPADDR → IP address</li>
+            <li>NETMASK → Subnet mask</li>
+            <li>GATEWAY → Default gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Restart Network Service</strong><br>
+          <pre class="cmd-line">
+systemctl restart network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Interface Status</strong><br>
+          <pre class="cmd-line">
+ip a
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Configuration</strong><br>
+          <pre class="cmd-line">
+/etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Multiple Interfaces</strong><br>
+          Each interface has its own file:
+          <pre class="cmd-line">
+ifcfg-eth0
+ifcfg-eth1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Multiple IPs</strong><br>
+          <pre class="cmd-line">
+IPADDR0=192.168.1.100
+IPADDR1=192.168.1.101
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: VLAN</strong><br>
+          <pre class="cmd-line">
+DEVICE=eth0.100
+VLAN=yes
+IPADDR=192.168.100.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bridge</strong><br>
+          <pre class="cmd-line">
+DEVICE=br0
+TYPE=Bridge
+BOOTPROTO=dhcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Bonding</strong><br>
+          <pre class="cmd-line">
+DEVICE=bond0
+BONDING_OPTS="mode=active-backup"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: MTU Configuration</strong><br>
+          <pre class="cmd-line">
+MTU=9000
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Scripts</strong><br>
+          Managed by:
+          <pre class="cmd-line">
+/etc/init.d/network
+          </pre>
+        </li>
+
+        <li>
+          <strong>ifcfg vs NetworkManager</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>ifcfg</th>
+              <th>NetworkManager</th>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>Static</td>
+              <td>Dynamic</td>
+            </tr>
+            <tr>
+              <td>Usage</td>
+              <td>Servers</td>
+              <td>Modern systems</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Automate server configuration</li>
+            <li>Infrastructure provisioning</li>
+            <li>Used with Ansible</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Configure static IPs</li>
+            <li>Multi-NIC setups</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Enterprise</strong><br>
+          <ul>
+            <li>Data center networking</li>
+            <li>High availability setups</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong IP or gateway</li>
+            <li>Interface not starting</li>
+            <li>DNS not resolving</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+ip a
+ip route
+ping gateway
+systemctl status network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check config file
+Restart network
+Verify IP (ip a)
+Check route (ip route)
+Test connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use consistent naming</li>
+            <li>Backup configs before changes</li>
+            <li>Validate after restart</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Enterprise server → static IP via ifcfg</li>
+            <li>Data center → bonded interfaces</li>
+            <li>Cloud VM → multiple NIC config</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          ifcfg files provide a simple and reliable way to configure networking in RHEL systems, especially in enterprise and production environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to configure and troubleshoot networking using ifcfg files in RHEL-based systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

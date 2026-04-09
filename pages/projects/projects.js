@@ -16,6 +16,7 @@
   var completedMeterEl = document.getElementById('pj-meter-completed');
   var progressMeterEl = document.getElementById('pj-meter-progress');
   var pendingMeterEl = document.getElementById('pj-meter-pending');
+  var bannerToggleButton = document.getElementById('pj-banner-toggle');
   var filterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-status-filter]'));
   var envFilterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-env-filter]'));
   var viewButtons = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
@@ -23,7 +24,7 @@
   var statusValidationErrors = [];
   var activeStatusFilters = { completed: false, in_progress: false, not_completed: false };
   var activeEnvFilters = { local: false, server: false, cloud: false, free: false };
-  var activeViewKinds = { project: true, concept: false };
+  var activeViewKinds = { project: false, concept: false };
   var selectedProjectKey = '';
   var flat = []; // { ci, pi, concept, proj }
   var LAST_OPENED_KEY = 'pj:last-opened-project';
@@ -314,8 +315,65 @@
 
   function initHeroAutoHide() {
     if (!pageRoot) return;
-    pageRoot.classList.remove('pj-hero-hidden');
-    // Keep hero fixed and rely on native scrolling for a stable UX.
+    pageRoot.classList.add('pj-hero-hidden');
+
+    var scrollTracking = { detail: 0, sidebar: 0 };
+    var heroVisible = false;
+
+    function updateHeroState(show) {
+      heroVisible = !!show;
+      pageRoot.classList.toggle('pj-hero-hidden', !heroVisible);
+      if (!bannerToggleButton) return;
+      bannerToggleButton.setAttribute('aria-expanded', String(heroVisible));
+      bannerToggleButton.textContent = heroVisible ? 'Hide banner' : 'Show banner';
+    }
+
+    function handleDetailScroll() {
+      if (!detail) return;
+      var current = detail.scrollTop;
+      var delta = current - scrollTracking.detail;
+      scrollTracking.detail = current;
+      
+      if (Math.abs(delta) < 12) return;
+
+      if (delta < -12 && heroVisible) {
+        updateHeroState(false);
+      } else if (delta > 12 && !heroVisible && current > 80) {
+        updateHeroState(true);
+      }
+    }
+
+    function handleSidebarScroll() {
+      if (!sidebar) return;
+      var current = sidebar.scrollTop;
+      var delta = current - scrollTracking.sidebar;
+      scrollTracking.sidebar = current;
+      
+      if (Math.abs(delta) < 12) return;
+
+      if (delta < -12 && heroVisible) {
+        updateHeroState(false);
+      } else if (delta > 12 && !heroVisible && current > 80) {
+        updateHeroState(true);
+      }
+    }
+
+    if (detail) {
+      detail.addEventListener('scroll', handleDetailScroll, { passive: true });
+    }
+
+    if (sidebar) {
+      sidebar.addEventListener('scroll', handleSidebarScroll, { passive: true });
+    }
+
+    if (bannerToggleButton) {
+      bannerToggleButton.addEventListener('click', function () {
+        updateHeroState(!heroVisible);
+      });
+      bannerToggleButton.setAttribute('aria-expanded', 'false');
+      bannerToggleButton.textContent = 'Show banner';
+    }
+
     return {
       enterWorkspaceView: function () {},
       showHero: function () {}
@@ -457,6 +515,7 @@
 
   function isViewVisible(item) {
     if (!item) return true;
+    if (!activeViewKinds.project && !activeViewKinds.concept) return true;
     var kind = String(item.getAttribute('data-view-kind') || 'project');
     return !!activeViewKinds[kind];
   }
@@ -520,8 +579,9 @@
   }
 
   function hasViewFilter() {
-    return (activeViewKinds.project === false && activeViewKinds.concept === true) ||
-           (activeViewKinds.project === false && activeViewKinds.concept === false);
+    // A view filter is only active when exactly one of the view kinds is enabled.
+    // Both false (default) = show everything; both true = also show everything.
+    return activeViewKinds.project !== activeViewKinds.concept;
   }
 
   function hasAnyFilters() {
@@ -1110,8 +1170,8 @@
   function clearAllFilters() {
     clearStatusFilters();
     clearEnvFilters();
-    activeViewKinds.project = true;
-    activeViewKinds.concept = true;
+    activeViewKinds.project = false;
+    activeViewKinds.concept = false;
     resetViewButtons();
     applyStatusFilter();
   }
@@ -1122,9 +1182,6 @@
       if (!key) return;
       addTap(btn);
       activeViewKinds[key] = !activeViewKinds[key];
-      if (!hasActiveViews()) {
-        activeViewKinds[key] = true;
-      }
       resetViewButtons();
       if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
       applyStatusFilter();

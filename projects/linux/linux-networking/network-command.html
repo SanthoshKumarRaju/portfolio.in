@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Commands</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-commands</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Commands</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+
+
+
+<article class="task-card" data-task style="--i:25">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-25</span>
+    <span class="task-title">Ping Command (Network Connectivity Testing)</span>
+    <span class="task-meta">40–60 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how ping works, how to test connectivity, and how to troubleshoot network issues using ICMP.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is ping</strong><br>
+          <code>ping</code> is a command used to test connectivity between two systems on a network.
+        </li>
+
+        <li>
+          <strong>How ping Works</strong><br>
+          Ping uses ICMP (Internet Control Message Protocol).
+          <pre class="cmd-line">
+Request → Reply
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic Command</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ping a Domain</strong><br>
+          <pre class="cmd-line">
+ping google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Output</strong><br>
+          <pre class="cmd-line">
+64 bytes from 8.8.8.8: time=10ms
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding Output</strong><br>
+          <ul>
+            <li><strong>bytes:</strong> Packet size</li>
+            <li><strong>time:</strong> Latency</li>
+            <li><strong>ttl:</strong> Time to live</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Ping Loopback</strong><br>
+          <pre class="cmd-line">
+ping 127.0.0.1
+          </pre>
+          <div>Tests local network stack.</div>
+        </li>
+
+        <li>
+          <strong>Ping Local Network</strong><br>
+          <pre class="cmd-line">
+ping 192.168.1.1
+          </pre>
+          <div>Tests gateway connectivity.</div>
+        </li>
+
+        <li>
+          <strong>Ping External Network</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Count Option</strong><br>
+          <pre class="cmd-line">
+ping -c 4 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interval Option</strong><br>
+          <pre class="cmd-line">
+ping -i 2 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Packet Size</strong><br>
+          <pre class="cmd-line">
+ping -s 1000 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Timeout Option</strong><br>
+          <pre class="cmd-line">
+ping -W 2 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Continuous Monitoring</strong><br>
+          Ping runs continuously until stopped.
+        </li>
+
+        <li>
+          <strong>Latency Measurement</strong><br>
+          Measures round-trip time (RTT).
+        </li>
+
+        <li>
+          <strong>Packet Loss</strong><br>
+          Indicates network issues:
+          <pre class="cmd-line">
+0% → Good
+>0% → Problem
+          </pre>
+        </li>
+
+        <li>
+          <strong>TTL (Time to Live)</strong><br>
+          Limits packet lifetime across hops.
+        </li>
+
+        <li>
+          <strong>ICMP Protocol</strong><br>
+          Used for:
+          <ul>
+            <li>Diagnostics</li>
+            <li>Error reporting</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ping Tests</strong><br>
+          <ul>
+            <li>Ping localhost → Check system</li>
+            <li>Ping gateway → Check LAN</li>
+            <li>Ping internet → Check external connectivity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Ping vs DNS Issue</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8 → Works
+ping google.com → Fails
+          </pre>
+          <div>This indicates DNS issue.</div>
+        </li>
+
+        <li>
+          <strong>Firewall Impact</strong><br>
+          ICMP may be blocked by firewalls.
+        </li>
+
+        <li>
+          <strong>Ping in Containers</strong><br>
+          Used to test container networking.
+        </li>
+
+        <li>
+          <strong>Ping in Cloud</strong><br>
+          May be blocked by security groups.
+        </li>
+
+        <li>
+          <strong>Common Errors</strong><br>
+          <ul>
+            <li>Destination unreachable</li>
+            <li>Request timeout</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ping 127.0.0.1
+ping gateway
+ping external IP
+ping domain
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use ping as first test</li>
+            <li>Combine with traceroute</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server down? → ping test</li>
+            <li>Network issue? → check packet loss</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Ping is a simple but powerful tool used to test connectivity, measure latency, and diagnose network issues using ICMP.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use ping for connectivity testing and network troubleshooting.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:26">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-26</span>
+    <span class="task-title">Traceroute & Tracepath (Packet Path Analysis)</span>
+    <span class="task-meta">50–70 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how traceroute and tracepath work, how packets travel across networks, and how to diagnose network path and latency issues.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is traceroute</strong><br>
+          <code>traceroute</code> is a command used to display the path packets take from source to destination across networks.
+        </li>
+
+        <li>
+          <strong>What is tracepath</strong><br>
+          <code>tracepath</code> is a similar tool that traces the network path without requiring root privileges.
+        </li>
+
+        <li>
+          <strong>Why These Tools are Important</strong><br>
+          <ul>
+            <li>Identify network path</li>
+            <li>Detect where delays occur</li>
+            <li>Troubleshoot routing issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How traceroute Works</strong><br>
+          Uses TTL (Time To Live):
+          <pre class="cmd-line">
+TTL=1 → first router
+TTL=2 → second router
+...
+          </pre>
+        </li>
+
+        <li>
+          <strong>Packet Flow</strong><br>
+          <pre class="cmd-line">
+1 → Packet sent with TTL=1
+2 → Router drops packet
+3 → Sends ICMP response
+4 → Next TTL value used
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic Command</strong><br>
+          <pre class="cmd-line">
+traceroute google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using tracepath</strong><br>
+          <pre class="cmd-line">
+tracepath google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Output</strong><br>
+          <pre class="cmd-line">
+1 192.168.1.1 1ms
+2 10.0.0.1 5ms
+3 8.8.8.8 20ms
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding Output</strong><br>
+          <ul>
+            <li>Each line = one hop</li>
+            <li>IP address = router</li>
+            <li>Time = latency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is a Hop</strong><br>
+          Each router between source and destination is called a hop.
+        </li>
+
+        <li>
+          <strong>Latency Measurement</strong><br>
+          Shows time taken to reach each hop.
+        </li>
+
+        <li>
+          <strong>Detecting Network Issues</strong><br>
+          <ul>
+            <li>High latency at specific hop</li>
+            <li>Packet drops</li>
+            <li>Routing loops</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>* * * in Output</strong><br>
+          Indicates:
+          <ul>
+            <li>No response from router</li>
+            <li>Firewall blocking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Difference: traceroute vs tracepath</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>traceroute</th>
+              <th>tracepath</th>
+            </tr>
+            <tr>
+              <td>Privileges</td>
+              <td>Requires root</td>
+              <td>No root needed</td>
+            </tr>
+            <tr>
+              <td>Control</td>
+              <td>More options</td>
+              <td>Simpler</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Protocol Used</strong><br>
+          <ul>
+            <li>ICMP</li>
+            <li>UDP (default)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Using ICMP Mode</strong><br>
+          <pre class="cmd-line">
+traceroute -I google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Limiting Hops</strong><br>
+          <pre class="cmd-line">
+traceroute -m 10 google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Changing Packet Size</strong><br>
+          <pre class="cmd-line">
+traceroute -s 100 google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>Slow internet debugging</li>
+            <li>Identifying ISP issues</li>
+            <li>Diagnosing routing problems</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Traceroute vs Ping</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Ping</th>
+              <th>Traceroute</th>
+            </tr>
+            <tr>
+              <td>Purpose</td>
+              <td>Connectivity</td>
+              <td>Path analysis</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          Helps debug container-to-container communication.
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Identify routing through VPC</li>
+            <li>Check network latency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Blocked ICMP</li>
+            <li>Incomplete trace</li>
+            <li>Firewall restrictions</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ping destination
+traceroute destination
+analyze hops
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Combine with ping</li>
+            <li>Check multiple destinations</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Traceroute and tracepath reveal the path packets take across networks, helping identify latency, routing issues, and connectivity problems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how traceroute and tracepath work and how to use them for network diagnostics.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:27">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-27</span>
+    <span class="task-title">MTR (My Traceroute – Real-Time Network Diagnostics)</span>
+    <span class="task-meta">50–70 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how MTR works, how it combines ping and traceroute, and how to use it for real-time network diagnostics and troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is MTR</strong><br>
+          MTR (My Traceroute) is a tool that combines the functionality of ping and traceroute to provide continuous, real-time network diagnostics.
+        </li>
+
+        <li>
+          <strong>Why MTR is Important</strong><br>
+          <ul>
+            <li>Real-time monitoring of network path</li>
+            <li>Detect intermittent issues</li>
+            <li>Analyze latency and packet loss</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How MTR Works</strong><br>
+          <pre class="cmd-line">
+Traceroute → Finds path
+Ping → Measures latency
+MTR → Combines both continuously
+          </pre>
+        </li>
+
+        <li>
+          <strong>Installing MTR</strong><br>
+          <pre class="cmd-line">
+apt install mtr
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic Command</strong><br>
+          <pre class="cmd-line">
+mtr google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Output</strong><br>
+          <pre class="cmd-line">
+HOST: local        Loss%   Snt   Last   Avg   Best   Wrst
+1. 192.168.1.1     0.0%    10    1.2    1.1    1.0    2.0
+2. 10.0.0.1        5.0%    10    5.0    4.5    4.0    6.0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding Output Columns</strong><br>
+          <ul>
+            <li><strong>Loss%:</strong> Packet loss percentage</li>
+            <li><strong>Snt:</strong> Packets sent</li>
+            <li><strong>Last:</strong> Last response time</li>
+            <li><strong>Avg:</strong> Average latency</li>
+            <li><strong>Best:</strong> Lowest latency</li>
+            <li><strong>Wrst:</strong> Highest latency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-Time Monitoring</strong><br>
+          MTR continuously updates statistics, unlike traceroute.
+        </li>
+
+        <li>
+          <strong>Identifying Packet Loss</strong><br>
+          <ul>
+            <li>Loss at early hop → local issue</li>
+            <li>Loss at later hop → upstream issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Identifying Latency Issues</strong><br>
+          High latency at specific hop indicates bottleneck.
+        </li>
+
+        <li>
+          <strong>Running in Report Mode</strong><br>
+          <pre class="cmd-line">
+mtr -r google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Limiting Number of Packets</strong><br>
+          <pre class="cmd-line">
+mtr -c 10 google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using ICMP Mode</strong><br>
+          <pre class="cmd-line">
+mtr -I google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using TCP Mode</strong><br>
+          <pre class="cmd-line">
+mtr -T google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use Cases</strong><br>
+          <ul>
+            <li>Debug intermittent network issues</li>
+            <li>Monitor connection stability</li>
+            <li>Analyze ISP performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>MTR vs Ping</strong><br>
+          <ul>
+            <li>Ping → single endpoint</li>
+            <li>MTR → full path analysis</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>MTR vs Traceroute</strong><br>
+          <ul>
+            <li>Traceroute → one-time snapshot</li>
+            <li>MTR → continuous monitoring</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Monitor service connectivity</li>
+            <li>Debug production latency issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          Helps debug container networking issues.
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Analyze routing in VPC</li>
+            <li>Check cross-region latency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Firewall blocking ICMP</li>
+            <li>False packet loss (rate-limited routers)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ping destination
+traceroute destination
+mtr destination
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Run for longer duration for accuracy</li>
+            <li>Analyze trends, not single values</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Website slow → use MTR to find bottleneck hop</li>
+            <li>Packet loss → identify where loss occurs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          MTR provides real-time visibility into network paths, combining ping and traceroute to diagnose latency, packet loss, and routing issues effectively.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use MTR for real-time network diagnostics and troubleshooting.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:28">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-28</span>
+    <span class="task-title">curl Command (HTTP/HTTPS & API Testing)</span>
+    <span class="task-meta">60–80 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to use curl to test HTTP/HTTPS endpoints, interact with APIs, and debug network and application-level issues.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is curl</strong><br>
+          <code>curl</code> (Client URL) is a command-line tool used to send requests to servers and retrieve responses using various protocols like HTTP and HTTPS.
+        </li>
+
+        <li>
+          <strong>Why curl is Important</strong><br>
+          <ul>
+            <li>Test APIs and web services</li>
+            <li>Debug backend services</li>
+            <li>Check service availability</li>
+            <li>Automate HTTP requests</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Syntax</strong><br>
+          <pre class="cmd-line">
+curl &lt;URL&gt;
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Request</strong><br>
+          <pre class="cmd-line">
+curl https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding HTTP Methods</strong><br>
+          <ul>
+            <li>GET → Retrieve data</li>
+            <li>POST → Send data</li>
+            <li>PUT → Update data</li>
+            <li>DELETE → Remove data</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>GET Request</strong><br>
+          <pre class="cmd-line">
+curl -X GET https://api.example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>POST Request</strong><br>
+          <pre class="cmd-line">
+curl -X POST https://api.example.com \
+-d "name=test"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Sending JSON Data</strong><br>
+          <pre class="cmd-line">
+curl -X POST https://api.example.com \
+-H "Content-Type: application/json" \
+-d '{"name":"test"}'
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Headers</strong><br>
+          <pre class="cmd-line">
+curl -H "Authorization: Bearer token" https://api.example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing Response Headers</strong><br>
+          <pre class="cmd-line">
+curl -I https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Verbose Mode</strong><br>
+          <pre class="cmd-line">
+curl -v https://example.com
+          </pre>
+          <div>Shows full request/response details.</div>
+        </li>
+
+        <li>
+          <strong>Silent Mode</strong><br>
+          <pre class="cmd-line">
+curl -s https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Saving Output</strong><br>
+          <pre class="cmd-line">
+curl -o file.html https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Follow Redirects</strong><br>
+          <pre class="cmd-line">
+curl -L https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Authentication</strong><br>
+          <pre class="cmd-line">
+curl -u user:password https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Timeout Control</strong><br>
+          <pre class="cmd-line">
+curl --max-time 5 https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Testing APIs</strong><br>
+          <ul>
+            <li>Check endpoint response</li>
+            <li>Validate JSON output</li>
+            <li>Debug API errors</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>HTTP Status Codes</strong><br>
+          <ul>
+            <li>200 → OK</li>
+            <li>404 → Not Found</li>
+            <li>500 → Server Error</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging with curl</strong><br>
+          <ul>
+            <li>Service not responding</li>
+            <li>API returning error</li>
+            <li>Network connectivity issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>curl vs wget</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>curl</th>
+              <th>wget</th>
+            </tr>
+            <tr>
+              <td>Usage</td>
+              <td>API testing</td>
+              <td>File download</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Health checks</li>
+            <li>CI/CD pipelines</li>
+            <li>Service validation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Test internal services</li>
+            <li>Verify container networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Test endpoints</li>
+            <li>Validate load balancers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Errors</strong><br>
+          <ul>
+            <li>Connection refused</li>
+            <li>Timeout</li>
+            <li>SSL issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ping server
+curl -v endpoint
+check response
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use verbose mode for debugging</li>
+            <li>Validate headers and status codes</li>
+            <li>Use scripts for automation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>API not working → test with curl</li>
+            <li>Check service health in production</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          curl is a powerful tool for interacting with web services and APIs, making it essential for debugging, testing, and automation in modern systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use curl for API testing and HTTP debugging.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:29">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-29</span>
+    <span class="task-title">wget Command (File Download & Retrieval)</span>
+    <span class="task-meta">50–70 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to use wget to download files, automate data retrieval, and handle network-based file transfers in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is wget</strong><br>
+          <code>wget</code> is a command-line tool used to download files from remote servers using protocols like HTTP, HTTPS, and FTP.
+        </li>
+
+        <li>
+          <strong>Why wget is Important</strong><br>
+          <ul>
+            <li>Download files from servers</li>
+            <li>Automate downloads in scripts</li>
+            <li>Reliable in unstable networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Syntax</strong><br>
+          <pre class="cmd-line">
+wget &lt;URL&gt;
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Download</strong><br>
+          <pre class="cmd-line">
+wget https://example.com/file.zip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Saving File with Custom Name</strong><br>
+          <pre class="cmd-line">
+wget -O myfile.zip https://example.com/file.zip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Download in Background</strong><br>
+          <pre class="cmd-line">
+wget -b https://example.com/file.zip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Resuming Downloads</strong><br>
+          <pre class="cmd-line">
+wget -c https://example.com/file.zip
+          </pre>
+          <div>Continues interrupted downloads.</div>
+        </li>
+
+        <li>
+          <strong>Limiting Download Speed</strong><br>
+          <pre class="cmd-line">
+wget --limit-rate=200k https://example.com/file.zip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Recursive Download</strong><br>
+          <pre class="cmd-line">
+wget -r https://example.com/
+          </pre>
+          <div>Downloads entire website structure.</div>
+        </li>
+
+        <li>
+          <strong>Download Specific File Types</strong><br>
+          <pre class="cmd-line">
+wget -r -A .pdf https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Download with Authentication</strong><br>
+          <pre class="cmd-line">
+wget --user=user --password=pass https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Handling HTTPS</strong><br>
+          <pre class="cmd-line">
+wget https://secure-site.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ignoring SSL Errors</strong><br>
+          <pre class="cmd-line">
+wget --no-check-certificate https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Download Multiple Files</strong><br>
+          <pre class="cmd-line">
+wget -i urls.txt
+          </pre>
+        </li>
+
+        <li>
+          <strong>Retry Failed Downloads</strong><br>
+          <pre class="cmd-line">
+wget --tries=5 https://example.com/file.zip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Timeout Control</strong><br>
+          <pre class="cmd-line">
+wget --timeout=10 https://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing Download Progress</strong><br>
+          Shows:
+          <ul>
+            <li>Speed</li>
+            <li>File size</li>
+            <li>Time remaining</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>wget vs curl</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>wget</th>
+              <th>curl</th>
+            </tr>
+            <tr>
+              <td>Purpose</td>
+              <td>Download files</td>
+              <td>API requests</td>
+            </tr>
+            <tr>
+              <td>Recursive</td>
+              <td>Yes</td>
+              <td>No</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Download artifacts</li>
+            <li>Fetch dependencies</li>
+            <li>Automate setup scripts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Download files inside containers</li>
+            <li>Install packages</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Download deployment packages</li>
+            <li>Fetch data from remote storage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Errors</strong><br>
+          <ul>
+            <li>404 Not Found</li>
+            <li>Connection timeout</li>
+            <li>Permission denied</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+ping server
+wget URL
+check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use resume for large files</li>
+            <li>Validate downloaded content</li>
+            <li>Use scripts for automation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Download application package in CI/CD</li>
+            <li>Fetch backup files from remote server</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          wget is a reliable and powerful tool for downloading files from remote servers, widely used in automation, scripting, and DevOps workflows.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use wget for downloading and automating file retrieval tasks.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:30">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-30</span>
+    <span class="task-title">ip Command (Complete Networking Management Tool)</span>
+    <span class="task-meta">70–90 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand the ip command as a complete networking toolkit for managing interfaces, IP addresses, routing, and advanced networking in Linux.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is the ip Command</strong><br>
+          <code>ip</code> is a modern Linux command used to manage networking, replacing older tools like <code>ifconfig</code> and <code>route</code>.
+        </li>
+
+        <li>
+          <strong>Why ip Command is Important</strong><br>
+          <ul>
+            <li>Unified networking tool</li>
+            <li>Supports advanced features</li>
+            <li>Used in modern Linux systems</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>ip Command Structure</strong><br>
+          <pre class="cmd-line">
+ip [OBJECT] [COMMAND]
+          </pre>
+
+          <div>Common objects:</div>
+          <ul>
+            <li>link → Interfaces</li>
+            <li>addr → IP addresses</li>
+            <li>route → Routing</li>
+            <li>rule → Policy routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>ip link (Interface Management)</strong><br>
+          <pre class="cmd-line">
+ip link
+ip link set eth0 up
+ip link set eth0 down
+          </pre>
+        </li>
+
+        <li>
+          <strong>ip addr (IP Management)</strong><br>
+          <pre class="cmd-line">
+ip addr
+ip addr add 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>ip route (Routing)</strong><br>
+          <pre class="cmd-line">
+ip route
+ip route add default via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>ip rule (Policy Routing)</strong><br>
+          <pre class="cmd-line">
+ip rule
+ip rule add from 192.168.1.100 table custom
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing All Network Info</strong><br>
+          <pre class="cmd-line">
+ip a
+ip r
+          </pre>
+        </li>
+
+        <li>
+          <strong>Creating Virtual Interfaces</strong><br>
+          <pre class="cmd-line">
+ip link add veth0 type veth peer name veth1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deleting Interfaces</strong><br>
+          <pre class="cmd-line">
+ip link delete veth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Namespaces</strong><br>
+          <pre class="cmd-line">
+ip netns add ns1
+ip netns exec ns1 ip a
+          </pre>
+        </li>
+
+        <li>
+          <strong>Monitoring Network Changes</strong><br>
+          <pre class="cmd-line">
+ip monitor
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Neighbor Table (ARP)</strong><br>
+          <pre class="cmd-line">
+ip neigh
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Routing Tables</strong><br>
+          <pre class="cmd-line">
+ip route show table all
+          </pre>
+        </li>
+
+        <li>
+          <strong>ip vs ifconfig</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>ip</th>
+              <th>ifconfig</th>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>Modern</td>
+              <td>Deprecated</td>
+            </tr>
+            <tr>
+              <td>Capabilities</td>
+              <td>Advanced</td>
+              <td>Limited</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in Troubleshooting</strong><br>
+          <pre class="cmd-line">
+ip addr
+ip route
+ip link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Server configuration</li>
+            <li>Network debugging</li>
+            <li>Automation scripts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Container networking uses ip command internally</li>
+            <li>Used to debug Docker and Kubernetes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Inspect instance networking</li>
+            <li>Validate routes and IPs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Features</strong><br>
+          <ul>
+            <li>Policy-based routing</li>
+            <li>Network namespaces</li>
+            <li>Traffic control</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Mistakes</strong><br>
+          <ul>
+            <li>Forgetting persistence</li>
+            <li>Wrong interface name</li>
+            <li>Incorrect CIDR</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ip addr
+ip route
+ping
+traceroute
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use ip instead of ifconfig</li>
+            <li>Verify changes immediately</li>
+            <li>Document configurations</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Configure server networking</li>
+            <li>Debug container communication</li>
+            <li>Fix routing issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          The ip command is a powerful and unified tool for managing all aspects of networking in Linux, from interfaces to routing and advanced configurations.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand the ip command as a complete networking management tool in Linux.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

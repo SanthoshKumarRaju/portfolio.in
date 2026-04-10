@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var data = window.PDATA;
+  var data = normalizeData(window.PDATA || []);
   if (!data) { console.error('projects-data.js not loaded'); return; }
 
   var sidebar = document.getElementById('pj-sidebar');
@@ -16,24 +16,206 @@
   var completedMeterEl = document.getElementById('pj-meter-completed');
   var progressMeterEl = document.getElementById('pj-meter-progress');
   var pendingMeterEl = document.getElementById('pj-meter-pending');
+  var bannerToggleButton = document.getElementById('pj-banner-toggle');
+  var bannerSummaryEl = document.getElementById('pj-banner-summary');
   var filterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-status-filter]'));
   var envFilterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-env-filter]'));
+  var viewButtons = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
   var statusValidationPrinted = false;
   var statusValidationErrors = [];
   var activeStatusFilters = { completed: false, in_progress: false, not_completed: false };
-  var activeEnvFilters = { local: false, server: false, free: false };
+  var activeEnvFilters = { local: false, server: false, cloud: false, free: false };
+  var activeViewKinds = { project: false, concept: false };
   var selectedProjectKey = '';
   var flat = []; // { ci, pi, concept, proj }
   var LAST_OPENED_KEY = 'pj:last-opened-project';
   var filterInfoEl = null;
 
+  function normalizeData(raw) {
+    var list = Array.isArray(raw) ? raw.slice() : [];
+    list = list.map(applyConceptTags);           // respect pre-set tags; no hardcoding required
+    list = normalizeConceptSectionsByMap(list);  // apply explicit section map (any concept)
+    list = injectSharedProjects(list);           // add shared projects across concepts
+    return list;
+  }
+
+  function applyConceptTags(concept) {
+    var c = Object.assign({}, concept);
+
+    function inferTag(proj) {
+      if (proj.conceptTag) return String(proj.conceptTag);
+      if (proj.sectionKey) return String(proj.sectionKey);
+      return '';
+    }
+
+    function tagProject(proj) {
+      var clone = Object.assign({}, proj);
+      var tag = inferTag(clone);
+      if (tag) clone.conceptTag = tag;
+      return clone;
+    }
+
+    if (Array.isArray(c.projects)) {
+      c.projects = c.projects.map(tagProject);
+    }
+    if (Array.isArray(c.sections)) {
+      c.sections = c.sections.map(function (s) {
+        var sc = Object.assign({}, s);
+        if (Array.isArray(sc.projects)) sc.projects = sc.projects.map(tagProject);
+        return sc;
+      });
+    }
+    return c;
+  }
+
+  function normalizeCloudConcept(list) {
+    // Legacy no-op: keep list unchanged (sections are now defined in projects-data.js via PDATA_SECTION_MAP).
+    return list;
+  }
+
+  // Optional: allow sharing a project across concepts via window.PDATA_SHARED = [{ projectId, targets:[conceptId], sectionId }]
+  function injectSharedProjects(list) {
+    var config = Array.isArray(window.PDATA_SHARED) ? window.PDATA_SHARED : [];
+    if (!config.length) return list;
+
+    var projectIndex = {};
+    list.forEach(function (concept) {
+      (concept.projects || []).forEach(function (proj) {
+        projectIndex[proj.id] = proj;
+      });
+      (concept.sections || []).forEach(function (section) {
+        (section.projects || []).forEach(function (proj) { projectIndex[proj.id] = proj; });
+      });
+    });
+
+    config.forEach(function (entry) {
+      var proj = projectIndex[entry.projectId];
+      if (!proj || !Array.isArray(entry.targets)) return;
+      entry.targets.forEach(function (cid) {
+        var concept = list.find(function (c) { return c.id === cid; });
+        if (!concept) return;
+        if (Array.isArray(concept.sections) && concept.sections.length) {
+          var targetSection = concept.sections[0];
+          if (entry.sectionId) {
+            var found = concept.sections.find(function (s) { return s.id === entry.sectionId; });
+            if (found) targetSection = found;
+          }
+          if (!targetSection.projects) targetSection.projects = [];
+          if (!targetSection.projects.find(function (p) { return p.id === proj.id; })) {
+            targetSection.projects.push(proj);
+          }
+        } else {
+          if (!concept.projects) concept.projects = [];
+          if (!concept.projects.find(function (p) { return p.id === proj.id; })) {
+            concept.projects.push(proj);
+          }
+        }
+      });
+    });
+    return list;
+  }
+
+  // Optional: external section mapping per concept (works for any concept, not just Cloud).
+  // window.PDATA_SECTION_MAP = { conceptId: { sections: [ { id,label, ids:[], env:null } , ... ] } }
+  function normalizeConceptSectionsByMap(list) {
+    var map = window.PDATA_SECTION_MAP || {};
+    if (!map || typeof map !== 'object') return list;
+
+    function envKey(raw) {
+      var key = String(raw || '').trim().toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_');
+      if (!key) return '';
+      if (key === 'localhost') return 'local';
+      if (key === 'prod' || key === 'production') return 'server';
+      return key;
+    }
+
+    function matchField(proj, field, value) {
+      if (!field) return false;
+      var lhs = String(proj && proj[field] !== undefined ? proj[field] : '').toLowerCase();
+      var rhs = String(value || '').toLowerCase();
+      return !!lhs && lhs === rhs;
+    }
+
+    return list.map(function (concept) {
+      var cfg = map[concept.id];
+      if (!cfg || !Array.isArray(cfg.sections) || !cfg.sections.length) return concept;
+      if (Array.isArray(concept.sections) && !cfg.force) return concept;
+
+      var remaining = Array.isArray(concept.projects) ? concept.projects.slice() : [];
+      // If projects already split into sections, pull them back into the pool so remapping doesn't lose items.
+      if (!remaining.length && Array.isArray(concept.sections)) {
+        concept.sections.forEach(function (s) {
+          (s.projects || []).forEach(function (p) { remaining.push(p); });
+        });
+      }
+      var sections = cfg.sections.map(function (sec) {
+        var collected = [];
+        remaining = remaining.filter(function (proj) {
+          var matchesId = Array.isArray(sec.ids) && sec.ids.includes(proj.id);
+          var matchesEnv = sec.env && envKey(proj.env) === envKey(sec.env);
+          var matchesConcept = sec.concept && String(proj.concept || '').toLowerCase() === String(sec.concept).toLowerCase();
+          var matchesField = sec.field && matchField(proj, sec.field, sec.value);
+          if (matchesId || matchesEnv || matchesConcept || matchesField) {
+            collected.push(proj);
+            return false;
+          }
+          return true;
+        });
+        return {
+          id: sec.id,
+          label: sec.label,
+          projects: collected,
+          theme: sec.theme || null
+        };
+      });
+
+      if (remaining.length) {
+        sections.push({ id: 'other', label: 'Other', projects: remaining });
+      }
+
+      return Object.assign({}, concept, { sections: sections, projects: undefined });
+    });
+  }
+
+  function conceptSections(concept) {
+    if (Array.isArray(concept.sections) && concept.sections.length) {
+      return concept.sections;
+    }
+    return [];
+  }
+
+  function conceptProjects(concept) {
+    var arr = [];
+    var sections = conceptSections(concept);
+    if (sections.length) {
+      sections.forEach(function (section) {
+        var list = Array.isArray(section.projects) ? section.projects : [];
+        for (var i = 0; i < list.length; i += 1) {
+          arr.push({ section: section, proj: list[i] });
+        }
+      });
+    } else {
+      var fallbackProjects = Array.isArray(concept.projects) ? concept.projects : [];
+      fallbackProjects.forEach(function (proj) {
+        arr.push({ section: null, proj: proj });
+      });
+    }
+    return arr;
+  }
+
   function resolveProjectPage(concept, proj) {
     var fallback = '../../projects/' + concept.id + '/' + proj.id + '/index.html';
-    if (!proj || typeof proj.page !== 'string' || !proj.page.trim()) return fallback;
+    if (!proj || typeof proj.page !== 'string') return fallback;
 
-    var raw = proj.page.trim().replace(/\\/g, '/');
-    if (/^\.\.\/\.\.\/projects\/[^/]+\/[^/]+\/index\.html$/i.test(raw)) return raw;
-    return fallback;
+    var raw = proj.page.trim();
+    if (!raw) return fallback;
+
+    // Normalize slashes so callers can use Windows-style paths in data.
+    raw = raw.replace(/\\/g, '/');
+
+    // Respect any author-supplied path (relative, root-absolute, or full URL).
+    // Only fall back to the legacy convention if no page is provided.
+    return raw;
   }
 
   function rememberOpenedProject(concept, proj) {
@@ -134,8 +316,61 @@
 
   function initHeroAutoHide() {
     if (!pageRoot) return;
-    pageRoot.classList.remove('pj-hero-hidden');
-    // Keep hero fixed and rely on native scrolling for a stable UX.
+    pageRoot.classList.add('pj-hero-hidden');
+
+    var scrollTracking = { detail: 0, sidebar: 0 };
+    var heroVisible = false;
+
+    function updateHeroState(show) {
+      heroVisible = !!show;
+      pageRoot.classList.toggle('pj-hero-hidden', !heroVisible);
+      if (!bannerToggleButton) return;
+      bannerToggleButton.setAttribute('aria-expanded', String(heroVisible));
+      bannerToggleButton.textContent = heroVisible ? 'Hide banner' : 'Show banner';
+    }
+
+    function handleDetailScroll() {
+      if (!detail) return;
+      var current = detail.scrollTop;
+      var delta = current - scrollTracking.detail;
+      scrollTracking.detail = current;
+      
+      if (Math.abs(delta) < 12) return;
+
+      if (delta < -12 && heroVisible) {
+        updateHeroState(false);
+      }
+    }
+
+    function handleSidebarScroll() {
+      if (!sidebar) return;
+      var current = sidebar.scrollTop;
+      var delta = current - scrollTracking.sidebar;
+      scrollTracking.sidebar = current;
+      
+      if (Math.abs(delta) < 12) return;
+
+      if (delta < -12 && heroVisible) {
+        updateHeroState(false);
+      }
+    }
+
+    if (detail) {
+      detail.addEventListener('scroll', handleDetailScroll, { passive: true });
+    }
+
+    if (sidebar) {
+      sidebar.addEventListener('scroll', handleSidebarScroll, { passive: true });
+    }
+
+    if (bannerToggleButton) {
+      bannerToggleButton.addEventListener('click', function () {
+        updateHeroState(!heroVisible);
+      });
+      bannerToggleButton.setAttribute('aria-expanded', 'false');
+      bannerToggleButton.textContent = 'Show banner';
+    }
+
     return {
       enterWorkspaceView: function () {},
       showHero: function () {}
@@ -227,17 +462,19 @@
     if (!key) return 'free';
     if (key === 'local' || key === 'localhost') return 'local';
     if (key === 'server' || key === 'prod' || key === 'production') return 'server';
+    if (key === 'cloud') return 'cloud';
     if (key === 'free' || key === 'free_tier' || key === 'freetier') return 'free';
     return 'free';
   }
 
   function hasActiveEnvFilters() {
-    return activeEnvFilters.local || activeEnvFilters.server || activeEnvFilters.free;
+    return activeEnvFilters.local || activeEnvFilters.server || activeEnvFilters.cloud || activeEnvFilters.free;
   }
 
   function clearEnvFilters() {
     activeEnvFilters.local = false;
     activeEnvFilters.server = false;
+    activeEnvFilters.cloud = false;
     activeEnvFilters.free = false;
   }
 
@@ -248,6 +485,7 @@
   function envLabel(key) {
     if (key === 'local') return 'localhost';
     if (key === 'server') return 'server';
+    if (key === 'cloud') return 'cloud';
     return 'free tier';
   }
 
@@ -256,14 +494,45 @@
     return !!activeEnvFilters[itemEnvKey];
   }
 
-  // function renderPlaceholder(msg) {
-  //   detail.innerHTML =
-  //     '<div class="pj-placeholder">' +
-  //       '<div class="pj-ph-ico">&#9881;&#65039;</div>' +
-  //       '<div class="pj-ph-title">Select a project</div>' +
-  //       '<div class="pj-ph-sub">' + (msg || '&#8592; Expand a concept from the sidebar') + '</div>' +
-  //     '</div>';
-  // }
+  function normalizeViewKey(raw) {
+    return String(raw || '').trim().toLowerCase();
+  }
+
+  function isConceptProjectTag(raw) {
+    var tag = String(raw || '').toLowerCase();
+    return tag.indexOf('theory') >= 0 || tag.indexOf('fundamentals') >= 0;
+  }
+
+  function viewKindForProject(proj) {
+    var tag = String(proj.conceptTag || proj.sectionKey || '').toLowerCase();
+    if (isConceptProjectTag(tag)) return 'concept';
+    if (tag.indexOf('project') >= 0) return 'project';
+    return 'project';
+  }
+
+  function isViewVisible(item) {
+    if (!item) return true;
+    if (!activeViewKinds.project && !activeViewKinds.concept) return true;
+    var kind = String(item.getAttribute('data-view-kind') || 'project');
+    return !!activeViewKinds[kind];
+  }
+
+  var placeholderOriginalSub = '';
+
+  function renderPlaceholder(msg) {
+    if (!detail) return;
+    var ph = document.getElementById('pj-ph');
+    if (!ph) return;
+    detail.innerHTML = '';
+    detail.appendChild(ph);
+    var subtitle = ph.querySelector('.pj-ph-sub');
+    if (subtitle) {
+      if (!placeholderOriginalSub) {
+        placeholderOriginalSub = subtitle.textContent;
+      }
+      subtitle.textContent = msg || placeholderOriginalSub;
+    }
+  }
 
   function updateFilterUi(visibleCount) {
     filterButtons.forEach(function (btn) {
@@ -277,7 +546,8 @@
     var envSelected = envFilterKeys();
     var statusPart = statusSelected.length ? 'Status: ' + statusSelected.map(statusLabel).join(', ') + ' | ' : '';
     var envPart = envSelected.length ? ' | Env: ' + envSelected.join(', ') : '';
-    document.title = 'Projects - ' + statusPart + 'Projects' + envPart + ' (' + visibleCount + ')';
+    var viewPart = currentViewLabel();
+    document.title = 'Projects - ' + viewPart + (statusPart ? ' - ' + statusPart : '') + envPart + ' (' + visibleCount + ')';
   }
 
   function updateEnvFilterUi() {
@@ -289,20 +559,48 @@
     });
   }
 
+  function selectedViewLabels() {
+    var labels = [];
+    if (activeViewKinds.project) labels.push('Projects');
+    if (activeViewKinds.concept) labels.push('Concepts');
+    return labels;
+  }
+
+  function currentViewLabel() {
+    var labels = selectedViewLabels();
+    return labels.length ? labels.join(' + ') : 'All';
+  }
+
+  function hasActiveViews() {
+    return activeViewKinds.project || activeViewKinds.concept;
+  }
+
+  function hasViewFilter() {
+    // A view filter is only active when exactly one of the view kinds is enabled.
+    // Both false (default) = show everything; both true = also show everything.
+    return activeViewKinds.project !== activeViewKinds.concept;
+  }
+
+  function hasAnyFilters() {
+    return hasActiveStatusFilters() || hasActiveEnvFilters() || hasViewFilter();
+  }
+
   function renderFilterInfo(visibleCount) {
     if (!filterInfoEl) return;
-    var statusSelected = statusFilterKeys();
-    var envSelected = envFilterKeys();
-    var statusActive = statusSelected.length > 0;
-    var envActive = envSelected.length > 0;
-
-    if (!statusActive && !envActive) {
+    if (!hasAnyFilters()) {
       filterInfoEl.classList.add('hidden');
       filterInfoEl.innerHTML = '';
       return;
     }
 
+    var statusSelected = statusFilterKeys();
+    var envSelected = envFilterKeys();
+    var viewLabels = hasViewFilter() ? selectedViewLabels() : [];
+
     var chips = [];
+    viewLabels.forEach(function (label) {
+      chips.push('<span class="pj-filter-chip">View: ' + label + '</span>');
+    });
     statusSelected.forEach(function (k) {
       chips.push('<span class="pj-filter-chip pj-filter-chip--status">Status: ' + statusLabel(k) + '</span>');
     });
@@ -312,9 +610,27 @@
 
     filterInfoEl.classList.remove('hidden');
     filterInfoEl.innerHTML =
-      '<div class="pj-filter-info__title">Active Filters</div>' +
+      '<div class="pj-filter-info__title">Active Filters <button class="pj-filter-clear" type="button" aria-label="Clear all filters">×</button></div>' +
       '<div class="pj-filter-info__chips">' + chips.join('') + '</div>' +
       '<div class="pj-filter-info__count">Showing ' + visibleCount + ' project' + (visibleCount === 1 ? '' : 's') + '</div>';
+  }
+
+  function updateBannerSummary(visibleCount) {
+    if (!bannerSummaryEl) return;
+    var statusSelected = statusFilterKeys();
+    var envSelected = envFilterKeys();
+    var viewLabels = hasViewFilter() ? selectedViewLabels() : [];
+
+    var parts = [];
+    parts.push('Showing ' + visibleCount + ' project' + (visibleCount === 1 ? '' : 's'));
+    if (statusSelected.length) parts.push('Status: ' + statusSelected.map(statusLabel).join(', '));
+    if (envSelected.length) parts.push('Env: ' + envSelected.join(', '));
+    if (viewLabels.length) parts.push('View: ' + viewLabels.join(' + '));
+    if (!parts.length) {
+      bannerSummaryEl.textContent = 'Showing all projects • Filters off';
+      return;
+    }
+    bannerSummaryEl.textContent = parts.join(' • ');
   }
 
   function openFirstVisibleGroup() {
@@ -332,9 +648,24 @@
     if (list) list.classList.add('op');
   }
 
+  function openFirstVisibleItem() {
+    var firstItem = sidebar.querySelector('.cg-item:not(.fh)');
+    if (!firstItem) return;
+    var conceptId = firstItem.getAttribute('data-concept-id');
+    if (conceptId) {
+      openGroup(conceptId);
+    }
+    firstItem.click();
+  }
+
   function applyStatusFilter() {
     var visibleProjects = 0;
     var selectedStillVisible = false;
+    var anyActiveFilters = hasAnyFilters();
+
+    if (anyActiveFilters) {
+      closeAllGroups();
+    }
 
     sidebar.querySelectorAll('.cg').forEach(function (group) {
       var groupVisible = 0;
@@ -343,7 +674,8 @@
         var itemEnv = normalizeEnv(item.getAttribute('data-env-key'));
         var showByStatus = isStatusVisible(itemStatus);
         var showByEnv = isEnvVisible(itemEnv);
-        var show = showByStatus && showByEnv;
+        var showByView = isViewVisible(item);
+        var show = showByStatus && showByEnv && showByView;
         item.classList.toggle('fh', !show);
         if (show) {
           groupVisible += 1;
@@ -353,24 +685,29 @@
           }
         }
       });
+      group.querySelectorAll('.cg-sec').forEach(function (section) {
+        var sectionVisible = section.querySelectorAll('.cg-item:not(.fh)').length > 0;
+        section.classList.toggle('fh', !sectionVisible);
+      });
       group.classList.toggle('fh', groupVisible === 0);
     });
 
-    closeAllGroups();
-    openFirstVisibleGroup();
     updateEnvFilterUi();
     updateFilterUi(visibleProjects);
     renderFilterInfo(visibleProjects);
+    updateBannerSummary(visibleProjects);
+    updateSidebarCounts();
 
     if (!visibleProjects) {
       selectedProjectKey = '';
-      renderPlaceholder('No projects match the selected filters');
+      renderPlaceholder('No items match the selected view and filters');
       return;
     }
 
-    if (selectedProjectKey && !selectedStillVisible) {
+    if (!selectedProjectKey || !selectedStillVisible) {
       selectedProjectKey = '';
-      renderPlaceholder('Select from filtered projects');
+      renderPlaceholder();
+      return;
     }
   }
 
@@ -415,6 +752,8 @@
       t.classList.remove('op');
       setExtendState(t, false);
     });
+    document.querySelectorAll('.cg-sec-head').forEach(function (h) { h.classList.remove('op'); });
+    document.querySelectorAll('.cg-sec-list').forEach(function (l) { l.classList.remove('op'); });
   }
 
   function animateStatusCounts() {
@@ -443,18 +782,43 @@
     printStatusValidationOnce();
   }
 
+  function updateSidebarCounts() {
+    sidebar.querySelectorAll('.cg').forEach(function (group) {
+      var groupCount = group.querySelectorAll('.cg-item:not(.fh)').length;
+      var groupCountEl = group.querySelector('.cg-cnt');
+      if (groupCountEl) {
+        groupCountEl.textContent = groupCount;
+      }
+
+      group.querySelectorAll('.cg-sec').forEach(function (section) {
+        var sectionCountEl = section.querySelector('.cg-sec-count');
+        if (!sectionCountEl) return;
+        var sectionCount = section.querySelectorAll('.cg-item:not(.fh)').length;
+        sectionCountEl.textContent = sectionCount;
+      });
+    });
+  }
+
   // Build flat list for count + prev/next
   data.forEach(function (concept, ci) {
-    concept.projects.forEach(function (proj, pi) {
-      flat.push({ ci: ci, pi: pi, concept: concept, proj: proj });
+    var entries = conceptProjects(concept);
+    entries.forEach(function (entry, pi) {
+      flat.push({ ci: ci, pi: pi, concept: concept, section: entry.section, proj: entry.proj });
     });
   });
 
   animateStatusCounts();
 
-  filterInfoEl = document.createElement('div');
-  filterInfoEl.className = 'pj-filter-info hidden';
-  sidebar.appendChild(filterInfoEl);
+  filterInfoEl = document.getElementById('pj-filter-info');
+  if (filterInfoEl) {
+    filterInfoEl.addEventListener('click', function (event) {
+      var clearBtn = event.target.closest('.pj-filter-clear');
+      if (!clearBtn) return;
+      event.preventDefault();
+      event.stopPropagation();
+      clearAllFilters();
+    });
+  }
 
   // Build sidebar
   data.forEach(function (concept) {
@@ -462,44 +826,120 @@
     cg.className = 'cg';
     cg.setAttribute('data-concept-id', concept.id);
 
+    var conceptProjectEntries = conceptProjects(concept);
+    var sections = conceptSections(concept);
+
     var toggle = document.createElement('button');
     toggle.className = 'cg-toggle';
     toggle.innerHTML =
       '<span class="cg-ico">' + concept.icon + '</span>' +
       '<span class="cg-lbl">' + concept.label + '</span>' +
-      '<span class="cg-cnt">' + concept.projects.length + '</span>' +
+      '<span class="cg-cnt">' + conceptProjectEntries.length + '</span>' +
       '<span class="cg-ext">Expand</span>' +
       '<span class="cg-arr">&#9658;</span>';
 
     var list = document.createElement('div');
     list.className = 'cg-list';
 
-    concept.projects.forEach(function (proj) {
-      var envTag =
-        proj.env === 'local' ? '<span class="g-tag tg" style="font-size:.5rem;padding:.07rem .36rem">local</span>' :
-        proj.env === 'server' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">server</span>' :
-        '<span class="g-tag tgd" style="font-size:.5rem;padding:.07rem .36rem">free</span>';
+    if (sections.length) {
+      sections.forEach(function (section) {
+        var secWrap = document.createElement('div');
+        secWrap.className = 'cg-sec';
+        secWrap.setAttribute('data-section-id', section.id || '');
+        if (section.theme) secWrap.classList.add('cg-sec--' + section.theme);
 
-      var item = document.createElement('div');
-      item.className = 'cg-item';
-      item.setAttribute('data-concept-id', concept.id);
-      item.setAttribute('data-project-id', proj.id);
-      item.setAttribute('data-project-key', concept.id + '/' + proj.id);
-      item.setAttribute('data-status-key', projectStatusKey(proj));
-      item.setAttribute('data-env-key', normalizeEnv(proj.env));
-      item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
+        var secHead = document.createElement('div');
+        secHead.className = 'cg-sec-head';
+        secHead.setAttribute('role', 'button');
+        secHead.setAttribute('tabindex', '0');
+        secHead.innerHTML =
+          '<span class="cg-sec-lbl">' + (section.label || 'Projects') + '</span>' +
+          '<span class="cg-sec-count">' + (Array.isArray(section.projects) ? section.projects.length : 0) + '</span>' +
+          '<span class="cg-sec-arr">&#9658;</span>';
+        secWrap.appendChild(secHead);
 
-      item.addEventListener('click', function () {
-        addTap(item);
-        document.querySelectorAll('.cg-item').forEach(function (i) { i.classList.remove('act'); });
-        item.classList.add('act');
-        selectedProjectKey = concept.id + '/' + proj.id;
-        if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
-        renderDetail(concept, proj);
+        var secList = document.createElement('div');
+        secList.className = 'cg-sec-list';
+
+        (Array.isArray(section.projects) ? section.projects : []).forEach(function (proj) {
+          var envKey = normalizeEnv(proj.env);
+          var envTag =
+            envKey === 'local' ? '<span class="g-tag tg" style="font-size:.5rem;padding:.07rem .36rem">local</span>' :
+            envKey === 'server' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">server</span>' :
+            envKey === 'cloud' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">cloud</span>' :
+            '<span class="g-tag tgd" style="font-size:.5rem;padding:.07rem .36rem">free</span>';
+
+          var item = document.createElement('div');
+          item.className = 'cg-item';
+          item.setAttribute('data-concept-id', concept.id);
+          item.setAttribute('data-section-id', section.id || '');
+          item.setAttribute('data-project-id', proj.id);
+          item.setAttribute('data-project-key', concept.id + '/' + proj.id);
+          item.setAttribute('data-status-key', projectStatusKey(proj));
+          item.setAttribute('data-env-key', envKey);
+          item.setAttribute('data-view-kind', viewKindForProject(proj));
+          item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
+
+          item.addEventListener('click', function () {
+            addTap(item);
+            document.querySelectorAll('.cg-item').forEach(function (i) { i.classList.remove('act'); });
+            item.classList.add('act');
+            selectedProjectKey = concept.id + '/' + proj.id;
+            if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+            renderDetail(concept, proj);
+          });
+
+          secList.appendChild(item);
+        });
+
+        function toggleSection() {
+          var isOpen = secList.classList.contains('op');
+          secList.classList.toggle('op', !isOpen);
+          secHead.classList.toggle('op', !isOpen);
+        }
+
+        secHead.addEventListener('click', toggleSection);
+        secHead.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSection();
+          }
+        });
+
+        secWrap.appendChild(secList);
+        list.appendChild(secWrap);
       });
+    } else {
+      (Array.isArray(concept.projects) ? concept.projects : []).forEach(function (proj) {
+        var envKey = normalizeEnv(proj.env);
+        var envTag =
+          envKey === 'local' ? '<span class="g-tag tg" style="font-size:.5rem;padding:.07rem .36rem">local</span>' :
+          envKey === 'server' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">server</span>' :
+          envKey === 'cloud' ? '<span class="g-tag tc" style="font-size:.5rem;padding:.07rem .36rem">cloud</span>' :
+          '<span class="g-tag tgd" style="font-size:.5rem;padding:.07rem .36rem">free</span>';
 
-      list.appendChild(item);
-    });
+        var item = document.createElement('div');
+        item.className = 'cg-item';
+        item.setAttribute('data-concept-id', concept.id);
+        item.setAttribute('data-project-id', proj.id);
+        item.setAttribute('data-project-key', concept.id + '/' + proj.id);
+        item.setAttribute('data-status-key', projectStatusKey(proj));
+        item.setAttribute('data-env-key', envKey);
+        item.setAttribute('data-view-kind', viewKindForProject(proj));
+        item.innerHTML = '<span class="cg-item-lbl">' + proj.title + '</span>' + envTag;
+
+        item.addEventListener('click', function () {
+          addTap(item);
+          document.querySelectorAll('.cg-item').forEach(function (i) { i.classList.remove('act'); });
+          item.classList.add('act');
+          selectedProjectKey = concept.id + '/' + proj.id;
+          if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+          renderDetail(concept, proj);
+        });
+
+        list.appendChild(item);
+      });
+    }
 
     toggle.addEventListener('click', function () {
       addTap(toggle);
@@ -541,9 +981,11 @@
         '<div class="pj-update-note"><strong>Upcoming Project:</strong> This project is planned and will be completed based on current task priorities.</div>';
     }
 
+    var envKey = normalizeEnv(proj.env);
     var envBadge =
-      proj.env === 'local' ? '<span class="g-tag tg">&#9679; localhost</span>' :
-      proj.env === 'server' ? '<span class="g-tag tc">&#9679; server</span>' :
+      envKey === 'local' ? '<span class="g-tag tg">&#9679; localhost</span>' :
+      envKey === 'server' ? '<span class="g-tag tc">&#9679; server</span>' :
+      envKey === 'cloud' ? '<span class="g-tag tc">&#9679; cloud</span>' :
       '<span class="g-tag tgd">&#9679; free tier</span>';
     var openLinkHtml =
       '<div class="pj-link-row">' +
@@ -656,6 +1098,7 @@
   }
 
   function openFromQuery() {
+    if (hasAnyFilters()) return;
     var params = new URLSearchParams(window.location.search);
     var conceptId = String(params.get('concept') || '').trim().toLowerCase();
     var projectId = String(params.get('project') || '').trim().toLowerCase();
@@ -668,34 +1111,37 @@
         break;
       }
     }
-    if (!concept || !Array.isArray(concept.projects) || !concept.projects.length) return;
+    if (!concept) return;
 
-    var proj = null;
+    var conceptEntries = conceptProjects(concept);
+    if (!conceptEntries.length) return;
+
+    var projEntry = null;
     if (projectId) {
-      for (var pi = 0; pi < concept.projects.length; pi += 1) {
-        if (String(concept.projects[pi].id || '').toLowerCase() === projectId) {
-          proj = concept.projects[pi];
+      for (var pi = 0; pi < conceptEntries.length; pi += 1) {
+        if (String(conceptEntries[pi].proj.id || '').toLowerCase() === projectId) {
+          projEntry = conceptEntries[pi];
           break;
         }
       }
     }
 
-    if (!proj) {
-      for (var vi = 0; vi < concept.projects.length; vi += 1) {
-        var candidate = concept.projects[vi];
+    if (!projEntry) {
+      for (var vi = 0; vi < conceptEntries.length; vi += 1) {
+        var candidate = conceptEntries[vi].proj;
         if (isStatusVisible(projectStatusKey(candidate)) && isEnvVisible(normalizeEnv(candidate.env))) {
-          proj = candidate;
+          projEntry = conceptEntries[vi];
           break;
         }
       }
     }
-    if (!proj) proj = concept.projects[0];
-    if (!proj) return;
+    if (!projEntry) projEntry = conceptEntries[0];
+    if (!projEntry) return;
 
     openGroup(concept.id);
-    markActive(concept, proj);
+    markActive(concept, projEntry.proj);
     if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
-    renderDetail(concept, proj);
+    renderDetail(concept, projEntry.proj);
   }
 
   initClickFx();
@@ -728,9 +1174,48 @@
     });
   });
 
+  function resetViewButtons() {
+    viewButtons.forEach(function (btnInner) {
+      var btnKey = normalizeViewKey(btnInner.getAttribute('data-view'));
+      var active = !!activeViewKinds[btnKey];
+      btnInner.classList.toggle('act', active);
+      btnInner.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function clearAllFilters() {
+    clearStatusFilters();
+    clearEnvFilters();
+    activeViewKinds.project = false;
+    activeViewKinds.concept = false;
+    resetViewButtons();
+    applyStatusFilter();
+  }
+
+  viewButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = normalizeViewKey(btn.getAttribute('data-view'));
+      if (!key) return;
+      addTap(btn);
+      activeViewKinds[key] = !activeViewKinds[key];
+      resetViewButtons();
+      if (heroAutoHide.enterWorkspaceView) heroAutoHide.enterWorkspaceView();
+      applyStatusFilter();
+    });
+  });
+
   // Initial state: all groups collapsed, detail placeholder visible.
   closeAllGroups();
-  renderPlaceholder();
   applyStatusFilter();
-  openFromQuery();
+  if (!hasAnyFilters()) {
+    openFromQuery();
+  }
+  if (!selectedProjectKey) {
+    renderPlaceholder();
+  }
+
+  // Keep new section lists collapsed on first load.
+  document.querySelectorAll('.cg-sec-list').forEach(function (secList) {
+    secList.classList.remove('op');
+  });
 })();

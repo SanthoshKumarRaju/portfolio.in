@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:73">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-73</span>
+    <span class="task-title">Docker Network Modes (Bridge, Host, Overlay)</span>
+    <span class="task-meta">140–180 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand Docker networking modes, how containers communicate, and how to choose the right network type for real-world use cases.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Docker Networking</strong><br>
+          Docker networking allows containers to communicate with each other and external systems.
+        </li>
+
+        <li>
+          <strong>Why Network Modes Matter</strong><br>
+          <ul>
+            <li>Isolation</li>
+            <li>Performance</li>
+            <li>Scalability</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Types of Docker Networks</strong><br>
+          <ul>
+            <li>Bridge</li>
+            <li>Host</li>
+            <li>Overlay</li>
+            <li>None</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bridge Network (Default)</strong><br>
+          <ul>
+            <li>Containers get private IP</li>
+            <li>Connected via docker0 bridge</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bridge Example</strong><br>
+          <pre class="cmd-line">
+docker network create mybridge
+docker run --network mybridge nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Mapping</strong><br>
+          <pre class="cmd-line">
+docker run -p 8080:80 nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bridge Internals</strong><br>
+          <ul>
+            <li>Uses Linux bridge</li>
+            <li>Uses veth pairs</li>
+            <li>NAT for external access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Host Network</strong><br>
+          <ul>
+            <li>No isolation</li>
+            <li>Uses host network stack</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Host Example</strong><br>
+          <pre class="cmd-line">
+docker run --network host nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Host Mode Benefits</strong><br>
+          <ul>
+            <li>High performance</li>
+            <li>No NAT overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Host Mode Drawbacks</strong><br>
+          <ul>
+            <li>No port isolation</li>
+            <li>Security concerns</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay Network</strong><br>
+          <ul>
+            <li>Multi-host networking</li>
+            <li>Used in Docker Swarm</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay Example</strong><br>
+          <pre class="cmd-line">
+docker network create -d overlay myoverlay
+          </pre>
+        </li>
+
+        <li>
+          <strong>Overlay Internals</strong><br>
+          <ul>
+            <li>Uses VXLAN</li>
+            <li>Encapsulation of packets</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>None Network</strong><br>
+          <ul>
+            <li>No network connectivity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Inspect Networks</strong><br>
+          <pre class="cmd-line">
+docker network ls
+docker network inspect bridge
+          </pre>
+        </li>
+
+        <li>
+          <strong>Container Communication</strong><br>
+          <ul>
+            <li>Same network → direct communication</li>
+            <li>Different networks → isolated</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in Docker</strong><br>
+          <ul>
+            <li>Automatic service discovery</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bridge vs Host vs Overlay</strong><br>
+          <table>
+            <tr>
+              <th>Mode</th>
+              <th>Scope</th>
+              <th>Isolation</th>
+            </tr>
+            <tr>
+              <td>Bridge</td>
+              <td>Single host</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Host</td>
+              <td>Single host</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Overlay</td>
+              <td>Multi-host</td>
+              <td>Yes</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Docker Networking in Kubernetes</strong><br>
+          <ul>
+            <li>Replaced by CNI plugins</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port not accessible</li>
+            <li>Containers cannot communicate</li>
+            <li>Wrong network selected</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+docker network inspect
+ip a
+ss -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Container IP</strong><br>
+          <pre class="cmd-line">
+docker inspect container_id
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check network mode
+Check container IP
+Test connectivity
+Check port mapping
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use bridge for single-host apps</li>
+            <li>Use overlay for distributed systems</li>
+            <li>Avoid host unless necessary</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If containers can't talk → check network mode
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Microservices → bridge network</li>
+            <li>High-performance app → host mode</li>
+            <li>Cluster → overlay network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Docker networking modes define how containers communicate, providing flexibility, isolation, and scalability for modern applications.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand Docker networking modes and how to use them effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:74">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-74</span>
+    <span class="task-title">Container DNS (Service Discovery)</span>
+    <span class="task-meta">140–180 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how containers use internal DNS for service discovery and how it works in Docker and Kubernetes environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Service Discovery</strong><br>
+          Service discovery allows services to find each other dynamically using names instead of IP addresses.
+        </li>
+
+        <li>
+          <strong>Why DNS is Used</strong><br>
+          <ul>
+            <li>IP addresses change frequently</li>
+            <li>Names are stable and human-readable</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+frontend → backend-service → resolved via DNS
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Internal DNS</strong><br>
+          <ul>
+            <li>Built-in DNS server</li>
+            <li>Runs at 127.0.0.11</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Docker DNS Example</strong><br>
+          <pre class="cmd-line">
+docker network create mynet
+docker run --name db --network mynet mysql
+docker run --network mynet app
+          </pre>
+          App can reach DB using:
+          <pre class="cmd-line">
+db:3306
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check DNS Config in Container</strong><br>
+          <pre class="cmd-line">
+cat /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Resolution Flow</strong><br>
+          <pre class="cmd-line">
+Container → Docker DNS → IP resolution
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Compose DNS</strong><br>
+          <ul>
+            <li>Service names become DNS names</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes DNS</strong><br>
+          <ul>
+            <li>Uses CoreDNS</li>
+            <li>Cluster-wide DNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Service DNS</strong><br>
+          <pre class="cmd-line">
+service-name.namespace.svc.cluster.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example</strong><br>
+          <pre class="cmd-line">
+backend.default.svc.cluster.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>Pod DNS Config</strong><br>
+          <pre class="cmd-line">
+cat /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Search Domains</strong><br>
+          <ul>
+            <li>namespace.svc.cluster.local</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Service Types</strong><br>
+          <ul>
+            <li>ClusterIP → internal DNS</li>
+            <li>Headless → direct pod IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in Overlay Networks</strong><br>
+          <ul>
+            <li>Used for cross-node communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Benefits</strong><br>
+          <ul>
+            <li>Dynamic discovery</li>
+            <li>No hardcoded IPs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: DNS Load Balancing</strong><br>
+          <ul>
+            <li>Multiple IPs returned</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: Headless Services</strong><br>
+          <ul>
+            <li>No load balancing</li>
+            <li>Direct pod access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Service name not resolving</li>
+            <li>DNS timeout</li>
+            <li>Wrong namespace</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug DNS in Container</strong><br>
+          <pre class="cmd-line">
+nslookup service-name
+dig service-name
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check CoreDNS (Kubernetes)</strong><br>
+          <pre class="cmd-line">
+kubectl get pods -n kube-system
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Connectivity</strong><br>
+          <pre class="cmd-line">
+ping service-name
+curl service-name
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check DNS Logs</strong><br>
+          <pre class="cmd-line">
+kubectl logs coredns
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check DNS config
+Test nslookup
+Check service
+Check network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If service name fails → DNS issue or service missing
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use service names instead of IPs</li>
+            <li>Verify namespace</li>
+            <li>Monitor DNS health</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Frontend → backend via service name</li>
+            <li>Microservices discovery in Kubernetes</li>
+            <li>Dynamic scaling with DNS updates</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Containers use internal DNS for service discovery, enabling dynamic and scalable communication between services in Docker and Kubernetes environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how container DNS enables service discovery in distributed systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:75">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-75</span>
+    <span class="task-title">Port Mapping (Expose Container Services)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how port mapping works in containers and how to expose container services to the host and external networks.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Port Mapping</strong><br>
+          Port mapping connects a container port to a host port, allowing external access.
+        </li>
+
+        <li>
+          <strong>Why Port Mapping is Needed</strong><br>
+          <ul>
+            <li>Containers are isolated</li>
+            <li>Need external access to services</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Host:8080 → Container:80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Port Mapping Syntax</strong><br>
+          <pre class="cmd-line">
+docker run -p HOST_PORT:CONTAINER_PORT image
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example</strong><br>
+          <pre class="cmd-line">
+docker run -p 8080:80 nginx
+          </pre>
+          Access:
+          <pre class="cmd-line">
+http://localhost:8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Multiple Port Mapping</strong><br>
+          <pre class="cmd-line">
+docker run -p 8080:80 -p 8443:443 nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bind to Specific IP</strong><br>
+          <pre class="cmd-line">
+docker run -p 127.0.0.1:8080:80 nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Random Port Assignment</strong><br>
+          <pre class="cmd-line">
+docker run -P nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Mapped Ports</strong><br>
+          <pre class="cmd-line">
+docker ps
+          </pre>
+        </li>
+
+        <li>
+          <strong>Inspect Port Mapping</strong><br>
+          <pre class="cmd-line">
+docker inspect container_id
+          </pre>
+        </li>
+
+        <li>
+          <strong>How It Works Internally</strong><br>
+          <ul>
+            <li>Uses NAT (iptables)</li>
+            <li>Host forwards traffic to container</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>iptables Rule Example</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -L
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bridge Network Role</strong><br>
+          <ul>
+            <li>Container connected to docker0</li>
+            <li>NAT used for external access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Host Mode vs Port Mapping</strong><br>
+          <ul>
+            <li>Host mode → no mapping needed</li>
+            <li>Bridge → requires mapping</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Expose vs Publish</strong><br>
+          <ul>
+            <li>EXPOSE → documentation</li>
+            <li>-p → actual exposure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Docker Compose Example</strong><br>
+          <pre class="cmd-line">
+ports:
+  - "8080:80"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Avoid exposing unnecessary ports</li>
+            <li>Use firewall rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port already in use</li>
+            <li>Service not listening</li>
+            <li>Firewall blocking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+docker ps
+curl localhost:8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Container Service</strong><br>
+          <pre class="cmd-line">
+docker exec -it container_id netstat -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Connectivity</strong><br>
+          <pre class="cmd-line">
+curl http://localhost:8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cloud Considerations</strong><br>
+          <ul>
+            <li>Open security groups</li>
+            <li>Check firewall rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Equivalent</strong><br>
+          <ul>
+            <li>NodePort</li>
+            <li>LoadBalancer</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check container running
+Check port mapping
+Check service inside container
+Check firewall
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If port mapped but not accessible → check service inside container
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use specific ports</li>
+            <li>Limit exposure</li>
+            <li>Monitor open ports</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Expose web app on port 80</li>
+            <li>Map API service to custom port</li>
+            <li>Run multiple services on same host</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Port mapping allows container services to be exposed to the host and external systems, enabling real-world application access and communication.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how port mapping works and how to expose container services.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:76">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-76</span>
+    <span class="task-title">Service Discovery (Name-Based Communication)</span>
+    <span class="task-meta">140–180 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how service discovery enables containers to communicate using names instead of IPs and how it works in Docker and Kubernetes.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Service Discovery</strong><br>
+          Service discovery allows services to find each other dynamically using names.
+        </li>
+
+        <li>
+          <strong>Why Service Discovery is Needed</strong><br>
+          <ul>
+            <li>Container IPs are dynamic</li>
+            <li>Services scale up/down</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Frontend → backend-service → resolved via DNS
+          </pre>
+        </li>
+
+        <li>
+          <strong>Types of Service Discovery</strong><br>
+          <ul>
+            <li>DNS-based</li>
+            <li>Service registry (Consul, etcd)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS-Based Discovery</strong><br>
+          <ul>
+            <li>Most common</li>
+            <li>Automatic resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Docker Service Discovery</strong><br>
+          <ul>
+            <li>Built-in DNS server</li>
+            <li>Service name = hostname</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Docker Example</strong><br>
+          <pre class="cmd-line">
+docker network create mynet
+docker run --name db --network mynet mysql
+docker run --network mynet app
+          </pre>
+          Access DB via:
+          <pre class="cmd-line">
+db:3306
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Compose Discovery</strong><br>
+          <ul>
+            <li>Service names become DNS names</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Service Discovery</strong><br>
+          <ul>
+            <li>Uses CoreDNS</li>
+            <li>Cluster-wide DNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes DNS Format</strong><br>
+          <pre class="cmd-line">
+service.namespace.svc.cluster.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example</strong><br>
+          <pre class="cmd-line">
+backend.default.svc.cluster.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>Short Name Access</strong><br>
+          <pre class="cmd-line">
+backend
+          </pre>
+        </li>
+
+        <li>
+          <strong>Service Types</strong><br>
+          <ul>
+            <li>ClusterIP</li>
+            <li>NodePort</li>
+            <li>LoadBalancer</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Load Balancing via DNS</strong><br>
+          <ul>
+            <li>Returns multiple IPs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Headless Services</strong><br>
+          <ul>
+            <li>No cluster IP</li>
+            <li>Direct pod access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Service Registry Approach</strong><br>
+          <ul>
+            <li>Services register themselves</li>
+            <li>Clients query registry</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay Network Role</strong><br>
+          <ul>
+            <li>Enables cross-node communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Benefits</strong><br>
+          <ul>
+            <li>No hardcoded IPs</li>
+            <li>Dynamic scaling support</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Name not resolving</li>
+            <li>Wrong namespace</li>
+            <li>DNS failure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug DNS Resolution</strong><br>
+          <pre class="cmd-line">
+nslookup service-name
+dig service-name
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check DNS Config</strong><br>
+          <pre class="cmd-line">
+cat /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Service</strong><br>
+          <pre class="cmd-line">
+kubectl get svc
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Connectivity</strong><br>
+          <pre class="cmd-line">
+curl service-name
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check CoreDNS</strong><br>
+          <pre class="cmd-line">
+kubectl get pods -n kube-system
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check DNS
+Check service
+Check network
+Test connection
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If name fails → DNS or service issue
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use service names always</li>
+            <li>Avoid hardcoded IPs</li>
+            <li>Monitor DNS health</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Frontend calls backend via service name</li>
+            <li>Microservices communicate dynamically</li>
+            <li>Auto-scaling updates DNS automatically</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Service discovery enables containers to communicate using names instead of IPs, providing dynamic, scalable, and resilient communication in modern distributed systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how service discovery works in containerized environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:77">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-77</span>
+    <span class="task-title">Docker Swarm Overlay Networking (Multi-Node Communication)</span>
+    <span class="task-meta">150–190 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Docker Swarm uses overlay networks to enable communication between containers across multiple nodes.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Docker Swarm</strong><br>
+          Docker Swarm is a container orchestration tool for managing clusters of Docker nodes.
+        </li>
+
+        <li>
+          <strong>Why Overlay Networks in Swarm</strong><br>
+          <ul>
+            <li>Containers run on different hosts</li>
+            <li>Need seamless communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Node1 Container → Overlay → Node2 Container
+          </pre>
+        </li>
+
+        <li>
+          <strong>Swarm Architecture</strong><br>
+          <ul>
+            <li>Manager nodes</li>
+            <li>Worker nodes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay Network Creation</strong><br>
+          <pre class="cmd-line">
+docker network create -d overlay mynet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Attach Service to Network</strong><br>
+          <pre class="cmd-line">
+docker service create --network mynet nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>VXLAN Technology</strong><br>
+          <ul>
+            <li>Encapsulates packets</li>
+            <li>Uses UDP port 4789</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Packet Flow</strong><br>
+          <pre class="cmd-line">
+Container → VXLAN encapsulation → Transport → Decapsulation → Container
+          </pre>
+        </li>
+
+        <li>
+          <strong>VNI (VXLAN Network Identifier)</strong><br>
+          <ul>
+            <li>Identifies overlay network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Service Discovery</strong><br>
+          <ul>
+            <li>Built-in DNS</li>
+            <li>Service name resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Load Balancing</strong><br>
+          <ul>
+            <li>Internal load balancing</li>
+            <li>VIP (Virtual IP)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Ingress Network</strong><br>
+          <ul>
+            <li>Handles external traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing Mesh</strong><br>
+          <ul>
+            <li>Requests can hit any node</li>
+            <li>Forwarded to correct container</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Encrypted Overlay</strong><br>
+          <pre class="cmd-line">
+docker network create -d overlay --opt encrypted mynet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Multi-Host Communication</strong><br>
+          <ul>
+            <li>Containers behave as if on same network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Inspect Network</strong><br>
+          <pre class="cmd-line">
+docker network inspect mynet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check VXLAN Interface</strong><br>
+          <pre class="cmd-line">
+ip link show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ports Used by Swarm</strong><br>
+          <ul>
+            <li>2377 → cluster management</li>
+            <li>7946 → node communication</li>
+            <li>4789 → overlay network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Firewall blocking UDP 4789</li>
+            <li>Nodes not connected</li>
+            <li>Overlay network not created</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Overlay Network</strong><br>
+          <pre class="cmd-line">
+docker network inspect
+ip route
+tcpdump -i eth0 udp port 4789
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Node Status</strong><br>
+          <pre class="cmd-line">
+docker node ls
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Connectivity</strong><br>
+          <pre class="cmd-line">
+docker exec -it container ping other-container
+          </pre>
+        </li>
+
+        <li>
+          <strong>MTU Issues</strong><br>
+          <ul>
+            <li>Encapsulation reduces MTU</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Considerations</strong><br>
+          <ul>
+            <li>Overlay adds overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Use encrypted overlay networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check nodes
+Check network
+Check ports
+Capture packets
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If overlay fails → check underlying network first
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Microservices across multiple nodes</li>
+            <li>Distributed web applications</li>
+            <li>Cluster-wide service communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Docker Swarm uses overlay networks to enable seamless communication between containers across multiple nodes, forming the backbone of distributed container networking.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Docker Swarm overlay networking works for multi-node communication.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Login Banner Design</title>
+  <link rel="icon" type="image/png" href="../assets/linux.png">
+  <link rel="stylesheet" href="../css/global.css"/>
+  <link rel="stylesheet" href="../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="linux/basic-commands/style.css">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* Card */
+.project-status-card{
+    background:white;
+    padding:30px;
+    width:420px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+/* Status Badge */
+.status-badge{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:bold;
+    background:#fff3cd;
+    color:#856404;
+    margin-bottom:15px;
+}
+
+/* Title */
+.project-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+/* Message */
+.project-message{
+    color:#555;
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+/* Info Box */
+.info-box{
+    background:#f1f4ff;
+    border-left:4px solid #4f6ef7;
+    padding:12px;
+    border-radius:6px;
+    font-size:14px;
+    color: #1f2937;
+}
+
+.highlight{
+    color:#4f6ef7;
+    font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="project-status-card">
+
+    <div class="status-badge">
+        ⏳ In Progress
+    </div>
+
+    <!-- <div class="project-title">
+        Shell Scripting Project
+    </div> -->
+
+    <div class="project-message">
+        This project will start once the currently active project is completed.
+    </div>
+
+    <div class="info-box">
+        🔎 To find the project currently being worked on, go to the 
+        <span class="highlight">Projects Page</span> and click the 
+        <span class="highlight">"In Progress"</span> filter.
+    </div>
+
+</div>
+
+</body>
+</html>

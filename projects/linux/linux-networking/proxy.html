@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:78">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-78</span>
+    <span class="task-title">Reverse Proxy (Request Routing & Load Balancing)</span>
+    <span class="task-meta">150–190 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how reverse proxies route client requests, provide security, and manage backend services efficiently.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Reverse Proxy</strong><br>
+          Reverse proxy sits between client and backend servers.
+        </li>
+
+        <li>
+          <strong>Why Reverse Proxy</strong><br>
+          <ul>
+            <li>Hide backend servers</li>
+            <li>Improve security</li>
+            <li>Enable load balancing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → Reverse Proxy → Backend → Response → Client
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reverse vs Forward Proxy</strong><br>
+          <ul>
+            <li>Forward proxy → client side</li>
+            <li>Reverse proxy → server side</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Request Routing</strong><br>
+          <pre class="cmd-line">
+/api → service-A
+/auth → service-B
+          </pre>
+        </li>
+
+        <li>
+          <strong>Load Balancing</strong><br>
+          <ul>
+            <li>Round Robin</li>
+            <li>Least Connections</li>
+            <li>IP Hash</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Traffic Distribution</strong><br>
+          <pre class="cmd-line">
+Client → Proxy → [Server1, Server2, Server3]
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSL Termination</strong><br>
+          <pre class="cmd-line">
+Client (HTTPS) → Proxy → Backend (HTTP)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Layer</strong><br>
+          <ul>
+            <li>Hide internal IP</li>
+            <li>Block malicious traffic</li>
+            <li>Rate limiting</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Caching</strong><br>
+          <pre class="cmd-line">
+Proxy (cache hit) → Response (no backend call)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Header Management</strong><br>
+          <ul>
+            <li>X-Forwarded-For</li>
+            <li>X-Real-IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Reverse Proxy with Docker</strong><br>
+          <pre class="cmd-line">
+Client → Traefik/Nginx → Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Microservices Routing</strong><br>
+          <ul>
+            <li>Single entry point</li>
+            <li>Routes to multiple services</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>High Availability</strong><br>
+          <pre class="cmd-line">
+If Server1 fails → route to Server2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Health Checks</strong><br>
+          <pre class="cmd-line">
+/health endpoint monitoring
+          </pre>
+        </li>
+
+        <li>
+          <strong>Logging & Monitoring</strong><br>
+          <ul>
+            <li>Centralized logs</li>
+            <li>Traffic tracking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Optimization</strong><br>
+          <ul>
+            <li>Compression (gzip)</li>
+            <li>Connection reuse</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ports</strong><br>
+          <ul>
+            <li>80 → HTTP</li>
+            <li>443 → HTTPS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Nginx Example</strong><br>
+          <pre class="cmd-line">
+server {
+  listen 80;
+  location / {
+    proxy_pass http://backend:3000;
+  }
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Traefik Example</strong><br>
+          <pre class="cmd-line">
+labels:
+  - "traefik.http.routers.app.rule=Host(`example.com`)"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+curl -v http://proxy
+docker logs proxy
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Routing misconfiguration</li>
+            <li>Backend down</li>
+            <li>SSL issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check proxy
+Check backend
+Check routes
+Check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Enable HTTPS</li>
+            <li>Use rate limiting</li>
+            <li>Hide server details</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Swarm Integration</strong><br>
+          <pre class="cmd-line">
+Client → Traefik → Swarm Service → Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>Microservices architecture</li>
+            <li>API gateway</li>
+            <li>Cloud applications</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Reverse proxy acts as a central layer that routes traffic, improves security, and enhances performance of backend services.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how reverse proxies manage routing, security, and load balancing in modern architectures.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:79">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-79</span>
+    <span class="task-title">Load Balancing (Traffic Distribution & High Availability)</span>
+    <span class="task-meta">150–190 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how load balancing distributes traffic across multiple servers to ensure scalability, reliability, and high availability.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Load Balancing</strong><br>
+          Distributes incoming traffic across multiple backend servers.
+        </li>
+
+        <li>
+          <strong>Why Load Balancing</strong><br>
+          <ul>
+            <li>Prevent server overload</li>
+            <li>Ensure high availability</li>
+            <li>Improve performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → Load Balancer → Multiple Servers → Response
+          </pre>
+        </li>
+
+        <li>
+          <strong>Single Server Problem</strong><br>
+          <pre class="cmd-line">
+Client → Server (Overload / Failure)
+          </pre>
+        </li>
+
+        <li>
+          <strong>With Load Balancer</strong><br>
+          <pre class="cmd-line">
+Client → LB → [Server1, Server2, Server3]
+          </pre>
+        </li>
+
+        <li>
+          <strong>Types of Load Balancing</strong><br>
+          <ul>
+            <li>Layer 4 (Transport level)</li>
+            <li>Layer 7 (Application level)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Layer 4 Load Balancing</strong><br>
+          <ul>
+            <li>Works on IP + Port</li>
+            <li>Fast and efficient</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Layer 7 Load Balancing</strong><br>
+          <ul>
+            <li>Works on HTTP/HTTPS</li>
+            <li>Routes based on URL, headers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Load Balancing Algorithms</strong><br>
+          <ul>
+            <li>Round Robin</li>
+            <li>Least Connections</li>
+            <li>IP Hash</li>
+            <li>Weighted Round Robin</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Round Robin</strong><br>
+          <pre class="cmd-line">
+Req1 → Server1
+Req2 → Server2
+Req3 → Server3
+          </pre>
+        </li>
+
+        <li>
+          <strong>Least Connections</strong><br>
+          Routes traffic to server with fewer active connections.
+        </li>
+
+        <li>
+          <strong>IP Hash</strong><br>
+          Same client always goes to same server.
+        </li>
+
+        <li>
+          <strong>Weighted Distribution</strong><br>
+          <pre class="cmd-line">
+Server1 (weight 3) → More traffic
+Server2 (weight 1) → Less traffic
+          </pre>
+        </li>
+
+        <li>
+          <strong>Health Checks</strong><br>
+          <pre class="cmd-line">
+Check /health → If fail → remove server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failover Mechanism</strong><br>
+          <pre class="cmd-line">
+If Server1 down → redirect to Server2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Session Persistence (Sticky Sessions)</strong><br>
+          <ul>
+            <li>User sticks to same server</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Active vs Passive LB</strong><br>
+          <ul>
+            <li>Active → distributes traffic</li>
+            <li>Passive → standby backup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS Load Balancing</strong><br>
+          <pre class="cmd-line">
+Domain → multiple IPs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Hardware vs Software LB</strong><br>
+          <ul>
+            <li>Hardware → expensive, high performance</li>
+            <li>Software → flexible (Nginx, HAProxy)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cloud Load Balancing</strong><br>
+          <ul>
+            <li>AWS ELB</li>
+            <li>GCP Load Balancer</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Load Balancer + Reverse Proxy</strong><br>
+          Often combined in same tool (Nginx, Traefik).
+        </li>
+
+        <li>
+          <strong>Docker / Swarm Integration</strong><br>
+          <pre class="cmd-line">
+Client → LB → Swarm Service → Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ingress Load Balancing (Swarm)</strong><br>
+          <ul>
+            <li>Routing mesh</li>
+            <li>Requests hit any node</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Traffic Flow in Swarm</strong><br>
+          <pre class="cmd-line">
+Client → Any Node → Routing Mesh → Container
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Benefits</strong><br>
+          <ul>
+            <li>Reduced latency</li>
+            <li>Better throughput</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Benefits</strong><br>
+          <ul>
+            <li>Hides backend servers</li>
+            <li>DDoS mitigation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ports</strong><br>
+          <ul>
+            <li>80 → HTTP</li>
+            <li>443 → HTTPS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Nginx Load Balancing Example</strong><br>
+          <pre class="cmd-line">
+upstream backend {
+  server app1:3000;
+  server app2:3000;
+}
+
+server {
+  location / {
+    proxy_pass http://backend;
+  }
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+curl -v http://lb
+docker service ps
+docker logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Uneven traffic distribution</li>
+            <li>Health check failure</li>
+            <li>Session issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check LB config
+Check backend health
+Check logs
+Check network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>High traffic websites</li>
+            <li>Microservices</li>
+            <li>Cloud applications</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Load balancing distributes traffic across servers to ensure reliability, scalability, and high performance.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how load balancing distributes traffic and ensures high availability.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:80">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-80</span>
+    <span class="task-title">SSL Termination (HTTPS Encryption at Proxy Level)</span>
+    <span class="task-meta">150–190 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how SSL termination works at the proxy level to handle HTTPS encryption, improve performance, and simplify backend communication.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is SSL Termination</strong><br>
+          SSL termination is the process where HTTPS encryption is handled at the proxy instead of backend servers.
+        </li>
+
+        <li>
+          <strong>Why SSL Termination</strong><br>
+          <ul>
+            <li>Reduce backend load</li>
+            <li>Centralized certificate management</li>
+            <li>Improve performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client (HTTPS) → Proxy (Decrypt) → Backend (HTTP) → Response → Proxy (Encrypt) → Client
+          </pre>
+        </li>
+
+        <li>
+          <strong>Without SSL Termination</strong><br>
+          <pre class="cmd-line">
+Client → HTTPS → Backend (Handles SSL)
+          </pre>
+        </li>
+
+        <li>
+          <strong>With SSL Termination</strong><br>
+          <pre class="cmd-line">
+Client → HTTPS → Proxy → HTTP → Backend
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSL/TLS Overview</strong><br>
+          <ul>
+            <li>Encrypts data in transit</li>
+            <li>Ensures confidentiality & integrity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Handshake Process</strong><br>
+          <pre class="cmd-line">
+Client Hello → Server Certificate → Key Exchange → Secure Connection
+          </pre>
+        </li>
+
+        <li>
+          <strong>Certificates</strong><br>
+          <ul>
+            <li>Public key certificates</li>
+            <li>Issued by Certificate Authority (CA)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Private Key</strong><br>
+          Stored securely in proxy to decrypt traffic.
+        </li>
+
+        <li>
+          <strong>SSL Offloading</strong><br>
+          Another term for SSL termination (proxy handles encryption work).
+        </li>
+
+        <li>
+          <strong>Benefits</strong><br>
+          <ul>
+            <li>Faster backend processing</li>
+            <li>Reduced CPU usage on servers</li>
+            <li>Simplified architecture</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>Backend traffic becomes HTTP (not encrypted)</li>
+            <li>Use internal secure networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Re-Encryption (Optional)</strong><br>
+          <pre class="cmd-line">
+Client → HTTPS → Proxy → HTTPS → Backend
+          </pre>
+        </li>
+
+        <li>
+          <strong>Edge Termination</strong><br>
+          SSL ends at proxy (most common setup).
+        </li>
+
+        <li>
+          <strong>End-to-End Encryption</strong><br>
+          SSL continues till backend.
+        </li>
+
+        <li>
+          <strong>Tools Supporting SSL Termination</strong><br>
+          <ul>
+            <li>Nginx</li>
+            <li>Traefik</li>
+            <li>HAProxy</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ports</strong><br>
+          <ul>
+            <li>443 → HTTPS</li>
+            <li>80 → HTTP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Nginx SSL Example</strong><br>
+          <pre class="cmd-line">
+server {
+  listen 443 ssl;
+
+  ssl_certificate /etc/ssl/cert.pem;
+  ssl_certificate_key /etc/ssl/key.pem;
+
+  location / {
+    proxy_pass http://backend:3000;
+  }
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Traefik SSL Example</strong><br>
+          <pre class="cmd-line">
+labels:
+  - "traefik.http.routers.app.tls=true"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Let's Encrypt Integration</strong><br>
+          <ul>
+            <li>Auto-generate SSL certificates</li>
+            <li>Auto-renewal</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Optimization</strong><br>
+          <ul>
+            <li>Session reuse</li>
+            <li>TLS offloading</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Header Handling</strong><br>
+          <ul>
+            <li>X-Forwarded-Proto: https</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+curl -v https://example.com
+openssl s_client -connect example.com:443
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Certificate expired</li>
+            <li>Wrong certificate path</li>
+            <li>Mixed content issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check certificate
+Check proxy config
+Check ports
+Check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker / Swarm Integration</strong><br>
+          <pre class="cmd-line">
+Client → HTTPS → Traefik → Service → Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Use strong TLS versions</li>
+            <li>Disable weak ciphers</li>
+            <li>Enable HSTS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>Web applications</li>
+            <li>Microservices</li>
+            <li>Cloud deployments</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          SSL termination offloads encryption to proxy, improving performance and simplifying secure communication management.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how SSL termination works and how it secures and optimizes modern architectures.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:81">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-81</span>
+    <span class="task-title">Traefik (Dynamic Reverse Proxy for Container Environments)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Traefik dynamically routes traffic in container environments like Docker and Swarm using automatic service discovery.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Traefik</strong><br>
+          Traefik is a modern reverse proxy and load balancer designed for microservices and container-based environments.
+        </li>
+
+        <li>
+          <strong>Why Traefik</strong><br>
+          <ul>
+            <li>Dynamic configuration</li>
+            <li>Automatic service discovery</li>
+            <li>Built-in SSL support</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → Traefik → Service → Container
+          </pre>
+        </li>
+
+        <li>
+          <strong>Static vs Dynamic Config</strong><br>
+          <ul>
+            <li>Static → startup config</li>
+            <li>Dynamic → runtime routing rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Core Components</strong><br>
+          <ul>
+            <li>EntryPoints</li>
+            <li>Routers</li>
+            <li>Services</li>
+            <li>Middlewares</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>EntryPoints</strong><br>
+          <pre class="cmd-line">
+:web → port 80
+:websecure → port 443
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routers</strong><br>
+          Defines how requests are matched.
+          <pre class="cmd-line">
+Host(`example.com`)
+Path(`/api`)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Services</strong><br>
+          Backend services where traffic is forwarded.
+        </li>
+
+        <li>
+          <strong>Middlewares</strong><br>
+          <ul>
+            <li>Authentication</li>
+            <li>Rate limiting</li>
+            <li>Redirects</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Dynamic Service Discovery</strong><br>
+          Traefik automatically detects containers using Docker API.
+        </li>
+
+        <li>
+          <strong>Docker Integration</strong><br>
+          <pre class="cmd-line">
+--providers.docker=true
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Labels</strong><br>
+          Used to define routing rules.
+          <pre class="cmd-line">
+labels:
+  - "traefik.http.routers.app.rule=Host(`example.com`)"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Swarm Mode Integration</strong><br>
+          <pre class="cmd-line">
+--providers.docker.swarmMode=true
+          </pre>
+        </li>
+
+        <li>
+          <strong>Overlay Network Usage</strong><br>
+          Traefik communicates with services via overlay network.
+        </li>
+
+        <li>
+          <strong>Load Balancing in Traefik</strong><br>
+          <pre class="cmd-line">
+Multiple containers → traffic distributed automatically
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSL / HTTPS Support</strong><br>
+          <ul>
+            <li>Automatic TLS</li>
+            <li>Let's Encrypt integration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Let's Encrypt Example</strong><br>
+          <pre class="cmd-line">
+--certificatesresolvers.myresolver.acme.tlschallenge=true
+          </pre>
+        </li>
+
+        <li>
+          <strong>HTTP to HTTPS Redirect</strong><br>
+          <pre class="cmd-line">
+redirectscheme → https
+          </pre>
+        </li>
+
+        <li>
+          <strong>Traefik Dashboard</strong><br>
+          <ul>
+            <li>Web UI for monitoring</li>
+          </ul>
+          <pre class="cmd-line">
+:8080/dashboard
+          </pre>
+        </li>
+
+        <li>
+          <strong>EntryPoints Example</strong><br>
+          <pre class="cmd-line">
+--entrypoints.web.address=:80
+--entrypoints.websecure.address=:443
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Features</strong><br>
+          <ul>
+            <li>Basic auth</li>
+            <li>IP whitelisting</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Middleware Example</strong><br>
+          <pre class="cmd-line">
+traefik.http.middlewares.auth.basicauth.users=user:password
+          </pre>
+        </li>
+
+        <li>
+          <strong>Request Flow in Traefik</strong><br>
+          <pre class="cmd-line">
+Client → EntryPoint → Router → Middleware → Service → Container
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability</strong><br>
+          <ul>
+            <li>Multiple Traefik instances</li>
+            <li>Works with Swarm/Kubernetes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Logging & Monitoring</strong><br>
+          <ul>
+            <li>Access logs</li>
+            <li>Metrics (Prometheus)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+docker logs traefik
+curl -v http://service
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong labels</li>
+            <li>Network misconfiguration</li>
+            <li>Service not detected</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check labels
+Check network
+Check logs
+Check dashboard
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Considerations</strong><br>
+          <ul>
+            <li>Efficient routing</li>
+            <li>Minimal configuration overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>Microservices architecture</li>
+            <li>Docker Swarm clusters</li>
+            <li>Kubernetes ingress</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Traefik is a powerful dynamic reverse proxy that automatically discovers services, routes traffic, handles SSL, and simplifies modern container networking.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Traefik dynamically routes and manages traffic in container-based environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:82">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-82</span>
+    <span class="task-title">Nginx (Reverse Proxy & Load Balancing)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Nginx works as a reverse proxy and load balancer to efficiently route traffic and manage backend services.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Nginx</strong><br>
+          Nginx is a high-performance web server, reverse proxy, and load balancer.
+        </li>
+
+        <li>
+          <strong>Why Nginx</strong><br>
+          <ul>
+            <li>High performance</li>
+            <li>Handles thousands of connections</li>
+            <li>Lightweight and scalable</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → Nginx → Backend Server → Response → Client
+          </pre>
+        </li>
+
+        <li>
+          <strong>Nginx Architecture</strong><br>
+          <ul>
+            <li>Master process</li>
+            <li>Worker processes</li>
+            <li>Event-driven model</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Event-Driven Model</strong><br>
+          Handles multiple requests asynchronously using non-blocking I/O.
+        </li>
+
+        <li>
+          <strong>Reverse Proxy Role</strong><br>
+          <pre class="cmd-line">
+Client → Nginx → Backend (hidden)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Load Balancer Role</strong><br>
+          <pre class="cmd-line">
+Client → Nginx → [Server1, Server2, Server3]
+          </pre>
+        </li>
+
+        <li>
+          <strong>Static Content Serving</strong><br>
+          Nginx serves static files faster than backend servers.
+        </li>
+
+        <li>
+          <strong>Load Balancing Algorithms</strong><br>
+          <ul>
+            <li>Round Robin (default)</li>
+            <li>Least Connections</li>
+            <li>IP Hash</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Upstream Block</strong><br>
+          <pre class="cmd-line">
+upstream backend {
+  server app1:3000;
+  server app2:3000;
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Proxy Configuration</strong><br>
+          <pre class="cmd-line">
+location / {
+  proxy_pass http://backend;
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSL Termination</strong><br>
+          <pre class="cmd-line">
+Client (HTTPS) → Nginx → Backend (HTTP)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Compression</strong><br>
+          <ul>
+            <li>gzip compression</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Caching</strong><br>
+          <ul>
+            <li>Reduces backend load</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Connection Handling</strong><br>
+          <ul>
+            <li>Keep-alive connections</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Header Forwarding</strong><br>
+          <pre class="cmd-line">
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          </pre>
+        </li>
+
+        <li>
+          <strong>Health Checks</strong><br>
+          <ul>
+            <li>Detect failed backend servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Failover Handling</strong><br>
+          <pre class="cmd-line">
+If Server1 fails → route to Server2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rate Limiting</strong><br>
+          <ul>
+            <li>Prevent abuse</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Features</strong><br>
+          <ul>
+            <li>Hide backend</li>
+            <li>Limit requests</li>
+            <li>SSL support</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ports</strong><br>
+          <ul>
+            <li>80 → HTTP</li>
+            <li>443 → HTTPS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Docker Integration</strong><br>
+          <pre class="cmd-line">
+Client → Nginx → Docker Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Swarm Integration</strong><br>
+          <pre class="cmd-line">
+Client → Nginx → Swarm Service → Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Optimization</strong><br>
+          <ul>
+            <li>Worker tuning</li>
+            <li>Caching</li>
+            <li>Compression</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+nginx -t
+systemctl status nginx
+tail -f /var/log/nginx/access.log
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>502 Bad Gateway</li>
+            <li>Wrong upstream config</li>
+            <li>Port conflicts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check config
+Check backend
+Check logs
+Check ports
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>Web hosting</li>
+            <li>Microservices routing</li>
+            <li>API gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Nginx is a powerful, high-performance server used for reverse proxying, load balancing, and efficient request handling in modern applications.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Nginx handles reverse proxying and load balancing in production systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:83">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-83</span>
+    <span class="task-title">HAProxy (High-Performance Load Balancer)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how HAProxy provides high-performance load balancing, traffic routing, and high availability for modern applications.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is HAProxy</strong><br>
+          HAProxy is a fast, reliable load balancer and reverse proxy designed for high-traffic systems.
+        </li>
+
+        <li>
+          <strong>Why HAProxy</strong><br>
+          <ul>
+            <li>Handles millions of requests</li>
+            <li>Low latency</li>
+            <li>Highly reliable</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → HAProxy → Backend Servers → Response → Client
+          </pre>
+        </li>
+
+        <li>
+          <strong>Core Components</strong><br>
+          <ul>
+            <li>Frontend</li>
+            <li>Backend</li>
+            <li>Listen</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Frontend</strong><br>
+          Handles incoming client requests.
+          <pre class="cmd-line">
+frontend http_front
+  bind *:80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Backend</strong><br>
+          Defines server pool.
+          <pre class="cmd-line">
+backend app_servers
+  server app1 10.0.0.1:3000
+  server app2 10.0.0.2:3000
+          </pre>
+        </li>
+
+        <li>
+          <strong>Listen Block</strong><br>
+          Combines frontend + backend.
+        </li>
+
+        <li>
+          <strong>Load Balancing Algorithms</strong><br>
+          <ul>
+            <li>Round Robin</li>
+            <li>Least Connections</li>
+            <li>Source (IP Hash)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Traffic Distribution</strong><br>
+          <pre class="cmd-line">
+Client → HAProxy → [Server1, Server2, Server3]
+          </pre>
+        </li>
+
+        <li>
+          <strong>Layer 4 vs Layer 7</strong><br>
+          <ul>
+            <li>L4 → TCP level</li>
+            <li>L7 → HTTP level (content-based routing)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Health Checks</strong><br>
+          <pre class="cmd-line">
+option httpchk GET /health
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failover Mechanism</strong><br>
+          <pre class="cmd-line">
+If server fails → traffic redirected
+          </pre>
+        </li>
+
+        <li>
+          <strong>Session Persistence</strong><br>
+          <ul>
+            <li>Sticky sessions</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SSL Termination</strong><br>
+          <pre class="cmd-line">
+bind *:443 ssl crt /etc/ssl/cert.pem
+          </pre>
+        </li>
+
+        <li>
+          <strong>Access Control</strong><br>
+          <ul>
+            <li>ACL (Access Control Lists)</li>
+          </ul>
+          <pre class="cmd-line">
+acl is_api path_beg /api
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing Rules</strong><br>
+          <pre class="cmd-line">
+use_backend api_servers if is_api
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rate Limiting</strong><br>
+          Protects against abuse.
+        </li>
+
+        <li>
+          <strong>Logging</strong><br>
+          <ul>
+            <li>Detailed request logs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Monitoring Dashboard</strong><br>
+          <pre class="cmd-line">
+stats enable
+stats uri /stats
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability Setup</strong><br>
+          <pre class="cmd-line">
+Multiple HAProxy instances + failover
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Features</strong><br>
+          <ul>
+            <li>Connection reuse</li>
+            <li>Efficient memory usage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Features</strong><br>
+          <ul>
+            <li>SSL support</li>
+            <li>Request filtering</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ports</strong><br>
+          <ul>
+            <li>80 → HTTP</li>
+            <li>443 → HTTPS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Docker Integration</strong><br>
+          <pre class="cmd-line">
+Client → HAProxy → Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Swarm Integration</strong><br>
+          <pre class="cmd-line">
+Client → HAProxy → Swarm Services → Containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Full Config</strong><br>
+          <pre class="cmd-line">
+frontend http_front
+  bind *:80
+  default_backend app_servers
+
+backend app_servers
+  balance roundrobin
+  server app1 10.0.0.1:3000 check
+  server app2 10.0.0.2:3000 check
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+haproxy -c -f /etc/haproxy/haproxy.cfg
+systemctl status haproxy
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Backend unreachable</li>
+            <li>Health check failure</li>
+            <li>Wrong ACL rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check config
+Check backend
+Check logs
+Check network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>High-traffic websites</li>
+            <li>Banking systems</li>
+            <li>Cloud platforms</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          HAProxy is a powerful, high-performance load balancer used to distribute traffic, ensure reliability, and handle large-scale applications efficiently.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how HAProxy manages high-performance load balancing and traffic routing.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

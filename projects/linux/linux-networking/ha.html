@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:92">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-92</span>
+    <span class="task-title">Keepalived (High Availability using Virtual IP Failover)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Keepalived provides high availability using Virtual IPs (VIP) and automatic failover between servers.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Keepalived</strong><br>
+          Keepalived is a tool that provides failover and high availability using Virtual IP addresses.
+        </li>
+
+        <li>
+          <strong>Why Keepalived</strong><br>
+          <ul>
+            <li>Eliminate single point of failure</li>
+            <li>Ensure service availability</li>
+            <li>Automatic failover</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Client → Virtual IP → Active Server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failover Flow</strong><br>
+          <pre class="cmd-line">
+Primary Down → VIP moves → Backup becomes Active
+          </pre>
+        </li>
+
+        <li>
+          <strong>Virtual IP (VIP)</strong><br>
+          <ul>
+            <li>Shared IP between multiple servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VRRP Protocol</strong><br>
+          <ul>
+            <li>Virtual Router Redundancy Protocol</li>
+            <li>Used by Keepalived for failover</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VRRP Roles</strong><br>
+          <ul>
+            <li>MASTER → active node</li>
+            <li>BACKUP → standby node</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Heartbeat Mechanism</strong><br>
+          <pre class="cmd-line">
+MASTER → sends heartbeat → BACKUP monitors
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failure Detection</strong><br>
+          <pre class="cmd-line">
+No heartbeat → BACKUP takes over VIP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Priority System</strong><br>
+          <ul>
+            <li>Higher priority → becomes MASTER</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Preemption</strong><br>
+          <ul>
+            <li>Higher priority node can reclaim VIP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Keepalived Installation</strong><br>
+          <pre class="cmd-line">
+apt install keepalived
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic Config Example</strong><br>
+          <pre class="cmd-line">
+vrrp_instance VI_1 {
+  state MASTER
+  interface eth0
+  virtual_router_id 51
+  priority 100
+  advert_int 1
+
+  virtual_ipaddress {
+    192.168.1.100
+  }
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Backup Config</strong><br>
+          <pre class="cmd-line">
+state BACKUP
+priority 90
+          </pre>
+        </li>
+
+        <li>
+          <strong>Health Checks</strong><br>
+          <pre class="cmd-line">
+track_script {
+  chk_service
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Script Example</strong><br>
+          <pre class="cmd-line">
+vrrp_script chk_service {
+  script "pidof nginx"
+  interval 2
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failover with Service Check</strong><br>
+          <pre class="cmd-line">
+If service fails → VIP moves to backup
+          </pre>
+        </li>
+
+        <li>
+          <strong>Integration with Load Balancer</strong><br>
+          <pre class="cmd-line">
+Client → VIP → HAProxy/Nginx → Backend
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Requirements</strong><br>
+          <ul>
+            <li>Same subnet</li>
+            <li>Multicast support (or unicast config)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Unicast VRRP</strong><br>
+          Used when multicast is not available.
+        </li>
+
+        <li>
+          <strong>Firewall Requirements</strong><br>
+          <ul>
+            <li>Allow VRRP protocol (IP protocol 112)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check VIP</strong><br>
+          <pre class="cmd-line">
+ip addr show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Status</strong><br>
+          <pre class="cmd-line">
+systemctl status keepalived
+          </pre>
+        </li>
+
+        <li>
+          <strong>Logs</strong><br>
+          <pre class="cmd-line">
+journalctl -u keepalived
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>VIP not switching</li>
+            <li>Firewall blocking VRRP</li>
+            <li>Wrong interface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check service
+Check VIP
+Check logs
+Check network
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability Architecture</strong><br>
+          <pre class="cmd-line">
+Client → VIP → Active Node → Backup Node (standby)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Impact</strong><br>
+          <ul>
+            <li>Minimal overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>Use authentication for VRRP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>HA load balancers</li>
+            <li>Database failover</li>
+            <li>Web server redundancy</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Keepalived provides high availability by assigning a virtual IP that automatically fails over between servers when a failure occurs.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Keepalived ensures high availability using virtual IP failover.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:93">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-93</span>
+    <span class="task-title">Virtual IPs (Seamless Service Availability & Failover)</span>
+    <span class="task-meta">150–190 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Virtual IPs (VIPs) provide seamless service availability by allowing failover between multiple servers without client impact.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Virtual IP (VIP)</strong><br>
+          A Virtual IP is an IP address not tied to a single physical server, but shared across multiple servers.
+        </li>
+
+        <li>
+          <strong>Why VIP</strong><br>
+          <ul>
+            <li>High availability</li>
+            <li>Failover support</li>
+            <li>Transparent to clients</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Client → VIP → Active Server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failover Flow</strong><br>
+          <pre class="cmd-line">
+Primary fails → VIP moves → Backup takes over
+          </pre>
+        </li>
+
+        <li>
+          <strong>Client Perspective</strong><br>
+          <pre class="cmd-line">
+Client always connects to same IP (VIP)
+          </pre>
+        </li>
+
+        <li>
+          <strong>VIP vs Physical IP</strong><br>
+          <ul>
+            <li>Physical IP → tied to server</li>
+            <li>VIP → movable between servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How VIP Works</strong><br>
+          <ul>
+            <li>Assigned to active node</li>
+            <li>Moved during failover</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>ARP Announcement</strong><br>
+          <pre class="cmd-line">
+New active node → broadcasts ARP → network updates mapping
+          </pre>
+        </li>
+
+        <li>
+          <strong>Protocols Used</strong><br>
+          <ul>
+            <li>VRRP (used by Keepalived)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VIP with Keepalived</strong><br>
+          <pre class="cmd-line">
+Keepalived manages VIP movement between nodes
+          </pre>
+        </li>
+
+        <li>
+          <strong>Active-Passive Setup</strong><br>
+          <pre class="cmd-line">
+One active → one standby
+          </pre>
+        </li>
+
+        <li>
+          <strong>Active-Active Setup</strong><br>
+          <ul>
+            <li>Multiple nodes share load</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Health Checks</strong><br>
+          <pre class="cmd-line">
+If service fails → VIP reassigned
+          </pre>
+        </li>
+
+        <li>
+          <strong>VIP Configuration Example</strong><br>
+          <pre class="cmd-line">
+virtual_ipaddress {
+  192.168.1.100
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check VIP</strong><br>
+          <pre class="cmd-line">
+ip addr show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Requirement</strong><br>
+          <ul>
+            <li>Same subnet for nodes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Failover Speed</strong><br>
+          <ul>
+            <li>Usually within seconds</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS vs VIP</strong><br>
+          <ul>
+            <li>DNS → slower failover</li>
+            <li>VIP → instant failover</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Load Balancer Integration</strong><br>
+          <pre class="cmd-line">
+Client → VIP → Load Balancer → Backend Servers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cloud VIP Equivalent</strong><br>
+          <ul>
+            <li>Elastic IP (AWS)</li>
+            <li>Floating IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>Restrict VIP access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Impact</strong><br>
+          <ul>
+            <li>Minimal overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>VIP not moving</li>
+            <li>ARP cache delay</li>
+            <li>Network misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check VIP
+Check ARP
+Check Keepalived
+Check network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use health checks</li>
+            <li>Monitor failover</li>
+            <li>Test regularly</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+HA web servers using VIP for zero downtime
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability Architecture</strong><br>
+          <pre class="cmd-line">
+Client → VIP → Active Node → Backup Node
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Virtual IPs enable seamless failover by allowing services to remain accessible through a constant IP address, even when underlying servers change.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Virtual IPs provide seamless service availability during failures.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:94">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-94</span>
+    <span class="task-title">Redundant Networking (High Availability & Fault Tolerance)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how redundant networking ensures high availability by eliminating single points of failure in network infrastructure.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Redundant Networking</strong><br>
+          Redundant networking means having multiple network paths, devices, or connections to ensure continuous availability.
+        </li>
+
+        <li>
+          <strong>Why Redundancy</strong><br>
+          <ul>
+            <li>Prevent downtime</li>
+            <li>Increase reliability</li>
+            <li>Ensure failover</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Primary Path + Backup Path → Continuous Connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Single Point of Failure (SPOF)</strong><br>
+          <pre class="cmd-line">
+One link failure → entire system down
+          </pre>
+        </li>
+
+        <li>
+          <strong>With Redundancy</strong><br>
+          <pre class="cmd-line">
+If primary fails → backup takes over
+          </pre>
+        </li>
+
+        <li>
+          <strong>Types of Redundancy</strong><br>
+          <ul>
+            <li>Network path redundancy</li>
+            <li>Device redundancy</li>
+            <li>Link redundancy</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Active-Passive</strong><br>
+          <pre class="cmd-line">
+Primary active → Backup standby
+          </pre>
+        </li>
+
+        <li>
+          <strong>Active-Active</strong><br>
+          <pre class="cmd-line">
+Both links active → load shared
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failover Mechanism</strong><br>
+          <pre class="cmd-line">
+Failure detected → switch to backup path
+          </pre>
+        </li>
+
+        <li>
+          <strong>Failback</strong><br>
+          <ul>
+            <li>Return to primary after recovery</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Link Aggregation (Bonding)</strong><br>
+          <pre class="cmd-line">
+Multiple NICs → Single logical interface
+          </pre>
+        </li>
+
+        <li>
+          <strong>LACP (802.3ad)</strong><br>
+          <ul>
+            <li>Dynamic link aggregation protocol</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Multi-Homing</strong><br>
+          <ul>
+            <li>Multiple network connections to different ISPs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Redundant Switches</strong><br>
+          <pre class="cmd-line">
+Server → Switch1 + Switch2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Spanning Tree Protocol (STP)</strong><br>
+          <ul>
+            <li>Prevents loops in redundant networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VRRP / Keepalived</strong><br>
+          <pre class="cmd-line">
+Virtual IP failover between routers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Load Balancer Integration</strong><br>
+          <pre class="cmd-line">
+Client → Load Balancer → Multiple Servers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cloud Redundancy</strong><br>
+          <ul>
+            <li>Multi-AZ deployment</li>
+            <li>Multi-region setup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing Protocols</strong><br>
+          <ul>
+            <li>BGP</li>
+            <li>OSPF</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Health Checks</strong><br>
+          <pre class="cmd-line">
+Monitor links → detect failure
+          </pre>
+        </li>
+
+        <li>
+          <strong>Heartbeat Mechanism</strong><br>
+          <pre class="cmd-line">
+Nodes exchange signals to confirm availability
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Failures Covered</strong><br>
+          <ul>
+            <li>Link failure</li>
+            <li>Switch failure</li>
+            <li>ISP outage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Impact</strong><br>
+          <ul>
+            <li>Improved uptime</li>
+            <li>Better load distribution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>Secure redundant paths</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Network loops</li>
+            <li>Misconfigured failover</li>
+            <li>Asymmetric routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check links
+Check routing
+Check failover config
+Check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Eliminate SPOF</li>
+            <li>Use active-active where possible</li>
+            <li>Test failover regularly</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+Data center with dual ISP + redundant switches + load balancers
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability Architecture</strong><br>
+          <pre class="cmd-line">
+Client → Redundant Network → Load Balancer → Servers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Redundant networking ensures high availability by providing backup paths and eliminating single points of failure in network design.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how redundant networking ensures continuous availability and fault tolerance.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

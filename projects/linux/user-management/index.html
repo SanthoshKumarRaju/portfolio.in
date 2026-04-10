@@ -3,29 +3,31 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>User Management — SKR</title>
+  <title>User Management</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
   <link rel="stylesheet" href="../../../css/global.css"/>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
 </head>
 <body>
 <div id="g-cur"></div>
 <div id="g-cur-r"></div>
 <nav class="g-nav">
-  <a class="g-nav__logo" href="../../../pages/home/home.html">SKR<span>.dev</span></a>
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
   <div class="g-nav__links">
-    <a class="g-nav__link" href="../../../pages/home/home.html">Home</a>
-    <a class="g-nav__link" href="../../../pages/certs/certs.html">Certs</a>
-    <a class="g-nav__link" href="../../../pages/projects/projects.html">Projects</a>
-    <a class="g-nav__link" href="../../../pages/about/about.html">About</a>
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
   </div>
   <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
 </nav>
 <div class="g-page proj-page">
-  <div class="proj-header">
+  <div class="proj-header" style="position:relative;">
     <div class="proj-bc">
       <a href="../../../pages/projects/projects.html">projects</a>
       <span>/</span>
-      <span>linux</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=user-management">linux</a>
       <span>/</span>
       <span class="proj-bc-cur">user-management</span>
     </div>
@@ -34,43 +36,1850 @@
   <div class="proj-body">
     <div class="proj-title-row">
       <div>
-        <div class="proj-concept">// Linux</div>
-        <h1 class="proj-title">User Management</h1>
-        <span class="g-tag tc">&bull; server</span>
-      </div>
-    </div>
-    <p class="proj-desc">User and group administration on a Linux server — service accounts, sudo rules, SSH key-based auth and file permission auditing.</p>
-    <div class="proj-section-title">Setup Steps</div>
-    <ol class="proj-steps">
-      <li>Create service user: <strong>useradd -m -s /bin/bash deploy</strong></li>
-      <li>Add to sudo: <strong>usermod -aG sudo deploy</strong></li>
-      <li>Create .ssh/authorized_keys with your public key</li>
-      <li>Verify with: <strong>su - deploy</strong></li>
-    </ol>
-    <div class="g-code">
-      <div class="g-code__bar">
-        <div class="g-code__dots">
-          <div class="g-code__dot" style="background:#ff5f57"></div>
-          <div class="g-code__dot" style="background:#febc2e"></div>
-          <div class="g-code__dot" style="background:#28c840"></div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
         </div>
-        <span class="g-code__fname">user-setup.sh</span>
-        <span class="g-code__lang">bash</span>
+        <h1 class="proj-title">User Management</h1>
+        <span class="g-tag tg">&bull;server</span>
+        <!-- terminal toggle button defined globally -->
+        <!-- <button class="terminal-btn" id="terminalBtn" type="button">Terminal</button> -->
       </div>
-      <div class="g-code__body"><span class="kw">useradd</span> -m -s /bin/bash deploy
-<span class="kw">usermod</span> -aG sudo deploy
-<span class="kw">mkdir</span> -p /home/deploy/.ssh
-<span class="kw">chmod</span> <span class="num">700</span> /home/deploy/.ssh
-echo <span class="str">"ssh-rsa AAAA..."</span> &gt;&gt; /home/deploy/.ssh/authorized_keys
-<span class="kw">chmod</span> <span class="num">600</span> /home/deploy/.ssh/authorized_keys
-<span class="kw">chown</span> -R deploy:deploy /home/deploy/.ssh</div>
     </div>
-    <div class="proj-meta">
-      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val" style="">Ubuntu 22.04</div></div>
-      <div class="pm-cell"><div class="pm-key">Where</div><div class="pm-val" style="">Production Server</div></div>
-      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val" style="color:var(--grn)">✓ Done</div></div>
+    <div class="proj-desc">
+      <span class="task-summary">Summary</span>
+      <p>
+        The User Management module covers the complete process of managing users on a Linux server, starting with understanding different user types and creating or modifying accounts using tools like <strong>useradd</strong>, <strong>usermod</strong>, and <strong>userdel</strong>. It also explains group management and how to implement least-privilege access using groups and sudo roles. The module focuses on security practices such as password policies, SSH key authentication, and protecting home directory permissions. Additionally, it includes monitoring login activity, auditing user accounts, and managing resource limits. Finally, it teaches how to lock, disable, or expire accounts to maintain a secure and production-ready server environment.
+        </p>
     </div>
-  </div>
+    <section class="task-board" aria-label="Linux setup and command tasks">
+      <div class="proj-section-title">User Management</div>
+      
+      <article class="task-card" data-task style="--i:1">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-1</span>
+      <span class="task-title">Understanding Linux User Types</span>
+      <span class="task-meta">20–25 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand different types of Linux users and how user identities
+      control access to system resources.
+      </p>
+
+      <ol class="task-steps-list">
+
+
+      <li>
+      <strong>What is a Linux User</strong><br>
+      A Linux user represents an identity that can log into the system and access files or run programs. Linux is designed as a multi-user operating system, meaning multiple users can operate on the same machine.
+      <div>Each user has:</div>
+      <ul>
+      <li>a username</li>
+      <li>a user ID (UID)</li>
+      <li>a home directory</li>
+      <li>a default shell</li>
+      </ul>
+      <div><code>Example user information:</code></div>
+      <pre class="cmd-line"><div>username: santhosh</div><div>UID: 1001</div><div>home directory: /home/santhosh</div><div>shell: /bin/bash</div></pre>
+      </li>
+
+      <li>
+      <strong>Viewing the Current User</strong><br>
+      To check the current logged-in user:
+      <div class="cmd">whoami</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">santhosh</pre>
+      </li>
+
+      <li>
+      <strong>Checking Logged-in Users</strong><br>
+      Linux can support multiple simultaneous user sessions.
+      <div>Check active users:</div>
+      <div class="cmd">who</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>santhosh pts/0 2026-03-13 10:12</div><div>admin    pts/1 2026-03-13 10:20</div></pre>
+      </li>
+
+      <li>
+      <strong>Main Types of Linux Users</strong><br>
+      Linux typically categorizes users into three main types:
+      <ul>
+      <li>Root user</li>
+      <li>System users</li>
+      <li>Regular users</li>
+      </ul>
+      Each type has different roles and permissions.
+      </li>
+
+      <li>
+      <strong>Root User (Administrator)</strong><br>
+      The root user is the superuser with full administrative privileges.
+      <div>Characteristics:</div>
+      <ul>
+      <li>UID = 0</li>
+      <li>can modify any file</li>
+      <li>can install software</li>
+      <li>can manage users</li>
+      <li>can control system services</li>
+      </ul>
+      <div><code>Example switching to root:</code></div>
+      <div class="cmd">sudo -i</div>
+      <div><code>Example root prompt:</code></div>
+      <pre class="cmd-line">root@server:~#</pre>
+      </li>
+
+      <li>
+      <strong>System Users</strong><br>
+      System users are accounts used by background services and applications.
+      <div><code>Examples include:</code></div>
+      <ul>
+      <li>mysql</li>
+      <li>nginx</li>
+      <li>www-data</li>
+      <li>daemon</li>
+      </ul>
+      These accounts normally do not log in interactively.
+      <div>View system users:</div>
+      <div class="cmd">cat /etc/passwd</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">mysql:x:110:114:MySQL Server:/nonexistent:/bin/false</pre>
+      <div>Notice that system users often have:</div>
+      <ul>
+      <li>no login shell</li>
+      <li>restricted access</li>
+      </ul>
+      </li>
+
+
+      <li>
+      <strong>Regular Users</strong><br>
+      Regular users are human users who log into the system.
+      <div><code>Example:</code></div>
+      <ul>
+      <li>developers</li>
+      <li>system administrators</li>
+      <li>operators</li>
+      </ul>
+      <div><code>Example user entry:</code></div>
+      <pre class="cmd-line">santhosh:x:1001:1001:Santhosh:/home/santhosh:/bin/bash</pre>
+      <div>These users have:</div> 
+      <ul>
+      <li>a home directory</li>
+      <li>a login shell</li>
+      <li>restricted system privileges</li>
+      </ul>
+      </li>
+
+
+      <li>
+      <strong>User ID (UID)</strong><br>
+      Each Linux user has a unique numeric identifier called UID.
+      <div><code>Example checking UID:</code></div>
+      <div class="cmd">id</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">uid=1001(santhosh) gid=1001(santhosh) groups=1001(santhosh),27(sudo)</pre>
+      <div>UID ranges usually follow this pattern:</div>
+      <table>
+      <tr>
+      <th>UID Range</th>
+      <th>Purpose</th>
+      </tr>
+      <tr>
+      <td>0</td>
+      <td>root user</td>
+      </tr>
+      <tr>
+      <td>1–999</td>
+      <td>system users</td>
+      </tr>
+      <tr>
+      <td>1000+</td>
+      <td>regular users</td>
+      </tr>
+      </table>
+      </li>
+
+      <li>
+      <strong>User Home Directories</strong><br>
+      Each user normally has a home directory.
+      <div><code>Example:</code></div>
+      <pre class="cmd-line">/home/santhosh</pre>
+      <div>Check home directory:</div>
+      <div class="cmd">echo $HOME</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">/home/santhosh</pre>
+      <div>Home directories store:</div>
+      <ul>
+      <li>user files</li>
+      <li>personal configuration</li>
+      <li>SSH keys</li>
+      <li>application settings</li>
+      </ul>
+      </li>
+
+
+      <li>
+      <strong>User Shell</strong><br>
+      The shell defines how users interact with the system.
+      <div>Common shells include:</div>
+      <ul>
+      <li>/bin/bash</li>
+      <li>/bin/zsh</li>
+      <li>/bin/sh</li>
+      </ul>
+      Check user shell:
+      <div class="cmd">echo $SHELL</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">/bin/bash</pre>
+      </li>
+
+
+      <li>
+      <strong>Why User Management Matters</strong><br>
+      Proper user management ensures system security.
+      <div>Benefits include:</div>
+      <ul>
+      <li>controlled system access</li>
+      <li>accountability for actions</li>
+      <li>protection of sensitive data</li>
+      <li>separation of administrative duties</li>
+      </ul>
+      User identities form the foundation of Linux security.
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand different Linux user
+      types including root users, system users, and regular users and how
+      user identities control access to system resources.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:2">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-2</span>
+      <span class="task-title">Creating and Managing Users</span>
+      <span class="task-meta">25–30 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Learn how to create, modify, secure, and remove user accounts on Linux systems using user management commands.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>Why User Management is Important</strong><br>
+      User management is essential for maintaining a secure multi-user environment.
+      <div>Administrators must control:</div>
+      <ul>
+      <li>who can access the system</li>
+      <li>what resources users can access</li>
+      <li>how user accounts are configured</li>
+      </ul>
+      Proper user management helps enforce security policies.
+      </li>
+
+      <li>
+      <strong>Creating a New User</strong><br>
+      The primary command used to create users is:
+      <div class="cmd">sudo useradd username</div>
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo useradd developer</div>
+      <div>Verify the user:</div>
+      <div class="cmd">id developer</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">uid=1002(developer) gid=1002(developer) groups=1002(developer)</pre>
+      </li>
+
+      <li>
+
+      <strong>Creating a User with Home Directory</strong><br>
+      Many distributions automatically create a home directory, but you can ensure it using:
+      <div class="cmd">sudo useradd -m developer</div>
+      <div>Check the directory:</div>
+      <div class="cmd">ls /home</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>developer</div><div>santhosh</div></pre>
+      </li>
+
+      <li>
+      <strong>Setting a User Password</strong><br>
+      After creating a user, assign a password:
+      <div class="cmd">sudo passwd developer</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Enter new UNIX password:</div><div>Retype new UNIX password:</div><div>passwd: password updated successfully</div></pre>
+      </li>
+
+      <li>
+      <strong>Using adduser Command</strong><br>
+      Some Linux systems provide the interactive command:
+      <div class="cmd">sudo adduser developer</div>
+      <div>This command automatically:</div>
+      <ul>
+      <li>creates the home directory</li>
+      <li>sets user password</li>
+      <li>assigns default groups</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Viewing User Information</strong><br>
+      User information is stored in:
+      <pre class="cmd-line">/etc/passwd</pre>
+      <div>Check specific user entry:</div>
+      <div class="cmd">grep developer /etc/passwd</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">developer:x:1002:1002::/home/developer:/bin/bash</pre>
+      <div>Fields represent:</div>
+      <ul>
+      <li>username</li>
+      <li>password placeholder</li>
+      <li>UID</li>
+      <li>GID</li>
+      <li>home directory</li>
+      <li>login shell</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Modifying User Accounts</strong><br>
+      User accounts can be modified using:
+      <div class="cmd">sudo usermod</div>
+      <div><code>Example changing username:</code></div>
+      <div class="cmd">sudo usermod -l devuser developer</div>
+      <div>Change home directory:</div>
+      <div class="cmd">sudo usermod -d /home/devuser devuser</div>
+      </li>
+
+      <li>
+      <strong>Adding Users to Groups</strong><br>
+      Users can be assigned additional groups.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo usermod -aG sudo developer</div>
+      <div>Verify:</div>
+      <div class="cmd">groups developer</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">developer : developer sudo</pre>
+      </li>
+
+      <li>
+      <strong>Locking and Unlocking User Accounts</strong><br>
+      Administrators may temporarily disable accounts.
+      <div>Lock account:</div>
+      <div class="cmd">sudo passwd -l developer</div>
+      <div>Unlock account:</div>
+      <div class="cmd">sudo passwd -u developer</div>
+      <div>Locked users cannot log in.</div>
+      </li>
+
+      <li>
+      <strong>Deleting User Accounts</strong><br>
+      <div>Remove user account:</div>
+      <div class="cmd">sudo userdel developer</div>
+      <div>Remove user and home directory:</div>
+      <div class="cmd">sudo userdel -r developer</div>
+      <div>Verify removal:</div>
+      <div class="cmd">id developer</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">id: developer: no such user</pre>
+      </li>
+
+      <li>
+      <strong>Creating Service Accounts</strong><br>
+      Service accounts are used by applications.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo useradd -r -s /usr/sbin/nologin nginx</div>
+      <div><code>Explanation:</code></div>
+      <ul>
+      <li>-r → system user</li>
+      <li>-s nologin → prevents login</li>
+      </ul>
+      Service accounts improve system security.
+      </li>
+
+      <li>
+      <strong>Password Aging and Expiration</strong><br>
+      Administrators can enforce password expiration.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo chage -l developer</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Last password change : Mar 12, 2026</div><div>Password expires : Jun 10, 2026</div></pre>
+      <div>Set expiration policy:</div>
+      <div class="cmd">sudo chage -M 90 developer</div>
+      <div>This forces password changes every 90 days.</div>
+      </li>
+
+      <li>
+      <strong>Security Best Practices for User Accounts</strong><br>
+      Administrators should follow these practices:
+      <ul>
+      <li>remove unused accounts</li>
+      <li>avoid shared user accounts</li>
+      <li>use strong passwords</li>
+      <li>enforce password rotation policies</li>
+      <li>create service accounts for applications</li>
+      </ul>
+      These practices help secure production servers.
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how to create, modify,
+      secure, and remove user accounts using Linux user management commands.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:3">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-3</span>
+      <span class="task-title">Group Management</span>
+      <span class="task-meta">25–30 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how Linux groups work and how administrators manage groups
+      to control access to shared resources.
+      </p>
+
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What is a Linux Group</strong><br>
+      A group is a collection of users who share common access permissions. Groups allow administrators to manage permissions for multiple users at the same time. Instead of assigning permissions to each user individually, permissions can be assigned to the group.
+      <div><code>Example:</code></div>
+      <pre class="cmd-line"><div>developers</div><div>admins</div><div>devops</div></pre>
+      <div>Users added to these groups automatically inherit the group permissions.</div>
+      </li>
+
+      <li>
+      <strong>Primary and Secondary Groups</strong><br>
+      Each Linux user belongs to:
+      <ul>
+      <li>a primary group</li>
+      <li>one or more secondary groups</li>
+      </ul>
+      Primary group:
+      <ul>
+      <li>assigned when the user is created</li>
+      <li>used for default file ownership</li>
+      </ul>
+      Secondary groups:
+      <ul>
+      <li>provide additional permissions</li>
+      <li>allow collaboration between users</li>
+      </ul>
+      Check group membership:
+      <div class="cmd">groups</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">santhosh : santhosh sudo docker devops</pre>
+      </li>
+
+      <li>
+      <strong>Viewing All Groups</strong><br>
+      Linux stores group information in:
+      <pre class="cmd-line">/etc/group</pre>
+      <div>To view all groups:</div>
+      <div class="cmd">cat /etc/group</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>root:x:0:</div><div>sudo:x:27:santhosh</div><div>docker:x:999:devops</div></pre>
+      <div>Each entry contains:</div>
+      <ul>
+      <li>group name</li>
+      <li>password placeholder</li>
+      <li>group ID (GID)</li>
+      <li>members</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Creating a New Group</strong><br>
+      Groups can be created using the groupadd command.
+      <div class="cmd">sudo groupadd developers</div>
+      <div>Verify group creation:</div>
+      <div class="cmd">grep developers /etc/group</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">developers:x:1003:</pre>
+      </li>
+
+      <li>
+      <strong>Adding Users to a Group</strong><br>
+      Users can be added to groups using the usermod command.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo usermod -aG developers santhosh</div>
+      <div>Verify:</div>
+      <div class="cmd">groups santhosh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">santhosh : santhosh developers sudo</pre>
+      <div>The user now belongs to the developers group.</div>
+      </li>
+
+      <li>
+      <strong>Removing Users from a Group</strong><br>
+      To remove a user from a group:
+      <div class="cmd">sudo gpasswd -d santhosh developers</div>
+      <div>Verify:</div>
+      <div class="cmd">groups santhosh</div>
+      </li>
+
+      <li>
+      <strong>Changing Group Ownership of Files</strong><br>
+      Group ownership determines which users can access files.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo chgrp developers project.txt</div>
+      <div>Verify:</div>
+      <div class="cmd">ls -l project.txt</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">-rw-r--r-- 1 santhosh developers 1024 Mar 14 project.txt</pre>
+      </li>
+
+      <li>
+      <strong>Deleting a Group</strong><br>
+      Unused groups can be removed.
+      <div>Example:</div>
+      <div class="cmd">sudo groupdel developers</div>
+      <div>Verify deletion:</div>
+      <div class="cmd">grep developers /etc/group</div>
+      </li>
+
+      <li>
+      <strong>Creating Collaborative Project Directories</strong><br>
+      Groups are often used for team collaboration.
+      <div>Example directory setup:</div>
+      <div class="cmd">sudo mkdir /project</div>
+      <div class="cmd">sudo chgrp developers /project</div>
+      <div class="cmd">sudo chmod 2775 /project</div>
+      <div><code>Explanation:</code></div>
+      <ul>
+      <li>2 → SGID bit</li>
+      <li>files inherit group ownership</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Checking Group IDs</strong><br>
+      Each group has a numeric identifier called GID.
+      <div>Check group information:</div>
+      <div class="cmd">getent group developers</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">developers:x:1003:santhosh</pre>
+      </li>
+
+      <li>
+      <strong>Best Practices for Group Management</strong><br>
+      Administrators should follow these guidelines:
+      <ul>
+      <li>use groups to manage shared resources</li>
+      <li>avoid giving permissions to individual users</li>
+      <li>review group memberships regularly</li>
+      <li>remove unused groups</li>
+      <li>apply least privilege principle</li>
+      </ul>
+      These practices improve security and simplify administration.
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux groups work
+      and how administrators manage group membership and permissions.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:4">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-4</span>
+      <span class="task-title">Understanding /etc/passwd, /etc/shadow and /etc/group</span>
+      <span class="task-meta">30–35 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how Linux stores user account information, password hashes,
+      and group membership data using system configuration files.
+      </p>
+
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>Introduction to Linux Account Files</strong><br>
+      Linux stores user and group information in several configuration files located in the <strong>/etc</strong> directory.
+      <div>The most important files are:</div>
+      <ul>
+      <li>/etc/passwd</li>
+      <li>/etc/shadow</li>
+      <li>/etc/group</li>
+      </ul>
+      These files define:
+      <ul>
+      <li>user identities</li>
+      <li>password authentication</li>
+      <li>group membership</li>
+      <li>user privileges</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>The /etc/passwd File</strong><br>
+      The <strong>/etc/passwd</strong> file contains basic user account information.
+      <div>View the file:</div>
+      <div class="cmd">cat /etc/passwd</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">santhosh:x:1001:1001:Santhosh:/home/santhosh:/bin/bash</pre>
+      <div>Each line represents one user account.</div>
+      </li>
+
+      <li>
+      <strong>Understanding /etc/passwd Fields</strong><br>
+      The /etc/passwd file contains seven fields separated by colons.
+      <div><code>Example:</code></div>
+      <pre class="cmd-line">santhosh:x:1001:1001:Santhosh:/home/santhosh:/bin/bash</pre>
+      <div>Field explanation:</div>
+      <table>
+      <tr>
+      <th>Field</th>
+      <th>Description</th>
+      </tr>
+      <tr>
+      <td>Username</td>
+      <td>Login name of the user</td>
+      </tr>
+      <tr>
+      <td>Password placeholder</td>
+      <td>Usually "x", indicating password stored in /etc/shadow</td>
+      </tr>
+      <tr>
+      <td>UID</td>
+      <td>User ID</td>
+      </tr>
+      <tr>
+      <td>GID</td>
+      <td>Primary group ID</td>
+      </tr>
+      <tr>
+      <td>Description</td>
+      <td>User information or comment</td>
+      </tr>
+      <tr>
+      <td>Home directory</td>
+      <td>User home directory</td>
+      </tr>
+      <tr>
+      <td>Login shell</td>
+      <td>Default command shell</td>
+      </tr>
+      </table>
+      </li>
+
+      <li>
+      <strong>The /etc/shadow File</strong><br>
+      Passwords are not stored directly in /etc/passwd.
+      <div>Instead they are stored securely in:</div>
+      <pre class="cmd-line">/etc/shadow</pre>
+      <div>View the file (requires root privileges):</div>
+      <div class="cmd">sudo cat /etc/shadow</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">santhosh:$6$randomhashvalue:19420:0:99999:7:::</pre>
+      <div>This file contains encrypted password hashes.</div>
+      </li>
+
+      <li>
+      <strong>Understanding /etc/shadow Fields</strong><br>
+      <div><code>Example entry:</code></div>
+      <pre class="cmd-line">santhosh:$6$hashvalue:19420:0:99999:7:::</pre>
+      <div>Field explanation:</div>
+      <table>
+      <tr>
+      <th>Field</th>
+      <th>Description</th>
+      </tr>
+      <tr>
+      <td>Username</td>
+      <td>User login name</td>
+      </tr>
+      <tr>
+      <td>Password hash</td>
+      <td>Encrypted password</td>
+      </tr>
+      <tr>
+      <td>Last password change</td>
+      <td>Days since password change</td>
+      </tr>
+      <tr>
+      <td>Minimum password age</td>
+      <td>Days before password change allowed</td>
+      </tr>
+      <tr>
+      <td>Maximum password age</td>
+      <td>Password expiration period</td>
+      </tr>
+      <tr>
+      <td>Warning period</td>
+      <td>Password expiration warning days</td>
+      </tr>
+      </table>
+      </li>
+
+      <li>
+      <strong>Password Hash Algorithms</strong><br>
+      Linux stores passwords using secure hash algorithms.
+      <div><code>Example hash format:</code></div>
+      <pre class="cmd-line">$6$hashvalue</pre>
+      <div>Meaning:</div>
+      <table>
+      <tr>
+      <th>Prefix</th>
+      <th>Algorithm</th>
+      </tr>
+      <tr>
+      <td>$1$</td>
+      <td>MD5</td>
+      </tr>
+      <tr>
+      <td>$5$</td>
+      <td>SHA-256</td>
+      </tr>
+      <tr>
+      <td>$6$</td>
+      <td>SHA-512</td>
+      </tr>
+      </table>
+      Modern systems typically use SHA-512.
+      </li>
+
+      <li>
+      <strong>The /etc/group File</strong><br>
+      Group membership information is stored in:
+      <pre class="cmd-line">/etc/group</pre>
+      <div>View group file:</div>
+      <div class="cmd">cat /etc/group</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">developers:x:1003:santhosh,alice</pre>
+      </li>
+
+      <li>
+      <strong>Understanding /etc/group Fields</strong><br>
+      <div><code>Example:</code></div>
+      <pre class="cmd-line">developers:x:1003:santhosh,alice</pre>
+      <div>Field explanation:</div>
+      <table>
+      <tr>
+      <th>Field</th>
+      <th>Description</th>
+      </tr>
+      <tr>
+      <td>Group name</td>
+      <td>Name of the group</td>
+      </tr>
+      <tr>
+      <td>Password placeholder</td>
+      <td>Usually unused</td>
+      </tr>
+      <tr>
+      <td>GID</td>
+      <td>Group ID</td>
+      </tr>
+      <tr>
+      <td>Members</td>
+      <td>Users belonging to the group</td>
+      </tr>
+      </table>
+      </li>
+
+      <li>
+      <strong>Checking User Information</strong><br>
+      To view detailed user information:
+      <div class="cmd">id santhosh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">uid=1001(santhosh) gid=1001(santhosh) groups=1001(santhosh),27(sudo)</pre>
+      </li>
+
+      <li>
+      <strong>Security of Account Files</strong><br>
+      These files have restricted permissions.
+      <div>Check shadow file permissions:</div>
+      <div class="cmd">ls -l /etc/shadow</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">-rw-r----- 1 root shadow 1200 Mar 10 /etc/shadow</pre>
+      <div>Only root and privileged programs can read this file.</div>
+      </li>
+
+      <li>
+      <strong>Why These Files Matter</strong><br>
+      Understanding these files is important for:
+      <ul>
+      <li>user account management</li>
+      <li>authentication troubleshooting</li>
+      <li>security auditing</li>
+      <li>server administration</li>
+      </ul>
+      System administrators often inspect these files when debugging
+      login problems or investigating security issues.
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux stores user
+      accounts, password hashes, and group information in system files.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:5">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-5</span>
+      <span class="task-title">Sudo and Privilege Delegation</span>
+      <span class="task-meta">30–35 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how the sudo command allows controlled administrative
+      privileges and how to configure secure privilege delegation.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>Why Privilege Delegation is Needed</strong><br>
+      Linux systems restrict administrative privileges to the root user. However, system administrators often need to allow certain users to perform administrative tasks without giving full root access.
+      The <strong>sudo</strong> command solves this problem by allowing controlled privilege delegation.
+      <div>Benefits of sudo:</div>
+      <ul>
+      <li>improves security</li>
+      <li>provides activity logging</li>
+      <li>limits administrative privileges</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>What is the sudo Command</strong><br>
+      The sudo command allows a permitted user to run a command as root or another user.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo apt update</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>[sudo] password for santhosh:</div><div>Reading package lists... Done</div></pre>
+      <div>The system temporarily grants elevated privileges.</div>
+      </li>
+
+      <li>
+      <strong>Checking User Sudo Privileges</strong><br>
+      To view commands a user can run using sudo:
+      <div class="cmd">sudo -l</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>User santhosh may run the following commands on this host:</div><div>  (ALL : ALL) ALL</div></pre>
+      <div>This means the user can execute any command using sudo.</div>
+      </li>
+
+      <li>
+      <strong>Adding Users to the sudo Group</strong><br>
+      Many Linux distributions grant sudo access through group membership.
+      <div><code>Example adding user to sudo group:</code></div>
+      <div class="cmd">sudo usermod -aG sudo developer</div>
+      <div>Verify membership:</div>
+      <div class="cmd">groups developer</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">developer : developer sudo</pre>
+      </li>
+
+      <li>
+      <strong>The /etc/sudoers File</strong><br>
+      The sudo configuration file is located at:
+      <pre class="cmd-line">/etc/sudoers</pre>
+      <div>This file defines which users and groups can run commands with elevated privileges.</div>
+      <div><code>Example entry:</code></div>
+      <pre class="cmd-line">%sudo ALL=(ALL:ALL) ALL</pre>
+      <div>Meaning:</div>
+      <ul>
+      <li>members of sudo group</li>
+      <li>can execute any command</li>
+      <li>as any user</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Editing the sudoers File Safely</strong><br>
+      The sudoers file should always be edited using:
+      <div class="cmd">sudo visudo</div>
+      <div>Why visudo?</div>
+      <ul>
+      <li>checks syntax errors</li>
+      <li>prevents configuration mistakes</li>
+      <li>protects the system from misconfiguration</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Granting Specific Command Permissions</strong><br>
+      Administrators can limit which commands users can run.
+      <div>Example:</div>
+      <pre class="cmd-line">developer ALL=(ALL) /usr/bin/systemctl restart nginx</pre>
+      <div>This allows the developer user to restart nginx but not run other administrative commands.</div>
+      </li>
+
+      <li>
+      <strong>Running Commands as Another User</strong><br>
+      Sudo can execute commands as another user.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo -u nginx whoami</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">nginx</pre>
+      <div>This runs the command as the nginx user.</div>
+      </li>
+
+      <li>
+      <strong>Switching to Root Shell</strong><br>
+      To open a root shell:
+      <div class="cmd">sudo -i</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">root@server:~#</pre>
+      <div>This grants full root access until the session ends.</div>
+      </li>
+
+      <li>
+      <strong>Sudo Logging and Auditing</strong><br>
+      Sudo logs all executed commands.
+      <div>Logs are stored in:</div>
+      <pre class="cmd-line">/var/log/auth.log</pre>
+      <div>Check logs:</div>
+      <div class="cmd">sudo tail /var/log/auth.log</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">sudo: santhosh : TTY=pts/0 ; COMMAND=/usr/bin/apt update</pre>
+      <div>This helps administrators audit system activity.</div>
+      </li>
+
+      <li>
+      <strong>Security Best Practices for Sudo</strong><br>
+      Administrators should follow these best practices:
+      <ul>
+      <li>avoid giving full sudo access to all users</li>
+      <li>grant only required commands</li>
+      <li>review sudo privileges regularly</li>
+      <li>monitor sudo logs</li>
+      </ul>
+      Proper sudo configuration prevents privilege escalation attacks.
+      </li>
+
+      <li>
+      <strong>Real Production Scenario</strong><br>
+      <div><code>Example DevOps environment:</code></div>
+      <ul>
+      <li>developers can restart application services</li>
+      <li>only administrators can modify system configuration</li>
+      <li>all actions are logged</li>
+      </ul>
+      <div><code>Example rule:</code></div>
+      <pre class="cmd-line">%developers ALL=(ALL) /usr/bin/systemctl restart app</pre>
+      <div>This ensures controlled privilege delegation.</div>
+      </li>
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux sudo
+      controls administrative privileges and how to safely configure
+      privilege delegation.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:6">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-6</span>
+      <span class="task-title">SSH Authentication and Access Control</span>
+      <span class="task-meta">30–35 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how SSH authentication works and how to configure secure
+      remote access using SSH keys and access control policies.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What is SSH</strong><br>
+      SSH (Secure Shell) is a protocol used to securely access remote Linux systems over a network.
+      <div>Administrators use SSH to:</div>
+      <ul>
+      <li>manage remote servers</li>
+      <li>execute commands</li>
+      <li>transfer files</li>
+      <li>perform system administration tasks</li>
+      </ul>
+      <div><code>Example connecting to a server:</code></div>
+      <div class="cmd">ssh user@server-ip</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">user@192.168.1.10's password:</pre>
+      </li>
+
+      <li>
+      <strong>Password Authentication</strong><br>
+      By default, SSH allows login using passwords.
+      <div><code>Example login process:</code></div>
+      <div class="cmd">ssh santhosh@server</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">santhosh@server's password:</pre>
+      <div>However, password authentication is vulnerable to:</div>
+      <ul>
+      <li>brute force attacks</li>
+      <li>password guessing</li>
+      <li>credential theft</li>
+      </ul>
+      Therefore, production systems use SSH keys instead.
+      </li>
+
+      <li>
+      <strong>SSH Key Authentication</strong><br>
+      SSH key authentication uses a pair of cryptographic keys:
+      <ul>
+      <li>public key</li>
+      <li>private key</li>
+      </ul>
+      The public key is stored on the server, and the private key remains on the client machine.
+      This method provides stronger security than passwords.
+      </li>
+
+      <li>
+      <strong>Generating SSH Keys</strong><br>
+      Generate SSH key pair:
+      <div class="cmd">ssh-keygen</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Generating public/private rsa key pair.</div><div>Enter file in which to save the key (/home/user/.ssh/id_rsa):</div></pre>
+      <div>Default files created:</div>
+      <pre class="cmd-line"><div>~/.ssh/id_rsa</div><div>~/.ssh/id_rsa.pub</div></pre>
+      </li>
+
+      <li>
+      <strong>Understanding Key Files</strong><br>
+      Private key:
+      <pre class="cmd-line">~/.ssh/id_rsa</pre>
+      <div>Public key:</div>
+      <pre class="cmd-line">~/.ssh/id_rsa.pub</pre>
+      <div>Security rule:</div>
+      <ul>
+      <li>never share private keys</li>
+      <li>only distribute public keys</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Copying Public Key to Server</strong><br>
+      The easiest way to copy the key is:
+      <div class="cmd">ssh-copy-id user@server</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Number of key(s) added: 1</div><div>Now try logging into the machine</div></pre>
+      <div>This command adds the public key to:</div>
+      <pre class="cmd-line">~/.ssh/authorized_keys</pre>
+      </li>
+
+      <li>
+      <strong>Authorized Keys File</strong><br>
+      The server stores trusted keys inside:
+      <pre class="cmd-line">~/.ssh/authorized_keys</pre>
+      <div><code>Example:</code></div>
+      <div class="cmd">cat ~/.ssh/authorized_keys</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...</pre>
+      <div>Any client with the matching private key can authenticate.</div>
+      </li>
+
+      <li>
+      <strong>Correct SSH Directory Permissions</strong><br>
+      SSH requires strict file permissions.
+      <div>Set permissions:</div>
+      <div class="cmd">chmod 700 ~/.ssh</div>
+      <div class="cmd">chmod 600 ~/.ssh/authorized_keys</div>
+      <div>Verify:</div>
+      <div class="cmd">ls -ld ~/.ssh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">drwx------ 2 santhosh santhosh 4096 .ssh</pre>
+      </li>
+
+      <li>
+      <strong>Disabling Password Authentication</strong><br>
+      For better security, disable password logins.
+      <div>Edit SSH configuration:</div>
+      <div class="cmd">sudo nano /etc/ssh/sshd_config</div>
+      <div>Change settings:</div>
+      <pre class="cmd-line"><div>PasswordAuthentication no</div><div>PermitRootLogin no</div></pre>
+      <div>Restart SSH:</div>
+      <div class="cmd">sudo systemctl restart ssh</div>
+      </li>
+
+      <li>
+      <strong>Restricting SSH Access</strong><br>
+      Administrators can restrict SSH access to specific users.
+      <div>Edit configuration:</div>
+      <pre class="cmd-line">AllowUsers santhosh admin</pre>
+      <div>This prevents other users from logging in via SSH.</div>
+      </li>
+
+      <li>
+      <strong>Monitoring SSH Login Activity</strong><br>
+      Login attempts are recorded in system logs.
+      <div>Check authentication logs:</div>
+      <div class="cmd">sudo tail /var/log/auth.log</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">Accepted publickey for santhosh from 192.168.1.5</pre>
+      </li>
+
+      <li>
+      <strong>Security Best Practices</strong><br>
+      Best practices for SSH security include:
+      <ul>
+      <li>use SSH key authentication</li>
+      <li>disable password authentication</li>
+      <li>disable root login</li>
+      <li>restrict login users</li>
+      <li>monitor login logs</li>
+      </ul>
+      These practices significantly improve server security.
+      </li>
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how SSH authentication
+      works and how to configure secure key-based access for Linux servers.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:7">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-7</span>
+      <span class="task-title">Home Directory Security</span>
+      <span class="task-meta">25–30 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how Linux protects user home directories and how to secure
+      personal files, SSH keys, and configuration data.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What is a Home Directory</strong><br>
+      Each Linux user has a home directory where personal files, configuration settings, and application data are stored.
+      <div>Typical location:</div>
+      <pre class="cmd-line">/home/username</pre>
+      <div><code>Example:</code></div>
+      <pre class="cmd-line"><div>/home/santhosh</div><div>/home/developer</div></pre>
+      <div>Home directories allow users to store their files separately from system files.</div>
+      </li>
+
+      <li>
+      <strong>Viewing Home Directory Permissions</strong><br>
+      Check directory permissions:
+      <div class="cmd">ls -ld /home/santhosh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">drwxr-x--- 20 santhosh santhosh 4096 Mar 15 /home/santhosh</pre>
+      <div>Permission meaning:</div>
+      <ul>
+      <li>owner → full access</li>
+      <li>group → limited access</li>
+      <li>others → no access</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Securing Home Directory Permissions</strong><br>
+      Home directories should not be accessible by other users.
+      <div>Recommended permission:</div>
+      <div class="cmd">chmod 700 /home/santhosh</div>
+      <div>Verify:</div>
+      <div class="cmd">ls -ld /home/santhosh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">drwx------ 20 santhosh santhosh 4096 /home/santhosh</pre>
+      <div>This ensures only the user can access their files.</div>
+      </li>
+
+      <li>
+      <strong>Understanding Hidden Configuration Files</strong><br>
+      Home directories contain hidden configuration files.
+      <div>List hidden files:</div>
+      <div class="cmd">ls -la</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>.bashrc</div><div>.profile</div><div>.ssh</div><div>.gitconfig</div></pre>
+      <div>These files store user environment settings.</div>
+      </li>
+
+      <li>
+      <strong>The .ssh Directory</strong><br>
+      The `.ssh` directory stores SSH authentication keys.
+      <div>Location:</div>
+      <pre class="cmd-line">~/.ssh</pre>
+      <div>View contents:</div>
+      <div class="cmd">ls ~/.ssh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>id_rsa</div><div>id_rsa.pub</div><div>authorized_keys</div><div>known_hosts</div></pre>
+      </li>
+
+
+      <li>
+      <strong>SSH Private Key Protection</strong><br>
+      Private keys must be protected with strict permissions.
+      <div>Set secure permissions:</div>
+      <div class="cmd">chmod 600 ~/.ssh/id_rsa</div>
+      <div>Verify:</div>
+      <div class="cmd">ls -l ~/.ssh/id_rsa</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">-rw------- 1 santhosh santhosh id_rsa</pre>
+      <div>Private keys should never be readable by others.</div>
+      </li>
+
+      <li>
+      <strong>Securing the .ssh Directory</strong><br>
+      The SSH directory itself must also be protected.
+      <div>Set directory permissions:</div>
+      <div class="cmd">chmod 700 ~/.ssh</div>
+      <div>Verify:</div>
+      <div class="cmd">ls -ld ~/.ssh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">drwx------ 2 santhosh santhosh .ssh</pre>
+      <div>Improper permissions can cause SSH login failures.</div>
+      </li>
+
+      <li>
+      <strong>Protecting the authorized_keys File</strong><br>
+      The authorized_keys file stores public keys allowed to access the server.
+      <div>Set correct permissions:</div>
+      <div class="cmd">chmod 600 ~/.ssh/authorized_keys</div>
+      <div>Verify:</div>
+      <div class="cmd">ls -l ~/.ssh/authorized_keys</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">-rw------- 1 santhosh santhosh authorized_keys</pre>
+      </li>
+
+      <li>
+      <strong>Checking Disk Usage in Home Directory</strong><br>
+      Administrators often monitor storage usage.
+      <div>Example command:</div>
+      <div class="cmd">du -sh /home/*</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>2.1G /home/santhosh</div><div>350M /home/developer</div></pre>
+      <div>This helps identify large files or storage issues.</div>
+      </li>
+
+      <li>
+      <strong>Preventing Unauthorized File Access</strong><br>
+      Administrators should ensure that sensitive files are protected.
+      <div><code>Examples:</code></div>
+      <ul>
+      <li>SSH private keys</li>
+      <li>environment variables</li>
+      <li>API credentials</li>
+      <li>application secrets</li>
+      </ul>
+      <div><code>Example permission check:</code></div>
+      <div class="cmd">find /home -type f -perm -o+r</div>
+      <div>This finds files readable by all users.</div>
+      </li>
+
+      <li>
+      <strong>Best Practices for Home Directory Security</strong><br>
+      Administrators should follow these practices:
+      <ul>
+      <li>restrict home directory permissions</li>
+      <li>protect SSH private keys</li>
+      <li>monitor disk usage</li>
+      <li>remove unused files</li>
+      <li>audit sensitive configuration files</li>
+      </ul>
+      These practices help maintain secure user environments.
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux home directories
+      are structured and how administrators secure user data and SSH keys.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:8">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-8</span>
+      <span class="task-title">Monitoring and Auditing User Accounts</span>
+      <span class="task-meta">30–35 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Learn how Linux administrators monitor user logins, track activity,
+      audit account usage, and detect suspicious system access.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>Why User Monitoring is Important</strong><br>
+      Linux servers are often used by multiple users and services.
+      <div>Administrators must monitor system access to:</div>
+      <ul>
+      <li>detect unauthorized logins</li>
+      <li>investigate security incidents</li>
+      <li>audit user activity</li>
+      <li>identify inactive accounts</li>
+      </ul>
+      Monitoring helps maintain system security and accountability.
+      </li>
+
+      <li>
+      <strong>Viewing Currently Logged-In Users</strong><br>
+      To see users currently logged into the system:
+      <div class="cmd">who</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>santhosh pts/0 2026-03-16 10:20 (192.168.1.5)</div><div>developer pts/1 2026-03-16 10:25 (192.168.1.20)</div></pre>
+      <div>Information shown:</div>
+      <ul>
+      <li>username</li>
+      <li>terminal session</li>
+      <li>login time</li>
+      <li>remote IP address</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Viewing Active User Sessions</strong><br>
+      Another useful command is:
+      <div class="cmd">w</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>USER     TTY      FROM            LOGIN@   IDLE   JCPU   PCPU WHAT</div><div>santhosh pts/0    192.168.1.5     10:20    2:10   0.03s  0.01s bash</div><div>developer pts/1   192.168.1.20    10:25    0.00s  0.02s  0.01s vim</div></pre>
+      <div>This command also shows what each user is currently doing.</div>
+      </li>
+
+      <li>
+      <strong>Viewing Login History</strong><br>
+      To view historical login records:
+      <div class="cmd">last</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>santhosh pts/0 192.168.1.5 Mon Mar 16 10:20 still logged in</div><div>developer pts/1 192.168.1.20 Mon Mar 16 10:10 - 10:15 (00:05)</div></pre>
+      <div>The command reads information from:</div>
+      <pre class="cmd-line"><div>/var/log/wtmp</div></pre>
+      </li>
+
+      <li>
+      <strong>Checking Failed Login Attempts</strong><br>
+      To view failed login attempts:
+      <div class="cmd">lastb</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">root ssh:notty 192.168.1.200 Mon Mar 16 09:10 - 09:10 (00:00)</pre>
+      <div>These records are stored in:</div>
+      <pre class="cmd-line"><div>/var/log/btmp</div></pre>
+      <div>Frequent failures may indicate brute-force attacks.</div>
+      </li>
+
+      <li>
+      <strong>Viewing Last Login for Each User</strong><br>
+      To see the last login time for each user:
+      <div class="cmd">lastlog</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Username     Port     From           Latest</div><div>santhosh     pts/0    192.168.1.5    Mon Mar 16 10:20</div><div>developer    pts/1    192.168.1.20   Mon Mar 16 10:10</div></pre>
+      <div>This helps administrators detect inactive accounts.</div>
+      </li>
+
+      <li>
+      <strong>Checking User Login Sessions</strong><br>
+      View all sessions for a specific user:
+      <div class="cmd">last santhosh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>santhosh pts/0 192.168.1.5 Mon Mar 16 10:20 still logged in</div><div>santhosh pts/2 192.168.1.3 Sun Mar 15 09:10 - 09:40</div></pre>
+      </li>
+
+      <li>
+      <strong>Monitoring Authentication Logs</strong><br>
+      Linux records login attempts and sudo activity in log files.
+      <div>Check authentication logs:</div>
+      <div class="cmd">sudo tail /var/log/auth.log</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Accepted publickey for santhosh from 192.168.1.5</div><div>Failed password for admin from 192.168.1.200</div></pre>
+      <div>These logs are essential for security investigations.</div>
+      </li>
+
+      <li>
+      <strong>Tracking Sudo Usage</strong><br>
+      Sudo commands are logged for auditing.
+      <div><code>Example log entry:</code></div>
+      <pre class="cmd-line">sudo: santhosh : COMMAND=/usr/bin/apt update</pre>
+      <div>Check sudo activity:</div>
+      <div class="cmd">grep sudo /var/log/auth.log</div>
+      <div>This shows administrative actions performed by users.</div>
+      </li>
+
+      <li>
+      <strong>Monitoring Active Processes by User</strong><br>
+      Administrators may check processes started by users.
+      <div><code>Example:</code></div>
+      <div class="cmd">ps -u santhosh</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>PID  TTY   TIME  CMD</div><div>2043 pts/0 00:00 bash</div><div>2201 pts/0 00:00 vim</div></pre>
+      <div>This helps identify suspicious activity.</div>
+      </li>
+
+      <li>
+      <strong>Detecting Inactive Accounts</strong><br>
+      Unused accounts should be reviewed or removed.
+      <div><code>Example command:</code></div>
+      <div class="cmd">lastlog | grep "Never logged in"</div>
+      <div>Inactive accounts may pose security risks.</div>
+      </li>
+
+      <li>
+      <strong>Security Best Practices for User Auditing</strong><br>
+      Administrators should follow these practices:
+      <ul>
+      <li>monitor login history regularly</li>
+      <li>review failed login attempts</li>
+      <li>audit sudo activity</li>
+      <li>remove inactive user accounts</li>
+      <li>monitor unusual login locations</li>
+      </ul>
+      These practices help detect potential security threats early.
+      </li>
+
+      <li>
+      <strong>Real Production Scenario</strong><br>
+      <div><code>Example security investigation workflow:</code></div>
+      <ul>
+      <li>Check login history using <strong>last</strong></li>
+      <li>Review failed attempts using <strong>lastb</strong></li>
+      <li>Analyze logs in <strong>/var/log/auth.log</strong></li>
+      <li>Inspect running processes</li>
+      </ul>
+      This helps identify compromised accounts or unauthorized access.
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux administrators
+      monitor user activity, track login history, and audit system access
+      for security purposes.
+      </div>
+      </div>
+      </div>
+
+      </article>
+
+      <article class="task-card" data-task style="--i:9">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-9</span>
+      <span class="task-title">Resource Limits and Account Restrictions</span>
+      <span class="task-meta">30–35 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Learn how Linux administrators control system resource usage by setting
+      limits on CPU, memory, open files, and processes for users and groups.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>Why Resource Limits Are Important</strong><br>
+      In multi-user Linux systems, multiple users and services share the same system resources.
+      <div>Without limits, a single user could:</div>
+      <ul>
+      <li>consume all CPU resources</li>
+      <li>open too many files</li>
+      <li>create excessive processes</li>
+      <li>exhaust system memory</li>
+      </ul>
+      Resource limits protect system stability.
+      </li>
+
+      <li>
+      <strong>Understanding ulimit</strong><br>
+      Linux provides a command called <strong>ulimit</strong> to control resource usage for a user session.
+      <div>Check current limits:</div>
+      <div class="cmd">ulimit -a</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>core file size          (blocks, -c)  0</div><div>data seg size           (kbytes, -d)  unlimited</div><div>file size               (blocks, -f)  unlimited</div><div>open files                      (-n)  1024</div><div>max user processes              (-u)  4096</div><div>stack size              (kbytes, -s)  8192</div></pre>
+      </li>
+
+      <li>
+      <strong>Types of Resource Limits</strong><br>
+      Linux supports multiple resource limits.
+      <div>Common examples:</div>
+      <ul>
+      <li>maximum open files</li>
+      <li>maximum processes</li>
+      <li>maximum memory usage</li>
+      <li>maximum CPU time</li>
+      <li>maximum file size</li>
+      </ul>
+      These limits protect system performance.
+      </li>
+
+      <li>
+      <strong>Soft Limits vs Hard Limits</strong><br>
+      Linux defines two types of limits:
+      <ul>
+      <li>Soft limit</li>
+      <li>Hard limit</li>
+      </ul>
+      Soft limit:
+      <ul>
+      <li>default limit applied to users</li>
+      <li>can be changed by the user</li>
+      </ul>
+      Hard limit:
+      <ul>
+      <li>maximum allowed limit</li>
+      <li>only root can modify</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Setting Temporary Limits</strong><br>
+      Limits can be changed temporarily for a session.
+      <div>Example limiting open files:</div>
+      <div class="cmd">ulimit -n 200</div>
+      <div>Verify:</div>
+      <div class="cmd">ulimit -n</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">200</pre>
+      <div>This limit applies only to the current session.</div>
+      </li>
+
+      <li>
+      <strong>Permanent Resource Limits</strong><br>
+      Permanent limits are configured in:
+      <pre class="cmd-line">/etc/security/limits.conf</pre>
+      <div>Edit configuration file:</div>
+      <div class="cmd">sudo nano /etc/security/limits.conf</div>
+      <div><code>Example configuration:</code></div>
+      <pre class="cmd-line"><div>developer soft nofile 2048</div><div>developer hard nofile 4096</div></pre>
+      <div>This sets limits for the developer user.</div>
+      </li>
+
+      <li>
+      <strong>Understanding limits.conf Fields</strong><br>
+      <div><code>Example rule:</code></div>
+      <pre class="cmd-line">developer soft nproc 100</pre>
+      <div>Field explanation:</div>
+      <table>
+      <tr>
+      <th>Field</th>
+      <th>Description</th>
+      </tr>
+      <tr>
+      <td>developer</td>
+      <td>user or group name</td>
+      </tr>
+      <tr>
+      <td>soft</td>
+      <td>soft limit</td>
+      </tr>
+      <tr>
+      <td>nproc</td>
+      <td>maximum processes</td>
+      </tr>
+      <tr>
+      <td>100</td>
+      <td>limit value</td>
+      </tr>
+      </table>
+      </li>
+
+      <li>
+      <strong>Applying Limits to Groups</strong><br>
+      Limits can also be applied to groups.
+      <div><code>Example:</code></div>
+      <pre class="cmd-line">@developers hard nproc 200</pre>
+      <div>The "@" symbol indicates a group rule.</div>
+      <div>This limits the number of processes developers can create.</div>
+      </li>
+
+      <li>
+      <strong>PAM and Resource Limits</strong><br>
+      Linux uses PAM (Pluggable Authentication Modules) to enforce limits.
+      <div>Ensure the limits module is enabled:</div>
+      <div class="cmd">cat /etc/pam.d/common-session</div>
+      <div>Look for:</div>
+      <pre class="cmd-line">session required pam_limits.so</pre>
+      <div>This ensures limits.conf rules are applied.</div>
+      </li>
+
+      <li>
+      <strong>Monitoring System Resource Usage</strong><br>
+      Administrators often monitor resource consumption.
+      <div>Check running processes:</div>
+      <div class="cmd">top</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND</div><div>2043 santhosh 20 0 120m 10m 2m S 0.3 0.5 00:00 bash</div></pre>
+      </li>
+
+      <li>
+      <strong>Preventing Fork Bomb Attacks</strong><br>
+      A fork bomb is a malicious script that creates infinite processes.
+      <div><code>Example of a fork bomb:</code></div>
+      <pre class="cmd-line">:(){ :|:& };:</pre>
+      <div>Resource limits prevent these attacks.</div>
+      <div><code>Example limit:</code></div>
+      <pre class="cmd-line">* hard nproc 100</pre>
+      <div>This restricts maximum processes per user.</div>
+      </li>
+
+      <li>
+      <strong>Best Practices for Resource Limits</strong><br><
+      Administrators should follow these practices:
+      <ul>
+      <li>limit maximum processes per user</li>
+      <li>restrict open file limits</li>
+      <li>monitor system resource usage</li>
+      <li>configure limits for shared servers</li>
+      </ul>
+      These practices protect server stability.
+      </li>
+
+      <li>
+      <strong>Production Scenario</strong><br>
+      <div><code>Example production configuration:</code></div>
+      <pre class="cmd-line"><div>* soft nofile 4096</div><div>* hard nofile 8192</div><div>* hard nproc 200</div></pre>
+      <div>This ensures that users cannot exhaust system resources.</div>
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux administrators
+      control system resources using ulimit and limits.conf.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:10">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-10</span>
+      <span class="task-title">Production Security Best Practices for User Accounts</span>
+      <span class="task-meta">35–40 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand best practices used in production Linux servers to secure
+      user accounts, manage privileges, and prevent unauthorized access.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>Principle of Least Privilege</strong><br>
+      One of the most important security principles is the <strong>least privilege principle</strong>. Users should only receive the minimum permissions required to perform their tasks.
+      <div>Benefits:</div>
+      <ul>
+      <li>reduces risk of accidental system damage</li>
+      <li>limits impact of compromised accounts</li>
+      <li>protects sensitive system files</li>
+      </ul>
+      <code>Example insecure permission:</code>
+      <pre class="cmd-line">chmod 777 file.txt</pre>
+      <div>Secure alternative:</div>
+      <pre class="cmd-line">chmod 640 file.txt</pre>
+      </li>
+
+      <li>
+      <strong>Disable Direct Root Login</strong><br>
+      Allowing direct root login increases security risk. Instead, administrators should use sudo.
+      <div>Edit SSH configuration:</div>
+      <div class="cmd">sudo nano /etc/ssh/sshd_config</div>
+      <div>Set:</div>
+      <pre class="cmd-line">PermitRootLogin no</pre>
+      <div>Restart SSH:</div>
+      <div class="cmd">sudo systemctl restart ssh</div>
+      </li>
+
+      <li>
+      <strong>Use SSH Key Authentication</strong><br>
+      Password-based SSH logins are vulnerable to brute-force attacks. Instead, use SSH keys.
+      <div>Generate key:</div>
+      <div class="cmd">ssh-keygen</div>
+      <div>Copy key to server:</div>
+      <div class="cmd">ssh-copy-id user@server</div>
+      <div>Disable password authentication:</div>
+      <pre class="cmd-line">PasswordAuthentication no</pre>
+      </li>
+
+      <li>
+      <strong>Restrict SSH Access</strong><br>
+      Administrators should limit which users can access the server.
+      <div>Edit SSH configuration:</div>
+      <pre class="cmd-line">AllowUsers santhosh admin</pre>
+      <div>Or allow specific groups:</div>
+      <pre class="cmd-line">AllowGroups devops admins</pre>
+      </li>
+
+      <li>
+      <strong>Remove Unused Accounts</strong><br>
+      Unused accounts create security risks.
+      <div>Find inactive accounts:</div>
+      <div class="cmd">lastlog</div>
+      <div>Remove unused accounts:</div>
+      <div class="cmd">sudo userdel username</div>
+      <div>Or disable account:</div>
+      <div class="cmd">sudo passwd -l username</div>
+      </li>
+
+      <li>
+      <strong>Monitor User Login Activity</strong><br>
+      Administrators should regularly monitor login activity.
+      <div>Check login history:</div>
+      <div class="cmd">last</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">santhosh pts/0 192.168.1.5 Mon Mar 16 10:20 still logged in</pre>
+      <div>Check failed login attempts:</div>
+      <div class="cmd">lastb</div>
+      </li>
+
+      <li>
+      <strong>Audit Sudo Usage</strong><br>
+      All sudo commands are logged.
+      <div>Check sudo logs:</div>
+      <div class="cmd">grep sudo /var/log/auth.log</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">sudo: santhosh : COMMAND=/usr/bin/systemctl restart nginx</pre>
+      <div>This helps track administrative activity.</div>
+      </li>
+
+      <li>
+      <strong>Implement Strong Password Policies</strong><br>
+      Password policies help prevent unauthorized access.
+      <div>Configure password expiration:</div>
+      <div class="cmd">sudo chage -M 90 username</div>
+      <div>This forces password changes every 90 days.</div>
+      <div>Check password policy:</div>
+      <div class="cmd">sudo chage -l username</div>
+      </li>
+
+      <li>
+      <strong>Use Service Accounts for Applications</strong><br>
+      Applications should run under dedicated service accounts.
+      <div><code>Example:</code></div>
+      <div class="cmd">sudo useradd -r -s /usr/sbin/nologin nginx</div>
+      <div>Benefits:</div>
+      <ul>
+      <li>isolates applications</li>
+      <li>limits system access</li>
+      <li>improves security</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Regularly Review Group Membership</strong><br>
+      Users may gain unnecessary privileges over time.
+      <div>Check group membership:</div>
+      <div class="cmd">groups username</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">username : username sudo docker</pre>
+      <div>Remove unnecessary groups:</div>
+      <div class="cmd">sudo gpasswd -d username docker</div>
+      </li>
+
+      <li>
+      <strong>Enable Security Monitoring Tools</strong><br>
+      Production servers often use security tools.
+      <div><code>Examples include:</code></div>
+      <ul>
+      <li>fail2ban</li>
+      <li>auditd</li>
+      <li>rkhunter</li>
+      <li>chkrootkit</li>
+      </ul>
+      Install fail2ban:
+      <div class="cmd">sudo apt install fail2ban</div>
+      <div>Fail2ban blocks IP addresses with repeated failed logins.</div>
+      </li>
+
+      <li>
+      <strong>Regular System Updates</strong><br>
+      Keeping the system updated is essential for security.
+      <div>Update package lists:</div>
+      <div class="cmd">sudo apt update</div>
+      <div>Upgrade packages:</div>
+      <div class="cmd">sudo apt upgrade</div>
+      <div>Updates fix vulnerabilities in installed software.</div>
+      </li>
+
+      <li>
+      <strong>Production Security Checklist</strong><br>
+      A secure Linux server should follow these practices:
+      <ul>
+      <li>disable root login</li>
+      <li>use SSH key authentication</li>
+      <li>remove inactive users</li>
+      <li>monitor login activity</li>
+      <li>restrict sudo privileges</li>
+      <li>enforce password policies</li>
+      <li>use service accounts</li>
+      <li>install security monitoring tools</li>
+      </ul>
+      Following these guidelines greatly improves server security.
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand production-level security
+      practices for managing Linux user accounts and protecting servers from
+      unauthorized access.
+      </div>
+      </div>
+      </div>
+      </article>
+
+    </section>
+    <!-- <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val">Ubuntu 22.04</div></div>
+      <div class="pm-cell"><div class="pm-key">Platform</div><div class="pm-val">VMware / VirtualBox / WSL2</div></div>
+      <div class="pm-cell"><div class="pm-key">Tasks</div><div class="pm-val">24 Structured Tasks</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val pm-status">Completed</div></div>
+    </div>
+  </div> -->
   <footer class="g-footer">
     <span>Santhosh Kumar Raju &middot; Linux</span>
     <a href="../../../pages/projects/projects.html">&larr; All Projects</a>

@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:45">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-45</span>
+    <span class="task-title">Firewalls (Network Traffic Control & Security)</span>
+    <span class="task-meta">100–140 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how firewalls control network traffic, how packet filtering works in Linux, and how to configure and troubleshoot firewall rules in real-world environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Firewall</strong><br>
+          A firewall is a system that monitors and controls incoming and outgoing network traffic.
+          <ul>
+            <li>Acts as a security barrier</li>
+            <li>Filters packets based on rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Firewalls are Important</strong><br>
+          <ul>
+            <li>Prevent unauthorized access</li>
+            <li>Protect servers and applications</li>
+            <li>Control network traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Types of Firewalls</strong><br>
+          <ul>
+            <li>Packet filtering firewall</li>
+            <li>Stateful firewall</li>
+            <li>Application-level firewall</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Linux Firewall Stack</strong><br>
+          <ul>
+            <li>Netfilter → Kernel-level engine</li>
+            <li>iptables → Traditional tool</li>
+            <li>nftables → Modern replacement</li>
+            <li>firewalld → High-level manager</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Packet Flow in Linux</strong><br>
+          <pre class="cmd-line">
+Incoming → PREROUTING → INPUT → Application
+Outgoing → OUTPUT → POSTROUTING
+Forwarded → PREROUTING → FORWARD → POSTROUTING
+          </pre>
+        </li>
+
+        <li>
+          <strong>Firewall Chains</strong><br>
+          <ul>
+            <li>INPUT → Incoming traffic</li>
+            <li>OUTPUT → Outgoing traffic</li>
+            <li>FORWARD → Routed traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Rule Actions</strong><br>
+          <ul>
+            <li>ACCEPT → Allow traffic</li>
+            <li>DROP → Block silently</li>
+            <li>REJECT → Block with response</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic iptables Command</strong><br>
+          <pre class="cmd-line">
+iptables -L
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Traffic Example</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Block Traffic Example</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -p tcp --dport 80 -j DROP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Stateful Firewall</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>NAT (Network Address Translation)</strong><br>
+          <ul>
+            <li>SNAT → Change source IP</li>
+            <li>DNAT → Change destination IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Port Forwarding</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to 192.168.1.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>MASQUERADE</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+          </pre>
+        </li>
+
+        <li>
+          <strong>firewalld Overview</strong><br>
+          High-level firewall management tool.
+        </li>
+
+        <li>
+          <strong>Check firewalld</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --list-all
+          </pre>
+        </li>
+
+        <li>
+          <strong>Open Port (firewalld)</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-port=80/tcp --permanent
+firewall-cmd --reload
+          </pre>
+        </li>
+
+        <li>
+          <strong>Zones in firewalld</strong><br>
+          <ul>
+            <li>public</li>
+            <li>private</li>
+            <li>trusted</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nftables Basics</strong><br>
+          <pre class="cmd-line">
+nft list ruleset
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced Concepts</strong><br>
+          <ul>
+            <li>Connection tracking</li>
+            <li>Rate limiting</li>
+            <li>Logging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Rate Limiting Example</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -p tcp --dport 22 -m limit --limit 5/min -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Logging Packets</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -j LOG --log-prefix "Dropped: "
+          </pre>
+        </li>
+
+        <li>
+          <strong>Firewall in DevOps</strong><br>
+          <ul>
+            <li>Secure APIs</li>
+            <li>Restrict microservices</li>
+            <li>Protect infrastructure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Firewall in Containers</strong><br>
+          <ul>
+            <li>Docker uses iptables</li>
+            <li>Bridge networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Firewall in Kubernetes</strong><br>
+          <ul>
+            <li>Network policies</li>
+            <li>Pod-level security</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Firewall in Cloud</strong><br>
+          <ul>
+            <li>Security Groups</li>
+            <li>Network ACLs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port blocked</li>
+            <li>Wrong rule order</li>
+            <li>Service unreachable</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service (systemctl)
+Check port (ss -tuln)
+Check firewall rules
+Test (curl / nc)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Least privilege access</li>
+            <li>Log critical traffic</li>
+            <li>Avoid open-all rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Web app down → port 80 blocked</li>
+            <li>SSH attack → rate limit applied</li>
+            <li>API security → restrict IP range</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Firewalls are essential for controlling network traffic and securing systems. Mastering iptables, firewalld, and nftables enables complete control over network security in Linux environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand firewall concepts, packet filtering, NAT, and how to secure Linux systems effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:46">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-46</span>
+    <span class="task-title">iptables (Traditional Linux Firewall Tool)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master iptables for configuring firewall rules, controlling traffic, implementing NAT, and debugging real-world networking issues.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is iptables</strong><br>
+          iptables is a command-line tool used to configure the Linux kernel firewall (Netfilter).
+          <ul>
+            <li>Controls packet filtering</li>
+            <li>Defines firewall rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why iptables is Important</strong><br>
+          <ul>
+            <li>Core of Linux networking security</li>
+            <li>Used by Docker, Kubernetes, cloud systems</li>
+            <li>Fine-grained traffic control</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>iptables Architecture</strong><br>
+          <ul>
+            <li>Tables → filter, nat, mangle</li>
+            <li>Chains → INPUT, OUTPUT, FORWARD</li>
+            <li>Rules → match + action</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Tables Overview</strong><br>
+          <ul>
+            <li>filter → Packet filtering (default)</li>
+            <li>nat → Address translation</li>
+            <li>mangle → Packet modification</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Chains Overview</strong><br>
+          <ul>
+            <li>INPUT → Incoming packets</li>
+            <li>OUTPUT → Outgoing packets</li>
+            <li>FORWARD → Routed packets</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Command</strong><br>
+          <pre class="cmd-line">
+iptables -L
+          </pre>
+          Lists all rules.
+        </li>
+
+        <li>
+          <strong>Default Policy</strong><br>
+          <pre class="cmd-line">
+iptables -P INPUT DROP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Rule</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete Rule</strong><br>
+          <pre class="cmd-line">
+iptables -D INPUT -p tcp --dport 22 -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow All Loopback Traffic</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -i lo -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Established Connections</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Block Specific IP</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -s 192.168.1.50 -j DROP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Specific Port</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reject Traffic</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -p tcp --dport 443 -j REJECT
+          </pre>
+        </li>
+
+        <li>
+          <strong>NAT Table Usage</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -L
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Forwarding (DNAT)</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to 192.168.1.10:80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Masquerading (SNAT)</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rate Limiting</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -p tcp --dport 22 -m limit --limit 5/min -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Logging</strong><br>
+          <pre class="cmd-line">
+iptables -A INPUT -j LOG --log-prefix "IPTables-Dropped: "
+          </pre>
+        </li>
+
+        <li>
+          <strong>Save Rules</strong><br>
+          <pre class="cmd-line">
+iptables-save > /etc/iptables.rules
+          </pre>
+        </li>
+
+        <li>
+          <strong>Restore Rules</strong><br>
+          <pre class="cmd-line">
+iptables-restore < /etc/iptables.rules
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rule Order Importance</strong><br>
+          Rules are processed top to bottom.
+        </li>
+
+        <li>
+          <strong>Check Packet Counters</strong><br>
+          <pre class="cmd-line">
+iptables -L -v
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced Concepts</strong><br>
+          <ul>
+            <li>Connection tracking</li>
+            <li>Packet marking</li>
+            <li>Custom chains</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Create Custom Chain</strong><br>
+          <pre class="cmd-line">
+iptables -N MYCHAIN
+iptables -A INPUT -j MYCHAIN
+          </pre>
+        </li>
+
+        <li>
+          <strong>iptables in Docker</strong><br>
+          <ul>
+            <li>Docker automatically creates rules</li>
+            <li>Handles container networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>iptables in Kubernetes</strong><br>
+          <ul>
+            <li>Used by kube-proxy</li>
+            <li>Handles service routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>iptables in Cloud</strong><br>
+          <ul>
+            <li>Works alongside security groups</li>
+            <li>Controls instance-level traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong rule order</li>
+            <li>Blocked SSH access</li>
+            <li>NAT misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check rules → iptables -L -v
+Check ports → ss -tuln
+Check logs → journalctl
+Test → curl / nc
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Allow loopback and established connections</li>
+            <li>Use DROP as default policy</li>
+            <li>Log important traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Web server → allow 80/443 only</li>
+            <li>SSH secure → restrict IP access</li>
+            <li>NAT gateway → enable internet access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          iptables is a powerful firewall tool that provides fine-grained control over network traffic, enabling secure, scalable, and production-ready networking configurations.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to configure, manage, and debug firewall rules using iptables in real-world environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:47">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-47</span>
+    <span class="task-title">nftables (Modern Linux Firewall Framework)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master nftables for modern Linux firewall management, including rule creation, NAT, performance optimization, and real-world debugging.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is nftables</strong><br>
+          nftables is the modern replacement for iptables in Linux.
+          <ul>
+            <li>Unified firewall framework</li>
+            <li>Replaces iptables, ip6tables, arptables</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why nftables is Important</strong><br>
+          <ul>
+            <li>Better performance</li>
+            <li>Simpler syntax</li>
+            <li>Unified IPv4 and IPv6 handling</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nftables Architecture</strong><br>
+          <ul>
+            <li>Tables → containers for rules</li>
+            <li>Chains → processing points</li>
+            <li>Rules → match + action</li>
+            <li>Sets → efficient filtering</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check nftables Status</strong><br>
+          <pre class="cmd-line">
+nft list ruleset
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create Table</strong><br>
+          <pre class="cmd-line">
+nft add table inet myfilter
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create Chain</strong><br>
+          <pre class="cmd-line">
+nft add chain inet myfilter input { type filter hook input priority 0 \; }
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Rule</strong><br>
+          <pre class="cmd-line">
+nft add rule inet myfilter input tcp dport 22 accept
+          </pre>
+        </li>
+
+        <li>
+          <strong>Block Traffic</strong><br>
+          <pre class="cmd-line">
+nft add rule inet myfilter input tcp dport 80 drop
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Established Connections</strong><br>
+          <pre class="cmd-line">
+nft add rule inet myfilter input ct state established,related accept
+          </pre>
+        </li>
+
+        <li>
+          <strong>Default Policy</strong><br>
+          <pre class="cmd-line">
+nft add chain inet myfilter input { type filter hook input priority 0 \; policy drop \; }
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Rules</strong><br>
+          <pre class="cmd-line">
+nft list ruleset
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete Rule</strong><br>
+          <pre class="cmd-line">
+nft delete rule inet myfilter input handle 5
+          </pre>
+        </li>
+
+        <li>
+          <strong>NAT Configuration</strong><br>
+          <pre class="cmd-line">
+nft add table ip nat
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Forwarding</strong><br>
+          <pre class="cmd-line">
+nft add rule ip nat prerouting tcp dport 80 dnat to 192.168.1.10:80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Masquerading</strong><br>
+          <pre class="cmd-line">
+nft add rule ip nat postrouting oif eth0 masquerade
+          </pre>
+        </li>
+
+        <li>
+          <strong>Sets (Powerful Feature)</strong><br>
+          <pre class="cmd-line">
+nft add set inet myfilter blacklist { type ipv4_addr \; }
+nft add rule inet myfilter input ip saddr @blacklist drop
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rate Limiting</strong><br>
+          <pre class="cmd-line">
+nft add rule inet myfilter input tcp dport 22 limit rate 5/minute accept
+          </pre>
+        </li>
+
+        <li>
+          <strong>Logging</strong><br>
+          <pre class="cmd-line">
+nft add rule inet myfilter input log prefix "Dropped: "
+          </pre>
+        </li>
+
+        <li>
+          <strong>Persistent Configuration</strong><br>
+          <pre class="cmd-line">
+/etc/nftables.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Apply Config</strong><br>
+          <pre class="cmd-line">
+nft -f /etc/nftables.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>iptables vs nftables</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>iptables</th>
+              <th>nftables</th>
+            </tr>
+            <tr>
+              <td>Syntax</td>
+              <td>Complex</td>
+              <td>Simple</td>
+            </tr>
+            <tr>
+              <td>Performance</td>
+              <td>Lower</td>
+              <td>Higher</td>
+            </tr>
+            <tr>
+              <td>IPv4/IPv6</td>
+              <td>Separate</td>
+              <td>Unified</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Advanced Concepts</strong><br>
+          <ul>
+            <li>Stateful filtering (conntrack)</li>
+            <li>Packet classification</li>
+            <li>Flowtables (hardware acceleration)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nftables in Docker</strong><br>
+          <ul>
+            <li>Replacing iptables backend</li>
+            <li>Improves container networking performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nftables in Kubernetes</strong><br>
+          <ul>
+            <li>Future replacement for iptables mode</li>
+            <li>Better scalability</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nftables in Cloud</strong><br>
+          <ul>
+            <li>Instance-level firewall</li>
+            <li>Works with security groups</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Rule not applied</li>
+            <li>Wrong chain hook</li>
+            <li>NAT misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+nft list ruleset
+journalctl -u nftables
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check rules → nft list ruleset
+Check ports → ss -tuln
+Test → curl / nc
+Verify NAT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use sets for performance</li>
+            <li>Keep rules simple and readable</li>
+            <li>Use persistent configs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Web server → allow 80/443</li>
+            <li>SSH protection → rate limit</li>
+            <li>Cloud VM → secure inbound traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          nftables is the modern, efficient, and scalable firewall system in Linux, replacing iptables and providing better performance and flexibility for modern infrastructure.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure and manage firewall rules using nftables in modern Linux environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:48">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-48</span>
+    <span class="task-title">UFW (Uncomplicated Firewall - Ubuntu)</span>
+    <span class="task-meta">90–120 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to use UFW to configure and manage firewall rules easily in Ubuntu systems, including advanced usage and troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is UFW</strong><br>
+          UFW (Uncomplicated Firewall) is a user-friendly interface for managing firewall rules in Ubuntu.
+          <ul>
+            <li>Built on top of iptables</li>
+            <li>Simplifies firewall configuration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why UFW is Important</strong><br>
+          <ul>
+            <li>Easy to use</li>
+            <li>Quick setup for servers</li>
+            <li>Reduces complexity of iptables</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install UFW</strong><br>
+          <pre class="cmd-line">
+sudo apt install ufw
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Status</strong><br>
+          <pre class="cmd-line">
+ufw status
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable UFW</strong><br>
+          <pre class="cmd-line">
+ufw enable
+          </pre>
+        </li>
+
+        <li>
+          <strong>Disable UFW</strong><br>
+          <pre class="cmd-line">
+ufw disable
+          </pre>
+        </li>
+
+        <li>
+          <strong>Default Policies</strong><br>
+          <pre class="cmd-line">
+ufw default deny incoming
+ufw default allow outgoing
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow a Port</strong><br>
+          <pre class="cmd-line">
+ufw allow 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Specific Protocol</strong><br>
+          <pre class="cmd-line">
+ufw allow 22/tcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Specific IP</strong><br>
+          <pre class="cmd-line">
+ufw allow from 192.168.1.100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow IP to Port</strong><br>
+          <pre class="cmd-line">
+ufw allow from 192.168.1.100 to any port 22
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deny a Port</strong><br>
+          <pre class="cmd-line">
+ufw deny 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete Rule</strong><br>
+          <pre class="cmd-line">
+ufw delete allow 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Rules with Numbers</strong><br>
+          <pre class="cmd-line">
+ufw status numbered
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete by Number</strong><br>
+          <pre class="cmd-line">
+ufw delete 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Application Profiles</strong><br>
+          <pre class="cmd-line">
+ufw app list
+ufw allow "Nginx Full"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable Logging</strong><br>
+          <pre class="cmd-line">
+ufw logging on
+          </pre>
+        </li>
+
+        <li>
+          <strong>Log Location</strong><br>
+          <pre class="cmd-line">
+/var/log/ufw.log
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Rate Limiting (SSH)</strong><br>
+          <pre class="cmd-line">
+ufw limit 22/tcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Allow Range of Ports</strong><br>
+          <pre class="cmd-line">
+ufw allow 1000:2000/tcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: IPv6 Support</strong><br>
+          Enabled in:
+          <pre class="cmd-line">
+/etc/default/ufw
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reload Firewall</strong><br>
+          <pre class="cmd-line">
+ufw reload
+          </pre>
+        </li>
+
+        <li>
+          <strong>UFW vs iptables</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>UFW</th>
+              <th>iptables</th>
+            </tr>
+            <tr>
+              <td>Ease of Use</td>
+              <td>Easy</td>
+              <td>Complex</td>
+            </tr>
+            <tr>
+              <td>Control</td>
+              <td>Limited</td>
+              <td>Full</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>UFW Internals</strong><br>
+          <ul>
+            <li>Uses iptables backend</li>
+            <li>Stores rules in config files</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Quick server security setup</li>
+            <li>Automated provisioning scripts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Extra layer beyond security groups</li>
+            <li>Protect instance-level access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Used on host level</li>
+            <li>Works with Docker networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>SSH locked out</li>
+            <li>Port blocked unintentionally</li>
+            <li>Rules not applied</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+ufw status verbose
+journalctl -u ufw
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check rules → ufw status
+Check ports → ss -tuln
+Check logs → /var/log/ufw.log
+Test → curl / nc
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always allow SSH before enabling</li>
+            <li>Use deny by default</li>
+            <li>Enable logging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Web server → allow 80, 443</li>
+            <li>SSH security → limit access</li>
+            <li>API server → restrict IP ranges</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          UFW provides a simple and efficient way to manage firewall rules in Ubuntu, making it ideal for quick setup, basic security, and DevOps environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to configure and manage firewall rules easily using UFW in Ubuntu systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:49">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-49</span>
+    <span class="task-title">firewalld (Enterprise Firewall Manager)</span>
+    <span class="task-meta">100–140 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master firewalld to manage firewall rules dynamically in enterprise Linux systems, including zones, services, advanced configurations, and troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is firewalld</strong><br>
+          firewalld is a dynamic firewall management tool used in RHEL-based systems.
+          <ul>
+            <li>Built on top of nftables/iptables</li>
+            <li>Supports runtime and permanent configurations</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why firewalld is Important</strong><br>
+          <ul>
+            <li>Used in enterprise environments</li>
+            <li>Dynamic rule updates without restart</li>
+            <li>Zone-based security model</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check firewalld Status</strong><br>
+          <pre class="cmd-line">
+systemctl status firewalld
+          </pre>
+        </li>
+
+        <li>
+          <strong>Start / Stop firewalld</strong><br>
+          <pre class="cmd-line">
+systemctl start firewalld
+systemctl stop firewalld
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable firewalld</strong><br>
+          <pre class="cmd-line">
+systemctl enable firewalld
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Active Zones</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --get-active-zones
+          </pre>
+        </li>
+
+        <li>
+          <strong>List All Settings</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --list-all
+          </pre>
+        </li>
+
+        <li>
+          <strong>What are Zones</strong><br>
+          Zones define trust levels for network connections.
+          <ul>
+            <li>public → untrusted</li>
+            <li>private → internal network</li>
+            <li>trusted → full access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>List Available Zones</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --get-zones
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set Default Zone</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --set-default-zone=public
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assign Interface to Zone</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --zone=public --add-interface=eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Open a Port (Runtime)</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-port=80/tcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Open a Port (Permanent)</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-port=80/tcp --permanent
+firewall-cmd --reload
+          </pre>
+        </li>
+
+        <li>
+          <strong>Remove Port</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --remove-port=80/tcp --permanent
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Services</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-service=http --permanent
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Services</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --get-services
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rich Rules (Advanced)</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-rich-rule='rule family="ipv4" source address="192.168.1.100" accept'
+          </pre>
+        </li>
+
+        <li>
+          <strong>Masquerading (NAT)</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-masquerade --permanent
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Forwarding</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-forward-port=port=80:proto=tcp:toport=8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Runtime vs Permanent</strong><br>
+          <ul>
+            <li>Runtime → temporary</li>
+            <li>Permanent → saved after reboot</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Reload Configuration</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --reload
+          </pre>
+        </li>
+
+        <li>
+          <strong>Direct Rules (Low-Level)</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --direct --add-rule ipv4 filter INPUT 0 -p tcp --dport 22 -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>firewalld vs iptables</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>firewalld</th>
+              <th>iptables</th>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>Dynamic</td>
+              <td>Static</td>
+            </tr>
+            <tr>
+              <td>Ease</td>
+              <td>Easy</td>
+              <td>Complex</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>firewalld vs nftables</strong><br>
+          <ul>
+            <li>firewalld → management layer</li>
+            <li>nftables → backend engine</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Automate firewall rules</li>
+            <li>Secure microservices</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Instance-level firewall</li>
+            <li>Works with security groups</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Controls host-level traffic</li>
+            <li>Works with container networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port not accessible</li>
+            <li>Wrong zone assigned</li>
+            <li>Runtime vs permanent confusion</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --list-all
+journalctl -u firewalld
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service → systemctl status
+Check zone → firewall-cmd --get-active-zones
+Check ports → ss -tuln
+Test → curl / nc
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use zones effectively</li>
+            <li>Use services instead of ports</li>
+            <li>Always reload after permanent changes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Web server → allow http/https services</li>
+            <li>Internal network → use private zone</li>
+            <li>Production → restrict access via rich rules</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          firewalld is a powerful and flexible firewall manager widely used in enterprise Linux systems, providing dynamic rule management and zone-based security.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to configure and manage firewall rules using firewalld in enterprise environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:50">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-50</span>
+    <span class="task-title">NAT (Network Address Translation)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand NAT concepts, types, packet flow, and how to configure and debug NAT in Linux and real-world environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is NAT</strong><br>
+          NAT (Network Address Translation) allows private IP addresses to communicate with external networks using a public IP.
+          <ul>
+            <li>Translates private IP → public IP</li>
+            <li>Used in routers, cloud, containers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why NAT is Important</strong><br>
+          <ul>
+            <li>Conserves IPv4 addresses</li>
+            <li>Enables internet access for private networks</li>
+            <li>Adds a layer of security</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Private vs Public IP</strong><br>
+          <ul>
+            <li>Private → 192.168.x.x, 10.x.x.x</li>
+            <li>Public → Internet-routable IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic NAT Flow</strong><br>
+          <pre class="cmd-line">
+Client (192.168.1.10) → Router → Internet
+Translated to → Public IP (1.2.3.4)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Types of NAT</strong><br>
+          <ul>
+            <li>SNAT (Source NAT)</li>
+            <li>DNAT (Destination NAT)</li>
+            <li>PAT (Port Address Translation)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SNAT (Source NAT)</strong><br>
+          Changes source IP for outgoing traffic.
+        </li>
+
+        <li>
+          <strong>DNAT (Destination NAT)</strong><br>
+          Changes destination IP for incoming traffic.
+        </li>
+
+        <li>
+          <strong>PAT (Port Address Translation)</strong><br>
+          Multiple clients share one public IP using ports.
+        </li>
+
+        <li>
+          <strong>Linux NAT Table</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -L
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable IP Forwarding</strong><br>
+          <pre class="cmd-line">
+echo 1 > /proc/sys/net/ipv4/ip_forward
+          </pre>
+        </li>
+
+        <li>
+          <strong>SNAT Example (Internet Access)</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNAT Example (Port Forwarding)</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to 192.168.1.10:80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Packet Flow with NAT</strong><br>
+          <pre class="cmd-line">
+Incoming → PREROUTING (DNAT)
+Outgoing → POSTROUTING (SNAT)
+          </pre>
+        </li>
+
+        <li>
+          <strong>MASQUERADE vs SNAT</strong><br>
+          <ul>
+            <li>MASQUERADE → Dynamic IP</li>
+            <li>SNAT → Static IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nftables NAT Example</strong><br>
+          <pre class="cmd-line">
+nft add rule ip nat postrouting oif eth0 masquerade
+          </pre>
+        </li>
+
+        <li>
+          <strong>NAT in Home Networks</strong><br>
+          <ul>
+            <li>Router assigns private IPs</li>
+            <li>Uses one public IP for internet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NAT in Cloud</strong><br>
+          <ul>
+            <li>NAT Gateway in AWS</li>
+            <li>Private subnets access internet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NAT in Docker</strong><br>
+          <ul>
+            <li>Bridge network uses NAT</li>
+            <li>Container → host → internet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NAT in Kubernetes</strong><br>
+          <ul>
+            <li>Cluster networking uses NAT</li>
+            <li>Service routing via iptables</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No internet access</li>
+            <li>Port forwarding not working</li>
+            <li>IP forwarding disabled</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug NAT Issues</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -L -v
+sysctl net.ipv4.ip_forward
+ss -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test NAT</strong><br>
+          <pre class="cmd-line">
+curl ifconfig.me
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check IP forwarding
+Check NAT rules
+Check firewall rules
+Test connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>NAT is not a firewall</li>
+            <li>Use firewall with NAT</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Considerations</strong><br>
+          <ul>
+            <li>High traffic → CPU load</li>
+            <li>Use connection tracking efficiently</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Enable IP forwarding properly</li>
+            <li>Use MASQUERADE for dynamic IPs</li>
+            <li>Monitor NAT traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Home router → NAT for internet</li>
+            <li>Cloud private subnet → NAT gateway</li>
+            <li>Docker container → NAT networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          NAT enables communication between private and public networks, making it essential for modern networking, cloud infrastructure, and containerized environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand NAT types, configuration, and real-world usage across Linux, cloud, and container environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:51">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-51</span>
+    <span class="task-title">Port Forwarding (Traffic Redirection)</span>
+    <span class="task-meta">100–130 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand port forwarding, how traffic is redirected, and how to configure and debug it in Linux, cloud, and container environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Port Forwarding</strong><br>
+          Port forwarding redirects incoming network traffic from one port to another.
+          <ul>
+            <li>External request → redirected internally</li>
+            <li>Common in NAT environments</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Port Forwarding is Important</strong><br>
+          <ul>
+            <li>Expose internal services to external users</li>
+            <li>Used in web servers, APIs, gaming, SSH</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Public IP:80 → Private IP:8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>How It Works</strong><br>
+          <ul>
+            <li>Client sends request to public IP</li>
+            <li>Router/firewall rewrites destination</li>
+            <li>Traffic forwarded to internal server</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Types of Port Forwarding</strong><br>
+          <ul>
+            <li>Local port forwarding</li>
+            <li>Remote port forwarding</li>
+            <li>Dynamic forwarding (SOCKS)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Enable IP Forwarding</strong><br>
+          <pre class="cmd-line">
+echo 1 > /proc/sys/net/ipv4/ip_forward
+          </pre>
+        </li>
+
+        <li>
+          <strong>iptables Port Forwarding</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to 192.168.1.10:8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Allow Forwarding Traffic</strong><br>
+          <pre class="cmd-line">
+iptables -A FORWARD -p tcp -d 192.168.1.10 --dport 8080 -j ACCEPT
+          </pre>
+        </li>
+
+        <li>
+          <strong>nftables Port Forwarding</strong><br>
+          <pre class="cmd-line">
+nft add rule ip nat prerouting tcp dport 80 dnat to 192.168.1.10:8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Forwarding with firewalld</strong><br>
+          <pre class="cmd-line">
+firewall-cmd --add-forward-port=port=80:proto=tcp:toport=8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Forwarding with UFW</strong><br>
+          Edit:
+          <pre class="cmd-line">
+/etc/ufw/before.rules
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Forwarding in Home Routers</strong><br>
+          <ul>
+            <li>Expose internal services</li>
+            <li>Example: access CCTV or web server</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Port Forwarding in Cloud</strong><br>
+          <ul>
+            <li>Load balancer → backend server</li>
+            <li>Public → private subnet routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Port Forwarding in Docker</strong><br>
+          <pre class="cmd-line">
+docker run -p 8080:80 nginx
+          </pre>
+          Maps host port to container port.
+        </li>
+
+        <li>
+          <strong>Port Forwarding in Kubernetes</strong><br>
+          <pre class="cmd-line">
+kubectl port-forward pod/my-pod 8080:80
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Port Forwarding</strong><br>
+          <pre class="cmd-line">
+ssh -L 8080:localhost:80 user@server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Packet Flow</strong><br>
+          <pre class="cmd-line">
+Client → Public IP:80 → DNAT → Internal IP:8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port not accessible</li>
+            <li>Firewall blocking traffic</li>
+            <li>IP forwarding disabled</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -L -v
+ss -tuln
+netstat -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Port Forwarding</strong><br>
+          <pre class="cmd-line">
+curl http://public-ip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service running
+Check port listening
+Check NAT rules
+Check firewall
+Test externally
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Exposes internal services</li>
+            <li>Use firewall + authentication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Considerations</strong><br>
+          <ul>
+            <li>High traffic → NAT overhead</li>
+            <li>Use load balancing for scaling</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Limit access by IP</li>
+            <li>Use non-standard ports if needed</li>
+            <li>Monitor traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Expose web server → 80 → 8080</li>
+            <li>Remote DB access → 3306</li>
+            <li>SSH via custom port</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Port forwarding enables external access to internal services by redirecting traffic, making it essential for web hosting, cloud infrastructure, and containerized applications.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure, use, and troubleshoot port forwarding across different environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

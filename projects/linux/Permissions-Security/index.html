@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Permissions&Security</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-permissions-security">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">Permissions&Security</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Permissions & Security</h1>
+        <span class="g-tag tg">&bull;server</span>
+        <!-- terminal toggle button defined globally -->
+        <!-- <button class="terminal-btn" id="terminalBtn" type="button">Terminal</button> -->
+      </div>
+    </div>
+    <div class="proj-desc">
+      <span class="task-summary">Summary</span>
+      <p>
+        This section explains how Linux secures files and system resources using
+        its built-in permission and access control mechanisms. It introduces the
+        Linux permission model, including user, group, and others permissions,
+        and demonstrates how read, write, and execute permissions control access
+        to files and directories. The section also covers numeric and symbolic
+        permission formats and how administrators modify permissions using
+        commands such as <strong><code>chmod</code></strong>, <strong><code>chown</code></strong>, and <strong><code>chgrp</code></strong>.
+        Advanced security concepts including special permissions (SUID, SGID,
+        and the Sticky Bit) are explored to understand how privilege behavior
+        works in Linux systems. It also introduces Access Control Lists (ACLs)
+        for fine-grained permission management. By completing this section,
+        learners will understand how to securely manage file access and apply
+        best security practices for protecting Linux servers.
+        </p>
+    </div>
+    <section class="task-board" aria-label="Linux setup and command tasks">
+      <div class="proj-section-title">Permissions & Security</div>
+        <article class="task-card" data-task style="--i:1">
+          <button class="task-toggle" type="button">
+          <span class="task-pill">Topic-1</span>
+          <span class="task-title">Linux User, Group and Others Permission Model</span>
+          <span class="task-meta">25–30 min</span>
+          <span class="task-chevron">&#9662;</span>
+          </button>
+          <div class="task-panel">
+          <div class="task-panel-inner">
+          <p class="task-goal">
+          <span class="task-goal-label">Goal: </span>
+          Understand how Linux controls access to files and directories using
+          the user, group, and others permission model.
+          </p>
+          <ol class="task-steps-list">
+            <li>
+              <strong>Why Permissions Exist</strong><br>
+              Linux is a multi-user operating system. Multiple users may access the same system simultaneously. To protect system resources, Linux implements a permission model that controls who can read, modify, or execute files.
+              <div>Permissions protect:</div>
+              <ul>
+              <li>system files</li>
+              <li>user data</li>
+              <li>application configuration</li>
+              <li>security credentials</li>
+              </ul>
+              Without permissions, any user could modify critical system files.
+            </li>
+            <li>
+              <strong>Basic Permission Structure</strong><br>
+              Every file and directory in Linux has three permission categories:
+              <ul>
+              <li>User (Owner)</li>
+              <li>Group</li>
+              <li>Others</li>
+              </ul>
+              Each category has three possible permissions:
+              <ul>
+              <li>Read (r)</li>
+              <li>Write (w)</li>
+              <li>Execute (x)</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Viewing File Permissions</strong><br>
+              Use the following command:
+              <div class="cmd">ls -l</div>
+              <div><code>Example output:</code></div>
+              <pre class="cmd-line">-rw-r--r-- 1 santhosh devops 2048 Mar 10 notes.txt</pre>
+              <div>This output provides permission information.</div>
+            </li>
+            <li>
+              <strong>Understanding the Permission String</strong><br>
+              Example:
+              <pre class="cmd-line">-rw-r--r--</pre>
+              <div>Breakdown:</div>
+              <table>
+              <tr>
+              <th>Section</th>
+              <th>Meaning</th>
+              </tr>
+              <tr>
+              <td>-</td>
+              <td>File type</td>
+              </tr>
+              <tr>
+              <td>rw-</td>
+              <td>Owner permissions</td>
+              </tr>
+              <tr>
+              <td>r--</td>
+              <td>Group permissions</td>
+              </tr>
+              <tr>
+              <td>r--</td>
+              <td>Others permissions</td>
+              </tr>
+              </table>
+            </li>
+            <li>
+            <strong>Permission Meaning</strong><br>
+            Read permission (r):
+            <ul>
+            <li>Allows reading file contents</li>
+            <li>Allows listing directory contents</li>
+            </ul>
+            Write permission (w):
+            <ul>
+            <li>Allows modifying file content</li>
+            <li>Allows creating or deleting files inside directories</li>
+            </ul>
+            Execute permission (x):
+            <ul>
+            <li>Allows running programs</li>
+            <li>Allows entering directories</li>
+            </ul>
+            </li>
+            <li>
+            <strong>Example Permissions on Directories</strong><br>
+            <div class="cmd">ls -ld /home</div>
+            <div><code>Example output:</code></div>
+            <pre class="cmd-line">drwxr-xr-x 5 root root 4096 Mar 10 /home</pre>
+            <div><code>Meaning:</code></div>
+            <ul>
+            <li>Owner can read/write/enter directory</li>
+            <li>Others can read and enter</li>
+            </ul>
+            </li>
+            <li>
+            <strong>Checking Current User</strong><br>
+            <div class="cmd">whoami</div>
+            <div><code>Example output:</code></div>
+            <pre class="cmd-line">santhosh</pre>
+            <div>This shows the current user interacting with files.</div>
+            </li>
+            <li>
+            <strong>Checking User Groups</strong><br>
+            Users belong to groups which define shared permissions.
+            <div class="cmd">groups</div>
+            <div><code>Example output:</code></div>
+            <pre class="cmd-line">santhosh sudo docker devops</pre>
+            <div>Group permissions allow collaboration between users.</div>
+            </li>
+            <li>
+            <strong>How Permission Checks Work</strong><br>
+            <div>When a user tries to access a file, Linux checks permissions in order:</div>
+            <pre class="cmd-line"><div>1 → Owner permissions</div><div>2 → Group permissions</div><div>3 → Others permissions</div></pre>
+            <div>The system determines access based on the user's relationship to the file.</div>
+            </li>
+            <li>
+            <strong>Why This Model is Important</strong><br>
+            The Linux permission model helps protect systems by controlling access.
+            It ensures:
+            <ul>
+            <li>users cannot modify other users' files</li>
+            <li>applications cannot access restricted data</li>
+            <li>system integrity is maintained</li>
+            </ul>
+            Permissions form the foundation of Linux system security.
+            </li>
+          </ol>
+          <div class="task-check">
+          Completion check: You should now understand how Linux uses the
+          user, group, and others permission model to control access to files.
+          </div>
+          </div>
+          </div>
+        </article>
+
+        <article class="task-card" data-task style="--i:2">
+          <button class="task-toggle" type="button">
+          <span class="task-pill">Topic-2</span>
+          <span class="task-title">Numeric and Symbolic Permissions</span>
+          <span class="task-meta">25–30 min</span>
+          <span class="task-chevron">&#9662;</span>
+          </button>
+          <div class="task-panel">
+          <div class="task-panel-inner">
+          <p class="task-goal">
+          <span class="task-goal-label">Goal: </span>
+          Learn how Linux represents file permissions using symbolic and numeric
+          formats and how administrators modify permissions using the chmod command.
+          </p>
+          <ol class="task-steps-list">
+
+          <li>
+          <strong>Understanding Permission Representation</strong><br>
+          Linux permissions can be expressed in two ways:
+          <ul>
+          <li>Symbolic format</li>
+          <li>Numeric (octal) format</li>
+          </ul>
+          Both formats control the same permission system but use different
+          representations.
+          </li>
+          <li>
+          <strong>Symbolic Permission Format</strong><br>
+          Symbolic permissions use letters to represent access rights.
+          <div><code>Example permission string:</code></div>
+          <pre class="cmd-line">-rwxr-xr--</pre>
+          <div>Breakdown:</div>
+          <table>
+          <tr>
+          <th>Section</th>
+          <th>Meaning</th>
+          </tr>
+          <tr>
+          <td>r</td>
+          <td>Read permission</td>
+          </tr>
+          <tr>
+          <td>w</td>
+          <td>Write permission</td>
+          </tr>
+          <tr>
+          <td>x</td>
+          <td>Execute permission</td>
+          </tr>
+          <tr>
+          <td>-</td>
+          <td>No permission</td>
+          </tr>
+          </table>
+          </li>
+          <li>
+          <strong>Changing Permissions Using Symbolic Mode</strong><br>
+          Permissions can be modified using the <strong>chmod</strong> command.
+          <div>Add execute permission:</div>
+          <div class="cmd">chmod u+x script.sh</div>
+          <div>Remove write permission:</div>
+          <div class="cmd">chmod g-w file.txt</div>
+          <div>Give read permission to others:</div>
+          <div class="cmd">chmod o+r file.txt</div>
+          <div><code>Explanation:</code></div>
+          <ul>
+          <li>u → user (owner)</li>
+          <li>g → group</li>
+          <li>o → others</li>
+          <li>a → all users</li>
+          </ul>
+          </li>
+          <li>
+          <strong>Viewing Permission Changes</strong><br>
+          <div class="cmd">ls -l script.sh</div>
+          <div><code>Example output:</code></div>
+          <pre class="cmd-line">-rwxr-xr-- 1 user devops 1024 Mar 12 script.sh</pre>
+          <div>This confirms that execute permission was added for the owner.</div>
+          </li>
+          <li>
+          <strong>Numeric Permission System</strong><br>
+          <div>Linux also represents permissions using numbers.</div>
+          <div>Each permission has a numeric value:</div>
+          <table>
+          <tr>
+          <th>Permission</th>
+          <th>Value</th>
+          </tr>
+          <tr>
+          <td>Read (r)</td>
+          <td>4</td>
+          </tr>
+          <tr>
+          <td>Write (w)</td>
+          <td>2</td>
+          </tr>
+          <tr>
+          <td>Execute (x)</td>
+          <td>1</td>
+          </tr>
+          </table>
+          These values are added together to form permission codes.
+          </li>
+          <li>
+          <strong>Understanding Octal Permission Values</strong><br>
+          <div>Example permission:</div>
+          <pre class="cmd-line">755</pre>
+          <div>Breakdown:</div>
+          <ul>
+          <li>7 → read + write + execute (4+2+1)</li>
+          <li>5 → read + execute (4+1)</li>
+          <li>5 → read + execute (4+1)</li>
+          </ul>
+          Meaning:
+          <ul>
+          <li>Owner → full access</li>
+          <li>Group → read and execute</li>
+          <li>Others → read and execute</li>
+          </ul>
+          </li>
+          <li>
+          <strong>Changing Permissions Using Numeric Mode</strong><br>
+          Example:
+          <div class="cmd">chmod 755 script.sh</div>
+          <div class="cmd">chmod 644 file.txt</div>
+          <div><code>Example output:</code></div>
+          <pre class="cmd-line">-rw-r--r-- 1 user user 512 notes.txt</pre>
+          <div><code>Explanation:</code></div>
+          <ul>
+          <li>6 → read + write</li>
+          <li>4 → read only</li>
+          </ul>
+          </li>
+          <li>
+          <strong>Common Permission Settings</strong><br>
+          <table>
+          <tr>
+          <th>Permission</th>
+          <th>Meaning</th>
+          </tr>
+          <tr>
+          <td>777</td>
+          <td>Full access to everyone</td>
+          </tr>
+          <tr>
+          <td>755</td>
+          <td>Owner full access, others read/execute</td>
+          </tr>
+          <tr>
+          <td>644</td>
+          <td>Owner read/write, others read</td>
+          </tr>
+          <tr>
+          <td>600</td>
+          <td>Owner only access</td>
+          </tr>
+          </table>
+          </li>
+          <li>
+          <strong>Recursive Permission Changes</strong><br>
+          To change permissions for an entire directory structure:
+          <div class="cmd">chmod -R 755 project/</div>
+          <div>This applies the permission change to:</div>
+          <ul>
+          <li>the directory</li>
+          <li>all subdirectories</li>
+          <li>all files inside</li>
+          </ul>
+          </li>
+          <li>
+          <strong>Security Considerations</strong><br>
+          Incorrect permission settings can create security risks.
+          <div>Example insecure setting:</div>
+          <div class="cmd">chmod 777 file.txt</div>
+          <div>This allows any user to modify the file.</div>
+          <div>Best practice:</div>
+          <ul>
+          <li>Use least privilege permissions</li>
+          <li>Avoid world-writable files</li>
+          <li>Restrict sensitive files to owners</li>
+          </ul>
+          </li>
+          </ol>
+          <div class="task-check">
+          Completion check: You should now understand how Linux permissions are
+          represented using symbolic and numeric formats and how to modify them
+          using the chmod command.
+          </div>
+          </div>
+          </div>
+        </article>
+
+        <article class="task-card" data-task style="--i:3">
+        <button class="task-toggle" type="button">
+        <span class="task-pill">Topic-3</span>
+        <span class="task-title">Special Permissions (SUID, SGID, Sticky Bit)</span>
+        <span class="task-meta">30–35 min</span>
+        <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand special Linux permissions including SUID, SGID, and the
+        Sticky Bit and how they modify the default permission behavior.
+        </p>
+        <ol class="task-steps-list">
+        <li>
+        <strong>Introduction to Special Permissions</strong><br>
+        Linux provides three advanced permissions that extend the standard
+        read, write, and execute permissions.
+        <div>These permissions are:</div>
+        <ul>
+        <li>SUID (Set User ID)</li>
+        <li>SGID (Set Group ID)</li>
+        <li>Sticky Bit</li>
+        </ul>
+        They are used for:
+        <ul>
+        <li>privilege delegation</li>
+        <li>shared directory management</li>
+        <li>security control</li>
+        </ul>
+        </li>
+
+        <li>
+        <strong>Understanding SUID (Set User ID)</strong><br>
+        SUID allows a program to run with the permissions of the file owner,
+        instead of the user executing the program.
+        <div><code>Example:</code></div>
+        The <strong>passwd</strong> command allows users to change passwords.
+        <div class="cmd">ls -l /usr/bin/passwd</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rwsr-xr-x 1 root root 54256 Mar 10 /usr/bin/passwd</pre>
+        <div>Notice the <strong>s</strong> in the owner execute position.</div>
+        This means the program runs with <strong>root privileges</strong>.
+        </li>
+
+        <li>
+        <strong>Setting SUID Permission</strong><br>
+        <div>To add SUID permission:</div>
+        <div class="cmd">chmod u+s program.sh</div>
+        <div>Check permission:</div>
+        <div class="cmd">ls -l program.sh</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rwsr-xr-x 1 user user 2048 program.sh</pre>
+        </li>
+
+        <li>
+        <strong>Understanding SGID (Set Group ID)</strong><br>
+        SGID allows files created inside a directory to inherit the directory's
+        group ownership.
+        This is useful for collaborative projects.
+        <div><code>Example:</code></div>
+        <div class="cmd">chmod g+s shared_project</div>
+        <div>Check permissions:</div>
+        <div class="cmd">ls -ld shared_project</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">drwxr-sr-x 2 user devops 4096 shared_project</pre>
+        <div>Files created inside will automatically belong to the group <strong>devops</strong>.</div>
+        
+        </li>
+
+        <li>
+        <strong>SGID on Files</strong><br>
+        When SGID is set on executable files, the program runs with the permissions of the file's group.
+        <div><code>Example:</code></div>
+        <pre class="cmd-line">-rwxr-sr-x</pre>
+        <div>This is less commonly used compared to directory SGID.</div>
+        </li>
+
+        <li>
+        <strong>Understanding the Sticky Bit</strong><br>
+        The Sticky Bit prevents users from deleting files that belong
+        to other users inside a shared directory.
+        This is commonly used in <strong>/tmp</strong> directories.
+        <div>Check /tmp permissions:</div>
+        <div class="cmd">ls -ld /tmp</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">drwxrwxrwt 10 root root 4096 /tmp</pre>
+        <div>Notice the <strong>t</strong> at the end.</div>
+        Meaning:
+        <ul>
+        <li>users can create files</li>
+        <li>users cannot delete other users' files</li>
+        </ul>
+        </li>
+
+        <li>
+        <strong>Setting Sticky Bit</strong><br>
+        <div>Add sticky bit to directory:</div>
+        <div class="cmd">chmod +t shared_folder</div>
+        <div>Verify:</div>
+        <div class="cmd">ls -ld shared_folder</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">drwxrwxrwt 2 user user 4096 shared_folder</pre>
+        </li>
+        
+        <li>
+        <strong>Numeric Representation of Special Permissions</strong><br>
+        Special permissions can also be represented numerically.
+        <table>
+        <tr>
+        <th>Permission</th>
+        <th>Value</th>
+        </tr>
+        <tr>
+        <td>SUID</td>
+        <td>4</td>
+        </tr>
+        <tr>
+        <td>SGID</td>
+        <td>2</td>
+        </tr>
+        <tr>
+        <td>Sticky Bit</td>
+        <td>1</td>
+        </tr>
+        </table>
+        <div><code>Example:</code></div>
+        <div class="cmd">chmod 4755 program</div>
+        <div>Meaning:</div>
+        <ul>
+        <li>4 → SUID</li>
+        <li>755 → normal permissions</li>
+        </ul>
+        </li>
+
+        <li>
+        <strong>Common Permission Examples</strong><br>
+        <table>
+        <tr>
+        <th>Permission</th>
+        <th>Meaning</th>
+        </tr>
+        <tr>
+        <td>4755</td>
+        <td>SUID enabled</td>
+        </tr>
+        <tr>
+        <td>2755</td>
+        <td>SGID enabled</td>
+        </tr>
+        <tr>
+        <td>1777</td>
+        <td>Sticky bit enabled</td>
+        </tr>
+        </table>
+        Example:
+        <div class="cmd">chmod 1777 shared_directory</div>
+        </li>
+        <li>
+        <strong>Security Risks of SUID</strong><br>
+        Programs with SUID can become security risks if misconfigured.
+        Attackers may exploit SUID programs to gain elevated privileges.
+        <div>Find all SUID files:</div>
+        <div class="cmd">find / -perm -4000 2>/dev/null</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line"><div>/usr/bin/passwd</div><div>/usr/bin/sudo</div><div>/usr/bin/chsh</div></pre>
+        <div>Administrators must monitor these files carefully.</div>
+        </li>
+        <li>
+        <strong>Best Practices for Special Permissions</strong><br>
+        System administrators should follow these guidelines:
+        <ul>
+        <li>Use SUID sparingly</li>
+        <li>Audit SUID binaries regularly</li>
+        <li>Use sticky bit on shared directories</li>
+        <li>Use SGID for collaborative environments</li>
+        </ul>
+        These practices help maintain secure Linux systems.
+        </li>
+        </ol>
+        <div class="task-check">
+        Completion check: You should now understand how SUID, SGID, and
+        Sticky Bit modify Linux permission behavior and how they are used
+        in real Linux environments.
+        </div>
+        </div>
+        </div>
+        </article>
+
+        <article class="task-card" data-task style="--i:4">
+        <button class="task-toggle" type="button">
+        <span class="task-pill">Topic-4</span>
+        <span class="task-title">File Ownership Management</span>
+        <span class="task-meta">25–30 min</span>
+        <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Linux assigns file ownership and how administrators manage ownership using commands such as chown and chgrp.
+        </p>
+        <ol class="task-steps-list">
+        <li>
+        <strong>What is File Ownership</strong><br>
+        Every file and directory in Linux has an owner and a group. Ownership defines who controls access to the file.
+        <div>Linux tracks two main ownership attributes:</div>
+        <ul>
+        <li>User (owner)</li>
+        <li>Group</li>
+        </ul>
+        <div><code>Example file information:</code></div>
+        <pre class="cmd-line">-rw-r--r-- 1 santhosh devops 1024 Mar 12 notes.txt</pre>
+        <div>Explanation:</div>
+        <ul>
+        <li>santhosh → file owner</li>
+        <li>devops → group owner</li>
+        </ul>
+        </li>
+        <li>
+        <strong>Viewing File Ownership</strong><br>
+        To view ownership details:
+        <div class="cmd">ls -l</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rw-r--r-- 1 santhosh devops 512 Mar 12 project.txt</pre>
+        <div>The columns show:</div>
+        <ul>
+        <li>owner username</li>
+        <li>group name</li>
+        </ul>
+        </li>
+        <li>
+        <strong>Changing File Owner Using chown</strong><br>
+        The <strong>chown</strong> command changes file ownership.
+        <div><code>Example:</code></div>
+        <div class="cmd">chown alice file.txt</div>
+        <div>This changes the owner of the file to <strong>alice</strong>.</div>
+        <div>Verify:</div>
+        <div class="cmd">ls -l file.txt</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rw-r--r-- 1 alice devops 512 Mar 12 file.txt</pre>
+        </li>
+        <li>
+        <strong>Changing Owner and Group Together</strong><br>
+        You can modify both owner and group in one command.
+        <div class="cmd">chown alice:developers file.txt</div>
+        <div>Verify:</div>
+        <div class="cmd">ls -l file.txt</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rw-r--r-- 1 alice developers 512 Mar 12 file.txt</pre>
+        </li>
+        <li>
+        <strong>Changing Group Ownership</strong><br>
+        To change only the group owner, use the <strong>chgrp</strong> command.
+        <div class="cmd">chgrp devops project.txt</div>
+        <div>Verify:</div>
+        <div class="cmd">ls -l project.txt</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rw-r--r-- 1 santhosh devops 1024 Mar 12 project.txt</pre>
+        </li>
+        <li>
+        <strong>Recursive Ownership Changes</strong><br>
+        When managing directories, administrators often need to change ownership for all files inside.
+        <div>Use the recursive flag:</div>
+        <div class="cmd">chown -R alice:developers project_folder</div>
+        <div>This changes ownership for:</div>
+        <ul>
+        <li>the directory</li>
+        <li>all subdirectories</li>
+        <li>all files inside</li>
+        </ul>
+        </li>
+        <li>
+        <strong>Checking User and Group Information</strong><br>
+        <div>To check current user:</div>
+        <div class="cmd">whoami</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">santhosh</pre>
+        <div>To check group memberships:</div>
+        <div class="cmd">groups</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">santhosh sudo docker devops</pre>
+        <div>These groups determine group-level permissions.</div>
+        </li>
+        <li>
+        <strong>Understanding Root Privileges</strong><br>
+        Only the root user (administrator) can change ownership of files.
+        <div>Example command requiring root:</div>
+        <div class="cmd">sudo chown alice file.txt</div>
+        <div>Regular users can only change permissions of files they own.</div>
+        </li>
+        <li>
+        <strong>Ownership in Shared Environments</strong><br>
+        In collaborative environments, group ownership is often used to allow
+        multiple users to access the same project files.
+        <div><code>Example:</code></div>
+        <pre class="cmd-line">drwxrwsr-x 5 alice devops project_folder</pre>
+        <div>The group <strong>devops</strong> can collaborate on files within this directory.</div>
+        </li>
+        <li>
+        <strong>Security Best Practices</strong><br>
+        Proper ownership management helps protect system integrity.
+        <div>Best practices include:</div>
+        <ul>
+        <li>Assign correct file ownership</li>
+        <li>Restrict sensitive files to root</li>
+        <li>Avoid shared ownership unless necessary</li>
+        <li>Use groups for team collaboration</li>
+        </ul>
+        Correct ownership prevents unauthorized access or modification.
+        </li>
+        </ol>
+        <div class="task-check">
+        Completion check: You should now understand how Linux assigns file
+        ownership and how to manage owners and groups using chown and chgrp.
+        </div>
+        </div>
+        </div>
+        </article>
+
+        <article class="task-card" data-task style="--i:5">
+        <button class="task-toggle" type="button">
+        <span class="task-pill">Topic-5</span>
+        <span class="task-title">Access Control Lists (ACLs)</span>
+        <span class="task-meta">30–35 min</span>
+        <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand Access Control Lists (ACLs) and how they provide advanced
+        permission control beyond the standard Linux user, group, and others
+        permission model.
+        </p>
+        <ol class="task-steps-list">
+        <li>
+        <strong>What are Access Control Lists</strong><br>
+        The traditional Linux permission system supports only three permission
+        levels:
+        <ul>
+        <li>User (owner)</li>
+        <li>Group</li>
+        <li>Others</li>
+        </ul>
+        However, modern systems often require more flexible access control.
+        ACLs allow administrators to assign permissions to:
+        <ul>
+        <li>multiple users</li>
+        <li>multiple groups</li>
+        <li>specific individuals</li>
+        </ul>
+        This allows fine-grained security control for shared environments.
+        </li>
+        <li>
+        <strong>Checking if ACL is Enabled</strong><br>
+        Most modern Linux filesystems such as <strong>ext4</strong> support ACLs.
+        <div>Check mount options:</div>
+        <div class="cmd">mount | grep acl</div>
+        <div>If ACL support is enabled, the filesystem will allow ACL permissions.</div>
+        </li>
+        <li>
+        <strong>Viewing ACL Permissions</strong><br>
+        To view ACL permissions, use the command:
+        <div class="cmd">getfacl file.txt</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">
+# file: file.txt
+# owner: santhosh
+# group: devops
+user::rw-
+group::r--
+other::r--</pre>
+        <div>This shows the default Linux permission structure.</div>
+        </li>
+        <li>
+        <strong>Adding ACL Permissions</strong><br>
+        ACL allows granting permissions to specific users.
+        <div><code>Example:</code></div>
+        <div class="cmd">setfacl -m u:alice:rw file.txt</div>
+        <div>Meaning:</div>
+        <ul>
+        <li>u → user</li>
+        <li>alice → username</li>
+        <li>rw → read and write permission</li>
+        </ul>
+        Now user <strong>alice</strong> can access the file.
+        </li>
+        <li>
+        <strong>Verifying ACL Changes</strong><br>
+        <div class="cmd">getfacl file.txt</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">
+# file: file.txt
+# owner: santhosh
+# group: devops
+user::rw-
+user:alice:rw-
+group::r--
+mask::rw-
+other::r--</pre>
+        <div>Notice the new ACL entry for the user <strong>alice</strong>.</div>
+        </li>
+        <li>
+        <strong>Adding Group ACL Permissions</strong><br>
+        ACL permissions can also be assigned to groups.
+        <div><code>Example:</code></div>
+        <div class="cmd">setfacl -m g:developers:rwx project.txt</div>
+        <div>This grants read, write, and execute permissions to the <strong>developers</strong> group.</div>
+        </li>
+        <li>
+        <strong>Default ACLs for Directories</strong><br>
+        ACLs can also define default permissions for new files inside directories.
+        <div><code>Example:</code></div>
+        <div class="cmd">setfacl -d -m u:alice:rwx project_folder</div>
+        <div>Meaning:</div>
+        <ul>
+        <li>new files inherit permissions</li>
+        <li>alice automatically gets access</li>
+        </ul>
+        This is useful for shared development environments.
+        </li>
+        <li>
+        <strong>Removing ACL Permissions</strong><br>
+        To remove a specific ACL entry:
+        <div class="cmd">setfacl -x u:alice file.txt</div>
+        <div>Verify removal:</div>
+        <div class="cmd">getfacl file.txt</div>
+        </li>
+        <li>
+        <strong>Removing All ACL Permissions</strong><br>
+        To clear all ACL entries:
+        <div class="cmd">setfacl -b file.txt</div>
+        <div>This restores the default permission model.</div>
+        </li>
+        <li>
+        <strong>Understanding the ACL Mask</strong><br>
+        ACL includes a mask value which limits effective permissions.
+        <div><code>Example:</code></div>
+        <pre class="cmd-line">mask::rw-</pre>
+        <div>The mask defines the maximum permission allowed for ACL users and groups. Even if an ACL entry grants full access, the mask may restrict it.</div>
+        </li>
+        <li>
+        <strong>ACL Indicators in File Permissions</strong><br>
+        When ACL is enabled on a file, the permission output shows a "+" sign.
+        <div><code>Example:</code></div>
+        <div class="cmd">ls -l file.txt</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rw-rw-r--+ 1 santhosh devops 1024 file.txt</pre>
+        <div>The "+" indicates that ACL permissions exist.</div>
+        </li>
+        <li>
+        <strong>Real-World Usage of ACLs</strong><br>
+        ACLs are widely used in enterprise environments.
+        Examples include:
+        <ul>
+        <li>shared project directories</li>
+        <li>application log access</li>
+        <li>data storage systems</li>
+        <li>multi-user development environments</li>
+        </ul>
+        They provide flexibility that the standard permission model cannot.
+        </li>
+        <li>
+        <strong>Security Best Practices for ACLs</strong><br>
+        When using ACLs, administrators should follow these practices:
+        <ul>
+        <li>avoid overly permissive ACL entries</li>
+        <li>regularly audit ACL permissions</li>
+        <li>combine ACLs with standard permissions</li>
+        <li>document ACL usage in shared systems</li>
+        </ul>
+        Proper ACL configuration improves security while maintaining usability.
+        </li>
+        </ol>
+        <div class="task-check">
+        Completion check: You should now understand how Linux ACLs extend
+        the traditional permission model and allow fine-grained access
+        control for users and groups.
+        </div>
+        </div>
+        </div>
+        </article>
+
+        <article class="task-card" data-task style="--i:6">
+        <button class="task-toggle" type="button">
+        <span class="task-pill">Topic-6</span>
+        <span class="task-title">Linux Server Security Best Practices</span>
+        <span class="task-meta">35–40 min</span>
+        <span class="task-chevron">&#9662;</span>
+        </button>
+        <div class="task-panel">
+        <div class="task-panel-inner">
+        <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn best practices for securing Linux servers using proper permission
+        management, user access control, auditing tools, and secure configuration.
+        </p>
+        <ol class="task-steps-list">
+        <li>
+        <strong>Why Linux Security Matters</strong><br>
+        Linux servers power a large portion of the internet including:
+        <ul>
+        <li>cloud infrastructure</li>
+        <li>web servers</li>
+        <li>database systems</li>
+        <li>container platforms</li>
+        </ul>
+        Improper security configuration can lead to:
+        <ul>
+        <li>unauthorized access</li>
+        <li>data breaches</li>
+        <li>system compromise</li>
+        </ul>
+        System administrators must implement strong security practices.
+        </li>
+        <li>
+        <strong>The Principle of Least Privilege</strong><br>
+        One of the most important security principles is the
+        <strong>least privilege principle</strong>.
+        Users and applications should only receive the minimum permissions
+        necessary to perform their tasks.
+        <div>Benefits:</div>
+        <ul>
+        <li>reduces risk of accidental damage</li>
+        <li>limits impact of compromised accounts</li>
+        <li>protects sensitive system resources</li>
+        </ul>
+        <div><code>Example:</code></div>
+        <div>Instead of giving full access:</div>
+        <pre class="cmd-line">chmod 777 file.txt</pre>
+        <div>Use restrictive permissions:</div>
+        <pre class="cmd-line">chmod 640 file.txt</pre>
+        <div>Only the owner and group can access the file.</div>
+        </li>
+        <li>
+        <strong>Securing Sensitive Files</strong><br>
+        Certain files contain critical system information and must be protected.
+        <div><code>Examples include:</code></div>
+        <ul>
+        <li>/etc/passwd</li>
+        <li>/etc/shadow</li>
+        <li>SSH private keys</li>
+        <li>configuration secrets</li>
+        </ul>
+        Check shadow file permissions:
+        <div class="cmd">ls -l /etc/shadow</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">-rw-r----- 1 root shadow 1200 Mar 10 /etc/shadow</pre>
+        <div>Only privileged users can access this file.</div>
+        </li>
+        <li>
+        <strong>Managing User Accounts Securely</strong><br>
+        Administrators must carefully manage system users.
+        <div>View users:</div>
+        <div class="cmd">cat /etc/passwd</div>
+        <div><code>Example output:</code></div>
+        <div class="cmd-line"><div>root:x:0:0:root:/root:/bin/bash</div><div>santhosh:x:1000:1000:Santhosh:/home/santhosh:/bin/bash</div></div>
+        <div>Create a new user:</div>
+        <div class="cmd">sudo useradd developer</div>
+        <div>Set password:</div>
+        <div class="cmd">sudo passwd developer</div>
+        <div>Remove unused users:</div>
+        <div class="cmd">sudo userdel developer</div>
+        <div>Inactive or unused accounts can become security risks.</div>
+        </li>
+        <li>
+        <strong>Using sudo Instead of Root Login</strong><br>
+        Direct root login should be avoided. Instead, administrators should use the <strong>sudo</strong> command.
+        <div><code>Example:</code></div>
+        <div class="cmd">sudo apt update</div>
+        <div>The sudo configuration is stored in:</div>
+        <div class="cmd-line">/etc/sudoers</div>
+        Only trusted users should have sudo privileges.
+        <div>Check sudo permissions:</div>
+        <div class="cmd">sudo -l</div>
+        <div>This allows users to perform administrative tasks while maintaining accountability.</div>
+        </li>
+        <li>
+        <strong>Securing SSH Access</strong><br>
+        SSH is commonly used to access Linux servers remotely.
+        <div>Check SSH configuration:</div>
+        <div class="cmd">sudo nano /etc/ssh/sshd_config</div>
+        <div>Common security improvements:</div>
+        <ul>
+        <li>disable root login</li>
+        <li>change default SSH port</li>
+        <li>use key authentication</li>
+        </ul>
+        <div>Recommended security settings:</div>
+        <pre class="cmd-line"><div>PermitRootLogin no</div><div>PasswordAuthentication no</div></pre>
+        <div>Restart SSH service:</div>
+        <div class="cmd">sudo systemctl restart ssh</div>
+        <div>Using SSH keys instead of passwords greatly improves security.</div>
+        </li>
+        <li>
+        <strong>Using SSH Key Authentication</strong><br>
+        Passwords are less secure than SSH keys.
+        <div>Generate SSH key:</div>
+        <div class="cmd">ssh-keygen</div>
+        <div>Copy key to server:</div>
+        <div class="cmd">ssh-copy-id user@server</div>
+        <div>This allows secure password-less authentication.</div>
+        </li>
+        <li>
+        <strong>Monitoring File Permissions</strong><br>
+        Administrators should regularly audit system permissions.
+        <div>Find world-writable files:</div>
+        <div class="cmd">find / -perm -002 -type f 2>/dev/null</div>
+        <div><code>Example result:</code></div>
+        <pre class="cmd-line">/tmp/testfile</pre>
+        <div>World-writable files can be exploited by attackers.</div>
+        </li>
+        <li>
+        <strong>Auditing SUID Files</strong><br>
+        SUID files allow programs to run with elevated privileges.
+        Administrators should review them regularly.
+        <div>Find world-writable files:</div>
+        <div class="cmd">find / -perm -002 -type f 2>/dev/null</div>
+        <div>Find SUID files:</div>
+        <div class="cmd">find / -perm -4000 2>/dev/null</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">
+/usr/bin/passwd
+/usr/bin/sudo
+/usr/bin/chsh</pre>
+        <div>Unexpected SUID files may indicate security issues.</div>
+        </li>
+        <li>
+        <strong>Checking Open Network Ports</strong><br>
+        Network services expose potential attack surfaces.
+        <div>Check listening services:</div>
+        <div class="cmd">ss -tulnp</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">
+tcp LISTEN 0 128 0.0.0.0:22
+tcp LISTEN 0 128 0.0.0.0:80</pre>
+        <div>Disable unnecessary services to reduce attack surface.</div>
+        </li>
+        <li>
+        <strong>Using Firewall Protection</strong><br>
+        Linux systems often use firewalls such as <strong>ufw</strong> or
+        <strong>iptables</strong>.
+        <div>Enable firewall:</div>
+        <div class="cmd">sudo ufw enable</div>
+        <div>Allow SSH access:</div>
+        <div class="cmd">sudo ufw allow ssh</div>
+        <div>Check firewall status:</div>
+        <div class="cmd">sudo ufw status</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">
+Status: active
+22/tcp ALLOW Anywhere</pre>
+        </li>
+        <li>
+        <strong>Monitoring System Logs</strong><br>
+        Logs provide critical information about system activity.
+        <div>View authentication logs:</div>
+        <div class="cmd">sudo tail /var/log/auth.log</div>
+        <div><code>Example output:</code></div>
+        <pre class="cmd-line">Failed password for user admin from 192.168.1.10</pre>
+        <div>Frequent failed login attempts may indicate attacks.</div>
+        </li>
+        <li>
+        <strong>Regular System Updates</strong><br>
+        Keeping the system updated is critical for security.
+        <div>Update packages:</div>
+        <div class="cmd">sudo apt update</div>
+        <div>Upgrade packages:</div>
+        <div class="cmd">sudo apt upgrade</div>
+        <div>Updates patch security vulnerabilities in software packages.</div>
+        </li>
+        <li>
+        <strong>Using Security Auditing Tools</strong><br>
+        <div>Advanced security monitoring tools include:</div>
+        <ul>
+        <li>auditd</li>
+        <li>fail2ban</li>
+        <li>chkrootkit</li>
+        <li>rkhunter</li>
+        <li>lynis</li>
+        <li>logwatch</li>
+        </ul>
+        <div><code>Example installing fail2ban:</code></div>
+        <div class="cmd">sudo apt install fail2ban</div>
+        <div>This tool automatically blocks IP addresses that attempt repeated unauthorized logins.</div>
+        </li>
+        <li>
+        <strong>File Integrity Monitoring</strong><br>
+        Tools can monitor changes to system files.
+        <div><code>Examples include:</code></div>
+        <ul>
+        <li>AIDE</li>
+        <li>Tripwire</li>
+        </ul>
+        These tools detect unauthorized modifications.
+        <div><code>Example installation:</code></div>
+        <div class="cmd">sudo apt install aide</div>
+        </li>
+        <li>
+        <strong>Container and Cloud Security</strong><br>
+        In modern DevOps environments, Linux security extends to containers.
+        <div>Important security practices:</div>
+        <ul>
+        <li>limit container privileges</li>
+        <li>use read-only filesystems</li>
+        <li>scan container images</li>
+        </ul>
+        Example container security check:
+        <div class="cmd">docker info</div>
+        </li>
+        <li>
+        <strong>Security Checklist for Linux Servers</strong><br>
+        Administrators should follow a security checklist:
+        <ul>
+        <li>use strong passwords or SSH keys</li>
+        <li>restrict file permissions</li>
+        <li>audit SUID files</li>
+        <li>enable firewall</li>
+        <li>monitor system logs</li>
+        <li>apply security updates</li>
+        </ul>
+        Following these practices significantly improves server security.
+        </li>
+        <li>
+        <strong>Summary of Linux Security Practices</strong><br>
+        Key security practices include:
+        <ul>
+        <li>apply least privilege permissions</li>
+        <li>protect sensitive files</li>
+        <li>disable root login</li>
+        <li>use SSH keys</li>
+        <li>audit file permissions</li>
+        <li>monitor system logs</li>
+        <li>install security tools</li>
+        <li>keep systems updated</li>
+        </ul>
+        Following these practices helps protect Linux servers
+        from unauthorized access and attacks.
+        </li>
+        </ol>
+        <div class="task-check">
+        Completion check: You should now understand the fundamental practices
+        used to secure Linux servers and how permissions, user management,
+        and auditing tools contribute to system security.
+        </div>
+        </div>
+        </div>
+        </article>
+
+    </section>
+    <!-- <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val">Ubuntu 22.04</div></div>
+      <div class="pm-cell"><div class="pm-key">Platform</div><div class="pm-val">VMware / VirtualBox / WSL2</div></div>
+      <div class="pm-cell"><div class="pm-key">Tasks</div><div class="pm-val">24 Structured Tasks</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val pm-status">Completed</div></div>
+    </div>
+  </div> -->
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

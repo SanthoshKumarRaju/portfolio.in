@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:88">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-88</span>
+    <span class="task-title">MTU (Maximum Transmission Unit & Packet Size Optimization)</span>
+    <span class="task-meta">150–190 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how MTU defines the maximum packet size for transmission and its impact on performance, fragmentation, and networking.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is MTU</strong><br>
+          MTU (Maximum Transmission Unit) is the maximum size of a packet that can be transmitted over a network.
+        </li>
+
+        <li>
+          <strong>Why MTU Matters</strong><br>
+          <ul>
+            <li>Affects performance</li>
+            <li>Prevents fragmentation</li>
+            <li>Optimizes throughput</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Packet Size ≤ MTU → Sent directly
+Packet Size > MTU → Fragmented
+          </pre>
+        </li>
+
+        <li>
+          <strong>Standard MTU Values</strong><br>
+          <ul>
+            <li>Ethernet → 1500 bytes</li>
+            <li>Loopback → 65536 bytes</li>
+            <li>VPN/Tunnel → lower than 1500</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Packet Structure</strong><br>
+          <pre class="cmd-line">
+[Headers] + [Payload] = Total Packet Size
+          </pre>
+        </li>
+
+        <li>
+          <strong>Fragmentation</strong><br>
+          <pre class="cmd-line">
+Large Packet → Split → Multiple Smaller Packets
+          </pre>
+        </li>
+
+        <li>
+          <strong>Fragmentation Issues</strong><br>
+          <ul>
+            <li>Increased latency</li>
+            <li>Packet loss risk</li>
+            <li>Performance degradation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Path MTU Discovery (PMTUD)</strong><br>
+          Determines the smallest MTU along the path.
+        </li>
+
+        <li>
+          <strong>PMTUD Flow</strong><br>
+          <pre class="cmd-line">
+Send packet → Too large → ICMP error → Adjust MTU
+          </pre>
+        </li>
+
+        <li>
+          <strong>Don't Fragment (DF) Flag</strong><br>
+          Prevents fragmentation; packet dropped if too large.
+        </li>
+
+        <li>
+          <strong>MTU in Tunnels</strong><br>
+          <ul>
+            <li>GRE, VPN add extra headers</li>
+            <li>Reduces effective MTU</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Example</strong><br>
+          <pre class="cmd-line">
+1500 (Ethernet) - 50 (Tunnel Overhead) = 1450 MTU
+          </pre>
+        </li>
+
+        <li>
+          <strong>MTU vs MSS</strong><br>
+          <ul>
+            <li>MTU → full packet size</li>
+            <li>MSS → TCP payload size</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>MSS Calculation</strong><br>
+          <pre class="cmd-line">
+MSS = MTU - 40 (IP + TCP headers)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Jumbo Frames</strong><br>
+          <ul>
+            <li>MTU > 1500 (e.g., 9000 bytes)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Benefits of Jumbo Frames</strong><br>
+          <ul>
+            <li>Higher throughput</li>
+            <li>Lower CPU usage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Limitations of Jumbo Frames</strong><br>
+          <ul>
+            <li>Not supported everywhere</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check MTU</strong><br>
+          <pre class="cmd-line">
+ip link show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set MTU</strong><br>
+          <pre class="cmd-line">
+ip link set dev eth0 mtu 1400
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test MTU (Ping)</strong><br>
+          <pre class="cmd-line">
+ping -M do -s 1472 google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>MTU Issues</strong><br>
+          <ul>
+            <li>Websites not loading</li>
+            <li>Connection drops</li>
+            <li>Slow performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Black Hole MTU</strong><br>
+          Packets dropped silently due to incorrect MTU.
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check MTU
+Test with ping
+Adjust MTU
+Verify connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>MTU in Docker</strong><br>
+          <pre class="cmd-line">
+docker network inspect
+          </pre>
+        </li>
+
+        <li>
+          <strong>MTU in Kubernetes</strong><br>
+          <ul>
+            <li>Overlay networks reduce MTU</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Impact</strong><br>
+          <ul>
+            <li>Optimal MTU → best performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>Fragmentation can be exploited</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Avoid fragmentation</li>
+            <li>Use consistent MTU</li>
+            <li>Adjust for tunnels</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+VPN users facing slow internet due to MTU mismatch
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          MTU defines the maximum packet size and plays a critical role in performance, fragmentation, and network efficiency.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how MTU impacts packet transmission and network performance.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:89">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-89</span>
+    <span class="task-title">TCP Tuning (Kernel Parameters for Network Performance)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how TCP tuning improves network performance by adjusting kernel parameters related to buffering, connections, and congestion control.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is TCP Tuning</strong><br>
+          TCP tuning involves adjusting Linux kernel parameters to optimize network performance and resource usage.
+        </li>
+
+        <li>
+          <strong>Why TCP Tuning</strong><br>
+          <ul>
+            <li>Improve throughput</li>
+            <li>Reduce latency</li>
+            <li>Handle high traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Client ↔ TCP Stack ↔ Kernel Parameters ↔ Network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Key Areas of Tuning</strong><br>
+          <ul>
+            <li>Buffer sizes</li>
+            <li>Connection limits</li>
+            <li>Congestion control</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>TCP Buffer Sizes</strong><br>
+          <pre class="cmd-line">
+net.core.rmem_max
+net.core.wmem_max
+          </pre>
+        </li>
+
+        <li>
+          <strong>TCP Window Size</strong><br>
+          Controls how much data can be sent before acknowledgment.
+        </li>
+
+        <li>
+          <strong>Window Scaling</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_window_scaling = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Receive & Send Buffers</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_rmem
+net.ipv4.tcp_wmem
+          </pre>
+        </li>
+
+        <li>
+          <strong>Connection Backlog</strong><br>
+          <pre class="cmd-line">
+net.core.somaxconn
+net.ipv4.tcp_max_syn_backlog
+          </pre>
+        </li>
+
+        <li>
+          <strong>SYN Flood Protection</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_syncookies = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>TIME_WAIT Optimization</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_tw_reuse = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Keepalive Settings</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_keepalive_time = 600
+          </pre>
+        </li>
+
+        <li>
+          <strong>Congestion Control Algorithms</strong><br>
+          <ul>
+            <li>cubic (default)</li>
+            <li>bbr (modern, high performance)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Enable BBR</strong><br>
+          <pre class="cmd-line">
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+          </pre>
+        </li>
+
+        <li>
+          <strong>File Descriptor Limits</strong><br>
+          <pre class="cmd-line">
+ulimit -n 100000
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ephemeral Ports Range</strong><br>
+          <pre class="cmd-line">
+net.ipv4.ip_local_port_range = 1024 65535
+          </pre>
+        </li>
+
+        <li>
+          <strong>TCP Fast Open</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_fastopen = 3
+          </pre>
+        </li>
+
+        <li>
+          <strong>Retransmission Settings</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_retries2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Apply Settings</strong><br>
+          <pre class="cmd-line">
+sysctl -p
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Current Values</strong><br>
+          <pre class="cmd-line">
+sysctl -a | grep tcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Traffic Optimization</strong><br>
+          <ul>
+            <li>Increase buffers</li>
+            <li>Increase backlog</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Low Latency Optimization</strong><br>
+          <ul>
+            <li>Use BBR</li>
+            <li>Tune keepalive</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Docker Consideration</strong><br>
+          <ul>
+            <li>Uses host kernel TCP settings</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Consideration</strong><br>
+          <ul>
+            <li>Node-level tuning required</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Impact</strong><br>
+          <ul>
+            <li>Better throughput</li>
+            <li>Reduced packet loss</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Too small buffers</li>
+            <li>Connection drops</li>
+            <li>High latency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check sysctl values
+Monitor traffic
+Adjust parameters
+Test performance
+          </pre>
+        </li>
+
+        <li>
+          <strong>Monitoring Tools</strong><br>
+          <pre class="cmd-line">
+ss -s
+netstat -s
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>Prevent SYN floods</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Test before applying</li>
+            <li>Tune based on workload</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+High-traffic web server optimized using BBR and increased buffers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          TCP tuning optimizes kernel parameters to improve throughput, reduce latency, and handle high network loads efficiently.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how TCP tuning improves network performance using kernel-level optimizations.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:90">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-90</span>
+    <span class="task-title">Connection Limits (Controlling Concurrent Connections)</span>
+    <span class="task-meta">150–190 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how connection limits control the number of concurrent connections to ensure performance, stability, and security.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are Connection Limits</strong><br>
+          Connection limits define the maximum number of simultaneous connections a system can handle.
+        </li>
+
+        <li>
+          <strong>Why Connection Limits</strong><br>
+          <ul>
+            <li>Prevent overload</li>
+            <li>Ensure stability</li>
+            <li>Improve performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Clients → Server (Limited connections allowed)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Without Limits</strong><br>
+          <pre class="cmd-line">
+Too many connections → Server crash / slowdown
+          </pre>
+        </li>
+
+        <li>
+          <strong>With Limits</strong><br>
+          <pre class="cmd-line">
+Max connections → Controlled traffic → Stable system
+          </pre>
+        </li>
+
+        <li>
+          <strong>Types of Limits</strong><br>
+          <ul>
+            <li>System-level limits</li>
+            <li>Application-level limits</li>
+            <li>Network-level limits</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>File Descriptor Limits</strong><br>
+          <pre class="cmd-line">
+ulimit -n
+          </pre>
+          Each connection uses a file descriptor.
+        </li>
+
+        <li>
+          <strong>Increase FD Limit</strong><br>
+          <pre class="cmd-line">
+ulimit -n 100000
+          </pre>
+        </li>
+
+        <li>
+          <strong>Kernel Limits</strong><br>
+          <pre class="cmd-line">
+fs.file-max
+          </pre>
+        </li>
+
+        <li>
+          <strong>Backlog Queue</strong><br>
+          <pre class="cmd-line">
+net.core.somaxconn
+net.ipv4.tcp_max_syn_backlog
+          </pre>
+        </li>
+
+        <li>
+          <strong>TCP States</strong><br>
+          <ul>
+            <li>ESTABLISHED</li>
+            <li>TIME_WAIT</li>
+            <li>CLOSE_WAIT</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>TIME_WAIT Issue</strong><br>
+          Too many connections stuck in TIME_WAIT.
+        </li>
+
+        <li>
+          <strong>Optimize TIME_WAIT</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_tw_reuse = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Application-Level Limits (Nginx)</strong><br>
+          <pre class="cmd-line">
+worker_connections 1024;
+          </pre>
+        </li>
+
+        <li>
+          <strong>HAProxy Limits</strong><br>
+          <pre class="cmd-line">
+maxconn 5000
+          </pre>
+        </li>
+
+        <li>
+          <strong>Database Limits</strong><br>
+          <pre class="cmd-line">
+max_connections = 200
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rate Limiting vs Connection Limits</strong><br>
+          <ul>
+            <li>Connection limit → total connections</li>
+            <li>Rate limit → requests per time</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Load Balancer Role</strong><br>
+          Distributes connections across multiple servers.
+        </li>
+
+        <li>
+          <strong>Connection Pooling</strong><br>
+          <pre class="cmd-line">
+Reuse existing connections instead of creating new ones
+          </pre>
+        </li>
+
+        <li>
+          <strong>Keep-Alive Connections</strong><br>
+          <ul>
+            <li>Reduce connection overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Ephemeral Ports</strong><br>
+          <pre class="cmd-line">
+net.ipv4.ip_local_port_range
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Exhaustion</strong><br>
+          Too many outgoing connections → no ports available.
+        </li>
+
+        <li>
+          <strong>Monitoring Connections</strong><br>
+          <pre class="cmd-line">
+ss -s
+netstat -an | wc -l
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Consideration</strong><br>
+          Containers share host limits.
+        </li>
+
+        <li>
+          <strong>Kubernetes Consideration</strong><br>
+          Node-level limits apply to pods.
+        </li>
+
+        <li>
+          <strong>Performance Impact</strong><br>
+          <ul>
+            <li>Proper limits → stable performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Benefits</strong><br>
+          <ul>
+            <li>Prevents connection flooding</li>
+            <li>Mitigates DDoS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Too many open files</li>
+            <li>Connection refused</li>
+            <li>Timeout errors</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check FD limits
+Check connections
+Check logs
+Adjust limits
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Set realistic limits</li>
+            <li>Use load balancing</li>
+            <li>Monitor usage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+High-traffic API server tuned with increased FD and connection limits
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Connection limits control concurrent connections to maintain system stability, performance, and security.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how connection limits manage concurrency and protect system resources.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:91">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-91</span>
+    <span class="task-title">Kernel Parameters (Network Performance Tuning using sysctl)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Linux kernel parameters can be tuned to improve networking performance, scalability, and reliability.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are Kernel Parameters</strong><br>
+          Kernel parameters control how the Linux kernel handles networking, memory, and system behavior.
+        </li>
+
+        <li>
+          <strong>Why Tune Kernel Parameters</strong><br>
+          <ul>
+            <li>Improve performance</li>
+            <li>Handle high traffic</li>
+            <li>Optimize resource usage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>sysctl Tool</strong><br>
+          <pre class="cmd-line">
+sysctl -a
+          </pre>
+          Used to view and modify kernel parameters.
+        </li>
+
+        <li>
+          <strong>Temporary Change</strong><br>
+          <pre class="cmd-line">
+sysctl -w net.ipv4.ip_forward=1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Permanent Change</strong><br>
+          <pre class="cmd-line">
+/etc/sysctl.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Apply Changes</strong><br>
+          <pre class="cmd-line">
+sysctl -p
+          </pre>
+        </li>
+
+        <li>
+          <strong>Categories of Parameters</strong><br>
+          <ul>
+            <li>Network (net.*)</li>
+            <li>File system (fs.*)</li>
+            <li>Kernel (kernel.*)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>IP Forwarding</strong><br>
+          <pre class="cmd-line">
+net.ipv4.ip_forward = 1
+          </pre>
+          Enables routing between networks.
+        </li>
+
+        <li>
+          <strong>TCP Buffer Sizes</strong><br>
+          <pre class="cmd-line">
+net.core.rmem_max
+net.core.wmem_max
+          </pre>
+        </li>
+
+        <li>
+          <strong>TCP Window Scaling</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_window_scaling = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Connection Backlog</strong><br>
+          <pre class="cmd-line">
+net.core.somaxconn
+net.ipv4.tcp_max_syn_backlog
+          </pre>
+        </li>
+
+        <li>
+          <strong>SYN Flood Protection</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_syncookies = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>TIME_WAIT Optimization</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_tw_reuse = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ephemeral Port Range</strong><br>
+          <pre class="cmd-line">
+net.ipv4.ip_local_port_range = 1024 65535
+          </pre>
+        </li>
+
+        <li>
+          <strong>File Descriptor Limits</strong><br>
+          <pre class="cmd-line">
+fs.file-max
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Queue Length</strong><br>
+          <pre class="cmd-line">
+net.core.netdev_max_backlog
+          </pre>
+        </li>
+
+        <li>
+          <strong>Congestion Control</strong><br>
+          <pre class="cmd-line">
+net.ipv4.tcp_congestion_control = bbr
+          </pre>
+        </li>
+
+        <li>
+          <strong>Queue Discipline</strong><br>
+          <pre class="cmd-line">
+net.core.default_qdisc = fq
+          </pre>
+        </li>
+
+        <li>
+          <strong>ICMP Settings</strong><br>
+          <pre class="cmd-line">
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reverse Path Filtering</strong><br>
+          <pre class="cmd-line">
+net.ipv4.conf.all.rp_filter = 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Consideration</strong><br>
+          <ul>
+            <li>Containers use host kernel settings</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Consideration</strong><br>
+          <ul>
+            <li>Node-level tuning required</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Optimization</strong><br>
+          <ul>
+            <li>Increase buffers</li>
+            <li>Enable BBR</li>
+            <li>Adjust backlog</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Optimization</strong><br>
+          <ul>
+            <li>Enable SYN cookies</li>
+            <li>Disable ICMP redirects</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Monitoring</strong><br>
+          <pre class="cmd-line">
+ss -s
+netstat -s
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong values causing instability</li>
+            <li>Performance degradation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check current values
+Modify gradually
+Test performance
+Monitor system
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Test before production</li>
+            <li>Document changes</li>
+            <li>Use workload-based tuning</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+High-traffic server optimized using increased buffers and BBR congestion control
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Kernel parameters allow fine-grained control over networking behavior, enabling optimized performance, scalability, and security.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how kernel parameters can be tuned for better networking performance.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

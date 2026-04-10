@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:56">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-56</span>
+    <span class="task-title">Network Troubleshooting (Interfaces & IP Basics)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to troubleshoot network issues starting from interfaces and IP addresses, building a strong debugging workflow used in real-world systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Network Troubleshooting</strong><br>
+          Network troubleshooting is the process of identifying and fixing connectivity issues.
+          <ul>
+            <li>Systematic approach</li>
+            <li>Layer-by-layer debugging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Start with Interfaces & IP</strong><br>
+          <ul>
+            <li>Most issues occur at this level</li>
+            <li>Foundation for all network communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Step 1: Check Interfaces</strong><br>
+          <pre class="cmd-line">
+ip a
+          </pre>
+          Look for:
+          <ul>
+            <li>Interface status (UP/DOWN)</li>
+            <li>Assigned IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Alternative Command</strong><br>
+          <pre class="cmd-line">
+ifconfig
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Interface State</strong><br>
+          <pre class="cmd-line">
+ip link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Interface Up</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Interface Down</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 down
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 2: Check IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assign IP Manually</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Remove IP</strong><br>
+          <pre class="cmd-line">
+ip addr del 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Routing Table</strong><br>
+          <pre class="cmd-line">
+ip route
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route | grep default
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 3: Test Connectivity (Local)</strong><br>
+          <pre class="cmd-line">
+ping 127.0.0.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Gateway</strong><br>
+          <pre class="cmd-line">
+ping 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test External IP</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test DNS</strong><br>
+          <pre class="cmd-line">
+ping google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check DNS Config</strong><br>
+          <pre class="cmd-line">
+cat /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Open Ports</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Network Services</strong><br>
+          <pre class="cmd-line">
+systemctl status NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Firewall</strong><br>
+          <pre class="cmd-line">
+iptables -L
+ufw status
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Interface DOWN</li>
+            <li>No IP assigned</li>
+            <li>Wrong gateway</li>
+            <li>DNS misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Layered Troubleshooting Approach</strong><br>
+          <ul>
+            <li>Layer 1 → Interface</li>
+            <li>Layer 2 → IP</li>
+            <li>Layer 3 → Routing</li>
+            <li>Layer 4 → Ports</li>
+            <li>Layer 7 → Application</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Debugging Tools</strong><br>
+          <ul>
+            <li>tcpdump</li>
+            <li>traceroute</li>
+            <li>netstat</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real DevOps Workflow</strong><br>
+          <pre class="cmd-line">
+ip a → check IP
+ip route → check gateway
+ping → test connectivity
+ss -tuln → check ports
+curl → test application
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cloud Troubleshooting</strong><br>
+          <ul>
+            <li>Check security groups</li>
+            <li>Check subnet routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Troubleshooting</strong><br>
+          <ul>
+            <li>Check container IP</li>
+            <li>Check bridge network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Real Scenarios</strong><br>
+          <ul>
+            <li>No internet → gateway/DNS issue</li>
+            <li>Service not reachable → firewall/port issue</li>
+            <li>SSH not working → port or service down</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Follow step-by-step debugging</li>
+            <li>Verify each layer</li>
+            <li>Use logs and tools</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Rule</strong><br>
+          Always start from basics:
+          <pre class="cmd-line">
+Interface → IP → Route → DNS → Service
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Network troubleshooting begins with checking interfaces and IP addresses, forming the foundation for diagnosing and resolving all networking issues effectively.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to troubleshoot basic network issues starting from interfaces and IP configurations.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:57">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-57</span>
+    <span class="task-title">Routing Tables (Diagnosing Routing Issues)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how routing works, how to read routing tables, and how to diagnose and fix routing issues in Linux and real-world environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Routing</strong><br>
+          Routing is the process of forwarding packets from one network to another.
+          <ul>
+            <li>Uses routing tables</li>
+            <li>Determines packet path</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is a Routing Table</strong><br>
+          A routing table is a list of routes that tells the system where to send network traffic.
+        </li>
+
+        <li>
+          <strong>Why Routing Tables Matter</strong><br>
+          <ul>
+            <li>Controls packet flow</li>
+            <li>Critical for internet access</li>
+            <li>Used in servers, routers, cloud</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>View Routing Table</strong><br>
+          <pre class="cmd-line">
+ip route
+          </pre>
+        </li>
+
+        <li>
+          <strong>Legacy Command</strong><br>
+          <pre class="cmd-line">
+route -n
+          </pre>
+        </li>
+
+        <li>
+          <strong>Sample Output</strong><br>
+          <pre class="cmd-line">
+default via 192.168.1.1 dev eth0
+192.168.1.0/24 dev eth0 proto kernel scope link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Key Fields Explained</strong><br>
+          <ul>
+            <li>default → default route</li>
+            <li>via → gateway</li>
+            <li>dev → interface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Default Gateway</strong><br>
+          The route used when no specific route exists.
+        </li>
+
+        <li>
+          <strong>Check Default Route</strong><br>
+          <pre class="cmd-line">
+ip route | grep default
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Route</strong><br>
+          <pre class="cmd-line">
+ip route add 10.0.0.0/24 via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete Route</strong><br>
+          <pre class="cmd-line">
+ip route del 10.0.0.0/24
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route add default via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing Decision Process</strong><br>
+          <ul>
+            <li>Match destination IP</li>
+            <li>Choose best route (longest prefix match)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Longest Prefix Match</strong><br>
+          More specific route is preferred.
+        </li>
+
+        <li>
+          <strong>Check Route for Specific IP</strong><br>
+          <pre class="cmd-line">
+ip route get 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Routing Issues</strong><br>
+          <ul>
+            <li>No default route</li>
+            <li>Wrong gateway</li>
+            <li>Missing subnet route</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>No Internet Scenario</strong><br>
+          Check:
+          <pre class="cmd-line">
+ip route
+          </pre>
+          If no default → no internet.
+        </li>
+
+        <li>
+          <strong>Wrong Gateway Scenario</strong><br>
+          Packets go to incorrect router → no response.
+        </li>
+
+        <li>
+          <strong>Multiple Interfaces Issue</strong><br>
+          Wrong interface used for routing.
+        </li>
+
+        <li>
+          <strong>Advanced: Policy Routing</strong><br>
+          <pre class="cmd-line">
+ip rule show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Multiple Routing Tables</strong><br>
+          <pre class="cmd-line">
+ip route show table all
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing in Cloud</strong><br>
+          <ul>
+            <li>Route tables control subnet traffic</li>
+            <li>NAT gateways for private subnets</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Docker</strong><br>
+          <ul>
+            <li>Bridge network routing</li>
+            <li>Container traffic flows through host</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Kubernetes</strong><br>
+          <ul>
+            <li>Pod-to-pod communication</li>
+            <li>Overlay networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Routing</strong><br>
+          <pre class="cmd-line">
+ip route
+ip route get 8.8.8.8
+traceroute 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check IP → ip a
+Check route → ip route
+Check gateway → ping gateway
+Check external → ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always verify default route</li>
+            <li>Use correct gateway</li>
+            <li>Keep routing simple</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server no internet → missing default route</li>
+            <li>Multi-NIC server → wrong route selected</li>
+            <li>Cloud VM → subnet route misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If IP works but no internet → routing issue
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Routing tables determine how packets travel across networks, and diagnosing routing issues is essential for resolving connectivity problems in any environment.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to read routing tables and diagnose routing issues effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:58">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-58</span>
+    <span class="task-title">Gateway Connectivity (Access to External Networks)</span>
+    <span class="task-meta">110–140 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how gateways enable external connectivity, how to configure them, and how to troubleshoot gateway-related issues in real-world systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Gateway</strong><br>
+          A gateway is a network device (usually a router) that connects a local network to external networks (like the internet).
+        </li>
+
+        <li>
+          <strong>Why Gateway is Important</strong><br>
+          <ul>
+            <li>Enables internet access</li>
+            <li>Routes traffic outside local network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Default Gateway</strong><br>
+          The default gateway is used when no specific route is found.
+        </li>
+
+        <li>
+          <strong>Basic Flow</strong><br>
+          <pre class="cmd-line">
+Client → Gateway → Internet → Response
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route | grep default
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Output</strong><br>
+          <pre class="cmd-line">
+default via 192.168.1.1 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Gateway Connectivity</strong><br>
+          <pre class="cmd-line">
+ping 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route add default via 192.168.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete Default Gateway</strong><br>
+          <pre class="cmd-line">
+ip route del default
+          </pre>
+        </li>
+
+        <li>
+          <strong>Gateway vs Router</strong><br>
+          <ul>
+            <li>Gateway → logical concept</li>
+            <li>Router → physical device</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Gateway in Private Networks</strong><br>
+          <ul>
+            <li>Typically 192.168.x.1</li>
+            <li>Handles NAT and routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Gateway in Cloud</strong><br>
+          <ul>
+            <li>Internet Gateway (IGW)</li>
+            <li>NAT Gateway for private subnets</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Gateway in Containers</strong><br>
+          <ul>
+            <li>Docker bridge gateway</li>
+            <li>Container → host → internet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Gateway Issues</strong><br>
+          <ul>
+            <li>No default route</li>
+            <li>Wrong gateway IP</li>
+            <li>Gateway unreachable</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>No Internet Scenario</strong><br>
+          If:
+          <pre class="cmd-line">
+ping 8.8.8.8 → FAIL
+ping gateway → FAIL
+          </pre>
+          → Gateway issue
+        </li>
+
+        <li>
+          <strong>Gateway Reachable but No Internet</strong><br>
+          <ul>
+            <li>ISP issue</li>
+            <li>NAT misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Gateway Issues</strong><br>
+          <pre class="cmd-line">
+ip route
+ping gateway-ip
+traceroute 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check ARP Table</strong><br>
+          <pre class="cmd-line">
+ip neigh
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing + Gateway Relation</strong><br>
+          Gateway is defined inside routing table.
+        </li>
+
+        <li>
+          <strong>Firewall Impact</strong><br>
+          <ul>
+            <li>Firewall may block gateway traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: Multiple Gateways</strong><br>
+          <ul>
+            <li>Used for failover</li>
+            <li>Load balancing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: Policy Routing</strong><br>
+          Different gateways for different traffic.
+        </li>
+
+        <li>
+          <strong>Cloud Troubleshooting</strong><br>
+          <ul>
+            <li>Check route tables</li>
+            <li>Check NAT gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DevOps Scenario</strong><br>
+          <ul>
+            <li>Server deployed but no internet</li>
+            <li>Check gateway → fix routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check IP → ip a
+Check route → ip route
+Ping gateway
+Ping external IP
+Check DNS
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always verify gateway</li>
+            <li>Use correct subnet</li>
+            <li>Monitor connectivity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If gateway is unreachable → no internet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Cloud VM no internet → missing IGW route</li>
+            <li>Server misconfigured → wrong gateway</li>
+            <li>Docker container → bridge gateway issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Gateway connectivity is essential for accessing external networks, and diagnosing gateway issues is a key skill for solving real-world networking problems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to diagnose and fix gateway-related connectivity issues.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:59">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-59</span>
+    <span class="task-title">Testing External IP Connectivity (Internet Verification)</span>
+    <span class="task-meta">100–130 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to verify internet connectivity by testing external IPs and differentiate between network, routing, and DNS issues.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is External IP Testing</strong><br>
+          Testing external IPs checks whether a system can reach the internet.
+          <ul>
+            <li>Uses direct IP (no DNS)</li>
+            <li>Validates routing + gateway + NAT</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why It is Important</strong><br>
+          <ul>
+            <li>Separates network issues from DNS issues</li>
+            <li>Quick internet connectivity check</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common External IPs</strong><br>
+          <ul>
+            <li>8.8.8.8 (Google DNS)</li>
+            <li>1.1.1.1 (Cloudflare DNS)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Connectivity Test</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interpret Results</strong><br>
+          <ul>
+            <li>Success → Internet working</li>
+            <li>Fail → Routing/gateway issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Test Without ICMP (Ping Blocked)</strong><br>
+          <pre class="cmd-line">
+curl http://1.1.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Public IP</strong><br>
+          <pre class="cmd-line">
+curl ifconfig.me
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Route to External IP</strong><br>
+          <pre class="cmd-line">
+ip route get 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Trace Path to Internet</strong><br>
+          <pre class="cmd-line">
+traceroute 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS vs Network Test</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8   → Network
+ping google.com → DNS
+          </pre>
+        </li>
+
+        <li>
+          <strong>Scenario 1: External IP Works</strong><br>
+          DNS might be broken.
+        </li>
+
+        <li>
+          <strong>Scenario 2: External IP Fails</strong><br>
+          <ul>
+            <li>Gateway issue</li>
+            <li>Routing problem</li>
+            <li>Firewall block</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check Gateway</strong><br>
+          <pre class="cmd-line">
+ip route
+ping gateway-ip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Firewall</strong><br>
+          <pre class="cmd-line">
+iptables -L
+ufw status
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check NAT</strong><br>
+          <pre class="cmd-line">
+iptables -t nat -L
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cloud Troubleshooting</strong><br>
+          <ul>
+            <li>Check security groups</li>
+            <li>Check route tables</li>
+            <li>Check NAT gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Troubleshooting</strong><br>
+          <ul>
+            <li>Check container network</li>
+            <li>Check bridge NAT</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: Use nc (Netcat)</strong><br>
+          <pre class="cmd-line">
+nc -zv 8.8.8.8 53
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Use telnet</strong><br>
+          <pre class="cmd-line">
+telnet 8.8.8.8 53
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check DNS Resolution</strong><br>
+          <pre class="cmd-line">
+nslookup google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No default route</li>
+            <li>Gateway unreachable</li>
+            <li>Firewall blocking outbound</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real DevOps Workflow</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8 → check internet
+ping google.com → check DNS
+curl → check application
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If external IP fails → network problem
+If domain fails → DNS problem
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always test external IP first</li>
+            <li>Separate DNS vs network issues</li>
+            <li>Use multiple tools</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server can't reach internet → gateway missing</li>
+            <li>Ping works but domain fails → DNS broken</li>
+            <li>Cloud VM no access → security group issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Testing external IPs is a fundamental troubleshooting step that verifies internet connectivity and helps isolate network issues from DNS problems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to verify internet connectivity and diagnose network vs DNS issues effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:60">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-60</span>
+    <span class="task-title">DNS Troubleshooting (Domain Resolution Issues)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how DNS works, how domain resolution happens, and how to diagnose and fix DNS-related issues in real-world environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is DNS</strong><br>
+          DNS (Domain Name System) translates domain names into IP addresses.
+          <ul>
+            <li>example.com → 93.184.216.34</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why DNS Issues Occur</strong><br>
+          <ul>
+            <li>Misconfigured DNS server</li>
+            <li>Network DNS unreachable</li>
+            <li>Cache issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS Resolution Flow</strong><br>
+          <pre class="cmd-line">
+Client → Resolver → Root → TLD → Authoritative → IP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic Test (Compare)</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8      → Network OK
+ping google.com   → DNS check
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check DNS Config</strong><br>
+          <pre class="cmd-line">
+cat /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example resolv.conf</strong><br>
+          <pre class="cmd-line">
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test DNS Resolution</strong><br>
+          <pre class="cmd-line">
+nslookup google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced DNS Query Tool</strong><br>
+          <pre class="cmd-line">
+dig google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Specific DNS Server</strong><br>
+          <pre class="cmd-line">
+dig @8.8.8.8 google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Flush DNS Cache</strong><br>
+          <pre class="cmd-line">
+systemd-resolve --flush-caches
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check systemd-resolved</strong><br>
+          <pre class="cmd-line">
+systemctl status systemd-resolved
+          </pre>
+        </li>
+
+        <li>
+          <strong>Restart DNS Service</strong><br>
+          <pre class="cmd-line">
+systemctl restart systemd-resolved
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common DNS Issues</strong><br>
+          <ul>
+            <li>Wrong nameserver</li>
+            <li>DNS server unreachable</li>
+            <li>Cache corruption</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Scenario 1: IP Works, Domain Fails</strong><br>
+          DNS issue confirmed.
+        </li>
+
+        <li>
+          <strong>Scenario 2: nslookup Fails</strong><br>
+          DNS server problem.
+        </li>
+
+        <li>
+          <strong>Scenario 3: dig Works but ping Fails</strong><br>
+          Possible firewall or ICMP block.
+        </li>
+
+        <li>
+          <strong>Check Hosts File</strong><br>
+          <pre class="cmd-line">
+/etc/hosts
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Hosts Entry</strong><br>
+          <pre class="cmd-line">
+127.0.0.1 example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS in Cloud</strong><br>
+          <ul>
+            <li>Route53 (AWS)</li>
+            <li>Private DNS zones</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in Containers</strong><br>
+          <ul>
+            <li>Docker internal DNS</li>
+            <li>Kubernetes CoreDNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in Kubernetes</strong><br>
+          <ul>
+            <li>Service discovery</li>
+            <li>Pod-to-pod communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check DNS Port</strong><br>
+          <pre class="cmd-line">
+ss -tuln | grep 53
+          </pre>
+        </li>
+
+        <li>
+          <strong>Firewall Issues</strong><br>
+          <ul>
+            <li>Port 53 blocked</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Debugging</strong><br>
+          <pre class="cmd-line">
+tcpdump -i eth0 port 53
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8 → network
+ping domain → DNS
+cat resolv.conf
+nslookup domain
+dig domain
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If IP works but domain fails → DNS issue
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use reliable DNS (8.8.8.8, 1.1.1.1)</li>
+            <li>Monitor DNS latency</li>
+            <li>Keep backup DNS servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>App can't reach API → DNS misconfigured</li>
+            <li>Cloud service down → DNS propagation delay</li>
+            <li>Kubernetes issue → CoreDNS failure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          DNS issues can break connectivity even when the network is functioning properly, making DNS troubleshooting a critical skill in real-world systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to diagnose and fix DNS-related issues effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:61">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-61</span>
+    <span class="task-title">Checking Open Ports (Service Verification)</span>
+    <span class="task-meta">110–140 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to check open ports, verify services, and troubleshoot service availability issues in Linux and real-world environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are Open Ports</strong><br>
+          Open ports are network ports where services are actively listening for connections.
+          <ul>
+            <li>Port = communication endpoint</li>
+            <li>Service binds to a port</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Checking Ports is Important</strong><br>
+          <ul>
+            <li>Confirms service is running</li>
+            <li>Helps diagnose connectivity issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ports</strong><br>
+          <ul>
+            <li>22 → SSH</li>
+            <li>80 → HTTP</li>
+            <li>443 → HTTPS</li>
+            <li>3306 → MySQL</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check Open Ports (ss)</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter Specific Port</strong><br>
+          <pre class="cmd-line">
+ss -tuln | grep 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Process Using Port</strong><br>
+          <pre class="cmd-line">
+ss -tulnp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Legacy Tool (netstat)</strong><br>
+          <pre class="cmd-line">
+netstat -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using lsof</strong><br>
+          <pre class="cmd-line">
+lsof -i :80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Port Locally</strong><br>
+          <pre class="cmd-line">
+nc -zv localhost 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Port Remotely</strong><br>
+          <pre class="cmd-line">
+nc -zv server-ip 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using curl</strong><br>
+          <pre class="cmd-line">
+curl http://localhost
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Service Status</strong><br>
+          <pre class="cmd-line">
+systemctl status nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Start Service</strong><br>
+          <pre class="cmd-line">
+systemctl start nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Listening Address</strong><br>
+          <pre class="cmd-line">
+0.0.0.0:80 → all interfaces
+127.0.0.1:80 → localhost only
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Service not running</li>
+            <li>Port not listening</li>
+            <li>Firewall blocking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Port Open but Not Accessible</strong><br>
+          Possible causes:
+          <ul>
+            <li>Firewall rules</li>
+            <li>Binding to localhost only</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check Firewall</strong><br>
+          <pre class="cmd-line">
+ufw status
+iptables -L
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check SELinux (RHEL)</strong><br>
+          <pre class="cmd-line">
+getenforce
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Scan Ports (nmap)</strong><br>
+          <pre class="cmd-line">
+nmap localhost
+          </pre>
+        </li>
+
+        <li>
+          <strong>DevOps Workflow</strong><br>
+          <pre class="cmd-line">
+Check service → systemctl
+Check port → ss -tuln
+Test → curl / nc
+Check firewall
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cloud Troubleshooting</strong><br>
+          <ul>
+            <li>Check security groups</li>
+            <li>Check load balancer</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Troubleshooting</strong><br>
+          <ul>
+            <li>Check container port mapping</li>
+            <li>Docker: -p 8080:80</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Troubleshooting</strong><br>
+          <ul>
+            <li>Check service port</li>
+            <li>Check pod listening port</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging Workflow</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+lsof -i :port
+systemctl status service
+curl localhost
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If port is not listening → service is not running
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always verify port binding</li>
+            <li>Use ss over netstat</li>
+            <li>Monitor service logs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Website down → port 80 not listening</li>
+            <li>API unreachable → firewall blocking</li>
+            <li>SSH fail → port 22 closed</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Checking open ports is a fundamental step in verifying services and diagnosing connectivity issues in Linux systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to verify open ports and troubleshoot service availability issues.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:62">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-62</span>
+    <span class="task-title">Structured Troubleshooting Approach (Systematic Debugging)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master a structured, step-by-step troubleshooting methodology to isolate and resolve network problems efficiently in real-world environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Structured Troubleshooting</strong><br>
+          A systematic approach to diagnosing issues by checking each layer step by step.
+          <ul>
+            <li>Avoids guesswork</li>
+            <li>Speeds up debugging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why It is Important</strong><br>
+          <ul>
+            <li>Reduces downtime</li>
+            <li>Ensures accurate root cause analysis</li>
+            <li>Used in production environments</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Rule</strong><br>
+          <pre class="cmd-line">
+Always start from basics → move to advanced
+          </pre>
+        </li>
+
+        <li>
+          <strong>Layer-Based Approach (OSI Thinking)</strong><br>
+          <ul>
+            <li>Layer 1 → Interface</li>
+            <li>Layer 2 → IP</li>
+            <li>Layer 3 → Routing</li>
+            <li>Layer 4 → Ports</li>
+            <li>Layer 7 → Application</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Step 1: Check Interface</strong><br>
+          <pre class="cmd-line">
+ip a
+ip link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 2: Check IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 3: Check Routing</strong><br>
+          <pre class="cmd-line">
+ip route
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 4: Check Gateway</strong><br>
+          <pre class="cmd-line">
+ping gateway-ip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 5: Test External Connectivity</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 6: Check DNS</strong><br>
+          <pre class="cmd-line">
+ping google.com
+nslookup google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 7: Check Ports</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Step 8: Check Application</strong><br>
+          <pre class="cmd-line">
+curl http://localhost
+          </pre>
+        </li>
+
+        <li>
+          <strong>Visual Debug Flow</strong><br>
+          <pre class="cmd-line">
+Interface → IP → Route → Gateway → Internet → DNS → Port → App
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Debug Patterns</strong><br>
+          <ul>
+            <li>No IP → interface/config issue</li>
+            <li>No route → routing issue</li>
+            <li>No DNS → name resolution issue</li>
+            <li>Port closed → service issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Scenario 1: No Internet</strong><br>
+          <pre class="cmd-line">
+Check IP → Check route → Check gateway → Check NAT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Scenario 2: Service Not Reachable</strong><br>
+          <pre class="cmd-line">
+Check port → Check firewall → Check service
+          </pre>
+        </li>
+
+        <li>
+          <strong>Scenario 3: Domain Not Resolving</strong><br>
+          <pre class="cmd-line">
+Check DNS → resolv.conf → nslookup
+          </pre>
+        </li>
+
+        <li>
+          <strong>Scenario 4: Works Locally but Not Remotely</strong><br>
+          <ul>
+            <li>Firewall issue</li>
+            <li>Port binding issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use of Tools</strong><br>
+          <ul>
+            <li>ip → interface & routing</li>
+            <li>ping → connectivity</li>
+            <li>ss → ports</li>
+            <li>curl → application</li>
+            <li>tcpdump → packet-level</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DevOps Workflow</strong><br>
+          <pre class="cmd-line">
+ip a → IP check
+ip route → routing
+ping → connectivity
+ss → ports
+curl → app
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cloud Debugging</strong><br>
+          <ul>
+            <li>Check security groups</li>
+            <li>Check route tables</li>
+            <li>Check load balancer</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Debugging</strong><br>
+          <ul>
+            <li>Check container IP</li>
+            <li>Check port mapping</li>
+            <li>Check network bridge</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Debugging</strong><br>
+          <ul>
+            <li>Check pod IP</li>
+            <li>Check service</li>
+            <li>Check ingress</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Debugging</strong><br>
+          <ul>
+            <li>tcpdump → packet capture</li>
+            <li>traceroute → path analysis</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Mistakes</strong><br>
+          <ul>
+            <li>Skipping steps</li>
+            <li>Guessing instead of verifying</li>
+            <li>Ignoring logs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Follow structured flow</li>
+            <li>Validate each layer</li>
+            <li>Document findings</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Workflow</strong><br>
+          <pre class="cmd-line">
+1. Interface
+2. IP
+3. Route
+4. Gateway
+5. Internet
+6. DNS
+7. Port
+8. Application
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Production outage → firewall rule blocked port</li>
+            <li>Cloud app down → missing route</li>
+            <li>API failure → DNS issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Final Insight</strong><br>
+          Good engineers guess. Great engineers verify step by step.
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          A structured troubleshooting approach ensures efficient problem isolation and resolution, making it an essential skill for networking and DevOps professionals.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to systematically diagnose and resolve network issues using a structured approach.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

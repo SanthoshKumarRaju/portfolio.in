@@ -7,7 +7,16 @@
   var qp = new URLSearchParams(window.location.search);
   var viewMode = (qp.get('view') || '').toLowerCase();
   var isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  var isHeavyDoc = document.body && document.body.classList.contains('proj-page');
   var NAV_HEIGHT = null;
+
+  function deferWork(fn, timeout) {
+    if (typeof window.requestIdleCallback === 'function') {
+      requestIdleCallback(fn, { timeout: timeout || 900 });
+    } else {
+      setTimeout(fn, 0);
+    }
+  }
   if (viewMode === 'mobile' || viewMode === 'desktop') {
     document.documentElement.setAttribute('data-view', viewMode);
   }
@@ -140,19 +149,22 @@
     return false;
   }
 
-  markClickables(document);
-  var clickableObserver = new MutationObserver(function (mutations) {
-    mutations.forEach(function (m) {
-      m.addedNodes.forEach(function (node) {
-        if (!node || node.nodeType !== 1) return;
-        if (node.matches && node.matches('a, button, [role="button"], input[type="button"], input[type="submit"], .cg-item, .cg-toggle')) {
-          node.classList.add('g-clickable');
-        }
-        markClickables(node);
+  // Skip global clickable scan on very long project guides to avoid extra layout work.
+  if (!isHeavyDoc) {
+    markClickables(document);
+    var clickableObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        m.addedNodes.forEach(function (node) {
+          if (!node || node.nodeType !== 1) return;
+          if (node.matches && node.matches('a, button, [role="button"], input[type="button"], input[type="submit"], .cg-item, .cg-toggle')) {
+            node.classList.add('g-clickable');
+          }
+          markClickables(node);
+        });
       });
     });
-  });
-  clickableObserver.observe(document.documentElement, { childList: true, subtree: true });
+    clickableObserver.observe(document.documentElement, { childList: true, subtree: true });
+  }
 
   document.addEventListener('pointerdown', function (e) {
     var target = e.target.closest('a, button, [role="button"], input[type="button"], input[type="submit"], .cg-item, .cg-toggle');
@@ -161,6 +173,7 @@
   }, true);
 
   document.addEventListener('click', function (e) {
+    if (isHeavyDoc) return; // skip loader overlay on long guides for faster nav
     if (shouldShowLoaderForClick(e.target, e)) {
       showGlobalLoader();
     }
@@ -275,15 +288,18 @@
 
     apply(mode);
     mountButton();
-    showLightHintToast();
+    if (!isHeavyDoc) {
+      showLightHintToast();
+    }
   }
   initThemeMode();
 
 
-  /* ── Cursor ── */
+  /* ── Cursor ──
+     Skip heavy animated cursor on long project pages to reduce jank. */
   const cur  = document.getElementById('g-cur');
   const ring = document.getElementById('g-cur-r');
-  if (cur && ring && !isTouch) {
+  if (cur && ring && !isTouch && !isHeavyDoc) {
     let mx = -100, my = -100, rx = -100, ry = -100;
     document.addEventListener('mousemove', function (e) {
       mx = e.clientX; my = e.clientY;
@@ -303,19 +319,25 @@
     });
   } else {
     document.body.classList.remove('ch');
+    if (cur) cur.style.display = 'none';
+    if (ring) ring.style.display = 'none';
   }
 
   /* ── Scroll Reveal ── */
-  var ro = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry, i) {
-      if (entry.isIntersecting) {
-        setTimeout(function () { entry.target.classList.add('in'); }, i * 60);
-        ro.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  var ro = null;
+  if (!isHeavyDoc) {
+    ro = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (entry.isIntersecting) {
+          setTimeout(function () { entry.target.classList.add('in'); }, i * 60);
+          ro.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  }
 
   function initReveal() {
+    if (!ro) return;
     document.querySelectorAll('.reveal').forEach(function (el) { ro.observe(el); });
   }
   initReveal();
@@ -329,114 +351,113 @@
   /* ── Task-card toggling ──
      reused across multiple project pages; moved from inline scripts */
   (function(){
-    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-task]'));
-    if (!cards.length) return;
-    function panel(card) {
-      return card.querySelector('.task-panel');
-    }
-    function button(card) {
-      return card.querySelector('.task-toggle');
-    }
-    function initVariantSwitcher(card) {
-      var p = panel(card);
-      if (!p) return;
-      var inner = p.querySelector('.task-panel-inner') || p;
-      var blocks = Array.prototype.slice.call(inner.querySelectorAll('[data-variant]'));
-      if (!blocks.length) return;
+    function initTaskCards() {
+      var cards = Array.prototype.slice.call(document.querySelectorAll('[data-task]'));
+      if (!cards.length) return;
+      function panel(card) { return card.querySelector('.task-panel'); }
+      function button(card) { return card.querySelector('.task-toggle'); }
+      function initVariantSwitcher(card) {
+        var p = panel(card);
+        if (!p) return;
+        var inner = p.querySelector('.task-panel-inner') || p;
+        var blocks = Array.prototype.slice.call(inner.querySelectorAll('[data-variant]'));
+        if (!blocks.length) return;
 
-      var variants = [];
-      blocks.forEach(function (blk) {
-        var key = String(blk.getAttribute('data-variant') || '').trim().toLowerCase();
-        if (!key) return;
-        blk.dataset.variant = key;
-        if (variants.indexOf(key) === -1) variants.push(key);
-      });
-      if (!variants.length) return;
-
-      var switcher = document.createElement('div');
-      switcher.className = 'task-variant-switch';
-      var defaultKey = String(inner.getAttribute('data-variant-default') || '').trim().toLowerCase() || variants[0];
-      function applyVariant(nextKey) {
-        variants.forEach(function (key) {
-          var active = key === nextKey;
-          switcher.querySelectorAll('[data-variant-key="' + key + '"]').forEach(function (btn) {
-            btn.classList.toggle('act', active);
-            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-          });
-          blocks.forEach(function (blk) {
-            if (blk.dataset.variant === key) {
-              blk.style.display = active ? '' : 'none';
-            }
-          });
+        var variants = [];
+        blocks.forEach(function (blk) {
+          var key = String(blk.getAttribute('data-variant') || '').trim().toLowerCase();
+          if (!key) return;
+          blk.dataset.variant = key;
+          if (variants.indexOf(key) === -1) variants.push(key);
         });
-        if (card.classList.contains('is-open')) {
-          p.style.maxHeight = p.scrollHeight + 'px';
+        if (!variants.length) return;
+
+        var switcher = document.createElement('div');
+        switcher.className = 'task-variant-switch';
+        var defaultKey = String(inner.getAttribute('data-variant-default') || '').trim().toLowerCase() || variants[0];
+        function applyVariant(nextKey) {
+          variants.forEach(function (key) {
+            var active = key === nextKey;
+            switcher.querySelectorAll('[data-variant-key="' + key + '"]').forEach(function (btn) {
+              btn.classList.toggle('act', active);
+              btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+            });
+            blocks.forEach(function (blk) {
+              if (blk.dataset.variant === key) blk.style.display = active ? '' : 'none';
+            });
+          });
+          if (card.classList.contains('is-open')) {
+            p.style.maxHeight = p.scrollHeight + 'px';
+          }
         }
+
+        variants.forEach(function (key, idx) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'task-variant-btn';
+          btn.textContent = key;
+          btn.setAttribute('data-variant-key', key);
+          btn.setAttribute('aria-pressed', 'false');
+          btn.addEventListener('click', function () { applyVariant(key); });
+          if (idx === 0) btn.classList.add('first');
+          switcher.appendChild(btn);
+        });
+
+        inner.insertBefore(switcher, inner.firstChild);
+        applyVariant(defaultKey);
       }
-
-      variants.forEach(function (key, idx) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'task-variant-btn';
-        btn.textContent = key;
-        btn.setAttribute('data-variant-key', key);
-        btn.setAttribute('aria-pressed', 'false');
-        btn.addEventListener('click', function () {
-          applyVariant(key);
-        });
-        if (idx === 0) btn.classList.add('first');
-        switcher.appendChild(btn);
-      });
-
-      inner.insertBefore(switcher, inner.firstChild);
-      applyVariant(defaultKey);
-    }
-    function scrollTaskCard(card) {
-      [60, 450].forEach(function (delay) {
-        setTimeout(function () {
-          scrollElementIntoView(card, { behavior: 'smooth', align: 'start' });
-        }, delay);
-      });
-    }
-    function openCard(card) {
-      var p = panel(card);
-      var b = button(card);
-      card.classList.add('is-open');
-      b.setAttribute('aria-expanded', 'true');
-      p.style.maxHeight = p.scrollHeight + 'px';
-      scrollTaskCard(card);
-    }
-    function closeCard(card) {
-      var p = panel(card);
-      var b = button(card);
-      card.classList.remove('is-open');
-      b.setAttribute('aria-expanded', 'false');
-      p.style.maxHeight = '0px';
-    }
-    cards.forEach(function (card) {
-      initVariantSwitcher(card);
-      var btn = button(card);
-      closeCard(card);
-      btn.addEventListener('click', function () {
-        var isOpen = card.classList.contains('is-open');
-        cards.forEach(closeCard);
-        if (!isOpen) {
-          openCard(card);
-        }
-      });
-    });
-    window.addEventListener('resize', function () {
-      cards.forEach(function (card) {
-        if (card.classList.contains('is-open')) {
-          var p = panel(card);
-          p.style.maxHeight = p.scrollHeight + 'px';
-          // Re-center the card when resizing
-          setTimeout(function() {
+      function scrollTaskCard(card) {
+        [60, 450].forEach(function (delay) {
+          setTimeout(function () {
             scrollElementIntoView(card, { behavior: 'smooth', align: 'start' });
-          }, 100);
-        }
+          }, delay);
+        });
+      }
+      function openCard(card) {
+        var p = panel(card);
+        var b = button(card);
+        card.classList.add('is-open');
+        b.setAttribute('aria-expanded', 'true');
+        p.style.maxHeight = p.scrollHeight + 'px';
+        scrollTaskCard(card);
+      }
+      function closeCard(card) {
+        var p = panel(card);
+        var b = button(card);
+        card.classList.remove('is-open');
+        b.setAttribute('aria-expanded', 'false');
+        p.style.maxHeight = '0px';
+      }
+      cards.forEach(function (card) {
+        initVariantSwitcher(card);
+        var btn = button(card);
+        closeCard(card);
+        btn.addEventListener('click', function () {
+          var isOpen = card.classList.contains('is-open');
+          cards.forEach(closeCard);
+          if (!isOpen) {
+            openCard(card);
+          }
+        });
       });
-    });
+      window.addEventListener('resize', function () {
+        cards.forEach(function (card) {
+          if (card.classList.contains('is-open')) {
+            var p = panel(card);
+            p.style.maxHeight = p.scrollHeight + 'px';
+            setTimeout(function() {
+              scrollElementIntoView(card, { behavior: 'smooth', align: 'start' });
+            }, 100);
+          }
+        });
+      });
+    }
+
+    if (isHeavyDoc) {
+      deferWork(initTaskCards, 1500);
+    } else {
+      initTaskCards();
+    }
   })();
   document.querySelectorAll('.g-nav__link').forEach(function (a) {
     var href = (a.getAttribute('href') || '').replace(/\\/g, '/');
@@ -454,6 +475,7 @@
 
   /* -- Contact Flow Popup -- */
   (function initContactFlow() {
+    if (isHeavyDoc) return; // skip on long-form project guides for faster initial paint
     var isMobilePhone =
       /Android|iPhone|iPod|Windows Phone|Opera Mini|IEMobile/i.test(navigator.userAgent || '') ||
       (window.matchMedia('(max-width: 768px)').matches && isTouch);

@@ -1819,6 +1819,17 @@
   color: #193d64;
 }
 
+:root[data-theme="light"] .pj-steps li {
+  color: #1f3556;
+  border-left-color: rgba(10,126,168,.45);
+  background: linear-gradient(90deg, rgba(10,126,168,.07), rgba(10,126,168,0));
+}
+
+:root[data-theme="light"] .pj-steps li:hover {
+  border-left-color: rgba(10,126,168,.65);
+  background: linear-gradient(90deg, rgba(10,126,168,.12), rgba(10,126,168,0));
+}
+
 /* Light Mode Filter Button Styles */
 :root[data-theme="light"] .tg {
   background: rgba(0,232,122,.15);

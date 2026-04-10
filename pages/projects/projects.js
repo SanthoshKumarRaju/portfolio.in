@@ -338,8 +338,6 @@
 
       if (delta < -12 && heroVisible) {
         updateHeroState(false);
-      } else if (delta > 12 && !heroVisible && current > 80) {
-        updateHeroState(true);
       }
     }
 
@@ -353,8 +351,6 @@
 
       if (delta < -12 && heroVisible) {
         updateHeroState(false);
-      } else if (delta > 12 && !heroVisible && current > 80) {
-        updateHeroState(true);
       }
     }
 

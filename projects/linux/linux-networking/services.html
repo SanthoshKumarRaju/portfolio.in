@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:52">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-52</span>
+    <span class="task-title">SSH (Secure Shell - Remote Access)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master SSH for secure remote access, authentication methods, tunneling, automation, and real-world DevOps usage.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is SSH</strong><br>
+          SSH (Secure Shell) is a protocol used for secure remote access to systems over a network.
+          <ul>
+            <li>Encrypted communication</li>
+            <li>Replaces insecure protocols like Telnet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why SSH is Important</strong><br>
+          <ul>
+            <li>Secure remote server access</li>
+            <li>Used in DevOps, cloud, automation</li>
+            <li>Supports tunneling and file transfer</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SSH Architecture</strong><br>
+          <ul>
+            <li>Client → ssh command</li>
+            <li>Server → sshd (daemon)</li>
+            <li>Default port → 22</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic SSH Command</strong><br>
+          <pre class="cmd-line">
+ssh user@hostname
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH with Port</strong><br>
+          <pre class="cmd-line">
+ssh -p 2222 user@host
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Authentication Types</strong><br>
+          <ul>
+            <li>Password-based</li>
+            <li>Key-based (recommended)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Generate SSH Key</strong><br>
+          <pre class="cmd-line">
+ssh-keygen -t rsa -b 4096
+          </pre>
+        </li>
+
+        <li>
+          <strong>Copy Key to Server</strong><br>
+          <pre class="cmd-line">
+ssh-copy-id user@host
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Config File</strong><br>
+          <pre class="cmd-line">
+~/.ssh/config
+          </pre>
+          Example:
+          <pre class="cmd-line">
+Host myserver
+  HostName 192.168.1.10
+  User ubuntu
+  Port 22
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Server Config</strong><br>
+          <pre class="cmd-line">
+/etc/ssh/sshd_config
+          </pre>
+        </li>
+
+        <li>
+          <strong>Important SSH Settings</strong><br>
+          <ul>
+            <li>PermitRootLogin no</li>
+            <li>PasswordAuthentication no</li>
+            <li>Port 22</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Restart SSH Service</strong><br>
+          <pre class="cmd-line">
+systemctl restart sshd
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Port Forwarding (Local)</strong><br>
+          <pre class="cmd-line">
+ssh -L 8080:localhost:80 user@host
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Remote Forwarding</strong><br>
+          <pre class="cmd-line">
+ssh -R 8080:localhost:80 user@host
+          </pre>
+        </li>
+
+        <li>
+          <strong>Dynamic Port Forwarding (SOCKS)</strong><br>
+          <pre class="cmd-line">
+ssh -D 1080 user@host
+          </pre>
+        </li>
+
+        <li>
+          <strong>Copy Files (scp)</strong><br>
+          <pre class="cmd-line">
+scp file.txt user@host:/path/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Sync Files (rsync over SSH)</strong><br>
+          <pre class="cmd-line">
+rsync -avz file.txt user@host:/path/
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Agent</strong><br>
+          <pre class="cmd-line">
+ssh-agent
+ssh-add
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH in DevOps</strong><br>
+          <ul>
+            <li>Remote server management</li>
+            <li>CI/CD deployments</li>
+            <li>Automation scripts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SSH in Cloud</strong><br>
+          <ul>
+            <li>AWS EC2 access</li>
+            <li>Azure VM login</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SSH in Containers</strong><br>
+          <ul>
+            <li>Rare inside containers</li>
+            <li>Used for debugging hosts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Connection refused</li>
+            <li>Permission denied</li>
+            <li>Key mismatch</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug SSH</strong><br>
+          <pre class="cmd-line">
+ssh -v user@host
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check SSH Service</strong><br>
+          <pre class="cmd-line">
+systemctl status sshd
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service
+Check port (ss -tuln)
+Check firewall
+Check logs (/var/log/auth.log)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Disable root login</li>
+            <li>Use key-based auth</li>
+            <li>Change default port</li>
+            <li>Use fail2ban</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Access cloud VM via SSH</li>
+            <li>Deploy app using SSH scripts</li>
+            <li>Secure internal services via tunnels</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          SSH is a critical tool for secure remote access, automation, and system management, forming the backbone of modern DevOps and cloud operations.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to securely access, configure, and automate systems using SSH.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:53">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-53</span>
+    <span class="task-title">Web Servers (Nginx & Apache - HTTP/HTTPS)</span>
+    <span class="task-meta">130–160 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how web servers work, how to configure Nginx and Apache, serve HTTP/HTTPS traffic, and use them in real-world DevOps environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Web Server</strong><br>
+          A web server is software that serves web content to clients over HTTP/HTTPS.
+          <ul>
+            <li>Handles browser requests</li>
+            <li>Returns HTML, CSS, JS, APIs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Popular Web Servers</strong><br>
+          <ul>
+            <li>Nginx → High performance, event-driven</li>
+            <li>Apache → Feature-rich, process-based</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>HTTP vs HTTPS</strong><br>
+          <ul>
+            <li>HTTP → Port 80 (unencrypted)</li>
+            <li>HTTPS → Port 443 (encrypted via SSL/TLS)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Request Flow</strong><br>
+          <pre class="cmd-line">
+Browser → DNS → Server IP → Web Server → Response
+          </pre>
+        </li>
+
+        <li>
+          <strong>Install Nginx</strong><br>
+          <pre class="cmd-line">
+sudo apt install nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Install Apache</strong><br>
+          <pre class="cmd-line">
+sudo apt install apache2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Start Web Server</strong><br>
+          <pre class="cmd-line">
+systemctl start nginx
+systemctl start apache2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Status</strong><br>
+          <pre class="cmd-line">
+systemctl status nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Default Web Root</strong><br>
+          <pre class="cmd-line">
+/var/www/html
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Web Server</strong><br>
+          <pre class="cmd-line">
+curl http://localhost
+          </pre>
+        </li>
+
+        <li>
+          <strong>Nginx Configuration</strong><br>
+          <pre class="cmd-line">
+/etc/nginx/nginx.conf
+/etc/nginx/sites-available/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Apache Configuration</strong><br>
+          <pre class="cmd-line">
+/etc/apache2/apache2.conf
+/etc/apache2/sites-available/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Virtual Hosts</strong><br>
+          Serve multiple websites on one server.
+        </li>
+
+        <li>
+          <strong>Nginx Server Block Example</strong><br>
+          <pre class="cmd-line">
+server {
+  listen 80;
+  server_name example.com;
+  root /var/www/example;
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Apache Virtual Host Example</strong><br>
+          <pre class="cmd-line">
+&lt;VirtualHost *:80&gt;
+  ServerName example.com
+  DocumentRoot /var/www/example
+&lt;/VirtualHost&gt;
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable Site</strong><br>
+          <pre class="cmd-line">
+ln -s /etc/nginx/sites-available/example /etc/nginx/sites-enabled/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reload Configuration</strong><br>
+          <pre class="cmd-line">
+systemctl reload nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reverse Proxy (Important)</strong><br>
+          <pre class="cmd-line">
+location / {
+  proxy_pass http://localhost:3000;
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Load Balancing</strong><br>
+          <pre class="cmd-line">
+upstream backend {
+  server 192.168.1.10;
+  server 192.168.1.11;
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable HTTPS (SSL)</strong><br>
+          <pre class="cmd-line">
+sudo apt install certbot
+certbot --nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSL Configuration</strong><br>
+          <ul>
+            <li>Certificates</li>
+            <li>Private keys</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Nginx vs Apache</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Nginx</th>
+              <th>Apache</th>
+            </tr>
+            <tr>
+              <td>Architecture</td>
+              <td>Event-driven</td>
+              <td>Process-based</td>
+            </tr>
+            <tr>
+              <td>Performance</td>
+              <td>High</td>
+              <td>Moderate</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Reverse proxy for apps</li>
+            <li>Load balancing</li>
+            <li>API gateway</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Behind load balancers</li>
+            <li>Serving static content</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Nginx as frontend</li>
+            <li>Proxy for microservices</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port 80/443 blocked</li>
+            <li>Permission issues</li>
+            <li>Config syntax errors</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+nginx -t
+journalctl -u nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Open Ports</strong><br>
+          <pre class="cmd-line">
+ss -tuln | grep 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service
+Check config
+Check firewall
+Test with curl
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use HTTPS always</li>
+            <li>Use reverse proxy</li>
+            <li>Monitor logs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Nginx → reverse proxy for Node.js app</li>
+            <li>Apache → PHP application hosting</li>
+            <li>Cloud → load-balanced web servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Web servers like Nginx and Apache are the backbone of web infrastructure, serving content, handling requests, and enabling scalable and secure web applications.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure, deploy, and troubleshoot web servers in real-world environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:54">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-54</span>
+    <span class="task-title">FTP & SFTP (File Transfer Protocols)</span>
+    <span class="task-meta">110–140 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand FTP and SFTP protocols, how to configure file transfer servers, secure data transfers, and troubleshoot real-world issues.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is FTP</strong><br>
+          FTP (File Transfer Protocol) is used to transfer files between systems over a network.
+          <ul>
+            <li>Uses port 21</li>
+            <li>Unencrypted (not secure)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is SFTP</strong><br>
+          SFTP (SSH File Transfer Protocol) is a secure file transfer method using SSH.
+          <ul>
+            <li>Uses port 22</li>
+            <li>Encrypted communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>FTP vs SFTP</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>FTP</th>
+              <th>SFTP</th>
+            </tr>
+            <tr>
+              <td>Security</td>
+              <td>No</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Port</td>
+              <td>21</td>
+              <td>22</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>FTP Modes</strong><br>
+          <ul>
+            <li>Active mode</li>
+            <li>Passive mode (most used)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install FTP Server (vsftpd)</strong><br>
+          <pre class="cmd-line">
+sudo apt install vsftpd
+          </pre>
+        </li>
+
+        <li>
+          <strong>Start FTP Service</strong><br>
+          <pre class="cmd-line">
+systemctl start vsftpd
+          </pre>
+        </li>
+
+        <li>
+          <strong>FTP Configuration File</strong><br>
+          <pre class="cmd-line">
+/etc/vsftpd.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable Local Users</strong><br>
+          <pre class="cmd-line">
+local_enable=YES
+write_enable=YES
+          </pre>
+        </li>
+
+        <li>
+          <strong>FTP Login</strong><br>
+          <pre class="cmd-line">
+ftp server-ip
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic FTP Commands</strong><br>
+          <pre class="cmd-line">
+ls
+get file.txt
+put file.txt
+exit
+          </pre>
+        </li>
+
+        <li>
+          <strong>Passive Mode Configuration</strong><br>
+          <pre class="cmd-line">
+pasv_enable=YES
+pasv_min_port=10000
+pasv_max_port=10100
+          </pre>
+        </li>
+
+        <li>
+          <strong>Firewall for FTP</strong><br>
+          <pre class="cmd-line">
+ufw allow 21
+ufw allow 10000:10100/tcp
+          </pre>
+        </li>
+
+        <li>
+          <strong>What is SFTP Internally</strong><br>
+          <ul>
+            <li>Runs over SSH</li>
+            <li>No separate service required</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SFTP Login</strong><br>
+          <pre class="cmd-line">
+sftp user@server
+          </pre>
+        </li>
+
+        <li>
+          <strong>SFTP Commands</strong><br>
+          <pre class="cmd-line">
+ls
+get file.txt
+put file.txt
+exit
+          </pre>
+        </li>
+
+        <li>
+          <strong>Restrict SFTP Users (Chroot)</strong><br>
+          <pre class="cmd-line">
+/etc/ssh/sshd_config
+          </pre>
+          Example:
+          <pre class="cmd-line">
+Match User sftpuser
+  ChrootDirectory /home/sftpuser
+  ForceCommand internal-sftp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Restart SSH</strong><br>
+          <pre class="cmd-line">
+systemctl restart sshd
+          </pre>
+        </li>
+
+        <li>
+          <strong>File Transfer Alternatives</strong><br>
+          <ul>
+            <li>scp</li>
+            <li>rsync</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>FTP in DevOps</strong><br>
+          <ul>
+            <li>Legacy systems</li>
+            <li>Bulk file transfers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>SFTP in DevOps</strong><br>
+          <ul>
+            <li>Secure deployments</li>
+            <li>Backup transfers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>SFTP for secure file uploads</li>
+            <li>FTP rarely used</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>SFTP-based data transfer</li>
+            <li>Volumes and storage integration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>FTP passive mode failure</li>
+            <li>Firewall blocking ports</li>
+            <li>Permission denied</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging FTP</strong><br>
+          <pre class="cmd-line">
+journalctl -u vsftpd
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debugging SFTP</strong><br>
+          <pre class="cmd-line">
+ssh -v user@host
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service
+Check ports (21/22)
+Check firewall
+Check permissions
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Avoid FTP (use SFTP)</li>
+            <li>Use key-based authentication</li>
+            <li>Restrict user access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Upload website files via SFTP</li>
+            <li>Backup logs to remote server</li>
+            <li>Legacy FTP system migration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          FTP and SFTP are essential file transfer protocols, with SFTP being the secure and preferred choice for modern systems and DevOps workflows.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure, use, and secure FTP and SFTP for file transfers.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:55">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-55</span>
+    <span class="task-title">NFS & SMB (Network File Sharing)</span>
+    <span class="task-meta">120–150 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand NFS and SMB protocols, how to configure shared storage, and use them in enterprise, cloud, and DevOps environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is File Sharing</strong><br>
+          File sharing allows multiple systems to access files over a network.
+          <ul>
+            <li>Centralized storage</li>
+            <li>Shared access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is NFS</strong><br>
+          NFS (Network File System) is a Linux-based file sharing protocol.
+          <ul>
+            <li>Common in Unix/Linux</li>
+            <li>Uses port 2049</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is SMB</strong><br>
+          SMB (Server Message Block) is used for file sharing in Windows environments.
+          <ul>
+            <li>Implemented via Samba in Linux</li>
+            <li>Uses port 445</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NFS vs SMB</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>NFS</th>
+              <th>SMB</th>
+            </tr>
+            <tr>
+              <td>Platform</td>
+              <td>Linux/Unix</td>
+              <td>Windows/Linux</td>
+            </tr>
+            <tr>
+              <td>Performance</td>
+              <td>High</td>
+              <td>Moderate</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>NFS Server Setup</strong><br>
+          <pre class="cmd-line">
+sudo apt install nfs-kernel-server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create Shared Directory</strong><br>
+          <pre class="cmd-line">
+mkdir /shared
+chmod 777 /shared
+          </pre>
+        </li>
+
+        <li>
+          <strong>Configure NFS Exports</strong><br>
+          <pre class="cmd-line">
+/etc/exports
+          </pre>
+          Example:
+          <pre class="cmd-line">
+/shared 192.168.1.0/24(rw,sync,no_root_squash)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Apply NFS Config</strong><br>
+          <pre class="cmd-line">
+exportfs -a
+systemctl restart nfs-kernel-server
+          </pre>
+        </li>
+
+        <li>
+          <strong>NFS Client Setup</strong><br>
+          <pre class="cmd-line">
+sudo apt install nfs-common
+          </pre>
+        </li>
+
+        <li>
+          <strong>Mount NFS Share</strong><br>
+          <pre class="cmd-line">
+mount 192.168.1.10:/shared /mnt
+          </pre>
+        </li>
+
+        <li>
+          <strong>Persistent Mount</strong><br>
+          <pre class="cmd-line">
+/etc/fstab
+          </pre>
+        </li>
+
+        <li>
+          <strong>SMB Server Setup (Samba)</strong><br>
+          <pre class="cmd-line">
+sudo apt install samba
+          </pre>
+        </li>
+
+        <li>
+          <strong>Configure Samba</strong><br>
+          <pre class="cmd-line">
+/etc/samba/smb.conf
+          </pre>
+          Example:
+          <pre class="cmd-line">
+[shared]
+  path = /shared
+  read only = no
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Samba User</strong><br>
+          <pre class="cmd-line">
+smbpasswd -a username
+          </pre>
+        </li>
+
+        <li>
+          <strong>Restart Samba</strong><br>
+          <pre class="cmd-line">
+systemctl restart smbd
+          </pre>
+        </li>
+
+        <li>
+          <strong>Access SMB Share</strong><br>
+          <pre class="cmd-line">
+smbclient //server/shared
+          </pre>
+        </li>
+
+        <li>
+          <strong>Mount SMB Share</strong><br>
+          <pre class="cmd-line">
+mount -t cifs //server/shared /mnt -o username=user
+          </pre>
+        </li>
+
+        <li>
+          <strong>Permissions & Access Control</strong><br>
+          <ul>
+            <li>NFS → UID/GID based</li>
+            <li>SMB → Username/password</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Firewall Configuration</strong><br>
+          <pre class="cmd-line">
+ufw allow 2049
+ufw allow 445
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: NFS Versions</strong><br>
+          <ul>
+            <li>NFSv3 → older</li>
+            <li>NFSv4 → secure and efficient</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: Performance Tuning</strong><br>
+          <ul>
+            <li>Use async option</li>
+            <li>Optimize mount options</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Shared storage for apps</li>
+            <li>Central logs storage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Kubernetes</strong><br>
+          <ul>
+            <li>NFS Persistent Volumes</li>
+            <li>Shared storage across pods</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>AWS EFS (NFS)</li>
+            <li>Azure Files (SMB)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Permission denied</li>
+            <li>Mount failure</li>
+            <li>Firewall blocking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+showmount -e server
+journalctl -u nfs-server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service
+Check exports/config
+Check firewall
+Test mount
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Restrict IP access</li>
+            <li>Use authentication</li>
+            <li>Avoid open shares</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>NFS → shared storage for Kubernetes</li>
+            <li>SMB → Windows file sharing</li>
+            <li>Cloud → managed file storage services</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          NFS and SMB enable network-based file sharing, providing scalable and centralized storage solutions for enterprise, cloud, and DevOps environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure and use NFS and SMB for network file sharing.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+    <section class="task-board" aria-label="Linux network interface tasks">
+      <div class="proj-section-title">Network Interfaces Deep Dive</div>
+
+
+
+<article class="task-card" data-task style="--i:12">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-12</span>
+    <span class="task-title">Network Interfaces in Linux (eth0, ens33, lo, etc.)</span>
+    <span class="task-meta">45–65 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand Linux network interfaces, how they work, how to configure them, and how they are used in real-world systems and DevOps environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Network Interface</strong><br>
+          A network interface is a connection point that allows a system to communicate with a network.
+          <div>It represents a network device in the operating system.</div>
+        </li>
+
+        <li>
+          <strong>Types of Network Interfaces</strong><br>
+          <ul>
+            <li><strong>Physical:</strong> Ethernet, Wi-Fi</li>
+            <li><strong>Virtual:</strong> Loopback, bridges, containers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Interface Names</strong><br>
+          <ul>
+            <li>eth0 → Traditional Ethernet</li>
+            <li>ens33 → Predictable naming (modern Linux)</li>
+            <li>wlan0 → Wireless interface</li>
+            <li>lo → Loopback interface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Predictable Interface Naming</strong><br>
+          Modern Linux uses predictable names like:
+          <pre class="cmd-line">ens33, enp0s3</pre>
+          <div>This avoids confusion when hardware changes.</div>
+        </li>
+
+        <li>
+          <strong>Loopback Interface (lo)</strong><br>
+          Used for internal communication within the same system.
+          <pre class="cmd-line">127.0.0.1</pre>
+        </li>
+
+        <li>
+          <strong>Viewing Network Interfaces</strong><br>
+          <pre class="cmd-line">
+ip link
+ip addr
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding ip addr Output</strong><br>
+          <pre class="cmd-line">
+2: eth0: &lt;UP&gt; mtu 1500
+inet 192.168.1.10/24
+          </pre>
+          <ul>
+            <li>UP → Interface is active</li>
+            <li>inet → IP address</li>
+            <li>mtu → Packet size</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bringing Interface Up/Down</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 up
+ip link set eth0 down
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assigning IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.10/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Removing IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr del 192.168.1.10/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interface Configuration Types</strong><br>
+          <ul>
+            <li>Static configuration</li>
+            <li>Dynamic configuration (DHCP)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Persistent Configuration (Ubuntu)</strong><br>
+          <pre class="cmd-line">/etc/netplan/*.yaml</pre>
+        </li>
+
+        <li>
+          <strong>Example Netplan Configuration</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using NetworkManager</strong><br>
+          <pre class="cmd-line">
+nmcli device status
+nmtui
+          </pre>
+        </li>
+
+        <li>
+          <strong>Virtual Interfaces</strong><br>
+          <ul>
+            <li>veth → Used in containers</li>
+            <li>bridge → Connects multiple interfaces</li>
+            <li>tun/tap → VPN interfaces</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bridge Interface</strong><br>
+          Used to connect multiple interfaces into one network.
+          <div>Common in virtualization and Docker.</div>
+        </li>
+
+        <li>
+          <strong>Interface MTU</strong><br>
+          Maximum Transmission Unit defines packet size.
+          <pre class="cmd-line">
+ip link set dev eth0 mtu 1400
+          </pre>
+        </li>
+
+        <li>
+          <strong>Checking Interface Statistics</strong><br>
+          <pre class="cmd-line">
+ip -s link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interfaces in Containers</strong><br>
+          <ul>
+            <li>Docker creates virtual interfaces</li>
+            <li>Each container gets its own interface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interfaces in Cloud</strong><br>
+          <ul>
+            <li>Virtual NICs assigned to instances</li>
+            <li>Elastic network interfaces</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Interface down</li>
+            <li>No IP assigned</li>
+            <li>Incorrect configuration</li>
+            <li>Driver issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Steps</strong><br>
+          <pre class="cmd-line">
+ip a
+ip route
+ping gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server has eth0 → connected to LAN</li>
+            <li>Docker creates bridge → containers communicate</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Network interfaces represent how Linux systems connect to networks, and managing them is essential for configuring and troubleshooting connectivity.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand Linux network interfaces, configuration, and how they are used in real systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:13">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-13</span>
+    <span class="task-title">Loopback Interface (lo) – Internal System Communication</span>
+    <span class="task-meta">30–45 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand the loopback interface, how internal communication works in Linux, and its role in networking, services, and debugging.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Loopback Interface</strong><br>
+          The loopback interface (lo) is a virtual network interface used for internal communication within the same system.
+          <div>It does not send traffic to external networks.</div>
+        </li>
+
+        <li>
+          <strong>Loopback IP Address</strong><br>
+          <ul>
+            <li>IPv4: <code>127.0.0.1</code></li>
+            <li>IPv6: <code>::1</code></li>
+          </ul>
+          <div>This always refers to the local machine.</div>
+        </li>
+
+        <li>
+          <strong>Why Loopback is Important</strong><br>
+          <ul>
+            <li>Internal communication between services</li>
+            <li>Testing and debugging</li>
+            <li>Application development</li>
+            <li>Security isolation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How Loopback Works</strong><br>
+          When a system sends data to 127.0.0.1:
+          <pre class="cmd-line">
+1 → Data is sent to loopback interface
+2 → Kernel processes internally
+3 → No external network involved
+          </pre>
+        </li>
+
+        <li>
+          <strong>Checking Loopback Interface</strong><br>
+          <pre class="cmd-line">
+ip addr show lo
+          </pre>
+
+          <div>Example output:</div>
+          <pre class="cmd-line">
+lo: &lt;LOOPBACK,UP&gt;
+inet 127.0.0.1/8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Testing Loopback</strong><br>
+          <pre class="cmd-line">
+ping 127.0.0.1
+          </pre>
+          <div>This confirms internal networking is working.</div>
+        </li>
+
+        <li>
+          <strong>Loopback vs Network Interface</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Loopback</th>
+              <th>Ethernet</th>
+            </tr>
+            <tr>
+              <td>Scope</td>
+              <td>Internal</td>
+              <td>External</td>
+            </tr>
+            <tr>
+              <td>Traffic</td>
+              <td>Within system</td>
+              <td>Network traffic</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in Applications</strong><br>
+          Many services bind to localhost:
+          <ul>
+            <li>Database servers</li>
+            <li>Backend APIs</li>
+            <li>Local testing environments</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Binding Services to Loopback</strong><br>
+          Example:
+          <pre class="cmd-line">
+127.0.0.1:3000
+          </pre>
+          <div>Service is accessible only from same system.</div>
+        </li>
+
+        <li>
+          <strong>Security Advantage</strong><br>
+          Services bound to loopback:
+          <ul>
+            <li>Cannot be accessed externally</li>
+            <li>Reduce attack surface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Loopback in Development</strong><br>
+          <ul>
+            <li>Testing web applications locally</li>
+            <li>Running APIs without exposing to internet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Loopback in Containers</strong><br>
+          <ul>
+            <li>Each container has its own loopback</li>
+            <li>127.0.0.1 inside container ≠ host system</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Loopback in Kubernetes</strong><br>
+          <ul>
+            <li>Used for intra-pod communication</li>
+            <li>Containers in same pod share loopback</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Disabling Loopback (Rare)</strong><br>
+          <pre class="cmd-line">
+ip link set lo down
+          </pre>
+          <div>This can break system networking.</div>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Loopback interface down</li>
+            <li>Application not reachable locally</li>
+            <li>Incorrect binding address</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+ip a
+ping 127.0.0.1
+ss -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Frontend calls backend API on localhost</li>
+            <li>Database runs on 127.0.0.1</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Loopback vs 0.0.0.0</strong><br>
+          <ul>
+            <li>127.0.0.1 → Local only</li>
+            <li>0.0.0.0 → Accessible from all interfaces</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          The loopback interface enables internal communication within a system, making it essential for testing, development, and secure service design.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand loopback interface usage, configuration, and its importance in networking and applications.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:14">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-14</span>
+    <span class="task-title">Virtual Network Interfaces (veth, bridge, tun/tap)</span>
+    <span class="task-meta">60–80 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand virtual network interfaces, how they work, and how they are used in containers, virtualization, and advanced networking setups.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are Virtual Network Interfaces</strong><br>
+          Virtual interfaces are software-based network devices created by the operating system.
+          <div>They behave like physical interfaces but exist only in software.</div>
+        </li>
+
+        <li>
+          <strong>Why Virtual Interfaces are Needed</strong><br>
+          <ul>
+            <li>Enable container networking</li>
+            <li>Support virtualization</li>
+            <li>Create isolated networks</li>
+            <li>Implement advanced networking features</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Types of Virtual Interfaces</strong><br>
+          <ul>
+            <li>veth (Virtual Ethernet Pair)</li>
+            <li>Bridge (br0, docker0)</li>
+            <li>tun/tap (VPN interfaces)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is veth (Virtual Ethernet Pair)</strong><br>
+          veth interfaces always come in pairs:
+          <div>They act like a virtual cable connecting two endpoints.</div>
+        </li>
+
+        <li>
+          <strong>How veth Works</strong><br>
+          <pre class="cmd-line">
+veth0 ←→ veth1
+          </pre>
+          <ul>
+            <li>Data sent to one end appears on the other</li>
+            <li>Used to connect containers to host</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Creating veth Pair</strong><br>
+          <pre class="cmd-line">
+ip link add veth0 type veth peer name veth1
+          </pre>
+        </li>
+
+        <li>
+          <strong>What is a Bridge Interface</strong><br>
+          A bridge connects multiple interfaces into a single network.
+          <div>Acts like a virtual switch.</div>
+        </li>
+
+        <li>
+          <strong>How Bridge Works</strong><br>
+          <ul>
+            <li>Connects multiple interfaces</li>
+            <li>Forwards traffic between them</li>
+          </ul>
+          <pre class="cmd-line">
+eth0 + veth0 → br0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Creating a Bridge</strong><br>
+          <pre class="cmd-line">
+ip link add name br0 type bridge
+ip link set br0 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Interface to Bridge</strong><br>
+          <pre class="cmd-line">
+ip link set veth0 master br0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Bridge Example</strong><br>
+          <pre class="cmd-line">
+docker network inspect bridge
+          </pre>
+          <div>Docker uses <code>docker0</code> bridge.</div>
+        </li>
+
+        <li>
+          <strong>What is tun/tap Interface</strong><br>
+          Used for virtual networking in user space.
+          <ul>
+            <li><strong>tun:</strong> Layer 3 (IP packets)</li>
+            <li><strong>tap:</strong> Layer 2 (Ethernet frames)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>tun vs tap</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>tun</th>
+              <th>tap</th>
+            </tr>
+            <tr>
+              <td>Layer</td>
+              <td>Layer 3</td>
+              <td>Layer 2</td>
+            </tr>
+            <tr>
+              <td>Usage</td>
+              <td>VPN routing</td>
+              <td>Bridged networking</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Creating tun Interface</strong><br>
+          <pre class="cmd-line">
+ip tuntap add dev tun0 mode tun
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use Cases of tun/tap</strong><br>
+          <ul>
+            <li>VPN (OpenVPN, WireGuard)</li>
+            <li>Secure tunnels</li>
+            <li>Virtual networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Virtual Interfaces in Docker</strong><br>
+          <ul>
+            <li>Each container has veth pair</li>
+            <li>Connected to docker bridge</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Virtual Interfaces in Kubernetes</strong><br>
+          <ul>
+            <li>Pods use veth pairs</li>
+            <li>CNI plugins manage networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay Networks</strong><br>
+          Used for multi-host communication:
+          <ul>
+            <li>VXLAN</li>
+            <li>Encapsulated traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Network Namespaces</strong><br>
+          Virtual interfaces are used inside namespaces:
+          <pre class="cmd-line">
+ip netns add ns1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Checking Interfaces</strong><br>
+          <pre class="cmd-line">
+ip link
+brctl show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Flow (Docker)</strong><br>
+          <pre class="cmd-line">
+Container → veth → bridge → host → internet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Isolate networks</li>
+            <li>Control bridge traffic</li>
+            <li>Avoid unwanted exposure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Bridge misconfiguration</li>
+            <li>Broken veth pairs</li>
+            <li>Network namespace issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+ip a
+ip link
+docker network ls
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Virtual interfaces like veth, bridge, and tun/tap enable advanced networking, container communication, and virtualized environments in modern systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand virtual interfaces, their types, and how they are used in containers and advanced networking.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:15">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-15</span>
+    <span class="task-title">ip link Command (Interface Management)</span>
+    <span class="task-meta">40–60 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to use the ip link command to view, manage, and configure network interfaces in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is ip link</strong><br>
+          <code>ip link</code> is a Linux command used to display and manage network interfaces.
+          <div>It is part of the modern <code>iproute2</code> toolkit.</div>
+        </li>
+
+        <li>
+          <strong>Why ip link is Important</strong><br>
+          <ul>
+            <li>View network interfaces</li>
+            <li>Enable/disable interfaces</li>
+            <li>Modify interface settings</li>
+            <li>Used in troubleshooting</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Command</strong><br>
+          <pre class="cmd-line">ip link</pre>
+        </li>
+
+        <li>
+          <strong>Example Output</strong><br>
+          <pre class="cmd-line">
+1: lo: &lt;LOOPBACK,UP&gt; mtu 65536
+2: eth0: &lt;BROADCAST,MULTICAST,UP&gt; mtu 1500
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding Output Fields</strong><br>
+          <ul>
+            <li><strong>lo / eth0:</strong> Interface name</li>
+            <li><strong>UP/DOWN:</strong> Status</li>
+            <li><strong>mtu:</strong> Maximum packet size</li>
+            <li><strong>BROADCAST:</strong> Supports broadcast</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interface States</strong><br>
+          <ul>
+            <li><strong>UP:</strong> Active and running</li>
+            <li><strong>DOWN:</strong> Disabled</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bring Interface Up</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Interface Down</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 down
+          </pre>
+        </li>
+
+        <li>
+          <strong>Rename Interface</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 name mynet0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set MTU</strong><br>
+          <pre class="cmd-line">
+ip link set dev eth0 mtu 1400
+          </pre>
+        </li>
+
+        <li>
+          <strong>Enable Promiscuous Mode</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 promisc on
+          </pre>
+          <div>Used for packet capture tools.</div>
+        </li>
+
+        <li>
+          <strong>Disable Promiscuous Mode</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 promisc off
+          </pre>
+        </li>
+
+        <li>
+          <strong>View Specific Interface</strong><br>
+          <pre class="cmd-line">
+ip link show eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Detailed Statistics</strong><br>
+          <pre class="cmd-line">
+ip -s link
+          </pre>
+          <div>Displays RX/TX packet stats.</div>
+        </li>
+
+        <li>
+          <strong>Creating Virtual Interfaces</strong><br>
+          <pre class="cmd-line">
+ip link add veth0 type veth peer name veth1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Deleting Interface</strong><br>
+          <pre class="cmd-line">
+ip link delete veth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>ip link vs ifconfig</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>ip link</th>
+              <th>ifconfig</th>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>Modern</td>
+              <td>Deprecated</td>
+            </tr>
+            <tr>
+              <td>Features</td>
+              <td>Advanced</td>
+              <td>Limited</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Real-World Usage</strong><br>
+          <ul>
+            <li>Check if interface is down</li>
+            <li>Enable network on server</li>
+            <li>Debug connectivity issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Docker creates veth interfaces</li>
+            <li>Kubernetes uses virtual interfaces</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Server setup</li>
+            <li>Network debugging</li>
+            <li>CI/CD infrastructure troubleshooting</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Interface down</li>
+            <li>Incorrect MTU</li>
+            <li>Missing interface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Steps</strong><br>
+          <pre class="cmd-line">
+ip link
+ip addr
+ping
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          The ip link command is essential for managing network interfaces, enabling control over interface states and configurations in Linux systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use ip link to manage and troubleshoot network interfaces in Linux.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:16">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-16</span>
+    <span class="task-title">ip addr Command (IP Address Management)</span>
+    <span class="task-meta">45–65 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to use the ip addr command to view, assign, and manage IP addresses on Linux network interfaces.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is ip addr</strong><br>
+          <code>ip addr</code> is used to display and manage IP addresses assigned to network interfaces.
+          <div>It is part of the modern <code>iproute2</code> suite.</div>
+        </li>
+
+        <li>
+          <strong>Why ip addr is Important</strong><br>
+          <ul>
+            <li>Check IP configuration</li>
+            <li>Assign or remove IPs</li>
+            <li>Troubleshoot connectivity issues</li>
+            <li>Essential for server and DevOps work</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Command</strong><br>
+          <pre class="cmd-line">ip addr</pre>
+          or
+          <pre class="cmd-line">ip a</pre>
+        </li>
+
+        <li>
+          <strong>Example Output</strong><br>
+          <pre class="cmd-line">
+2: eth0: &lt;UP&gt;
+    inet 192.168.1.10/24
+    inet6 fe80::1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding Output</strong><br>
+          <ul>
+            <li><strong>eth0:</strong> Interface name</li>
+            <li><strong>inet:</strong> IPv4 address</li>
+            <li><strong>inet6:</strong> IPv6 address</li>
+            <li><strong>/24:</strong> CIDR notation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Viewing Specific Interface</strong><br>
+          <pre class="cmd-line">
+ip addr show eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assigning IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Removing IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr del 192.168.1.100/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Multiple IPs</strong><br>
+          Interfaces can have multiple IPs:
+          <pre class="cmd-line">
+ip addr add 192.168.1.101/24 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Temporary vs Persistent IP</strong><br>
+          <ul>
+            <li><strong>Temporary:</strong> Lost after reboot</li>
+            <li><strong>Persistent:</strong> Configured via netplan or network config files</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>IPv6 Address Handling</strong><br>
+          <pre class="cmd-line">
+ip addr add 2001:db8::1/64 dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>IP Address States</strong><br>
+          <ul>
+            <li>Valid</li>
+            <li>Deprecated</li>
+            <li>Tentative</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Broadcast Address</strong><br>
+          <pre class="cmd-line">
+192.168.1.255
+          </pre>
+          <div>Used to send data to all devices in network.</div>
+        </li>
+
+        <li>
+          <strong>Loopback IP Display</strong><br>
+          <pre class="cmd-line">
+ip addr show lo
+          </pre>
+        </li>
+
+        <li>
+          <strong>Flush All IP Addresses</strong><br>
+          <pre class="cmd-line">
+ip addr flush dev eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>ip addr vs ifconfig</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>ip addr</th>
+              <th>ifconfig</th>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>Modern</td>
+              <td>Deprecated</td>
+            </tr>
+            <tr>
+              <td>Capabilities</td>
+              <td>Advanced</td>
+              <td>Limited</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in Troubleshooting</strong><br>
+          <ul>
+            <li>Check if IP assigned</li>
+            <li>Verify subnet</li>
+            <li>Detect misconfiguration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Each container has its own IP</li>
+            <li>Used to debug container networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Check instance private IP</li>
+            <li>Validate network configuration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No IP assigned</li>
+            <li>Wrong subnet</li>
+            <li>Duplicate IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ip addr
+ip route
+ping gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server not reachable → check IP using ip addr</li>
+            <li>Container issue → inspect interface IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          The ip addr command is essential for viewing and managing IP addresses, making it a critical tool for Linux networking and troubleshooting.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use ip addr to manage IP addresses and troubleshoot networking issues.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:17">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-17</span>
+    <span class="task-title">Interface Control (Enable/Disable Network Interfaces)</span>
+    <span class="task-meta">40–55 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to enable and disable network interfaces in Linux, why it is required, and how it is used in real-world troubleshooting and system management.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Interface Control</strong><br>
+          Interface control refers to enabling (bringing up) or disabling (bringing down) a network interface.
+        </li>
+
+        <li>
+          <strong>Why Enable/Disable Interfaces</strong><br>
+          <ul>
+            <li>Restart network connectivity</li>
+            <li>Troubleshoot network issues</li>
+            <li>Apply new configurations</li>
+            <li>Disable unused interfaces for security</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interface States</strong><br>
+          <ul>
+            <li><strong>UP:</strong> Interface is active and working</li>
+            <li><strong>DOWN:</strong> Interface is disabled</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Checking Interface Status</strong><br>
+          <pre class="cmd-line">
+ip link
+          </pre>
+          <div>Look for UP or DOWN status.</div>
+        </li>
+
+        <li>
+          <strong>Bring Interface Up</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 up
+          </pre>
+          <div>This enables the interface.</div>
+        </li>
+
+        <li>
+          <strong>Bring Interface Down</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 down
+          </pre>
+          <div>This disables the interface.</div>
+        </li>
+
+        <li>
+          <strong>Using ifconfig (Legacy)</strong><br>
+          <pre class="cmd-line">
+ifconfig eth0 up
+ifconfig eth0 down
+          </pre>
+        </li>
+
+        <li>
+          <strong>Effect of Disabling Interface</strong><br>
+          <ul>
+            <li>Network connectivity stops</li>
+            <li>IP address becomes inactive</li>
+            <li>Services using network may fail</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Temporary vs Permanent Changes</strong><br>
+          <ul>
+            <li><strong>Temporary:</strong> Using ip command (lost after reboot)</li>
+            <li><strong>Permanent:</strong> Configured in network config files</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Restarting Network Interface</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 down
+ip link set eth0 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using NetworkManager</strong><br>
+          <pre class="cmd-line">
+nmcli device disconnect eth0
+nmcli device connect eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using systemctl</strong><br>
+          Restart networking service:
+          <pre class="cmd-line">
+systemctl restart NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interface Auto Start</strong><br>
+          Controlled in configuration files:
+          <ul>
+            <li>Netplan</li>
+            <li>ifcfg</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>Fix network issue by restarting interface</li>
+            <li>Disable unused NIC for security</li>
+            <li>Apply new IP configuration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interface Flapping</strong><br>
+          Frequent up/down changes:
+          <ul>
+            <li>Can indicate hardware issue</li>
+            <li>Or configuration problem</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interfaces in Containers</strong><br>
+          <ul>
+            <li>Containers use virtual interfaces</li>
+            <li>Interface control affects container connectivity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interfaces in Cloud</strong><br>
+          <ul>
+            <li>Cloud instances have virtual NICs</li>
+            <li>Can be enabled/disabled dynamically</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Disable unused interfaces</li>
+            <li>Prevent unauthorized access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Interface remains down</li>
+            <li>Wrong interface name</li>
+            <li>Network service not running</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Steps</strong><br>
+          <pre class="cmd-line">
+ip link
+ip addr
+systemctl status NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server loses connectivity → restart interface</li>
+            <li>New config applied → bring interface down/up</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Enabling and disabling network interfaces is a fundamental operation used for managing connectivity, applying configurations, and troubleshooting network issues in Linux systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to enable, disable, and manage network interfaces effectively in Linux.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:18">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-18</span>
+    <span class="task-title">Persistent Network Configuration (After Reboot)</span>
+    <span class="task-meta">60–80 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to configure network settings permanently in Linux so that IP addresses, routes, and DNS persist after system reboot.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Persistent Network Configuration</strong><br>
+          Persistent configuration ensures that network settings remain active even after a system reboot.
+        </li>
+
+        <li>
+          <strong>Why Persistence is Important</strong><br>
+          <ul>
+            <li>Servers must retain IP addresses</li>
+            <li>Avoid manual reconfiguration after reboot</li>
+            <li>Required for production systems</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Temporary vs Persistent Configuration</strong><br>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Behavior</th>
+            </tr>
+            <tr>
+              <td>Temporary</td>
+              <td>Lost after reboot</td>
+            </tr>
+            <tr>
+              <td>Persistent</td>
+              <td>Retained after reboot</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Methods of Persistent Configuration</strong><br>
+          <ul>
+            <li>Netplan (Ubuntu)</li>
+            <li>NetworkManager</li>
+            <li>ifcfg files (RHEL/CentOS)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Netplan (Ubuntu/Debian)</strong><br>
+          Configuration files:
+          <pre class="cmd-line">/etc/netplan/*.yaml</pre>
+        </li>
+
+        <li>
+          <strong>Example Netplan Configuration (DHCP)</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: true
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Netplan Configuration (Static IP)</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  ethernets:
+    eth0:
+      dhcp4: no
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+          </pre>
+        </li>
+
+        <li>
+          <strong>Applying Netplan Configuration</strong><br>
+          <pre class="cmd-line">
+netplan apply
+          </pre>
+        </li>
+
+        <li>
+          <strong>Testing Configuration</strong><br>
+          <pre class="cmd-line">
+ip addr
+ping 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>NetworkManager</strong><br>
+          Used in desktop and server environments.
+          <pre class="cmd-line">
+nmcli connection show
+nmcli connection modify
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using nmtui (Interactive Tool)</strong><br>
+          <pre class="cmd-line">
+nmtui
+          </pre>
+          <div>Provides text-based UI for configuration.</div>
+        </li>
+
+        <li>
+          <strong>ifcfg Files (RHEL/CentOS)</strong><br>
+          Location:
+          <pre class="cmd-line">
+/etc/sysconfig/network-scripts/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example ifcfg Configuration</strong><br>
+          <pre class="cmd-line">
+DEVICE=eth0
+BOOTPROTO=static
+IPADDR=192.168.1.100
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+ONBOOT=yes
+          </pre>
+        </li>
+
+        <li>
+          <strong>Restart Network Service</strong><br>
+          <pre class="cmd-line">
+systemctl restart NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Persistent Configuration</strong><br>
+          <pre class="cmd-line">
+/etc/resolv.conf
+          </pre>
+          <div>May be managed by system services.</div>
+        </li>
+
+        <li>
+          <strong>Persistent Routes</strong><br>
+          Routes can be defined in config files to survive reboot.
+        </li>
+
+        <li>
+          <strong>Cloud Networking</strong><br>
+          <ul>
+            <li>Cloud instances use persistent configs</li>
+            <li>DHCP usually auto-configured</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Containers & Persistence</strong><br>
+          <ul>
+            <li>Containers usually use dynamic networking</li>
+            <li>Host config remains persistent</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong YAML syntax</li>
+            <li>Incorrect IP configuration</li>
+            <li>Network service not restarted</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging Steps</strong><br>
+          <pre class="cmd-line">
+ip addr
+ip route
+journalctl -u NetworkManager
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server reboot → IP should remain same</li>
+            <li>Production apps rely on stable networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use static IP for servers</li>
+            <li>Validate config before applying</li>
+            <li>Keep backup of config files</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Persistent network configuration ensures stable and reliable networking across reboots, making it essential for production and cloud environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure persistent networking in Linux systems using various tools.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

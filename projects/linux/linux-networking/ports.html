@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - ports</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-Ports</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Ports</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+
+
+
+<article class="task-card" data-task style="--i:37">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-37</span>
+    <span class="task-title">Ports & Sockets (Network Communication)</span>
+    <span class="task-meta">70–90 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand ports and sockets, how communication happens in Linux networking, and how to monitor connections using ss and netstat.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are Ports</strong><br>
+          Ports are logical endpoints used by applications to communicate over a network.
+          <ul>
+            <li>IP Address → Identifies system</li>
+            <li>Port → Identifies application</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Port Range Classification</strong><br>
+          <ul>
+            <li>0–1023 → Well-known ports (HTTP, SSH)</li>
+            <li>1024–49151 → Registered ports</li>
+            <li>49152–65535 → Ephemeral (dynamic)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Ports</strong><br>
+          <ul>
+            <li>80 → HTTP</li>
+            <li>443 → HTTPS</li>
+            <li>22 → SSH</li>
+            <li>3306 → MySQL</li>
+            <li>6379 → Redis</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What are Sockets</strong><br>
+          A socket is a combination of:
+          <pre class="cmd-line">
+IP Address + Port + Protocol
+          </pre>
+          It represents a communication endpoint.
+        </li>
+
+        <li>
+          <strong>Types of Sockets</strong><br>
+          <ul>
+            <li>TCP → Reliable, connection-oriented</li>
+            <li>UDP → Fast, connectionless</li>
+            <li>UNIX sockets → Local communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>TCP vs UDP</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>TCP</th>
+              <th>UDP</th>
+            </tr>
+            <tr>
+              <td>Reliability</td>
+              <td>Yes</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td>Speed</td>
+              <td>Slower</td>
+              <td>Faster</td>
+            </tr>
+            <tr>
+              <td>Use Case</td>
+              <td>Web, SSH</td>
+              <td>Streaming, DNS</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Connection States</strong><br>
+          <ul>
+            <li>LISTEN → Waiting for connection</li>
+            <li>ESTABLISHED → Active communication</li>
+            <li>CLOSE_WAIT → Closing phase</li>
+            <li>TIME_WAIT → Final cleanup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check Open Ports using ss</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+          </pre>
+          <ul>
+            <li>-t → TCP</li>
+            <li>-u → UDP</li>
+            <li>-l → Listening</li>
+            <li>-n → Numeric output</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Check Established Connections</strong><br>
+          <pre class="cmd-line">
+ss -tan
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by Port</strong><br>
+          <pre class="cmd-line">
+ss -tuln | grep 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Process Using Port</strong><br>
+          <pre class="cmd-line">
+ss -tulnp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using netstat (Legacy Tool)</strong><br>
+          <pre class="cmd-line">
+netstat -tuln
+          </pre>
+          Note: netstat is older and replaced by ss.
+        </li>
+
+        <li>
+          <strong>Check Port Usage</strong><br>
+          <pre class="cmd-line">
+lsof -i :80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Test Port Connectivity</strong><br>
+          <pre class="cmd-line">
+nc -zv google.com 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding Listening Services</strong><br>
+          Services like nginx, sshd, and mysql listen on specific ports for incoming connections.
+        </li>
+
+        <li>
+          <strong>Firewall and Ports</strong><br>
+          <ul>
+            <li>iptables / firewalld control access</li>
+            <li>Ports must be opened to allow traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Ports in Client-Server Model</strong><br>
+          <ul>
+            <li>Server → Fixed port (e.g., 80)</li>
+            <li>Client → Random ephemeral port</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging Port Issues</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+lsof -i :PORT
+nc -zv host PORT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Check service availability</li>
+            <li>Debug API connectivity</li>
+            <li>Monitor microservices communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers (Docker)</strong><br>
+          <ul>
+            <li>Port mapping (host → container)</li>
+            <li>Expose services using ports</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Kubernetes</strong><br>
+          <ul>
+            <li>ClusterIP → Internal communication</li>
+            <li>NodePort → External access</li>
+            <li>LoadBalancer → Public access</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Security Groups control ports</li>
+            <li>Load balancers route traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port already in use</li>
+            <li>Service not listening</li>
+            <li>Firewall blocking traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service running
+Check port listening (ss)
+Check firewall rules
+Test connectivity (nc/curl)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use ss instead of netstat</li>
+            <li>Close unused ports</li>
+            <li>Monitor open connections</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>App not accessible → check port 8080</li>
+            <li>DB connection failed → verify 3306</li>
+            <li>Service down → check LISTEN state</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Ports and sockets are the foundation of network communication. Tools like ss and netstat help monitor connections, debug issues, and ensure services are reachable.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand ports, sockets, connection states, and how to monitor and debug network communication in Linux.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:38">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-38</span>
+    <span class="task-title">ss Command (Socket Statistics & Connection Monitoring)</span>
+    <span class="task-meta">80–100 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master the ss command to inspect sockets, monitor network connections, analyze ports, and debug real-world networking issues in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is ss Command</strong><br>
+          ss (socket statistics) is a modern Linux tool used to display network connections and socket information.
+          <ul>
+            <li>Faster than netstat</li>
+            <li>Directly reads from kernel (Netlink)</li>
+            <li>Shows detailed socket information</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why ss is Important</strong><br>
+          <ul>
+            <li>Monitor active connections</li>
+            <li>Debug port issues</li>
+            <li>Inspect services</li>
+            <li>Analyze system networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Usage</strong><br>
+          <pre class="cmd-line">
+ss
+          </pre>
+          Shows all active sockets.
+        </li>
+
+        <li>
+          <strong>List Listening Ports</strong><br>
+          <pre class="cmd-line">
+ss -l
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show TCP Connections</strong><br>
+          <pre class="cmd-line">
+ss -t
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show UDP Connections</strong><br>
+          <pre class="cmd-line">
+ss -u
+          </pre>
+        </li>
+
+        <li>
+          <strong>Combine Filters</strong><br>
+          <pre class="cmd-line">
+ss -tuln
+          </pre>
+          <ul>
+            <li>-t → TCP</li>
+            <li>-u → UDP</li>
+            <li>-l → Listening</li>
+            <li>-n → Numeric (no DNS resolution)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Show Established Connections</strong><br>
+          <pre class="cmd-line">
+ss -tan state established
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by Port</strong><br>
+          <pre class="cmd-line">
+ss -tuln | grep :80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Process Using Port</strong><br>
+          <pre class="cmd-line">
+ss -tulnp
+          </pre>
+          Displays PID and program name.
+        </li>
+
+        <li>
+          <strong>Connection States</strong><br>
+          <ul>
+            <li>LISTEN</li>
+            <li>ESTABLISHED</li>
+            <li>TIME_WAIT</li>
+            <li>CLOSE_WAIT</li>
+            <li>SYN_SENT / SYN_RECV</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Filtering</strong><br>
+          <pre class="cmd-line">
+ss state listening
+ss state established '( dport = :80 )'
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Statistics Summary</strong><br>
+          <pre class="cmd-line">
+ss -s
+          </pre>
+          Displays summary of connections.
+        </li>
+
+        <li>
+          <strong>Show Socket Memory Usage</strong><br>
+          <pre class="cmd-line">
+ss -m
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Detailed Info</strong><br>
+          <pre class="cmd-line">
+ss -e
+          </pre>
+          Extended information.
+        </li>
+
+        <li>
+          <strong>Kernel-Level Insight</strong><br>
+          ss reads data from:
+          <ul>
+            <li>/proc/net/*</li>
+            <li>Netlink interface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Compare ss vs netstat</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>ss</th>
+              <th>netstat</th>
+            </tr>
+            <tr>
+              <td>Speed</td>
+              <td>Fast</td>
+              <td>Slow</td>
+            </tr>
+            <tr>
+              <td>Modern Support</td>
+              <td>Yes</td>
+              <td>Deprecated</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Debugging Port Issues</strong><br>
+          <pre class="cmd-line">
+ss -tulnp
+lsof -i :PORT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Service Availability</strong><br>
+          <pre class="cmd-line">
+ss -lnt | grep 8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Detect High Connections</strong><br>
+          <pre class="cmd-line">
+ss -tan | wc -l
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Debug API failures</li>
+            <li>Check microservice communication</li>
+            <li>Monitor traffic spikes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Docker</strong><br>
+          <ul>
+            <li>Verify container port mapping</li>
+            <li>Check exposed services</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Kubernetes</strong><br>
+          <ul>
+            <li>Debug pod networking</li>
+            <li>Verify service ports</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Check instance open ports</li>
+            <li>Validate load balancer connections</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port not listening</li>
+            <li>Too many connections</li>
+            <li>Connection stuck in TIME_WAIT</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service → systemctl status
+Check ports → ss -tuln
+Check process → ss -tulnp
+Test connection → curl / nc
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Analysis</strong><br>
+          <ul>
+            <li>Identify connection leaks</li>
+            <li>Monitor socket usage</li>
+            <li>Detect bottlenecks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use ss instead of netstat</li>
+            <li>Always use -n for faster output</li>
+            <li>Combine filters for precise results</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>App not reachable → check LISTEN port</li>
+            <li>High traffic → analyze ESTABLISHED connections</li>
+            <li>Port conflict → identify process using port</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          The ss command is a powerful and efficient tool for inspecting sockets, monitoring connections, and debugging network issues in Linux systems, making it essential for DevOps and system administrators.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to use ss to monitor ports, analyze connections, and troubleshoot networking issues effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:39">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-39</span>
+    <span class="task-title">netstat Command (Legacy Network Monitoring Tool)</span>
+    <span class="task-meta">70–90 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to use netstat to inspect network connections, ports, routing, and statistics, and learn how it compares with modern tools like ss.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is netstat</strong><br>
+          netstat (network statistics) is a command-line tool used to display network connections, routing tables, and interface statistics.
+          <ul>
+            <li>Part of net-tools package</li>
+            <li>Legacy tool (mostly replaced by ss)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why netstat is Important</strong><br>
+          <ul>
+            <li>Still widely used in older systems</li>
+            <li>Useful for troubleshooting</li>
+            <li>Provides network insights</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Usage</strong><br>
+          <pre class="cmd-line">
+netstat
+          </pre>
+          Shows active connections.
+        </li>
+
+        <li>
+          <strong>List All Listening Ports</strong><br>
+          <pre class="cmd-line">
+netstat -l
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show TCP Connections</strong><br>
+          <pre class="cmd-line">
+netstat -t
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show UDP Connections</strong><br>
+          <pre class="cmd-line">
+netstat -u
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Combined Command</strong><br>
+          <pre class="cmd-line">
+netstat -tuln
+          </pre>
+          <ul>
+            <li>-t → TCP</li>
+            <li>-u → UDP</li>
+            <li>-l → Listening</li>
+            <li>-n → Numeric output</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Show Process Using Port</strong><br>
+          <pre class="cmd-line">
+netstat -tulnp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Connection States</strong><br>
+          <ul>
+            <li>LISTEN</li>
+            <li>ESTABLISHED</li>
+            <li>TIME_WAIT</li>
+            <li>CLOSE_WAIT</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Show Routing Table</strong><br>
+          <pre class="cmd-line">
+netstat -r
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Network Interfaces</strong><br>
+          <pre class="cmd-line">
+netstat -i
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Statistics</strong><br>
+          <pre class="cmd-line">
+netstat -s
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by Port</strong><br>
+          <pre class="cmd-line">
+netstat -tuln | grep :80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Kernel Data Source</strong><br>
+          netstat reads from:
+          <ul>
+            <li>/proc/net/tcp</li>
+            <li>/proc/net/udp</li>
+            <li>/proc/net/dev</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Limitations of netstat</strong><br>
+          <ul>
+            <li>Slower on large systems</li>
+            <li>Less efficient than ss</li>
+            <li>Deprecated in modern Linux</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Compare netstat vs ss</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>netstat</th>
+              <th>ss</th>
+            </tr>
+            <tr>
+              <td>Speed</td>
+              <td>Slow</td>
+              <td>Fast</td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td>Deprecated</td>
+              <td>Active</td>
+            </tr>
+            <tr>
+              <td>Data Source</td>
+              <td>/proc</td>
+              <td>Netlink</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Debugging Port Issues</strong><br>
+          <pre class="cmd-line">
+netstat -tulnp
+lsof -i :PORT
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Service Running</strong><br>
+          <pre class="cmd-line">
+netstat -lnt | grep 8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Detect High Connections</strong><br>
+          <pre class="cmd-line">
+netstat -an | wc -l
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Legacy server troubleshooting</li>
+            <li>Quick port checks</li>
+            <li>Debug API/network issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Debug container networking</li>
+            <li>Check exposed ports</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Kubernetes</strong><br>
+          <ul>
+            <li>Inspect node-level networking</li>
+            <li>Debug service connectivity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Check VM open ports</li>
+            <li>Debug connectivity issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port not listening</li>
+            <li>Service crash</li>
+            <li>Firewall blocking traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check service → systemctl status
+Check ports → netstat -tuln
+Check process → netstat -tulnp
+Test connectivity → curl / nc
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use ss instead of netstat for new systems</li>
+            <li>Use -n for faster output</li>
+            <li>Combine with grep for filtering</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Old server debugging → use netstat</li>
+            <li>Port conflict → identify process</li>
+            <li>Application down → verify listening port</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          netstat is a classic networking tool used for inspecting connections and ports. Although replaced by ss, it remains useful in legacy systems and troubleshooting scenarios.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use netstat and when to prefer ss in modern Linux systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:40">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-40</span>
+    <span class="task-title">Connection States (TCP Lifecycle & States)</span>
+    <span class="task-meta">90–110 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand TCP connection states, how connections are established and terminated, and how to debug networking issues using these states.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are Connection States</strong><br>
+          Connection states represent the lifecycle of a network connection between client and server.
+          <ul>
+            <li>Managed by TCP protocol</li>
+            <li>Tracked by the Linux kernel</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Connection States are Important</strong><br>
+          <ul>
+            <li>Debug network issues</li>
+            <li>Understand application behavior</li>
+            <li>Detect performance bottlenecks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overview of TCP Lifecycle</strong><br>
+          <ul>
+            <li>Connection Start → 3-way handshake</li>
+            <li>Data Transfer → ESTABLISHED</li>
+            <li>Connection Close → 4-way termination</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>TCP 3-Way Handshake</strong><br>
+          <pre class="cmd-line">
+Client → SYN
+Server → SYN-ACK
+Client → ACK
+          </pre>
+          Connection becomes ESTABLISHED.
+        </li>
+
+        <li>
+          <strong>Main TCP States</strong><br>
+          <ul>
+            <li>LISTEN</li>
+            <li>SYN_SENT</li>
+            <li>SYN_RECV</li>
+            <li>ESTABLISHED</li>
+            <li>FIN_WAIT_1</li>
+            <li>FIN_WAIT_2</li>
+            <li>CLOSE_WAIT</li>
+            <li>LAST_ACK</li>
+            <li>TIME_WAIT</li>
+            <li>CLOSED</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>LISTEN State</strong><br>
+          Server is waiting for incoming connections.
+          <pre class="cmd-line">
+ss -lnt
+          </pre>
+        </li>
+
+        <li>
+          <strong>SYN_SENT</strong><br>
+          Client has sent SYN and is waiting for response.
+        </li>
+
+        <li>
+          <strong>SYN_RECV</strong><br>
+          Server received SYN and sent SYN-ACK.
+        </li>
+
+        <li>
+          <strong>ESTABLISHED</strong><br>
+          Active communication between client and server.
+          <pre class="cmd-line">
+ss -tan state established
+          </pre>
+        </li>
+
+        <li>
+          <strong>Connection Termination (4-Way)</strong><br>
+          <pre class="cmd-line">
+Client → FIN
+Server → ACK
+Server → FIN
+Client → ACK
+          </pre>
+        </li>
+
+        <li>
+          <strong>FIN_WAIT_1 & FIN_WAIT_2</strong><br>
+          Client is closing connection.
+        </li>
+
+        <li>
+          <strong>CLOSE_WAIT</strong><br>
+          Server received FIN but hasn’t closed yet.
+          ⚠️ Indicates possible application issue.
+        </li>
+
+        <li>
+          <strong>LAST_ACK</strong><br>
+          Server is waiting for final ACK.
+        </li>
+
+        <li>
+          <strong>TIME_WAIT</strong><br>
+          Waiting before fully closing connection.
+          <ul>
+            <li>Prevents delayed packet issues</li>
+            <li>Common in high traffic systems</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>CLOSED</strong><br>
+          Connection fully terminated.
+        </li>
+
+        <li>
+          <strong>View Connection States</strong><br>
+          <pre class="cmd-line">
+ss -tan
+netstat -an
+          </pre>
+        </li>
+
+        <li>
+          <strong>Count Connections by State</strong><br>
+          <pre class="cmd-line">
+ss -tan | awk '{print $1}' | sort | uniq -c
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debugging with States</strong><br>
+          <ul>
+            <li>Too many ESTABLISHED → High traffic</li>
+            <li>Too many TIME_WAIT → Short-lived connections</li>
+            <li>Too many CLOSE_WAIT → App not closing properly</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>TIME_WAIT Problem</strong><br>
+          <pre class="cmd-line">
+ss -tan state time-wait
+          </pre>
+          Causes:
+          <ul>
+            <li>High request rate</li>
+            <li>Short-lived HTTP connections</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>CLOSE_WAIT Issue</strong><br>
+          <ul>
+            <li>Application not closing sockets</li>
+            <li>Memory/resource leak</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Debug API latency</li>
+            <li>Detect connection leaks</li>
+            <li>Monitor service health</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Microservices</strong><br>
+          <ul>
+            <li>High ESTABLISHED → normal traffic</li>
+            <li>High TIME_WAIT → inefficient connections</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Kubernetes</strong><br>
+          <ul>
+            <li>Debug pod networking</li>
+            <li>Identify service connection issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Analyze load balancer connections</li>
+            <li>Monitor traffic spikes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Tuning</strong><br>
+          <pre class="cmd-line">
+sysctl net.ipv4.tcp_fin_timeout
+sysctl net.ipv4.tcp_tw_reuse
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check states → ss -tan
+Identify abnormal state
+Trace application
+Tune kernel if needed
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Monitor connection states regularly</li>
+            <li>Fix CLOSE_WAIT issues immediately</li>
+            <li>Optimize connection reuse</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>API slow → many TIME_WAIT</li>
+            <li>Server crash → many CLOSE_WAIT</li>
+            <li>Traffic spike → ESTABLISHED surge</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Connection states define the lifecycle of TCP communication. Understanding them is critical for debugging, performance tuning, and building reliable systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand TCP connection states and how to use them for debugging and performance analysis.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

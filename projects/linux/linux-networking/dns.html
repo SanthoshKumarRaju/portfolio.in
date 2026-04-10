@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - DNS</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-DNS</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - DNS</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:31">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-31</span>
+    <span class="task-title">DNS Resolution (Domain → IP Conversion)</span>
+    <span class="task-meta">60–80 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how DNS resolution works, how domain names are converted to IP addresses, and how to troubleshoot DNS issues in real environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is DNS Resolution</strong><br>
+          DNS resolution is the process of converting a domain name into an IP address.
+          <pre class="cmd-line">
+google.com → 142.250.x.x
+          </pre>
+        </li>
+
+        <li>
+          <strong>Why DNS Resolution is Important</strong><br>
+          <ul>
+            <li>Humans use names, systems use IPs</li>
+            <li>Essential for web, APIs, and services</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Step-by-Step Resolution Process</strong><br>
+          <pre class="cmd-line">
+1 → Browser request
+2 → OS resolver
+3 → Local cache check
+4 → DNS server query
+5 → Response with IP
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Resolution Flow (Detailed)</strong><br>
+          <pre class="cmd-line">
+Client → Recursive Resolver → Root → TLD → Authoritative → IP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Local DNS Cache</strong><br>
+          OS and browser store resolved IPs to improve performance.
+        </li>
+
+        <li>
+          <strong>/etc/hosts File</strong><br>
+          Local static mapping:
+          <pre class="cmd-line">
+127.0.0.1 localhost
+192.168.1.10 myapp.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Server Configuration</strong><br>
+          <pre class="cmd-line">
+/etc/resolv.conf
+          </pre>
+
+          Example:
+          <pre class="cmd-line">
+nameserver 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>nsswitch.conf Role</strong><br>
+          Controls lookup order:
+          <pre class="cmd-line">
+hosts: files dns
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Lookup Tools</strong><br>
+          <pre class="cmd-line">
+dig google.com
+nslookup google.com
+host google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using dig</strong><br>
+          <pre class="cmd-line">
+dig google.com
+          </pre>
+          Shows detailed DNS response.
+        </li>
+
+        <li>
+          <strong>Using nslookup</strong><br>
+          <pre class="cmd-line">
+nslookup google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using host</strong><br>
+          <pre class="cmd-line">
+host google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Record Types</strong><br>
+          <ul>
+            <li>A → IPv4</li>
+            <li>AAAA → IPv6</li>
+            <li>CNAME → Alias</li>
+            <li>MX → Mail</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>TTL (Time to Live)</strong><br>
+          Defines how long DNS results are cached.
+        </li>
+
+        <li>
+          <strong>Forward Lookup</strong><br>
+          Domain → IP
+        </li>
+
+        <li>
+          <strong>Reverse Lookup</strong><br>
+          <pre class="cmd-line">
+dig -x 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Caching Layers</strong><br>
+          <ul>
+            <li>Browser cache</li>
+            <li>OS cache</li>
+            <li>Resolver cache</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in Containers</strong><br>
+          <ul>
+            <li>Docker provides internal DNS</li>
+            <li>Service names resolve automatically</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in Kubernetes</strong><br>
+          <ul>
+            <li>CoreDNS used for service discovery</li>
+            <li>Pods communicate via DNS names</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in Cloud</strong><br>
+          <ul>
+            <li>Managed DNS services</li>
+            <li>Internal service resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common DNS Issues</strong><br>
+          <ul>
+            <li>Domain not resolving</li>
+            <li>Wrong DNS server</li>
+            <li>Cache issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging DNS Issues</strong><br>
+          <pre class="cmd-line">
+ping google.com
+dig google.com
+cat /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS vs Connectivity Issue</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8 → Works
+ping google.com → Fails
+          </pre>
+          <div>This indicates DNS problem.</div>
+        </li>
+
+        <li>
+          <strong>DNS Security</strong><br>
+          <ul>
+            <li>DNS Spoofing</li>
+            <li>DNSSEC</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>User enters URL</li>
+            <li>DNS resolves IP</li>
+            <li>Browser connects to server</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use reliable DNS servers</li>
+            <li>Monitor DNS latency</li>
+            <li>Clear cache when debugging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          DNS resolution converts domain names into IP addresses, enabling communication across networks and forming the backbone of internet connectivity.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand DNS resolution, lookup flow, tools, and troubleshooting techniques.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:32">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-32</span>
+    <span class="task-title">/etc/resolv.conf (DNS Server Configuration)</span>
+    <span class="task-meta">50–70 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how /etc/resolv.conf works, how DNS servers are configured, and how to manage and troubleshoot DNS resolution in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is /etc/resolv.conf</strong><br>
+          <code>/etc/resolv.conf</code> is a configuration file that defines which DNS servers a system uses for domain name resolution.
+        </li>
+
+        <li>
+          <strong>Why resolv.conf is Important</strong><br>
+          <ul>
+            <li>Controls DNS resolution</li>
+            <li>Required for internet access using domain names</li>
+            <li>Critical for debugging DNS issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Structure</strong><br>
+          <pre class="cmd-line">
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+          </pre>
+        </li>
+
+        <li>
+          <strong>nameserver Directive</strong><br>
+          Defines DNS servers used by the system.
+          <ul>
+            <li>Multiple entries allowed</li>
+            <li>Tried in order</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>search Domain</strong><br>
+          <pre class="cmd-line">
+search example.com
+          </pre>
+          <div>Automatically appends domain for short names.</div>
+        </li>
+
+        <li>
+          <strong>domain Directive</strong><br>
+          <pre class="cmd-line">
+domain example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>options Directive</strong><br>
+          <pre class="cmd-line">
+options timeout:2 attempts:3
+          </pre>
+          <ul>
+            <li>timeout → query timeout</li>
+            <li>attempts → retry count</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How DNS Resolution Uses resolv.conf</strong><br>
+          <pre class="cmd-line">
+Application → OS resolver → resolv.conf → DNS server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing File</strong><br>
+          <pre class="cmd-line">
+cat /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Editing resolv.conf</strong><br>
+          <pre class="cmd-line">
+nano /etc/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Temporary vs Persistent Changes</strong><br>
+          <ul>
+            <li>Manual edits → temporary</li>
+            <li>Overwritten by system services</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>systemd-resolved</strong><br>
+          Modern systems manage DNS dynamically.
+          <pre class="cmd-line">
+/run/systemd/resolve/resolv.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>NetworkManager Interaction</strong><br>
+          Automatically updates resolv.conf based on network settings.
+        </li>
+
+        <li>
+          <strong>Netplan and resolv.conf</strong><br>
+          DNS configured via Netplan:
+          <pre class="cmd-line">
+nameservers:
+  addresses: [8.8.8.8, 1.1.1.1]
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS Priority</strong><br>
+          First nameserver is used first, then fallback.
+        </li>
+
+        <li>
+          <strong>Testing DNS Configuration</strong><br>
+          <pre class="cmd-line">
+ping google.com
+dig google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common DNS Servers</strong><br>
+          <ul>
+            <li>8.8.8.8 → Google</li>
+            <li>1.1.1.1 → Cloudflare</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS Resolution Order</strong><br>
+          Controlled by:
+          <pre class="cmd-line">
+/etc/nsswitch.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>resolv.conf in Containers</strong><br>
+          <ul>
+            <li>Auto-generated inside containers</li>
+            <li>Uses host DNS settings</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>resolv.conf in Kubernetes</strong><br>
+          <ul>
+            <li>Managed by cluster DNS (CoreDNS)</li>
+            <li>Pods inherit DNS configuration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>resolv.conf in Cloud</strong><br>
+          <ul>
+            <li>Provided automatically by cloud provider</li>
+            <li>Uses internal DNS servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong nameserver</li>
+            <li>File overwritten</li>
+            <li>No DNS response</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Steps</strong><br>
+          <pre class="cmd-line">
+cat /etc/resolv.conf
+ping 8.8.8.8
+dig google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Fixing Issues</strong><br>
+          <ul>
+            <li>Add valid nameserver</li>
+            <li>Restart network service</li>
+            <li>Check systemd-resolved</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use reliable DNS servers</li>
+            <li>Avoid manual edits in managed systems</li>
+            <li>Configure via proper tools (Netplan, NM)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>DNS not working → check resolv.conf</li>
+            <li>Update DNS → fix connectivity issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          /etc/resolv.conf defines which DNS servers are used, making it a critical component for domain resolution and network connectivity in Linux systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how resolv.conf works and how to configure and troubleshoot DNS settings.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:33">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-33</span>
+    <span class="task-title">/etc/hosts (Manual Hostname to IP Mapping)</span>
+    <span class="task-meta">45–65 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how /etc/hosts works, how to manually map hostnames to IP addresses, and how to use it for development, testing, and troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is /etc/hosts</strong><br>
+          <code>/etc/hosts</code> is a local file used to map hostnames to IP addresses manually.
+        </li>
+
+        <li>
+          <strong>Why /etc/hosts is Important</strong><br>
+          <ul>
+            <li>Override DNS resolution</li>
+            <li>Test applications locally</li>
+            <li>Useful in development and debugging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Structure</strong><br>
+          <pre class="cmd-line">
+127.0.0.1   localhost
+192.168.1.10 myapp.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>File Format</strong><br>
+          <pre class="cmd-line">
+IP_ADDRESS   HOSTNAME   ALIAS
+          </pre>
+        </li>
+
+        <li>
+          <strong>How It Works</strong><br>
+          When resolving a hostname:
+          <pre class="cmd-line">
+Check /etc/hosts → If found → use it
+Else → query DNS server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Priority Over DNS</strong><br>
+          /etc/hosts is checked before DNS (based on nsswitch.conf).
+        </li>
+
+        <li>
+          <strong>Viewing the File</strong><br>
+          <pre class="cmd-line">
+cat /etc/hosts
+          </pre>
+        </li>
+
+        <li>
+          <strong>Editing /etc/hosts</strong><br>
+          <pre class="cmd-line">
+sudo nano /etc/hosts
+          </pre>
+        </li>
+
+        <li>
+          <strong>Adding Entry Example</strong><br>
+          <pre class="cmd-line">
+192.168.1.100 myapi.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>Testing Mapping</strong><br>
+          <pre class="cmd-line">
+ping myapi.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use Case: Local Development</strong><br>
+          <ul>
+            <li>Map domain to localhost</li>
+            <li>Test applications without DNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use Case: Domain Override</strong><br>
+          Redirect a domain:
+          <pre class="cmd-line">
+127.0.0.1 example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Blocking Websites</strong><br>
+          <pre class="cmd-line">
+127.0.0.1 facebook.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Multiple Hostnames</strong><br>
+          <pre class="cmd-line">
+192.168.1.10 app.local api.local db.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>Loopback Mapping</strong><br>
+          <pre class="cmd-line">
+127.0.0.1 localhost
+          </pre>
+        </li>
+
+        <li>
+          <strong>IPv6 Entries</strong><br>
+          <pre class="cmd-line">
+::1 localhost
+          </pre>
+        </li>
+
+        <li>
+          <strong>nsswitch.conf Integration</strong><br>
+          <pre class="cmd-line">
+hosts: files dns
+          </pre>
+          <div>files → /etc/hosts</div>
+        </li>
+
+        <li>
+          <strong>No Need to Restart</strong><br>
+          Changes take effect immediately.
+        </li>
+
+        <li>
+          <strong>Limitations</strong><br>
+          <ul>
+            <li>Manual updates required</li>
+            <li>Not scalable</li>
+            <li>No dynamic updates</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>/etc/hosts in Containers</strong><br>
+          <ul>
+            <li>Auto-generated inside containers</li>
+            <li>Can be overridden</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>/etc/hosts in Kubernetes</strong><br>
+          <ul>
+            <li>Managed automatically</li>
+            <li>Used for pod-level resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>/etc/hosts in Cloud</strong><br>
+          <ul>
+            <li>Used for internal hostname mapping</li>
+            <li>Often combined with DNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong IP mapping</li>
+            <li>Conflicts with DNS</li>
+            <li>Forgotten entries</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+cat /etc/hosts
+ping hostname
+dig hostname
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Can be used for spoofing</li>
+            <li>Restrict unauthorized changes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use for local testing only</li>
+            <li>Keep file clean</li>
+            <li>Document changes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Test API before DNS is ready</li>
+            <li>Override domain during migration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          /etc/hosts provides manual hostname-to-IP mapping, enabling quick overrides and local testing without relying on DNS servers.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use /etc/hosts for manual DNS mapping and troubleshooting.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:34">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-34</span>
+    <span class="task-title">/etc/nsswitch.conf (Name Service Switch Configuration)</span>
+    <span class="task-meta">60–80 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how nsswitch.conf controls name resolution order, how it interacts with DNS and hosts files, and how to troubleshoot resolution issues.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is nsswitch.conf</strong><br>
+          <code>/etc/nsswitch.conf</code> defines how a system resolves names (hostnames, users, groups, etc.).
+        </li>
+
+        <li>
+          <strong>Why nsswitch.conf is Important</strong><br>
+          <ul>
+            <li>Controls resolution order</li>
+            <li>Determines where system looks first</li>
+            <li>Critical for DNS troubleshooting</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Structure</strong><br>
+          <pre class="cmd-line">
+hosts: files dns
+          </pre>
+        </li>
+
+        <li>
+          <strong>Understanding "hosts" Line</strong><br>
+          <ul>
+            <li><strong>files:</strong> /etc/hosts</li>
+            <li><strong>dns:</strong> DNS servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Resolution Flow</strong><br>
+          <pre class="cmd-line">
+Request hostname
+→ Check /etc/hosts
+→ If not found → Query DNS
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing File</strong><br>
+          <pre class="cmd-line">
+cat /etc/nsswitch.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Editing File</strong><br>
+          <pre class="cmd-line">
+sudo nano /etc/nsswitch.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Configurations</strong><br>
+          <pre class="cmd-line">
+hosts: files dns
+hosts: dns files
+          </pre>
+        </li>
+
+        <li>
+          <strong>files vs dns Priority</strong><br>
+          <ul>
+            <li>files first → local overrides DNS</li>
+            <li>dns first → DNS preferred</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Other Services in nsswitch.conf</strong><br>
+          <ul>
+            <li>passwd → user accounts</li>
+            <li>group → group info</li>
+            <li>shadow → passwords</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Example Full Config</strong><br>
+          <pre class="cmd-line">
+passwd: files
+group: files
+shadow: files
+hosts: files dns
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced Control Options</strong><br>
+          <pre class="cmd-line">
+hosts: files [NOTFOUND=return] dns
+          </pre>
+        </li>
+
+        <li>
+          <strong>Meaning of Conditions</strong><br>
+          <ul>
+            <li>NOTFOUND → if not found</li>
+            <li>return → stop lookup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How It Affects /etc/hosts</strong><br>
+          If "files" is first:
+          <ul>
+            <li>/etc/hosts overrides DNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How It Affects DNS</strong><br>
+          If "dns" is first:
+          <ul>
+            <li>DNS used before local mapping</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+hosts: files dns
+          </pre>
+          <ul>
+            <li>Check /etc/hosts first</li>
+            <li>Then query DNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Testing Resolution Order</strong><br>
+          <pre class="cmd-line">
+ping hostname
+getent hosts hostname
+          </pre>
+        </li>
+
+        <li>
+          <strong>getent Command</strong><br>
+          <pre class="cmd-line">
+getent hosts google.com
+          </pre>
+          <div>Uses nsswitch rules.</div>
+        </li>
+
+        <li>
+          <strong>nsswitch.conf in Containers</strong><br>
+          <ul>
+            <li>Copied from host or base image</li>
+            <li>Affects container DNS resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nsswitch.conf in Kubernetes</strong><br>
+          <ul>
+            <li>Controls pod-level resolution</li>
+            <li>Works with CoreDNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nsswitch.conf in Cloud</strong><br>
+          <ul>
+            <li>Works with cloud DNS services</li>
+            <li>Controls internal name resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong resolution order</li>
+            <li>/etc/hosts ignored</li>
+            <li>DNS not used</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+cat /etc/nsswitch.conf
+cat /etc/hosts
+dig hostname
+getent hosts hostname
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Incorrect config may expose systems</li>
+            <li>Ensure proper resolution order</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use "files dns" in most cases</li>
+            <li>Avoid unnecessary complexity</li>
+            <li>Test after changes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          nsswitch.conf controls the order of name resolution, determining how the system looks up hostnames using files, DNS, and other services.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how nsswitch.conf controls name resolution and how to troubleshoot related issues.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:35">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-35</span>
+    <span class="task-title">systemd-resolved & dnsmasq (DNS Caching & Resolver Services)</span>
+    <span class="task-meta">70–90 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how DNS caching works using systemd-resolved and dnsmasq, and how these services improve performance and reliability.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is DNS Caching</strong><br>
+          DNS caching stores previously resolved domain names to reduce lookup time and improve performance.
+        </li>
+
+        <li>
+          <strong>Why DNS Caching is Important</strong><br>
+          <ul>
+            <li>Faster DNS resolution</li>
+            <li>Reduced network traffic</li>
+            <li>Improved performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>What is systemd-resolved</strong><br>
+          A system service that provides DNS resolution, caching, and stub resolver functionality in modern Linux systems.
+        </li>
+
+        <li>
+          <strong>What is dnsmasq</strong><br>
+          A lightweight DNS forwarder and DHCP server that provides caching and local DNS services.
+        </li>
+
+        <li>
+          <strong>systemd-resolved Architecture</strong><br>
+          <pre class="cmd-line">
+Application → Stub Resolver → systemd-resolved → DNS Server
+          </pre>
+        </li>
+
+        <li>
+          <strong>dnsmasq Architecture</strong><br>
+          <pre class="cmd-line">
+Client → dnsmasq → Upstream DNS → Response → Cache
+          </pre>
+        </li>
+
+        <li>
+          <strong>systemd-resolved Stub Resolver</strong><br>
+          <pre class="cmd-line">
+127.0.0.53
+          </pre>
+          <div>Local DNS resolver address.</div>
+        </li>
+
+        <li>
+          <strong>Checking systemd-resolved Status</strong><br>
+          <pre class="cmd-line">
+systemctl status systemd-resolved
+          </pre>
+        </li>
+
+        <li>
+          <strong>Viewing DNS Configuration</strong><br>
+          <pre class="cmd-line">
+resolvectl status
+          </pre>
+        </li>
+
+        <li>
+          <strong>Flushing DNS Cache</strong><br>
+          <pre class="cmd-line">
+resolvectl flush-caches
+          </pre>
+        </li>
+
+        <li>
+          <strong>dnsmasq Installation</strong><br>
+          <pre class="cmd-line">
+apt install dnsmasq
+          </pre>
+        </li>
+
+        <li>
+          <strong>dnsmasq Configuration File</strong><br>
+          <pre class="cmd-line">
+/etc/dnsmasq.conf
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic dnsmasq Setup</strong><br>
+          <pre class="cmd-line">
+server=8.8.8.8
+cache-size=1000
+          </pre>
+        </li>
+
+        <li>
+          <strong>Starting dnsmasq</strong><br>
+          <pre class="cmd-line">
+systemctl start dnsmasq
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cache Behavior</strong><br>
+          <ul>
+            <li>First request → DNS server</li>
+            <li>Next requests → cache</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>TTL in Caching</strong><br>
+          Cache entries expire based on TTL values.
+        </li>
+
+        <li>
+          <strong>systemd-resolved vs dnsmasq</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>systemd-resolved</th>
+              <th>dnsmasq</th>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>System service</td>
+              <td>Standalone tool</td>
+            </tr>
+            <tr>
+              <td>Features</td>
+              <td>DNS only</td>
+              <td>DNS + DHCP</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use Cases</strong><br>
+          <ul>
+            <li>Local DNS caching</li>
+            <li>Speed up repeated queries</li>
+            <li>Reduce external DNS load</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Containers may use host DNS caching</li>
+            <li>dnsmasq used in container networking setups</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Kubernetes</strong><br>
+          <ul>
+            <li>CoreDNS acts as DNS cache</li>
+            <li>Similar concept to dnsmasq</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Cloud DNS services provide caching</li>
+            <li>Instances may use systemd-resolved</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Stale DNS cache</li>
+            <li>Incorrect DNS server</li>
+            <li>Service not running</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting</strong><br>
+          <pre class="cmd-line">
+resolvectl status
+systemctl status dnsmasq
+dig google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Flushing Cache (dnsmasq)</strong><br>
+          <pre class="cmd-line">
+systemctl restart dnsmasq
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Benefits</strong><br>
+          <ul>
+            <li>Reduced DNS latency</li>
+            <li>Faster application response</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Cache poisoning risks</li>
+            <li>Use trusted DNS servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Enable caching for performance</li>
+            <li>Monitor DNS services</li>
+            <li>Flush cache during debugging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Frequent API calls → cached DNS → faster response</li>
+            <li>DNS issue → flush cache → fix resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          systemd-resolved and dnsmasq provide DNS caching services that improve performance, reduce latency, and enhance reliability in modern Linux systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand DNS caching mechanisms and how to use systemd-resolved and dnsmasq effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:36">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-36</span>
+    <span class="task-title">dig, nslookup & host (DNS Troubleshooting Tools)</span>
+    <span class="task-meta">60–80 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how to use dig, nslookup, and host commands to troubleshoot DNS issues, analyze DNS records, and debug resolution problems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What are DNS Troubleshooting Tools</strong><br>
+          These tools help query DNS servers and analyze how domain names are resolved into IP addresses.
+        </li>
+
+        <li>
+          <strong>Why These Tools are Important</strong><br>
+          <ul>
+            <li>Debug DNS failures</li>
+            <li>Verify domain resolution</li>
+            <li>Inspect DNS records</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overview of Tools</strong><br>
+          <ul>
+            <li><strong>dig:</strong> Detailed DNS analysis</li>
+            <li><strong>nslookup:</strong> Basic DNS query tool</li>
+            <li><strong>host:</strong> Simple lookup tool</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Using dig</strong><br>
+          <pre class="cmd-line">
+dig google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>dig Output Sections</strong><br>
+          <ul>
+            <li>QUESTION SECTION</li>
+            <li>ANSWER SECTION</li>
+            <li>AUTHORITY SECTION</li>
+            <li>ADDITIONAL SECTION</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Query Specific Record</strong><br>
+          <pre class="cmd-line">
+dig google.com A
+dig google.com MX
+          </pre>
+        </li>
+
+        <li>
+          <strong>Query Specific DNS Server</strong><br>
+          <pre class="cmd-line">
+dig @8.8.8.8 google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Short Output</strong><br>
+          <pre class="cmd-line">
+dig +short google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reverse Lookup</strong><br>
+          <pre class="cmd-line">
+dig -x 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Trace DNS Path</strong><br>
+          <pre class="cmd-line">
+dig +trace google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using nslookup</strong><br>
+          <pre class="cmd-line">
+nslookup google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interactive Mode</strong><br>
+          <pre class="cmd-line">
+nslookup
+> google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Specify DNS Server</strong><br>
+          <pre class="cmd-line">
+nslookup google.com 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Using host</strong><br>
+          <pre class="cmd-line">
+host google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Query Record Type</strong><br>
+          <pre class="cmd-line">
+host -t MX google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reverse Lookup (host)</strong><br>
+          <pre class="cmd-line">
+host 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Comparison of Tools</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>dig</th>
+              <th>nslookup</th>
+              <th>host</th>
+            </tr>
+            <tr>
+              <td>Detail</td>
+              <td>High</td>
+              <td>Medium</td>
+              <td>Simple</td>
+            </tr>
+            <tr>
+              <td>Usage</td>
+              <td>Advanced</td>
+              <td>General</td>
+              <td>Quick checks</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>DNS Record Types</strong><br>
+          <ul>
+            <li>A → IPv4</li>
+            <li>AAAA → IPv6</li>
+            <li>CNAME → Alias</li>
+            <li>MX → Mail</li>
+            <li>NS → Name servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Use Cases</strong><br>
+          <ul>
+            <li>Check domain resolution</li>
+            <li>Verify DNS propagation</li>
+            <li>Debug DNS failures</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging DNS Issues</strong><br>
+          <pre class="cmd-line">
+dig google.com
+nslookup google.com
+host google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS vs Network Issue</strong><br>
+          <pre class="cmd-line">
+ping 8.8.8.8 → Works
+dig google.com → Fails
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Debug API endpoints</li>
+            <li>Verify DNS records in deployments</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Containers</strong><br>
+          <ul>
+            <li>Test container DNS resolution</li>
+            <li>Debug service discovery</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Kubernetes</strong><br>
+          <ul>
+            <li>Debug CoreDNS issues</li>
+            <li>Verify service names</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Cloud</strong><br>
+          <ul>
+            <li>Check DNS records</li>
+            <li>Validate load balancer DNS</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>NXDOMAIN (domain not found)</li>
+            <li>Timeout</li>
+            <li>Incorrect DNS records</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+ping domain
+dig domain
+check resolv.conf
+verify DNS server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use dig for detailed analysis</li>
+            <li>Use host for quick checks</li>
+            <li>Test with multiple DNS servers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Website down → check DNS records</li>
+            <li>API not resolving → debug using dig</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          dig, nslookup, and host are essential tools for DNS troubleshooting, helping analyze resolution, verify records, and debug network issues effectively.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to use DNS tools to troubleshoot and analyze DNS resolution issues.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

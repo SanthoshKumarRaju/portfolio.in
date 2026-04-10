@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux-Filesystem</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-filesystem">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">Linux Filesystem</span>
+    </div>
+    <a class="proj-back-btn" href="../../../pages/projects/projects.html">&larr; Back to Projects</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Filesystem and Directory Structure </h1>
+        <span class="g-tag tg">&bull; local lab</span>
+        <!-- terminal toggle button defined globally -->
+        <!-- <button class="terminal-btn" id="terminalBtn" type="button">Terminal</button> -->
+      </div>
+    </div>
+
+    <div class="proj-desc">
+      <span class="task-summary">Summary</span>
+      <p>
+        This topic explores how Linux organizes files using a hierarchical
+        filesystem structure starting from the root directory. It explains the
+        purpose of major system directories, different Linux file types, the
+        difference between hard and symbolic links, and how filesystems are
+        mounted to storage devices. It also introduces inode structures that
+        store file metadata. Understanding these concepts helps administrators
+        and DevOps engineers manage storage, configuration files, and system
+        resources effectively.
+        </p>
+    </div>
+
+    <section class="task-board" aria-label="Linux setup and command tasks">
+      <div class="proj-section-title">Filesystem and Directory Structure </div>
+      <article class="task-card" data-task style="--i:1">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Topic-1</span>
+          <span class="task-title">Linux Filesystem Hierarchy Standard (FHS) & Purpose of directories</span>
+          <span class="task-meta">20–25 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+
+        <div class="task-panel">
+          <div class="task-panel-inner">
+
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Understand the Linux Filesystem Hierarchy Standard (FHS), why it
+              exists, and how Linux organizes system files and directories
+              across the operating system.
+            </p>
+            <ol class="task-steps-list">
+
+              <li>
+              <div class="fs-card">
+              <strong>What is a Filesystem?</strong><br>
+              A filesystem is the logical structure used by an operating system to
+              store, organize, manage, and retrieve data on storage devices such as
+              hard drives, SSDs, USB drives, and network storage.
+              The filesystem acts as the interface between the operating system and
+              physical storage hardware. It defines how files are stored on disk,
+              how directories are organized, and how metadata about files is managed.
+              <div>
+              <code>A filesystem controls several key aspects:</code>
+              </div>
+              <ul>
+              <li><strong>File Naming</strong> – defines rules for naming files and directories.</li>
+              <li><strong>Directory Organization</strong> – structures files in hierarchical folders.</li>
+              <li><strong>Permissions and Ownership</strong> – controls who can read, write, or execute files.</li>
+              <li><strong>Space Allocation</strong> – determines how disk blocks are assigned to files.</li>
+              <li><strong>Metadata Management</strong> – stores file attributes such as timestamps and ownership.</li>
+              </ul>
+              <code>Linux supports multiple filesystem types, including:</code>
+              <ul>
+              <li><strong>ext4</strong> – the most common Linux filesystem</li>
+              <li><strong>xfs</strong> – used in enterprise systems</li>
+              <li><strong>btrfs</strong> – advanced filesystem with snapshots</li>
+              <li><strong>fat32 / ntfs</strong> – used for compatibility with Windows</li>
+              </ul>
+              Unlike Windows, which separates disks using drive letters like
+              <code>C:\</code> and <code>D:\</code>, Linux uses a single unified
+              filesystem tree starting from the root directory <code>/</code>.
+              </div>
+              </li>
+              
+              <li>
+              <div class="fs-card">
+                <strong>The Root Directory (/)</strong><br>
+                The root directory (<code>/</code>) is the top-level directory in the Linux filesystem hierarchy. Every file and directory on the system exists somewhere beneath this root.
+                <div><code>Example structure:</code></div>
+                  <pre>
+                  /
+                  ├── bin
+                  ├── boot
+                  ├── dev
+                  ├── etc
+                  ├── home
+                  ├── lib
+                  ├── media
+                  ├── mnt
+                  ├── opt
+                  ├── proc
+                  ├── root
+                  ├── run
+                  ├── sbin
+                  ├── tmp
+                  ├── usr
+                  └── var
+                  </pre>
+              <code>Important characteristics of the root directory:</code>
+              <ul>
+              <li>It is the starting point of the entire filesystem hierarchy.</li>
+              <li>All mounted devices are attached somewhere under this directory.</li>
+              <li>System-critical directories are located directly under root.</li>
+              </ul>
+              <code>For example:</code>
+              <ul>
+              <li>The operating system configuration lives in <code>/etc</code></li>
+              <li>User files are stored in <code>/home</code></li>
+              <li>System logs are stored in <code>/var/log</code></li>
+              </ul>
+              Because everything in Linux starts from the root directory,
+              administrators must carefully manage access and permissions.
+              </div>
+              </li>
+              
+              <li>
+              <div class="fs-card">  
+              <strong>Filesystem Hierarchy Standard (FHS)</strong><br>
+              <div>
+              The Filesystem Hierarchy Standard (FHS) is a specification that defines
+              how directories and files should be organized in Linux systems.
+              It was created to ensure consistency across different Linux
+              distributions such as Ubuntu, Debian, Fedora, and Red Hat.
+              </div>
+              <code>The main goals of FHS are:</code>
+              <ul>
+              <li>Provide a consistent directory structure</li>
+              <li>Make software installation predictable</li>
+              <li>Allow administrators to easily locate system files</li>
+              <li>Ensure compatibility between distributions</li>
+              </ul>
+              <code>For example, because of FHS:</code>
+              <ul>
+              <li>System configuration files are always located in <code>/etc</code></li>
+              <li>System logs are always located in <code>/var/log</code></li>
+              <li>User home directories are stored in <code>/home</code></li>
+              </ul>
+              This standard makes it easier to manage Linux servers,
+              especially in large infrastructure environments.
+              </div>
+              </li>
+
+              <li>
+              <div class="fs-card">
+              <strong>📁 /bin – Essential User Binaries</strong><br>
+                The <strong>/bin</strong> directory contains essential command
+                line programs required for basic system operation.
+                  <div>
+                <code>Examples include:</code>
+                  </div>
+                <ul>
+                  <li>ls</li>
+                  <li>cp</li>
+                  <li>mv</li>
+                  <li>cat</li>
+                  <li>mkdir</li>
+                </ul>
+                These commands must be available even when the system is
+                running in minimal or recovery mode.
+                </div>
+              </li>
+
+              <li>
+              <div class="fs-card">
+                <strong>📁 /boot – Boot Files</strong><br>
+              <div>
+                  The <strong>/boot</strong> directory contains the files required for
+                  starting the Linux operating system. These files are used by the
+                  bootloader during system startup.
+              </div>
+              <ul>
+                  <li>Stores the Linux kernel image.</li>
+                  <li>Contains bootloader configuration files.</li>
+                  <li>Includes initial RAM filesystem (initramfs).</li>
+              </ul>
+              <div><code>Example files:</code></div>
+              <pre>
+              /boot/vmlinuz
+              /boot/initramfs
+              /boot/grub/grub.cfg
+              </pre>
+
+              <div>
+                  The bootloader (usually GRUB) reads these files to load the kernel
+                  and start the operating system.
+              </div>
+              </div>
+              </li>
+
+              <li>
+                  <div class="fs-card">
+                <strong>📁 /dev – Device Files</strong><br>
+                The <strong>/dev</strong> directory contains files representing
+                hardware devices.
+                  <div>
+                      <code>Examples:</code>
+                  </div>
+                      <pre>
+                      /dev/sda
+                      /dev/sda1
+                      /dev/null
+                      /dev/random
+                      </pre>
+                Linux treats hardware devices as files that can be accessed by
+                applications and system utilities.
+                </div>
+              </li>
+
+              <li>
+                <div class="fs-card">
+                <strong>📁 /etc – System Configuration</strong><br>
+                The <strong>/etc</strong> directory contains configuration files
+                for the entire system.
+                  <div>
+                      <code>Examples include:</code>
+                  </div>
+                      <pre>
+                      /etc/passwd
+                      /etc/group
+                      /etc/fstab
+                      /etc/ssh/sshd_config
+                      </pre>
+
+                These files define system behavior, service settings,
+                authentication data, and networking configuration.
+                  </div>
+              </li>
+
+              <li>
+              <div class="fs-card">
+                <strong>📁 /home – User Home Directories</strong><br>
+                The <strong>/home</strong> directory stores personal directories
+                for each user.
+
+                Example:
+                  <pre>
+                  /home/santhosh
+                  /home/devops
+                  /home/user1
+                  </pre>
+
+                Each user directory stores personal files, documents, scripts,
+                and configuration settings.
+                </div>
+              </li>
+
+              <li>
+              <div class="fs-card">
+              <strong>📁 /lib</strong>
+              <div>
+                  The <strong>/lib</strong> directory contains essential shared libraries
+                  needed by programs in <code>/bin</code> and <code>/sbin</code>.
+              </div>
+
+              <ul>
+                  <li>Stores shared libraries required by core system binaries.</li>
+                  <li>Contains kernel modules.</li>
+                  <li>Required for basic system functionality.</li>
+              </ul>
+              <div><code>Example paths:</code></div>
+              <pre>
+              /lib/x86_64-linux-gnu/
+              /lib/modules/
+              </pre>
+              <div>
+                  Shared libraries allow multiple programs to use the same code,
+                  reducing duplication and saving system resources.
+              </div>
+              </div>
+              </li>
+
+              <li>
+                  <div class="fs-card">
+                <strong>📁 /mnt and 📁 /media – Mount Points</strong><br>
+                These directories are used to attach external storage devices.
+                <strong>/mnt</strong> is commonly used for temporary mounts.
+                <strong>/media</strong> is used for removable devices such as
+                USB drives or DVDs.
+                </div>
+              </li>
+
+              <li>
+                <div class="fs-card">
+                <strong>📁 /opt – Optional Software</strong><br>
+                The <strong>/opt</strong> directory is used for installing
+                third-party applications that are not part of the default
+                operating system packages.
+                  <div>
+                      <code>Example:</code>
+                  </div>
+                      <pre>
+                      /opt/google
+                      /opt/custom-app
+                      </pre>
+              </div>
+              </li>
+
+              <li>
+                <div class="fs-card">
+                <strong>📁 /proc – Process Information</strong><br>
+                The <strong>/proc</strong> directory is a virtual filesystem
+                that provides information about system processes and kernel
+                data.
+                  <div>
+                      <code>Examples:</code>
+                  </div>
+                      <pre>
+                      /proc/cpuinfo
+                      /proc/meminfo
+                      /proc/uptime
+                      </pre>
+                Each running process also has a directory inside /proc.
+                </div>
+              </li>
+
+              <li>       
+              <div class="fs-card">
+              <strong>📁 /root</strong>
+              <div>
+                  The <strong>/root</strong> directory is the home directory of the
+                  root user (system administrator).
+              </div>
+
+              <ul>
+                  <li>Used for administrative tasks.</li>
+                  <li>Contains root user's configuration files.</li>
+                  <li>Separate from normal user directories.</li>
+              </ul>
+                <div><code>Example files:</code></div>
+                      <pre>
+                      /root/.bashrc
+                      /root/scripts
+                      </pre>
+
+              <div>
+                  This directory is not the same as the system root directory <code>/</code>.
+                  It specifically belongs to the root user.
+              </div>
+              </div>
+              </li>
+
+              <li>
+              <div class="fs-card">
+              <strong>📁 /run</strong>
+              <div>
+                  The <strong>/run</strong> directory stores runtime system information
+                  that is created during system boot.
+              </div>
+
+              <ul>
+                  <li>Stores temporary system process information.</li>
+                  <li>Contains PID files and runtime data.</li>
+                  <li>Data is cleared when the system restarts.</li>
+              </ul>
+
+              <div><code>Example:</code></div>
+              <pre>
+              /run/systemd/
+              /run/nginx.pid
+              /run/docker.pid
+              </pre>
+
+              <div>
+                  This directory is usually stored in memory (tmpfs) and exists only
+                  while the system is running.
+              </div>
+              </div>
+              </li>
+
+              <li>
+              <div class="fs-card">
+              <strong>📁 /sbin – System Administration Commands</strong><br>
+                The <strong>/sbin</strong> directory contains system management
+                commands typically used by the system administrator.
+              <div>
+                <code>Examples:</code>
+              </div>
+                <ul>
+                  <li>mount</li>
+                  <li>reboot</li>
+                  <li>shutdown</li>
+                  <li>fsck</li>
+                </ul>
+                These tools are used for system maintenance and recovery.
+              </div>
+              </li>
+
+              <li>
+                  <div class="fs-card">
+                <strong>📁 /tmp – Temporary Files</strong><br>
+                The <strong>/tmp</strong> directory stores temporary files
+                created by programs and users.
+                      <div>
+                          <code>Characteristics:</code>
+                      </div>
+                <ul>
+                  <li>Temporary storage location</li>
+                  <li>Accessible by all users</li>
+                  <li>Often cleared during system reboot</li>
+                </ul>
+                </div>
+              </li>
+          
+              <li>
+                  <div class="fs-card">
+                <strong>📁 /usr – User Applications</strong><br>
+                The <strong>/usr</strong> directory contains applications,
+                libraries, and shared resources used by most programs.
+                  <div>
+                      <code>Important subdirectories include:</code>
+                  </div>
+                <ul>
+                  <li>/usr/bin – user commands</li>
+                  <li>/usr/lib – program libraries</li>
+                  <li>/usr/share – shared data</li>
+                </ul>
+                Most software installed by package managers is stored here.
+                </div>
+              </li>
+
+              <li>
+                  <div class="fs-card">
+                <strong>📁 /var – Variable Data</strong><br>
+                The <strong>/var</strong> directory stores data that frequently
+                changes during system operation.
+                      <div>
+                          <code>Examples include:</code>
+                      </div>
+                <ul>
+                  <li>system logs</li>
+                  <li>mail queues</li>
+                  <li>database files</li>
+                  <li>package manager cache</li>
+                </ul>
+                Example log location:
+                      <pre>
+                      /var/log/syslog
+                      /var/log/nginx
+                      </pre>
+                  </div>
+              </li>
+
+              <li>
+                  <div class="fs-card">
+                <strong>Why FHS is Important</strong><br>
+                The Filesystem Hierarchy Standard ensures consistency across
+                Linux systems. This allows administrators and applications to
+                easily find files regardless of the distribution.
+                  <div>
+                <code>FHS is especially important in:</code>
+                </div>
+                <ul>
+                  <li>System administration</li>
+                  <li>DevOps automation</li>
+                  <li>Container environments</li>
+                  <li>Cloud infrastructure</li>
+                </ul>
+                </div>
+              </li>
+
+            </ol>
+            <div class="task-check">
+              Completion check: You should now understand the purpose of the
+              Linux Filesystem Hierarchy Standard and be able to identify the
+              role of important directories such as /bin, /etc, /usr, /var,
+              /home, and /boot.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:2">
+        <button class="task-toggle" type="button" aria-expanded="false">
+          <span class="task-pill">Topic-2</span>
+          <span class="task-title">Understanding File Types in Linux</span>
+          <span class="task-meta">20–25 min</span>
+          <span class="task-chevron">&#9662;</span>
+        </button>
+
+        <div class="task-panel">
+          <div class="task-panel-inner">
+            <p class="task-goal">
+              <span class="task-goal-label">Goal: </span>
+              Understand the different types of files in Linux, how the system
+              represents them internally, and how administrators can identify
+              and work with these file types using command-line tools.
+            </p>
+            <ol class="task-steps-list">
+              <li>
+                <strong>Introduction to File Types in Linux</strong><br>
+
+                In Linux, everything is treated as a file. This includes
+                normal files, directories, hardware devices, and even
+                communication channels between processes.
+
+                Linux uses different file types to represent different
+                kinds of resources inside the operating system.
+
+                These file types allow Linux to maintain a unified
+                filesystem interface where applications interact with
+                resources using file operations.
+
+                The main Linux file types include:
+                <ul>
+                  <li>Regular files</li>
+                  <li>Directories</li>
+                  <li>Symbolic links</li>
+                  <li>Character device files</li>
+                  <li>Block device files</li>
+                  <li>Named pipes (FIFOs)</li>
+                  <li>Sockets</li>
+                </ul>
+
+              </li>
+              
+              <li>
+                <strong>Identifying File Types Using ls Command</strong><br>
+                Linux displays file types when listing files using:
+              <pre>
+              <storng>ls -l</storng>
+                <div><code>Example output:</code></div>
+                <code class="cmd-line"><div>drwxr-xr-x 2 user user 4096 Mar 10 documents</div><div>-rw-r--r-- 1 user user  234 Mar 10 notes.txt</div><div>lrwxrwxrwx 1 user user   10 Mar 10 link -> notes.txt</div></code>
+              </pre>
+              The first character of each line represents the file type.
+              <table>
+              <tr><th>Symbol</th><th>File Type</th></tr>
+              <tr><td>-</td><td>Regular file</td></tr>
+              <tr><td>d</td><td>Directory</td></tr>
+              <tr><td>l</td><td>Symbolic link</td></tr>
+              <tr><td>c</td><td>Character device</td></tr>
+              <tr><td>b</td><td>Block device</td></tr>
+              <tr><td>p</td><td>Named pipe</td></tr>
+              <tr><td>s</td><td>Socket</td></tr>
+              </table>
+              Understanding this output helps administrators quickly
+              identify the nature of files on a system.
+              </li>
+
+              <li>
+                <strong>Regular Files</strong><br>
+
+                Regular files are the most common file type in Linux.
+                These files store user data, program code, scripts,
+                or application binaries.
+
+                <div><code>Example include:</code></div>
+
+                <ul>
+                  <li>Text files</li>
+                  <li>Configuration files</li>
+                  <li>Shell scripts</li>
+                  <li>Compiled programs</li>
+                </ul>
+                  <div><code>Example:</code></div>
+                  <pre>
+                  touch file.txt
+                  nano script.sh
+                  </pre>
+                  Regular files are represented by the symbol:
+                  <pre class="cmd-line">-</pre>
+                  in the output of <code>ls -l</code>.
+              </li>
+
+
+              <li>
+                <strong>Directories</strong><br>
+                Directories are special files that contain references
+                to other files and directories.
+                They provide the hierarchical structure of the Linux
+                filesystem.
+                <div><code>Example directory creation:</code></div>
+                <div class="cmd">mkdir projects</div>
+                <div><code>Example listing:</code></div>
+                <pre class="cmd-line">drwxr-xr-x 2 user user 4096 projects</pre>
+                <div>          
+                The letter <strong>d</strong> at the beginning indicates
+                that the file is a directory.
+                Directories allow the operating system to organize
+                files efficiently.
+                </div>
+              </li>
+
+
+              <li>
+                <strong>Symbolic Links (Soft Links)</strong><br>
+                A symbolic link is a file that points to another file
+                or directory.
+                It acts similar to a shortcut.
+                
+                <div><code>Example creation:</code></div>
+                <pre class="cmd">ln -s original.txt shortcut.txt</pre>
+                <div><code>Example output:</code></div>
+                <pre class="cmd-line">lrwxrwxrwx 1 user user shortcut.txt -> original.txt</pre>
+                <div>Characteristics:</div>
+                <ul>
+                <li>Stores path to the target file</li>
+                <li>Can link across filesystems</li>
+                <li>Breaks if the original file is deleted</li>
+                </ul>
+                Symbolic links are represented with the symbol:<pre class="cmd-line">l</pre>
+              </li>
+
+
+              <li>
+                <strong>Character Device Files</strong><br>
+
+                Character devices transfer data one character at a time.
+
+                These devices are typically used for input/output
+                hardware devices.
+
+              <div><code>Example:</code></div>
+              <pre>
+              /dev/tty
+              /dev/random
+              /dev/null
+              </pre>
+              They are represented by:<pre class="cmd-line">c</pre>
+              Character devices are commonly used by:
+              <ul>
+              <li>terminal interfaces</li>
+              <li>keyboard devices</li>
+              <li>random number generators</li>
+              </ul>
+              </li>
+
+
+              <li>
+                <strong>Block Device Files</strong><br>
+
+                Block devices store data in fixed-size blocks.
+
+                These devices allow the system to read and write
+                data in chunks instead of individual characters.
+
+                <div><code>Example:</code></div>
+                <pre>
+                /dev/sda
+                /dev/sda1
+                </pre>
+                These represent hard disks and disk partitions.
+                Block devices are represented with:<pre class="cmd-line">b</pre>
+                Block devices are critical for storage systems
+                and filesystems.
+              </li>
+
+
+              <li>
+                <strong>Named Pipes (FIFO)</strong><br>
+
+                Named pipes allow processes to communicate
+                with each other.
+
+                  <div><code>Example creation:</code></div>
+                  <pre class="cmd">mkfifo mypipe</pre>
+                  <div>
+                    Processes can write data to the pipe and another process can read it.
+                  </div>
+                  <div>Named pipes are represented with:</div><pre class="cmd-line">p</pre>
+                  <div>They are commonly used in scripting and interprocess communication.</div>
+              </li>
+
+
+              <li>
+                <strong>Sockets</strong><br>
+                Sockets are files used for communication between
+                processes, especially for networking services.
+              <div><code>Examples:</code></div>
+              <pre class="cmd">/var/run/docker.sock</pre>
+              <div>Applications such as web servers and databases sockets for communication.</div>
+              <div>Sockets are represented with:</div><pre class="cmd-line">s</pre>
+              </li>
+
+
+              <li>
+                <strong>Advanced Concepts: Everything is a File</strong><br>
+
+                One of the core Linux design principles is that
+                everything is treated as a file.
+              <div><code>Example include:</code></div>
+              <ul>
+              <li>Hardware devices in <code>/dev</code></li>
+              <li>Kernel information in <code>/proc</code></li>
+              <li>System runtime data in <code>/run</code></li>
+              </ul>
+              This design allows applications to interact with
+              hardware, processes, and services using the
+              same file-based interface.
+              </li>
+
+
+              <li>
+                <strong>Why Understanding File Types Matters</strong><br>
+
+                File types are important for system administration
+                and DevOps workflows.
+                  <div>They help with:</div>
+                  <ul>
+                  <li>debugging system issues</li>
+                  <li>managing hardware devices</li>
+                  <li>understanding Linux storage systems</li>
+                  <li>working with containers and virtualization</li>
+                  </ul>
+                  <div><code> For Example:</code></div>
+                  <pre>
+                  docker.sock -> socket file
+                  /dev/sda -> block device
+                  /tmp/mypipe -> named pipe
+                  </pre>
+                  Understanding these file types helps engineers
+                  troubleshoot systems and manage Linux infrastructure
+                  more effectively.
+              </li>
+
+            </ol>
+
+            <div class="task-check">
+              Completion check: You should now be able to identify Linux file
+              types using the <code>ls -l</code> command and understand how
+              different file types are used within the Linux operating system.
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:3">
+      <button class="task-toggle" type="button" aria-expanded="false">
+      <span class="task-pill">Topic-3</span>
+      <span class="task-title">Hard Links vs Symbolic Links in Linux</span>
+      <span class="task-meta">20–30 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how Linux links work, how files reference inodes, and the
+      difference between Hard Links and Symbolic Links.
+      </p>
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>Introduction to Links in Linux</strong>
+      <div>In Linux, a file name is simply a reference to an inode. Links allow multiple references to the same file data.</div>
+      <code>There are two main types of links:</code>
+      <ul>
+      <li>Hard Links</li>
+      <li>Symbolic Links (Soft Links)</li>
+      </ul>
+      <code>Links help users:</code>
+      <ul>
+      <li>Create shortcuts</li>
+      <li>Share files across locations</li>
+      <li>Organize filesystems efficiently</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Understanding File References and Inodes</strong>
+      <div>Each file in Linux is associated with an inode number.</div>
+      <code>The inode stores:</code>
+
+      <ul>
+      <li>file size</li>
+      <li>file permissions</li>
+      <li>owner information</li>
+      <li>disk block locations</li>
+      <li>timestamps</li>
+      </ul>
+      Directories store filenames and map them to inode numbers.
+      <div class="cmd">ls -i</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>12345 file.txt</div><div>12346 notes.txt</div></pre>
+      <div>This means the file <strong>file.txt</strong> is associated with inode <strong>12345</strong>.</div>
+      </li>
+
+
+      <li>
+
+      <strong>What is a Hard Link</strong>
+      <div>A hard link is another filename that points directly to the same inode.</div>
+      <code>This means:</code>
+      <ul>
+      <li>Both filenames reference the same file data</li>
+      <li>Deleting one filename does not delete the file</li>
+      <li>The file exists until all hard links are removed</li>
+      </ul>
+      </li>
+
+
+      <li>
+
+      <strong>Creating a Hard Link</strong><br>
+        <div class="cmd">ln original.txt hardlink.txt</div>
+      <div>This creates another reference to the same inode.</div>
+      <div class="cmd">ls -li</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>12345 -rw-r--r-- 2 user user 120 Mar 12 original.txt</div><div>12345 -rw-r--r-- 2 user user 120 Mar 12 hardlink.txt</div></pre>
+      <div><code>Notice:</code></div>
+      <ul>
+      <li>Both files share the same inode number</li>
+      <li>The link count increased from 1 to 2</li>
+      </ul>
+      </li>
+
+
+      <li>
+      <strong>Deleting a Hard Link</strong>
+      <div>one link is removed, the data remains available.</div>
+      <div class="cmd">rm original.txt</div>
+      <div class="cmd">ls -li</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>12345 -rw-r--r-- 1 user user 120 Mar 12 hardlink.txt</div></pre>
+      <div>The file still exists because the inode still has one reference.</div>
+      </li>
+
+
+      <li>
+      <strong>Limitations of Hard Links</strong><br>
+      Hard links have several limitations:
+      <ul>
+      <li>Cannot link directories</li>
+      <li>Cannot link across filesystems</li>
+      <li>Only reference the same inode</li>
+      </ul>
+      Because of these limitations, Linux also provides symbolic links.
+      </li>
+
+
+      <li>
+      <strong>What is a Symbolic Link</strong><br>
+      A symbolic link (soft link) is a file that contains the path to another file.
+      It acts like a shortcut.
+      Instead of referencing an inode directly, it references a file path.
+      </li>
+
+
+      <li>
+      <strong>Creating a Symbolic Link</strong><br>
+      <div class="cmd">ln -s original.txt symlink.txt</div>
+      <div class="cmd">ls -l</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>lrwxrwxrwx 1 user user 12 Mar 12 symlink.txt -> original.txt</div></pre>
+      Here:
+      <ul>
+      <li><strong>l</strong> indicates a symbolic link</li>
+      <li>The arrow shows the target file</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Behavior of Symbolic Links</strong><br>
+      <div>If the original file is deleted, the symbolic link becomes broken.</div>
+      <div class="cmd">rm original.txt</div>
+      <div class="cmd">ls -l</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">lrwxrwxrwx 1 user user 12 Mar 12 symlink.txt -> original.txt</pre>
+      <div>The link still exists but points to a non-existing file.</div>
+      </li>
+
+
+      <li>
+      <strong>Checking Link Information</strong><br>
+      <div>To inspect link relationships:</div>
+      <div class="cmd">stat file.txt</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>File: file.txt</div><div>Size: 120</div><div>Links: 2</div><div>Inode: 12345</div><div>Permissions: -rw-r--r--</div></pre>
+      <div>This command shows the inode and link count.</div>
+      </li>
+
+      <li>
+      <strong>Difference Between Hard Links and Symbolic Links</strong><br><br>
+      <table>
+      <tr>
+      <th>Feature</th>
+      <th>Hard Link</th>
+      <th>Symbolic Link</th>
+      </tr>
+      <tr>
+      <td>Reference</td>
+      <td>Points to inode</td>
+      <td>Points to file path</td>
+      </tr>
+      <tr>
+      <td>Cross filesystem</td>
+      <td>No</td>
+      <td>Yes</td>
+      </tr>
+      <tr>
+      <td>Link directories</td>
+      <td>No</td>
+      <td>Yes</td>
+      </tr>
+      <tr>
+      <td>Break if target removed</td>
+      <td>No</td>
+      <td>Yes</td>
+      </tr>
+      </table>
+      </li>
+
+
+      <li>
+      <strong>Real World Usage</strong><br>
+      Symbolic links are widely used in Linux systems.
+      Examples include:
+      <ul>
+      <li>Shared libraries</li>
+      <li>System command shortcuts</li>
+      <li>Application configuration references</li>
+      </ul>
+      <div><code>Example:</code></div>
+      <div class="cmd">ls -l /usr/bin/python</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">lrwxrwxrwx 1 root root python -> python3</pre>
+      <div>Here the command <strong>python</strong> is linked to <strong>python3</strong>.</div>
+      </li>
+
+
+      <li>
+      <strong>Why Links are Important</strong><br>
+      Understanding links is critical for:
+      <ul>
+      <li>filesystem design</li>
+      <li>system administration</li>
+      <li>software package management</li>
+      <li>DevOps automation</li>
+      </ul>
+      Linux uses links extensively in system libraries,
+      container images, and package installations.
+      </li>
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux links work,
+      how hard links reference inodes, and how symbolic links reference file paths.
+      </div>
+      </div>
+      </div>
+
+      </article>
+
+      <article class="task-card" data-task style="--i:4">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-4</span>
+      <span class="task-title">Mounting and Unmounting Filesystems</span>
+      <span class="task-meta">25–30 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how Linux attaches storage devices to the filesystem tree
+      using mounting and how to safely detach them using unmounting.
+      </p>
+
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What is Mounting</strong><br>
+      Linux organizes storage devices within a single directory structure.Mounting is the process of attaching a storage device to a directory.
+      <div><code>Example:</code></div>
+      <div class="cmd">mount /dev/sdb1 /mnt/data</div>
+      <div>This connects the device <strong>/dev/sdb1</strong> to the directory</div>
+      <strong>/mnt/data</strong>.
+      </li>
+
+      <li>
+      <strong>Viewing Mounted Filesystems</strong><br>
+      To see all mounted filesystems:
+      <div class="cmd">mount</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>dev/sda1 on / type ext4</div><div>/dev/sdb1 on /mnt/data type ext4</div></pre>
+      <div>This shows which devices are attached to which directories.</div>
+      </li>
+
+
+      <li>
+      <strong>Mounting a Filesystem</strong><br>
+      First create a mount point:
+      <div class="cmd">mkdir /mnt/storage</div>
+      <div><code>Mount the device:</code></div>
+      <div class="cmd">mount /dev/sdb1 /mnt/storage</div>
+      <div>Now files stored on the disk appear inside the mount directory.</div>
+      </li>
+
+
+      <li>
+      <strong>Unmounting a Filesystem</strong><br>
+      To detach a mounted filesystem:
+      <div class="cmd">umount /mnt/storage</div>
+      <div>After unmounting, the device is safely disconnected from the system.</div>
+      </li>
+
+
+      <li>
+      <strong>Checking Disk Usage</strong><br>
+      To check mounted disk usage:
+      <div class="cmd">df -h</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Filesystem Size Used Avail Mounted on</div><div>/dev/sda1  40G  15G  23G /</div><div>/dev/sdb1 100G  10G  90G /mnt/storage</div></pre>
+      </li>
+
+
+      <li>
+      <strong>Automatic Mounting Using fstab</strong><br>
+      Linux automatically mounts disks during boot using:
+      <strong>/etc/fstab</strong>
+      <div><code>Example entry:</code></div>
+      <pre class="cmd-line">/dev/sdb1  /mnt/storage  ext4  defaults  0 0</pre>
+      <div>This ensures the disk mounts automatically every time the system starts.</div>
+      </li>
+
+
+      <li>
+      <strong>Advanced Mount Options</strong><br>
+      Mount commands support options.
+      <div><code>Example:</code></div>
+      <div class="cmd">mount -o ro /dev/sdb1 /mnt/storage</div>
+      <div><code>Meaning:</code></div>
+      <ul>
+      <li>ro → read-only mode</li>
+      </ul>
+      <div><code>Other options:</code></div>
+      <ul>
+      <li>rw → read-write</li>
+      <li>noexec → disable executable files</li>
+      <li>nosuid → disable SUID programs</li>
+      </ul>
+      </li>
+
+      </ol>
+
+      <div class="task-check">
+      Completion check: You should now understand how to mount and unmount
+      filesystems and how Linux integrates storage devices into the directory tree.
+      </div>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:5">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-5</span>
+      <span class="task-title">Disk Partitions and Filesystem Types</span>
+      <span class="task-meta">25–30 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how storage disks are divided into partitions and how
+      different filesystems manage data on disk.
+      </p>
+
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What is a Disk Partition</strong><br>
+      A partition is a logical division of a physical disk.
+      <div><code>Example disk layout:</code></div>
+      <pre class="cmd-line"><div>/dev/sda1 → /boot</div><div>/dev/sda2 → /</div><div>/dev/sda3 → /home</div></pre>
+      <div>Each partition can contain a separate filesystem.</div>
+      </li>
+
+
+      <li>
+      <strong>Viewing Disk Partitions</strong><br>
+      To view partitions:
+      <div class="cmd">lsblk</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">
+      NAME   SIZE TYPE MOUNTPOINT
+      sda    100G disk
+      ├─sda1   1G part /boot
+      ├─sda2  30G part /
+      └─sda3  69G part /home
+      </pre>
+      </li>
+
+
+      <li>
+      <strong>Partitioning a Disk</strong><br>
+      Use the fdisk tool:
+      <div class="cmd">fdisk /dev/sdb</div>
+      <div><code>Inside fdisk you can:</code></div>
+      <ul>
+      <li>create partitions</li>
+      <li>delete partitions</li>
+      <li>view partition tables</li>
+      </ul>
+      </li>
+
+
+      <li>
+      <strong>Filesystem Types</strong><br>
+      Common Linux filesystems include:
+      <ul>
+      <li>ext4 – default Linux filesystem</li>
+      <li>xfs – enterprise filesystem</li>
+      <li>btrfs – advanced filesystem with snapshots</li>
+      <li>fat32 – compatibility with Windows</li>
+      <li>ntfs – Windows filesystem</li>
+      </ul>
+      </li>
+
+
+      <li>
+      <strong>Creating a Filesystem</strong><br>
+      To create a filesystem:
+      <div class="cmd">mkfs.ext4 /dev/sdb1</div>
+      This formats the partition with the ext4 filesystem.
+      </li>
+
+
+      <li>
+      <strong>Checking Filesystem Information</strong><br>
+      <div class="cmd">blkid</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>/dev/sda1: UUID="1234-abcd" TYPE="ext4"</div><div>/dev/sdb1: UUID="5678-efgh" TYPE="xfs"</div></pre>
+      <div>This shows filesystem types and UUID identifiers.</div>
+      </li>
+
+      </ol>
+
+      <div class="task-check">
+      Completion check: You should now understand how disks are partitioned
+      and how Linux filesystems store and manage data.
+      </div>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:6">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-6</span>
+      <span class="task-title">Understanding Inodes and File Metadata</span>
+      <span class="task-meta">30 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how Linux stores file metadata using inodes and how the
+      filesystem tracks file information.
+      </p>
+
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What is an Inode</strong><br>
+      An inode is a data structure used by Linux filesystems to store information about a file. Each file has a unique inode number.
+      </li>
+
+      <li>
+      <strong>Information Stored in an Inode</strong><br>
+      An inode stores:
+      <ul>
+      <li>file permissions</li>
+      <li>file owner</li>
+      <li>file size</li>
+      <li>timestamps</li>
+      <li>disk block locations</li>
+      </ul>
+      Important:
+      The inode does NOT store the filename.
+      </li>
+
+      <li>
+      <strong>Viewing Inode Numbers</strong><br>
+      <div class="cmd">ls -i</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>12345 notes.txt</div><div>12346 script.sh</div></pre>
+      </li>
+
+      <li>
+      <strong>Checking File Metadata</strong><br>
+      <div class="cmd">stat notes.txt</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">
+      File: notes.txt
+      Size: 200
+      Inode: 12345
+      Links: 1
+      Permissions: -rw-r--r--
+      </pre>
+      </li>
+
+      <li>
+      <strong>How Files Are Stored</strong><br>
+      File storage process:
+      <div><pre class="cmd-line">Directory → Filename → Inode → Data Blocks</pre></div>
+      <div><code>Meaning:</code></div>
+      <ul>
+      <li>directory stores filename</li>
+      <li>filename points to inode</li>
+      <li>inode points to disk blocks</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Checking Inode Usage</strong><br>
+      <div class="cmd">df -i</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Filesystem Inodes IUsed IFree IUse%</div><div>/dev/sda1 655360 20000 635360 3%</div></pre>
+      </li>
+
+      <li>
+      <strong>Why Inodes Matter</strong><br>
+      Inodes are important for:
+      <ul>
+      <li>file management</li>
+      <li>filesystem performance</li>
+      <li>hard links</li>
+      <li>system troubleshooting</li>
+      </ul>
+      DevOps engineers frequently inspect inode usage when diagnosing storage issues.
+      </li>
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux stores file
+      metadata using inodes and how filenames reference inode numbers.
+      </div>
+
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:7">
+
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-7</span>
+      <span class="task-title">Linux Virtual Filesystems (/proc, /sys, /dev, /run)</span>
+      <span class="task-meta">30–35 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand Linux virtual filesystems, how the kernel exposes system
+      information through files, and how administrators interact with kernel
+      components using directories like /proc, /sys, /dev, and /run.
+      </p>
+
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What are Virtual Filesystems</strong><br>
+      Virtual filesystems are special filesystems created by the Linux kernel to expose system and hardware information.
+      <div>Unlike normal filesystems:</div>
+      <ul>
+      <li>They do not store data on disk</li>
+      <li>They exist only in memory</li>
+      <li>They provide real-time system information</li>
+      </ul>
+      These filesystems allow programs and administrators to interact with the kernel using standard file operations.
+      <div>Common Linux virtual filesystems include:</div>
+      <ul>
+      <li>/proc</li>
+      <li>/sys</li>
+      <li>/dev</li>
+      <li>/run</li>
+      </ul>
+      </li>
+
+
+      <li>
+      <strong>The /proc Filesystem</strong><br>
+      The <strong>/proc</strong> directory is a virtual filesystem that provides information about system processes and kernel parameters. It is generated dynamically by the kernel.
+      <div>To view the contents:</div>
+      <div class="cmd">ls /proc</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>1</div><div>245</div><div>1300</div><div>cpuinfo</div><div>meminfo</div><div>uptime</div></pre>
+      <div>Numeric directories represent running process IDs.</div>
+      <div><code>Example:</code></div>
+      <div class="cmd">ls /proc/1</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>cmdline</div><div>status</div><div>fd</div><div>maps</div></pre>
+      <div>Each directory contains information about a specific process.</div>
+      </li>
+
+
+      <li>
+      <strong>Viewing System Information Using /proc</strong><br>
+      The /proc filesystem contains useful system information.
+      <div>CPU information:</div>
+      <div class="cmd">cat /proc/cpuinfo</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>processor : 0</div><div>vendor_id : GenuineIntel</div><div>cpu cores : 4</div></pre>
+      <div>Memory information:</div>
+      <div class="cmd">cat /proc/meminfo</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>MemTotal: 16384256 kB</div><div>MemFree: 1234567 kB</div></pre>
+      <div>System uptime:</div>
+      <div class="cmd">cat /proc/uptime</div>
+      </li>
+
+
+      <li>
+      <strong>The /sys Filesystem</strong><br>
+      The <strong>/sys</strong> directory exposes information about hardware devices and kernel subsystems. It is known as the <strong>sysfs</strong> filesystem.
+      <div>To view devices:</div>
+      <div class="cmd">ls /sys/class</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>block</div><div>net</div><div>power_supply</div><div>tty</div></pre>
+      <div>Each directory represents a hardware class.</div>
+      <div><code>Example network devices:</code></div>
+      <div class="cmd">ls /sys/class/net</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>eth0</div><div>lo</div></pre>
+      <div>These directories provide real-time hardware information.</div>
+      </li>
+
+
+      <li>
+      <strong>The /dev Filesystem</strong><br>
+      The <strong>/dev</strong> directory contains device files representing hardware devices. Linux treats hardware devices as files.
+      <div><code>Examples:</code></div>
+      <div class="cmd">ls /dev</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>sda</div><div>sda1</div><div>tty</div><div>null</div><div>random</div></pre>
+      <div>Device types include:</div>
+      <ul>
+      <li>Block devices (disks)</li>
+      <li>Character devices (terminals)</li>
+      </ul>
+      <div><code>Example block device:</code></div>
+      <div class="cmd">ls -l /dev/sda</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">brw-rw---- 1 root disk 8, 0 /dev/sda</pre>
+      </li>
+
+
+      <li>
+      <strong>Understanding Device Management (udev)</strong><br>
+      Modern Linux systems dynamically manage devices using the <strong>udev</strong> device manager.
+      <div>When hardware is connected:</div>
+      <ul>
+      <li>The kernel detects the device</li>
+      <li>udev creates device files inside /dev</li>
+      <li>Applications can interact with the device</li>
+      </ul>
+      <div><code>Example:</code></div>
+      Plugging a USB drive creates a device such as:
+      <pre class="cmd-line">/dev/sdb</pre>
+      </li>
+
+
+      <li>
+      <strong>The /run Filesystem</strong><br>
+      The <strong>/run</strong> directory stores runtime system information. It is stored in memory and cleared when the system reboots.
+      <div><code>Examples include:</code></div>
+      <ul>
+      <li>process ID files</li>
+      <li>system service sockets</li>
+      <li>runtime service data</li>
+      </ul>
+      <div>Example:</div>
+      <div class="cmd">ls /run</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>systemd</div><div>user</div><div>docker.sock</div></pre>
+      <div>Applications store temporary runtime data here.</div>
+      </li>
+
+
+      <li>
+      <strong>Comparing Virtual Filesystems</strong><br>
+      <table>
+      <tr>
+      <th>Directory</th>
+      <th>Purpose</th>
+      </tr>
+      <tr>
+      <td>/proc</td>
+      <td>Process and kernel information</td>
+      </tr>
+      <tr>
+      <td>/sys</td>
+      <td>Hardware and kernel device information</td>
+      </tr>
+      <tr>
+      <td>/dev</td>
+      <td>Device files representing hardware</td>
+      </tr>
+      <tr>
+      <td>/run</td>
+      <td>Runtime system data</td>
+      </tr>
+      </table>
+      </li>
+
+
+      <li>
+      <strong>How Virtual Filesystems Connect to the Kernel</strong><br>
+      <div>Linux architecture:</div>
+      <pre class="cmd-line">
+      User Applications
+            ↓
+      System Calls
+            ↓
+      Linux Kernel
+            ↓
+      Virtual Filesystems (/proc /sys /dev /run)
+            ↓
+      Hardware Devices
+      </pre>
+      <div>These virtual filesystems act as an interface between user-space programs and the Linux kernel.</div>
+      </li>
+
+
+      <li>
+
+      <strong>Why Virtual Filesystems are Important for DevOps</strong><br>
+      DevOps engineers interact with these filesystems frequently.
+      <div><code>Examples:</code></div>
+      <ul>
+      <li>Container runtimes use /proc and /sys</li>
+      <li>Docker communicates using /var/run/docker.sock</li>
+      <li>Hardware monitoring uses /sys</li>
+      <li>System metrics tools read /proc</li>
+      </ul>
+      Monitoring tools such as:
+      <ul>
+      <li>top</li>
+      <li>htop</li>
+      <li>free</li>
+      <li>vmstat</li>
+      </ul>
+      <div>all read data from virtual filesystems.</div>
+      </li>
+
+      </ol>
+      <div class="task-check">
+      Completion check: You should now understand how Linux exposes system
+      information through virtual filesystems and how directories like
+      /proc, /sys, /dev, and /run connect user programs to the kernel.
+      </div>
+      </div>
+      </div>
+      </article>
+
+      <article class="task-card" data-task style="--i:8">
+      <button class="task-toggle" type="button">
+      <span class="task-pill">Topic-8</span>
+      <span class="task-title">Linux Virtual File System (VFS) Architecture</span>
+      <span class="task-meta">35–40 min</span>
+      <span class="task-chevron">&#9662;</span>
+      </button>
+      <div class="task-panel">
+      <div class="task-panel-inner">
+
+      <p class="task-goal">
+      <span class="task-goal-label">Goal: </span>
+      Understand how the Linux kernel manages files internally using the
+      Virtual File System (VFS) layer and how applications interact with
+      different filesystems like ext4, xfs, and btrfs through a unified interface.
+      </p>
+
+      <ol class="task-steps-list">
+
+      <li>
+      <strong>What is the Virtual File System (VFS)</strong><br>
+      The Virtual File System (VFS) is a kernel subsystem that provides a unified interface for accessing different filesystem types. Instead of applications communicating directly with each filesystem, they communicate with the VFS layer. The VFS layer then forwards requests to the correct filesystem driver.
+      <div>Benefits of VFS:</div>
+      <ul>
+      <li>Supports multiple filesystems</li>
+      <li>Provides a unified API</li>
+      <li>Improves portability</li>
+      <li>Simplifies filesystem management</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Linux File Access Architecture</strong><br>
+      When an application reads or writes a file, the request passes through multiple layers inside the operating system.
+      <div>System architecture:</div>
+      <pre class="cmd-line">
+      Application
+          ↓
+      System Call
+          ↓
+      VFS Layer
+          ↓
+      Filesystem Driver
+          ↓
+      Block Layer
+          ↓
+      Storage Device
+      </pre>
+      <div>Each layer performs specific responsibilities.</div>
+      </li>
+
+      <li>
+      <strong>Application Layer</strong><br>
+      Applications interact with files using system libraries.
+      <div><code>Example programs:</div></code>
+      <ul>
+      <li>text editors</li>
+      <li>web servers</li>
+      <li>databases</li>
+      <li>shell commands</li>
+      </ul>
+      <div><code>Example file operation:</code></div>
+      <div class="cmd">cat file.txt</div>
+      <div>The application does not know which filesystem stores the file. The operating system handles this automatically.</div>
+      </li>
+
+
+      <li>
+      <strong>System Calls</strong><br>
+      Applications access files using system calls.
+      Common file system calls include:
+      <ul>
+      <li>open()</li>
+      <li>read()</li>
+      <li>write()</li>
+      <li>close()</li>
+      <li>stat()</li>
+      </ul>
+      <div><code>Example using strace:</code></div>
+      <div class="cmd">strace cat file.txt</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>open("file.txt", O_RDONLY)</div><div>read(3, "Hello World", 1024)</div><div>close(3)</div></pre>
+      <div>These system calls are passed to the VFS layer.</div>
+      </li>
+
+      <li>
+      <strong>The VFS Layer</strong><br>
+      The Virtual File System acts as an abstraction layer. It provides generic operations for all filesystems.
+      <div>Responsibilities include:</div>
+      <ul>
+      <li>path resolution</li>
+      <li>file lookup</li>
+      <li>permission checking</li>
+      <li>inode management</li>
+      <li>filesystem routing</li>
+      </ul>
+      <div><code>Example:</code></div>
+      <div>A request to open a file:</div>
+      <pre class="cmd-line">open("/home/user/file.txt")</pre>
+      <div>VFS determines:</div>
+      <ul>
+      <li>which filesystem contains the file</li>
+      <li>which inode represents the file</li>
+      <li>which filesystem driver handles the request</li>
+      </ul>
+      </li>
+
+      <li>
+      <strong>Filesystem Drivers</strong><br>
+      After the VFS identifies the correct filesystem, it forwards the request to the filesystem driver.
+      <div>Common Linux filesystems:</div>
+      <ul>
+      <li>ext4</li>
+      <li>xfs</li>
+      <li>btrfs</li>
+      <li>fat32</li>
+      <li>ntfs</li>
+      </ul>
+      <div>Each filesystem has its own driver.</div>
+      <div><code>Example checking filesystem type:</code></div>
+      <div class="cmd">df -T</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>Filesystem Type Size Used Avail Mounted on</div><div>/dev/sda1 ext4 40G 15G 23G /</div></pre>
+      </li>
+
+
+      <li>
+      <strong>Block Layer</strong><br>
+      The block layer manages how data is written to storage devices.
+      <div>Responsibilities include:</div>
+      <ul>
+      <li>block allocation</li>
+      <li>disk scheduling</li>
+      <li>I/O optimization</li>
+      </ul>
+      Filesystems store data in fixed-size blocks.
+      <div><code>Example:</code></div>
+      <pre class="cmd-line">Block size: 4096 bytes</pre>
+      <div>The filesystem maps file data to these blocks.</div>
+      </li>
+
+      <li>
+      <strong>Storage Device Layer</strong><br>
+      This is the physical storage device.
+      <div><code>Examples include:</code></div>
+      <ul>
+      <li>hard drives</li>
+      <li>SSDs</li>
+      <li>NVMe drives</li>
+      <li>network storage</li>
+      </ul>
+      Devices appear in Linux as block devices.
+      <div><code>Example:</code></div>
+      <div class="cmd">ls /dev/sd*</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line"><div>/dev/sda</div><div>/dev/sda1</div><div>/dev/sda2</div></pre>
+      </li>
+
+      <li>
+      <strong>VFS Data Structures</strong><br>
+      The VFS uses several internal structures:
+      <ul>
+      <li>Superblock</li>
+      <li>Inode</li>
+      <li>Dentry</li>
+      <li>File object</li>
+      </ul>
+      <div><code>Explanation:</code></div>
+      <ul>
+      <li>Superblock → filesystem metadata</li>
+      <li>Inode → file metadata</li>
+      <li>Dentry → directory entries</li>
+      <li>File object → open file instance</li>
+      </ul>
+      These structures allow the kernel to manage files efficiently.
+      </li>
+
+      <li>
+      <strong>Example of File Access Flow</strong><br>
+      When reading a file:
+      <pre class="cmd-line">cat notes.txt</pre>
+      <div>Flow inside the system:</div>
+      <pre class="cmd-line">
+      Application (cat)
+            ↓
+      open() system call
+            ↓
+      VFS lookup
+            ↓
+      Filesystem driver
+            ↓
+      Block device
+            ↓
+      Disk
+      </pre>
+      <div>The result is returned to the application.</div>
+      </li>
+
+
+      <li>
+      <strong>Why VFS is Important for DevOps</strong><br>
+      DevOps engineers work with many storage technologies.
+      <div><code>Examples:</code></div>
+      <ul>
+      <li>Docker container filesystems</li>
+      <li>Kubernetes volumes</li>
+      <li>Network storage</li>
+      <li>Overlay filesystems</li>
+      </ul>
+      All these systems rely on the VFS layer.
+      <div>Container filesystems like:</div>
+      <ul>
+      <li>overlayfs</li>
+      <li>aufs</li>
+      </ul>
+      integrate through the VFS.
+      </li>
+
+
+      <li>
+      <strong>Real Example in Containers</strong><br>
+      Check container filesystem driver:
+      <div class="cmd">docker info | grep Storage</div>
+      <div><code>Example output:</code></div>
+      <pre class="cmd-line">Storage Driver: overlay2</pre>
+      <div>OverlayFS works through the VFS layer to combine multiple filesystems.</div>
+      </li>
+
+
+      <li>
+      <strong>Summary of the Linux File System Stack</strong><br>
+      <div>Complete Linux file handling stack:</div>
+      <pre class="cmd-line">
+      User Application
+            ↓
+      System Call Interface
+            ↓
+      Virtual File System (VFS)
+            ↓
+      Filesystem Driver (ext4/xfs/btrfs)
+            ↓
+      Block Layer
+            ↓
+      Disk / Storage Device
+      </pre>
+      <div>The VFS ensures that applications can access files consistently regardless of the underlying filesystem.</div>
+      </li>
+
+
+      </ol>
+
+      <div class="task-check">
+      Completion check: You should now understand how the Linux kernel
+      handles file operations internally and how the VFS layer connects
+      applications to storage devices.
+      </div>
+
+      </div>
+      </div>
+
+      </article>
+
+    </section>
+    <!-- <div class="proj-meta">
+      <div class="pm-cell"><div class="pm-key">OS</div><div class="pm-val">Ubuntu 22.04</div></div>
+      <div class="pm-cell"><div class="pm-key">Platform</div><div class="pm-val">VMware / VirtualBox / WSL2</div></div>
+      <div class="pm-cell"><div class="pm-key">Tasks</div><div class="pm-val">24 Structured Tasks</div></div>
+      <div class="pm-cell"><div class="pm-key">Status</div><div class="pm-val pm-status">Completed</div></div>
+    </div>
+  </div> -->
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju &middot; Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

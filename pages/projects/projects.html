@@ -28,6 +28,25 @@
 
 <div class="g-page">
 
+  <!-- COMPACT FILTER STRIP -->
+  <div class="pj-banner-strip" id="pj-banner-strip">
+    <div class="pj-banner-left">
+      <div class="pj-banner-label">Filters</div>
+      <div class="pj-legend">
+        <button class="g-tag tg pj-env-filter" type="button" data-env-filter="local" aria-pressed="false">&#9679; localhost</button>
+        <button class="g-tag tc pj-env-filter" type="button" data-env-filter="server" aria-pressed="false">&#9679; server</button>
+        <button class="g-tag tgd pj-env-filter" type="button" data-env-filter="free" aria-pressed="false">&#9679; free tier</button>
+      </div>
+    </div>
+    <div class="pj-banner-right">
+      <div class="pj-view-switcher">
+        <button class="pj-view-btn" type="button" data-view="project" aria-pressed="false">Projects</button>
+        <button class="pj-view-btn" type="button" data-view="concept" aria-pressed="false">Concepts</button>
+      </div>
+      <button class="pj-banner-toggle" id="pj-banner-toggle" type="button" aria-expanded="true">Hide banner</button>
+    </div>
+  </div>
+
   <!-- PAGE HERO -->
   <div class="g-page-hero pj-hero">
     <div class="pj-hero-glow pj-hero-glow-a"></div>
@@ -37,11 +56,8 @@
         <div class="g-stag">All Projects</div>
         <div class="g-stitle">Lab &amp; <em>Production</em> Projects</div>
         <p class="pj-hero-desc">Click a concept to expand, then select a project to read its description, purpose and overview. Use the <span class="pj-guide-hl">Guide</span> button to open the full project page with step-by-step details.</p>
-        <div class="pj-legend">
-          <button class="g-tag tg pj-env-filter" type="button" data-env-filter="local" aria-pressed="false">&#9679; localhost</button>
-          <button class="g-tag tc pj-env-filter" type="button" data-env-filter="server" aria-pressed="false">&#9679; server</button>
-          <button class="g-tag tgd pj-env-filter" type="button" data-env-filter="free" aria-pressed="false">&#9679; free tier</button>
-        </div>
+        <p class="pj-hero-desc">Use the new view buttons to switch between <strong>Projects</strong> and <strong>Concepts</strong>. The filters will keep your current view focused on the selected items.</p>
+
       </div>
       <div class="pj-hero-right">
         <div class="pj-stat-tree">
@@ -78,6 +94,7 @@
 
     <!-- SIDEBAR -->
     <aside class="pj-sidebar">
+      <div class="pj-filter-info hidden" id="pj-filter-info"></div>
       <div class="pj-sidebar-inner" id="pj-sidebar"></div>
     </aside>
 
@@ -85,10 +102,9 @@
     <main class="pj-detail" id="pj-detail">
       <div class="pj-placeholder" id="pj-ph">
         <div class="pj-ph-ico">&#9881;&#65039;</div>
-        <div class="pj-ph-title">Select a project</div>
-        <div class="pj-ph-sub">&#8592; Expand a concept from the sidebar</div>
-        <div class="pj-ph-title">Loading projects...</div>
-        <div class="pj-ph-sub">&#8592; Projects will be completed one by one. If a project is in progress, the next project will start after it is completed. Suggestions are also welcome and will be prioritized.</div>
+        <div class="pj-ph-title">Welcome to Projects</div>
+        <div class="pj-ph-sub">&#8592; Select a project from the sidebar to view details, or use the filter buttons to browse by view and status.</div>
+        <div class="pj-ph-note" style="margin-top: 1.2rem; font-size: 0.75rem; color: var(--txt3); line-height: 1.6;">💡 <strong>Tip:</strong> Toggle between Projects and Concepts views. Status and environment filters help narrow down your search. All guide pages contain step-by-step instructions and resources.</div>
       </div>
     </main>
 
@@ -101,8 +117,8 @@
 </div>
 
 <script src="../../js/nav.js?v=20260304b"></script>
-<script src="projects-data.js?v=20260303s"></script>
-<script src="projects.js?v=20260304g"></script>
+<script src="projects-data.js?v=20260312a"></script>
+<script src="projects.js?v=20260312b"></script>
 </body>
 </html>
 

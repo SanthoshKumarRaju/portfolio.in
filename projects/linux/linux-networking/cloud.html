@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:100">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-100</span>
+    <span class="task-title">VPC (Virtual Private Cloud – Network Isolation in Cloud)</span>
+    <span class="task-meta">200–240 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how VPCs isolate networks in cloud environments and provide secure, scalable networking for applications.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a VPC</strong><br>
+          A Virtual Private Cloud (VPC) is a logically isolated network within a cloud provider where you can launch resources.
+        </li>
+
+        <li>
+          <strong>Why VPC</strong><br>
+          <ul>
+            <li>Network isolation</li>
+            <li>Security control</li>
+            <li>Custom networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Cloud → VPC → Subnets → Resources
+          </pre>
+        </li>
+
+        <li>
+          <strong>CIDR Block</strong><br>
+          <pre class="cmd-line">
+10.0.0.0/16
+          </pre>
+          Defines IP range for VPC.
+        </li>
+
+        <li>
+          <strong>Subnets</strong><br>
+          <ul>
+            <li>Public subnet</li>
+            <li>Private subnet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Public Subnet</strong><br>
+          <pre class="cmd-line">
+Has internet access via Internet Gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Private Subnet</strong><br>
+          <pre class="cmd-line">
+No direct internet access
+          </pre>
+        </li>
+
+        <li>
+          <strong>Internet Gateway (IGW)</strong><br>
+          Enables internet connectivity for VPC.
+        </li>
+
+        <li>
+          <strong>NAT Gateway</strong><br>
+          <pre class="cmd-line">
+Private → Internet (outbound only)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Route Tables</strong><br>
+          <pre class="cmd-line">
+Define traffic routing rules
+          </pre>
+        </li>
+
+        <li>
+          <strong>Example Route</strong><br>
+          <pre class="cmd-line">
+0.0.0.0/0 → IGW
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Groups</strong><br>
+          <ul>
+            <li>Instance-level firewall</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NACL (Network ACL)</strong><br>
+          <ul>
+            <li>Subnet-level firewall</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Stateful vs Stateless</strong><br>
+          <ul>
+            <li>Security Groups → Stateful</li>
+            <li>NACL → Stateless</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Elastic IP</strong><br>
+          <ul>
+            <li>Static public IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VPC Peering</strong><br>
+          <pre class="cmd-line">
+Connect two VPCs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Transit Gateway</strong><br>
+          <ul>
+            <li>Hub for multiple VPC connections</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VPN Connection</strong><br>
+          <pre class="cmd-line">
+On-prem → VPC
+          </pre>
+        </li>
+
+        <li>
+          <strong>Direct Connect</strong><br>
+          <ul>
+            <li>Dedicated connection to cloud</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS in VPC</strong><br>
+          <ul>
+            <li>Internal DNS resolution</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Private Endpoints</strong><br>
+          <pre class="cmd-line">
+Access cloud services privately
+          </pre>
+        </li>
+
+        <li>
+          <strong>Load Balancer Integration</strong><br>
+          <pre class="cmd-line">
+Client → LB → VPC → Instances
+          </pre>
+        </li>
+
+        <li>
+          <strong>High Availability</strong><br>
+          <ul>
+            <li>Multi-AZ deployment</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Multi-Region Setup</strong><br>
+          <ul>
+            <li>Disaster recovery</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Monitoring</strong><br>
+          <ul>
+            <li>Flow logs</li>
+            <li>Cloud monitoring tools</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VPC Flow Logs</strong><br>
+          <pre class="cmd-line">
+Capture network traffic logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Routing misconfiguration</li>
+            <li>Security group blocking</li>
+            <li>Subnet mismatch</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check route table
+Check SG/NACL
+Check subnet
+Check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use private subnets</li>
+            <li>Restrict access</li>
+            <li>Enable logging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+3-tier architecture (Web → App → DB) inside VPC
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          VPC provides secure, isolated networking in the cloud, enabling scalable and highly available application architectures.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how VPCs isolate and manage networks in cloud environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:101">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-101</span>
+    <span class="task-title">Subnets (Dividing Cloud Networks into Smaller Segments)</span>
+    <span class="task-meta">200–240 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how subnets divide cloud networks into smaller segments for better organization, security, and scalability.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Subnet</strong><br>
+          A subnet is a smaller network segment within a VPC, created by dividing a larger IP range.
+        </li>
+
+        <li>
+          <strong>Why Subnets</strong><br>
+          <ul>
+            <li>Network segmentation</li>
+            <li>Security isolation</li>
+            <li>Efficient IP management</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+VPC (10.0.0.0/16) → Subnets (10.0.1.0/24, 10.0.2.0/24)
+          </pre>
+        </li>
+
+        <li>
+          <strong>CIDR Subnetting</strong><br>
+          <pre class="cmd-line">
+10.0.0.0/16 → 256 subnets of /24
+          </pre>
+        </li>
+
+        <li>
+          <strong>Subnet Mask</strong><br>
+          Defines network vs host portion.
+        </li>
+
+        <li>
+          <strong>Types of Subnets</strong><br>
+          <ul>
+            <li>Public subnet</li>
+            <li>Private subnet</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Public Subnet</strong><br>
+          <pre class="cmd-line">
+Route → Internet Gateway
+          </pre>
+        </li>
+
+        <li>
+          <strong>Private Subnet</strong><br>
+          <pre class="cmd-line">
+No direct internet access
+          </pre>
+        </li>
+
+        <li>
+          <strong>Subnet Routing</strong><br>
+          <pre class="cmd-line">
+Subnet → Route Table → Destination
+          </pre>
+        </li>
+
+        <li>
+          <strong>Route Table Association</strong><br>
+          Each subnet is linked to a route table.
+        </li>
+
+        <li>
+          <strong>Availability Zones (AZ)</strong><br>
+          <ul>
+            <li>Each subnet belongs to one AZ</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>High Availability</strong><br>
+          <pre class="cmd-line">
+Multiple subnets across AZs
+          </pre>
+        </li>
+
+        <li>
+          <strong>IP Address Allocation</strong><br>
+          Instances get IPs from subnet range.
+        </li>
+
+        <li>
+          <strong>Reserved IPs</strong><br>
+          <ul>
+            <li>Cloud providers reserve some IPs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Subnet Size Planning</strong><br>
+          <ul>
+            <li>Depends on number of instances</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Groups</strong><br>
+          Applied at instance level.
+        </li>
+
+        <li>
+          <strong>NACL (Network ACL)</strong><br>
+          Applied at subnet level.
+        </li>
+
+        <li>
+          <strong>Stateful vs Stateless</strong><br>
+          <ul>
+            <li>SG → Stateful</li>
+            <li>NACL → Stateless</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Subnet Isolation</strong><br>
+          <pre class="cmd-line">
+Web → Public subnet
+App → Private subnet
+DB → Private subnet
+          </pre>
+        </li>
+
+        <li>
+          <strong>NAT Gateway Usage</strong><br>
+          <pre class="cmd-line">
+Private subnet → NAT → Internet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Load Balancer Placement</strong><br>
+          <pre class="cmd-line">
+Public subnet → Load Balancer → Private instances
+          </pre>
+        </li>
+
+        <li>
+          <strong>Subnet Peering</strong><br>
+          <ul>
+            <li>Via VPC peering or routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DNS Resolution</strong><br>
+          Internal communication within subnet.
+        </li>
+
+        <li>
+          <strong>Monitoring</strong><br>
+          <ul>
+            <li>Flow logs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>IP exhaustion</li>
+            <li>Wrong route table</li>
+            <li>Blocked traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check subnet CIDR
+Check route table
+Check SG/NACL
+Check connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use multiple AZs</li>
+            <li>Separate tiers (web/app/db)</li>
+            <li>Plan IP ranges carefully</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+3-tier architecture using public and private subnets
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced Concept</strong><br>
+          <ul>
+            <li>Subnet per microservice</li>
+            <li>Zero trust networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Subnets divide networks into smaller segments, improving security, scalability, and organization in cloud environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how subnets structure and secure cloud networks effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:102">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-102</span>
+    <span class="task-title">Security Groups (Virtual Firewalls for Cloud Resources)</span>
+    <span class="task-meta">200–240 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Security Groups act as virtual firewalls to control inbound and outbound traffic for cloud resources.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Security Group</strong><br>
+          A Security Group is a virtual firewall that controls traffic to and from cloud resources like virtual machines.
+        </li>
+
+        <li>
+          <strong>Why Security Groups</strong><br>
+          <ul>
+            <li>Control access</li>
+            <li>Improve security</li>
+            <li>Restrict traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Client → Security Group → Instance
+          </pre>
+        </li>
+
+        <li>
+          <strong>Inbound Rules</strong><br>
+          <ul>
+            <li>Control incoming traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Outbound Rules</strong><br>
+          <ul>
+            <li>Control outgoing traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Example Rule</strong><br>
+          <pre class="cmd-line">
+Allow TCP 22 from 0.0.0.0/0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Default Behavior</strong><br>
+          <ul>
+            <li>All inbound → denied</li>
+            <li>All outbound → allowed</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Stateful Firewall</strong><br>
+          <ul>
+            <li>Return traffic automatically allowed</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Attach to Resources</strong><br>
+          <ul>
+            <li>EC2 instances</li>
+            <li>Load balancers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Protocol Types</strong><br>
+          <ul>
+            <li>TCP</li>
+            <li>UDP</li>
+            <li>ICMP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Port Ranges</strong><br>
+          <pre class="cmd-line">
+80 → HTTP
+443 → HTTPS
+22 → SSH
+          </pre>
+        </li>
+
+        <li>
+          <strong>Source/Destination</strong><br>
+          <ul>
+            <li>IP range (CIDR)</li>
+            <li>Another security group</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Group Referencing</strong><br>
+          <pre class="cmd-line">
+App SG → allow traffic from Web SG
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use Case (Web Server)</strong><br>
+          <pre class="cmd-line">
+Allow 80/443 → public
+Allow 22 → admin IP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use Case (Database)</strong><br>
+          <pre class="cmd-line">
+Allow 3306 → only from App SG
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Groups vs NACL</strong><br>
+          <ul>
+            <li>SG → Stateful</li>
+            <li>NACL → Stateless</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Multiple Security Groups</strong><br>
+          <ul>
+            <li>Can attach multiple SGs to one instance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Evaluation Logic</strong><br>
+          <ul>
+            <li>Rules are allow-only</li>
+            <li>No explicit deny</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Logging</strong><br>
+          <ul>
+            <li>Use VPC Flow Logs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Monitoring</strong><br>
+          <ul>
+            <li>CloudWatch</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Port blocked</li>
+            <li>Wrong CIDR</li>
+            <li>Missing rule</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check SG rules
+Check ports
+Check source IP
+Check logs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Best Practices</strong><br>
+          <ul>
+            <li>Least privilege</li>
+            <li>Avoid 0.0.0.0/0 for sensitive ports</li>
+            <li>Use SG referencing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Impact</strong><br>
+          <ul>
+            <li>Minimal latency impact</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Concepts</strong><br>
+          <ul>
+            <li>Micro-segmentation</li>
+            <li>Zero Trust model</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Integration with Load Balancer</strong><br>
+          <pre class="cmd-line">
+Client → SG → Load Balancer → Backend SG
+          </pre>
+        </li>
+
+        <li>
+          <strong>Automation</strong><br>
+          <pre class="cmd-line">
+Terraform / Ansible manage SG rules
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+3-tier architecture secured using separate SGs
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Security Groups act as virtual firewalls, controlling traffic flow and securing cloud resources effectively.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Security Groups secure cloud infrastructure using firewall rules.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:103">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-103</span>
+    <span class="task-title">Kubernetes Networking (Pod & Service Communication)</span>
+    <span class="task-meta">220–260 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Kubernetes networking enables seamless communication between pods, services, and external clients in a cluster.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Kubernetes Networking</strong><br>
+          Kubernetes networking defines how pods communicate with each other, nodes, and external systems.
+        </li>
+
+        <li>
+          <strong>Core Requirement</strong><br>
+          <pre class="cmd-line">
+Any Pod → Any Pod (without NAT)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cluster Network Model</strong><br>
+          Flat network where all pods can communicate directly.
+        </li>
+
+        <li>
+          <strong>Pod Networking</strong><br>
+          Each pod gets its own IP address.
+        </li>
+
+        <li>
+          <strong>Pod-to-Pod Communication</strong><br>
+          <pre class="cmd-line">
+Pod A → Pod B (direct IP communication)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Pod-to-Node Communication</strong><br>
+          Pods communicate with node services via network interfaces.
+        </li>
+
+        <li>
+          <strong>Container Network Interface (CNI)</strong><br>
+          <ul>
+            <li>Plugin system for networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Popular CNI Plugins</strong><br>
+          <ul>
+            <li>Calico</li>
+            <li>Flannel</li>
+            <li>Cilium</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Service Concept</strong><br>
+          <pre class="cmd-line">
+Service → Stable IP → Routes to Pods
+          </pre>
+        </li>
+
+        <li>
+          <strong>ClusterIP</strong><br>
+          <ul>
+            <li>Internal service communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>NodePort</strong><br>
+          <pre class="cmd-line">
+External → NodeIP:Port → Pod
+          </pre>
+        </li>
+
+        <li>
+          <strong>LoadBalancer</strong><br>
+          <ul>
+            <li>Cloud load balancer integration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>ExternalName</strong><br>
+          Maps service to external DNS.
+        </li>
+
+        <li>
+          <strong>kube-proxy</strong><br>
+          <ul>
+            <li>Handles service routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Service Discovery</strong><br>
+          <pre class="cmd-line">
+service-name.namespace.svc.cluster.local
+          </pre>
+        </li>
+
+        <li>
+          <strong>DNS in Kubernetes</strong><br>
+          CoreDNS provides internal DNS.
+        </li>
+
+        <li>
+          <strong>Ingress</strong><br>
+          <pre class="cmd-line">
+External traffic → Ingress → Services → Pods
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ingress Controller</strong><br>
+          <ul>
+            <li>Nginx Ingress</li>
+            <li>Traefik</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Network Policies</strong><br>
+          <pre class="cmd-line">
+Define allowed traffic between pods
+          </pre>
+        </li>
+
+        <li>
+          <strong>Default Behavior</strong><br>
+          <ul>
+            <li>All traffic allowed (if no policy)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Restrict Traffic</strong><br>
+          <pre class="cmd-line">
+Allow only specific pods/services
+          </pre>
+        </li>
+
+        <li>
+          <strong>Pod CIDR</strong><br>
+          IP range for pods.
+        </li>
+
+        <li>
+          <strong>Service CIDR</strong><br>
+          IP range for services.
+        </li>
+
+        <li>
+          <strong>Overlay Networking</strong><br>
+          <ul>
+            <li>Encapsulation (VXLAN)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Underlay Networking</strong><br>
+          <ul>
+            <li>Direct routing (Calico)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Load Balancing</strong><br>
+          <pre class="cmd-line">
+Service → distributes traffic across pods
+          </pre>
+        </li>
+
+        <li>
+          <strong>Session Affinity</strong><br>
+          Sticky sessions to same pod.
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+kubectl get pods -o wide
+kubectl get svc
+kubectl describe svc
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Connectivity</strong><br>
+          <pre class="cmd-line">
+kubectl exec -it pod -- ping service
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Pods cannot communicate</li>
+            <li>Service not reachable</li>
+            <li>DNS resolution failure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check pods
+Check services
+Check DNS
+Check network policy
+Check CNI
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Consideration</strong><br>
+          <ul>
+            <li>Use Network Policies</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Consideration</strong><br>
+          <ul>
+            <li>Overlay adds latency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Concepts</strong><br>
+          <ul>
+            <li>Service Mesh (Istio)</li>
+            <li>eBPF (Cilium)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+Frontend Pod → Backend Service → Database Pod
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Kubernetes networking enables seamless communication between pods and services using a flat network model, service abstraction, and flexible routing mechanisms.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Kubernetes networking enables pod and service communication in a cluster.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:104">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-104</span>
+    <span class="task-title">CNI Plugins (Managing Kubernetes Networking)</span>
+    <span class="task-meta">220–260 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how CNI plugins manage networking in Kubernetes clusters, enabling pod communication, routing, and network policies.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is CNI</strong><br>
+          CNI (Container Network Interface) is a standard that defines how networking is configured for containers.
+        </li>
+
+        <li>
+          <strong>Why CNI Plugins</strong><br>
+          <ul>
+            <li>Kubernetes does not handle networking directly</li>
+            <li>CNI plugins implement networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Pod → CNI Plugin → Network → Other Pods
+          </pre>
+        </li>
+
+        <li>
+          <strong>Core Responsibility</strong><br>
+          <ul>
+            <li>Assign IP to pods</li>
+            <li>Enable pod-to-pod communication</li>
+            <li>Manage routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>How CNI Works</strong><br>
+          <pre class="cmd-line">
+Pod created → kubelet calls CNI → network configured
+          </pre>
+        </li>
+
+        <li>
+          <strong>CNI Configuration Files</strong><br>
+          <pre class="cmd-line">
+/etc/cni/net.d/
+          </pre>
+        </li>
+
+        <li>
+          <strong>CNI Binaries</strong><br>
+          <pre class="cmd-line">
+/opt/cni/bin/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Pod Network Setup</strong><br>
+          <pre class="cmd-line">
+Create veth pair → attach to bridge → assign IP
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Namespaces</strong><br>
+          Each pod runs in its own network namespace.
+        </li>
+
+        <li>
+          <strong>veth Pair</strong><br>
+          <pre class="cmd-line">
+Container ↔ Host network bridge
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bridge Networking</strong><br>
+          Pods connected via Linux bridge.
+        </li>
+
+        <li>
+          <strong>Overlay Networking</strong><br>
+          <ul>
+            <li>Encapsulation (VXLAN)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Underlay Networking</strong><br>
+          <ul>
+            <li>Direct routing without encapsulation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Popular CNI Plugins</strong><br>
+          <ul>
+            <li>Calico</li>
+            <li>Flannel</li>
+            <li>Cilium</li>
+            <li>Weave</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Calico</strong><br>
+          <ul>
+            <li>Layer 3 routing</li>
+            <li>Network policies support</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Flannel</strong><br>
+          <ul>
+            <li>Simple overlay network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cilium</strong><br>
+          <ul>
+            <li>eBPF-based networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>IP Address Management (IPAM)</strong><br>
+          <pre class="cmd-line">
+Assign IP from Pod CIDR
+          </pre>
+        </li>
+
+        <li>
+          <strong>Routing</strong><br>
+          <pre class="cmd-line">
+Pod → Node routing → Cluster routing
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cross-Node Communication</strong><br>
+          <pre class="cmd-line">
+Pod (Node1) → Tunnel → Pod (Node2)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Policies</strong><br>
+          <ul>
+            <li>Implemented by CNI plugins</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security</strong><br>
+          <ul>
+            <li>Traffic filtering</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Consideration</strong><br>
+          <ul>
+            <li>Overlay → slower</li>
+            <li>Underlay → faster</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Commands</strong><br>
+          <pre class="cmd-line">
+kubectl get pods -o wide
+ip a
+ip route
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check CNI Pods</strong><br>
+          <pre class="cmd-line">
+kubectl get pods -n kube-system
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Pods not getting IP</li>
+            <li>Cross-node communication failure</li>
+            <li>CNI plugin crash</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check CNI pods
+Check config files
+Check routes
+Check connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced Concepts</strong><br>
+          <ul>
+            <li>eBPF networking</li>
+            <li>Service mesh integration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+Calico used for secure networking with network policies in production cluster
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Choose CNI based on use case</li>
+            <li>Enable network policies</li>
+            <li>Monitor CNI health</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          CNI plugins are responsible for Kubernetes networking, enabling pod communication, IP management, routing, and security across the cluster.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how CNI plugins manage networking in Kubernetes clusters.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

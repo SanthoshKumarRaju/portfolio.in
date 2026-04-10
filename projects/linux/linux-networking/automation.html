@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:98">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-98</span>
+    <span class="task-title">Bash Scripting (Automating Networking Tasks)</span>
+    <span class="task-meta">180–220 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Bash scripting automates repetitive networking tasks such as monitoring, configuration, and troubleshooting.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Bash Scripting</strong><br>
+          Bash scripting is writing scripts using the Bash shell to automate tasks in Linux systems.
+        </li>
+
+        <li>
+          <strong>Why Bash Scripting</strong><br>
+          <ul>
+            <li>Automate repetitive tasks</li>
+            <li>Reduce manual effort</li>
+            <li>Improve efficiency</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Script Structure</strong><br>
+          <pre class="cmd-line">
+#!/bin/bash
+echo "Hello World"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Make Script Executable</strong><br>
+          <pre class="cmd-line">
+chmod +x script.sh
+          </pre>
+        </li>
+
+        <li>
+          <strong>Run Script</strong><br>
+          <pre class="cmd-line">
+./script.sh
+          </pre>
+        </li>
+
+        <li>
+          <strong>Variables</strong><br>
+          <pre class="cmd-line">
+name="server"
+echo $name
+          </pre>
+        </li>
+
+        <li>
+          <strong>User Input</strong><br>
+          <pre class="cmd-line">
+read input
+          </pre>
+        </li>
+
+        <li>
+          <strong>Conditional Statements</strong><br>
+          <pre class="cmd-line">
+if [ $x -eq 1 ]; then
+  echo "True"
+fi
+          </pre>
+        </li>
+
+        <li>
+          <strong>Loops</strong><br>
+          <pre class="cmd-line">
+for i in {1..5}; do
+  echo $i
+done
+          </pre>
+        </li>
+
+        <li>
+          <strong>Functions</strong><br>
+          <pre class="cmd-line">
+function check() {
+  echo "Running check"
+}
+          </pre>
+        </li>
+
+        <li>
+          <strong>Exit Status</strong><br>
+          <pre class="cmd-line">
+echo $?
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Commands in Scripts</strong><br>
+          <ul>
+            <li>ping</li>
+            <li>curl</li>
+            <li>netstat</li>
+            <li>ss</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Ping Automation Example</strong><br>
+          <pre class="cmd-line">
+ping -c 1 google.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Server Status Script</strong><br>
+          <pre class="cmd-line">
+if ping -c 1 8.8.8.8; then
+  echo "Server reachable"
+else
+  echo "Server down"
+fi
+          </pre>
+        </li>
+
+        <li>
+          <strong>Loop Through Servers</strong><br>
+          <pre class="cmd-line">
+for ip in 192.168.1.1 192.168.1.2; do
+  ping -c 1 $ip
+done
+          </pre>
+        </li>
+
+        <li>
+          <strong>Log Output</strong><br>
+          <pre class="cmd-line">
+echo "Test" >> log.txt
+          </pre>
+        </li>
+
+        <li>
+          <strong>Redirect Output</strong><br>
+          <pre class="cmd-line">
+command > output.txt
+command >> output.txt
+          </pre>
+        </li>
+
+        <li>
+          <strong>Error Handling</strong><br>
+          <pre class="cmd-line">
+set -e
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cron Jobs (Automation Scheduling)</strong><br>
+          <pre class="cmd-line">
+crontab -e
+          </pre>
+        </li>
+
+        <li>
+          <strong>Cron Example</strong><br>
+          <pre class="cmd-line">
+*/5 * * * * /script.sh
+          </pre>
+        </li>
+
+        <li>
+          <strong>Network Monitoring Script</strong><br>
+          <pre class="cmd-line">
+watch -n 5 netstat -tuln
+          </pre>
+        </li>
+
+        <li>
+          <strong>Port Check Script</strong><br>
+          <pre class="cmd-line">
+nc -zv localhost 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>API Check Script</strong><br>
+          <pre class="cmd-line">
+curl -I http://example.com
+          </pre>
+        </li>
+
+        <li>
+          <strong>Docker Automation</strong><br>
+          <pre class="cmd-line">
+docker ps
+docker logs container
+          </pre>
+        </li>
+
+        <li>
+          <strong>Kubernetes Automation</strong><br>
+          <pre class="cmd-line">
+kubectl get pods
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Avoid hardcoding secrets</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Consideration</strong><br>
+          <ul>
+            <li>Avoid heavy loops</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Permission denied</li>
+            <li>Syntax errors</li>
+            <li>Wrong variables</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check syntax
+Run with bash -x
+Check logs
+Fix errors
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use comments</li>
+            <li>Keep scripts simple</li>
+            <li>Handle errors properly</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced Use Cases</strong><br>
+          <ul>
+            <li>Auto-deployment scripts</li>
+            <li>Network health monitoring</li>
+            <li>Log analysis automation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <pre class="cmd-line">
+Automated script to check server health and restart service if down
+          </pre>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Bash scripting enables automation of networking tasks, improving efficiency, consistency, and system reliability.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Bash scripting automates networking tasks effectively.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:99">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-99</span>
+    <span class="task-title">Ansible (Infrastructure Automation & Configuration Management)</span>
+    <span class="task-meta">200–240 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand how Ansible automates infrastructure provisioning, configuration, and deployment using agentless architecture.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Ansible</strong><br>
+          Ansible is an open-source automation tool used for configuration management, application deployment, and infrastructure provisioning.
+        </li>
+
+        <li>
+          <strong>Why Ansible</strong><br>
+          <ul>
+            <li>Agentless (uses SSH)</li>
+            <li>Simple YAML syntax</li>
+            <li>Easy to learn</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Architecture</strong><br>
+          <pre class="cmd-line">
+Control Node → SSH → Managed Nodes
+          </pre>
+        </li>
+
+        <li>
+          <strong>Agentless Model</strong><br>
+          No agents required on target machines.
+        </li>
+
+        <li>
+          <strong>Installation</strong><br>
+          <pre class="cmd-line">
+apt install ansible
+          </pre>
+        </li>
+
+        <li>
+          <strong>Inventory File</strong><br>
+          <pre class="cmd-line">
+[web]
+192.168.1.10
+192.168.1.11
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ad-hoc Commands</strong><br>
+          <pre class="cmd-line">
+ansible all -m ping
+          </pre>
+        </li>
+
+        <li>
+          <strong>Modules</strong><br>
+          <ul>
+            <li>ping</li>
+            <li>copy</li>
+            <li>yum/apt</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Playbooks</strong><br>
+          YAML files defining automation tasks.
+        </li>
+
+        <li>
+          <strong>Basic Playbook</strong><br>
+          <pre class="cmd-line">
+- hosts: web
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+          </pre>
+        </li>
+
+        <li>
+          <strong>Run Playbook</strong><br>
+          <pre class="cmd-line">
+ansible-playbook playbook.yml
+          </pre>
+        </li>
+
+        <li>
+          <strong>Idempotency</strong><br>
+          Running playbook multiple times gives same result.
+        </li>
+
+        <li>
+          <strong>Variables</strong><br>
+          <pre class="cmd-line">
+vars:
+  app_port: 8080
+          </pre>
+        </li>
+
+        <li>
+          <strong>Handlers</strong><br>
+          Triggered when changes occur.
+          <pre class="cmd-line">
+notify: restart nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Roles</strong><br>
+          Organized structure for reusable code.
+        </li>
+
+        <li>
+          <strong>Role Structure</strong><br>
+          <pre class="cmd-line">
+roles/
+  web/
+    tasks/
+    handlers/
+    templates/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Templates</strong><br>
+          <pre class="cmd-line">
+Jinja2 templates (.j2)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Conditionals</strong><br>
+          <pre class="cmd-line">
+when: ansible_os_family == "Debian"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Loops</strong><br>
+          <pre class="cmd-line">
+with_items:
+  - nginx
+  - curl
+          </pre>
+        </li>
+
+        <li>
+          <strong>Tags</strong><br>
+          <pre class="cmd-line">
+--tags "install"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Vault (Secrets Management)</strong><br>
+          <pre class="cmd-line">
+ansible-vault encrypt file.yml
+          </pre>
+        </li>
+
+        <li>
+          <strong>SSH Key Setup</strong><br>
+          <pre class="cmd-line">
+ssh-copy-id user@server
+          </pre>
+        </li>
+
+        <li>
+          <strong>Parallel Execution</strong><br>
+          Runs tasks across multiple nodes simultaneously.
+        </li>
+
+        <li>
+          <strong>Dynamic Inventory</strong><br>
+          Used for cloud environments.
+        </li>
+
+        <li>
+          <strong>Ansible with Docker</strong><br>
+          <pre class="cmd-line">
+Manage containers
+          </pre>
+        </li>
+
+        <li>
+          <strong>Ansible with Kubernetes</strong><br>
+          <pre class="cmd-line">
+Deploy pods/services
+          </pre>
+        </li>
+
+        <li>
+          <strong>CI/CD Integration</strong><br>
+          <ul>
+            <li>Jenkins</li>
+            <li>GitHub Actions</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Consideration</strong><br>
+          <ul>
+            <li>Use forks for parallelism</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>SSH connection failure</li>
+            <li>Permission issues</li>
+            <li>YAML syntax errors</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Flow</strong><br>
+          <pre class="cmd-line">
+Check inventory
+Check SSH
+Validate YAML
+Run with -vvv
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use roles</li>
+            <li>Keep playbooks modular</li>
+            <li>Use version control</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Use Cases</strong><br>
+          <ul>
+            <li>Server provisioning</li>
+            <li>Application deployment</li>
+            <li>Network automation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Ansible simplifies infrastructure automation using agentless architecture, making it powerful for configuration management and deployment.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how Ansible automates infrastructure and configuration management.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

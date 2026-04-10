@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:63">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-63</span>
+    <span class="task-title">tcpdump (Packet Capture & Network Analysis)</span>
+    <span class="task-meta">130–160 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master tcpdump to capture, analyze, and debug network traffic at packet level in real-world systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is tcpdump</strong><br>
+          tcpdump is a command-line tool used to capture and analyze network packets.
+          <ul>
+            <li>Works at packet level</li>
+            <li>Used for deep debugging</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why tcpdump is Important</strong><br>
+          <ul>
+            <li>Shows real network traffic</li>
+            <li>Helps identify root cause</li>
+            <li>Used by DevOps, SRE, network engineers</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install tcpdump</strong><br>
+          <pre class="cmd-line">
+sudo apt install tcpdump
+          </pre>
+        </li>
+
+        <li>
+          <strong>Basic Command</strong><br>
+          <pre class="cmd-line">
+tcpdump
+          </pre>
+        </li>
+
+        <li>
+          <strong>Capture on Interface</strong><br>
+          <pre class="cmd-line">
+tcpdump -i eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>List Interfaces</strong><br>
+          <pre class="cmd-line">
+tcpdump -D
+          </pre>
+        </li>
+
+        <li>
+          <strong>Capture Limited Packets</strong><br>
+          <pre class="cmd-line">
+tcpdump -c 10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by IP</strong><br>
+          <pre class="cmd-line">
+tcpdump host 192.168.1.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by Port</strong><br>
+          <pre class="cmd-line">
+tcpdump port 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by Protocol</strong><br>
+          <pre class="cmd-line">
+tcpdump tcp
+tcpdump udp
+          </pre>
+        </li>
+
+        <li>
+          <strong>Combine Filters</strong><br>
+          <pre class="cmd-line">
+tcpdump tcp port 80 and host 192.168.1.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Capture HTTP Traffic</strong><br>
+          <pre class="cmd-line">
+tcpdump -i eth0 port 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Capture DNS Traffic</strong><br>
+          <pre class="cmd-line">
+tcpdump port 53
+          </pre>
+        </li>
+
+        <li>
+          <strong>Verbose Output</strong><br>
+          <pre class="cmd-line">
+tcpdump -v
+tcpdump -vv
+tcpdump -vvv
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Packet Data</strong><br>
+          <pre class="cmd-line">
+tcpdump -X
+          </pre>
+        </li>
+
+        <li>
+          <strong>Save Capture to File</strong><br>
+          <pre class="cmd-line">
+tcpdump -w capture.pcap
+          </pre>
+        </li>
+
+        <li>
+          <strong>Read Capture File</strong><br>
+          <pre class="cmd-line">
+tcpdump -r capture.pcap
+          </pre>
+        </li>
+
+        <li>
+          <strong>Use with Wireshark</strong><br>
+          Analyze .pcap files in GUI.
+        </li>
+
+        <li>
+          <strong>Packet Flow Understanding</strong><br>
+          <pre class="cmd-line">
+Client → SYN → Server
+Server → SYN-ACK → Client
+Client → ACK → Connection established
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debug HTTP Issues</strong><br>
+          <pre class="cmd-line">
+tcpdump -i eth0 port 80
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debug DNS Issues</strong><br>
+          <pre class="cmd-line">
+tcpdump port 53
+          </pre>
+        </li>
+
+        <li>
+          <strong>Debug SSH Issues</strong><br>
+          <pre class="cmd-line">
+tcpdump port 22
+          </pre>
+        </li>
+
+        <li>
+          <strong>Detect Packet Drops</strong><br>
+          <ul>
+            <li>No response → firewall or routing issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: Capture Only Incoming</strong><br>
+          <pre class="cmd-line">
+tcpdump -i eth0 dst host 192.168.1.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Capture Only Outgoing</strong><br>
+          <pre class="cmd-line">
+tcpdump -i eth0 src host 192.168.1.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced: Time Stamps</strong><br>
+          <pre class="cmd-line">
+tcpdump -tttt
+          </pre>
+        </li>
+
+        <li>
+          <strong>DevOps Use Cases</strong><br>
+          <ul>
+            <li>Debug API failures</li>
+            <li>Analyze microservice communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cloud Troubleshooting</strong><br>
+          <ul>
+            <li>Check incoming/outgoing traffic</li>
+            <li>Debug security group issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Debugging</strong><br>
+          <ul>
+            <li>Capture traffic on docker0</li>
+            <li>Analyze pod communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Debugging</strong><br>
+          <ul>
+            <li>Check service traffic</li>
+            <li>Debug network policies</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No packets captured → wrong interface</li>
+            <li>Too much data → no filter</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Run tcpdump
+Apply filters
+Observe packets
+Identify issue
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If packet is not seen → network issue
+If packet seen but no response → server/firewall issue
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always use filters</li>
+            <li>Capture minimal data</li>
+            <li>Save logs for analysis</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>API failing → no response packet</li>
+            <li>DNS issue → no DNS reply</li>
+            <li>Firewall issue → packet dropped</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          tcpdump is a powerful tool for capturing and analyzing network packets, enabling deep troubleshooting and precise diagnosis of network issues.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to capture and analyze network packets using tcpdump for real-world debugging.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:64">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-64</span>
+    <span class="task-title">Wireshark (Graphical Packet Analysis)</span>
+    <span class="task-meta">140–180 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Master Wireshark for visual packet inspection, protocol analysis, and advanced network debugging in real-world environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Wireshark</strong><br>
+          Wireshark is a graphical network protocol analyzer used to capture and inspect packets in detail.
+          <ul>
+            <li>GUI-based tool</li>
+            <li>Deep protocol inspection</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Wireshark is Important</strong><br>
+          <ul>
+            <li>Visual packet analysis</li>
+            <li>Understand protocols deeply</li>
+            <li>Used in debugging, security, forensics</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install Wireshark</strong><br>
+          <pre class="cmd-line">
+sudo apt install wireshark
+          </pre>
+        </li>
+
+        <li>
+          <strong>Start Wireshark</strong><br>
+          <pre class="cmd-line">
+wireshark
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interface Selection</strong><br>
+          Choose network interface (eth0, wlan0).
+        </li>
+
+        <li>
+          <strong>Start Packet Capture</strong><br>
+          Click "Start Capture".
+        </li>
+
+        <li>
+          <strong>Packet List Pane</strong><br>
+          Shows all captured packets.
+        </li>
+
+        <li>
+          <strong>Packet Details Pane</strong><br>
+          Shows protocol layers:
+          <ul>
+            <li>Ethernet</li>
+            <li>IP</li>
+            <li>TCP/UDP</li>
+            <li>Application (HTTP, DNS)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Packet Bytes Pane</strong><br>
+          Raw packet data in hex format.
+        </li>
+
+        <li>
+          <strong>Capture Filters</strong><br>
+          Applied before capture:
+          <pre class="cmd-line">
+port 80
+host 192.168.1.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Display Filters</strong><br>
+          Applied after capture:
+          <pre class="cmd-line">
+http
+ip.addr == 192.168.1.10
+tcp.port == 443
+          </pre>
+        </li>
+
+        <li>
+          <strong>Follow TCP Stream</strong><br>
+          View full conversation between client and server.
+        </li>
+
+        <li>
+          <strong>Analyze HTTP Traffic</strong><br>
+          <ul>
+            <li>Request headers</li>
+            <li>Response codes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Analyze DNS Queries</strong><br>
+          <ul>
+            <li>Domain lookup</li>
+            <li>Response IP</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Analyze TCP Handshake</strong><br>
+          <pre class="cmd-line">
+SYN → SYN-ACK → ACK
+          </pre>
+        </li>
+
+        <li>
+          <strong>Identify Retransmissions</strong><br>
+          Detect packet loss or network issues.
+        </li>
+
+        <li>
+          <strong>Color Coding</strong><br>
+          Different protocols highlighted for easy analysis.
+        </li>
+
+        <li>
+          <strong>Statistics Menu</strong><br>
+          <ul>
+            <li>Protocol hierarchy</li>
+            <li>Conversations</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Save Capture File</strong><br>
+          <pre class="cmd-line">
+.pcap file
+          </pre>
+        </li>
+
+        <li>
+          <strong>Open tcpdump Capture</strong><br>
+          Import .pcap files from tcpdump.
+        </li>
+
+        <li>
+          <strong>Wireshark vs tcpdump</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Wireshark</th>
+              <th>tcpdump</th>
+            </tr>
+            <tr>
+              <td>Interface</td>
+              <td>GUI</td>
+              <td>CLI</td>
+            </tr>
+            <tr>
+              <td>Analysis</td>
+              <td>Advanced</td>
+              <td>Basic</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Use in DevOps</strong><br>
+          <ul>
+            <li>Debug API calls</li>
+            <li>Analyze service communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Use in Security</strong><br>
+          <ul>
+            <li>Detect suspicious traffic</li>
+            <li>Analyze attacks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cloud Troubleshooting</strong><br>
+          <ul>
+            <li>Analyze VM traffic</li>
+            <li>Debug load balancer issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container/Kubernetes Debugging</strong><br>
+          <ul>
+            <li>Analyze pod communication</li>
+            <li>Debug service mesh issues</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No packets → wrong interface</li>
+            <li>Too much data → no filters</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Capture traffic
+Apply filters
+Analyze packets
+Identify issue
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+Packets tell the truth — always verify with them
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use filters to reduce noise</li>
+            <li>Focus on specific protocols</li>
+            <li>Save captures for analysis</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Slow API → TCP retransmissions</li>
+            <li>DNS issue → no response packet</li>
+            <li>HTTPS issue → TLS handshake failure</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Wireshark provides a powerful graphical interface for deep packet inspection, making it essential for advanced debugging, protocol analysis, and network troubleshooting.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to capture, filter, and analyze packets using Wireshark for advanced debugging.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:65">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-65</span>
+    <span class="task-title">iftop (Real-Time Bandwidth Monitoring)</span>
+    <span class="task-meta">100–130 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to monitor real-time network bandwidth usage using iftop and analyze traffic patterns in Linux systems.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is iftop</strong><br>
+          iftop is a command-line tool that displays real-time network bandwidth usage per connection.
+          <ul>
+            <li>Similar to top (CPU) but for network</li>
+            <li>Shows live traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why iftop is Important</strong><br>
+          <ul>
+            <li>Identify bandwidth usage</li>
+            <li>Detect unusual traffic</li>
+            <li>Debug network bottlenecks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install iftop</strong><br>
+          <pre class="cmd-line">
+sudo apt install iftop
+          </pre>
+        </li>
+
+        <li>
+          <strong>Run iftop</strong><br>
+          <pre class="cmd-line">
+sudo iftop
+          </pre>
+        </li>
+
+        <li>
+          <strong>Select Interface</strong><br>
+          <pre class="cmd-line">
+sudo iftop -i eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Output Overview</strong><br>
+          Displays:
+          <ul>
+            <li>Source IP</li>
+            <li>Destination IP</li>
+            <li>Bandwidth usage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Traffic Columns</strong><br>
+          <ul>
+            <li>Last 2s</li>
+            <li>Last 10s</li>
+            <li>Last 40s</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interpretation</strong><br>
+          <ul>
+            <li>High bandwidth → heavy traffic</li>
+            <li>Unknown IP → suspicious activity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Show Ports</strong><br>
+          Press:
+          <pre class="cmd-line">
+P
+          </pre>
+        </li>
+
+        <li>
+          <strong>Toggle Hostnames</strong><br>
+          Press:
+          <pre class="cmd-line">
+n
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show/Hide DNS Resolution</strong><br>
+          <pre class="cmd-line">
+iftop -n
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by Host</strong><br>
+          <pre class="cmd-line">
+iftop -f "host 192.168.1.10"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Filter by Port</strong><br>
+          <pre class="cmd-line">
+iftop -f "port 80"
+          </pre>
+        </li>
+
+        <li>
+          <strong>Sort Traffic</strong><br>
+          Press:
+          <pre class="cmd-line">
+s
+          </pre>
+        </li>
+
+        <li>
+          <strong>Pause Output</strong><br>
+          Press:
+          <pre class="cmd-line">
+p
+          </pre>
+        </li>
+
+        <li>
+          <strong>Show Help</strong><br>
+          Press:
+          <pre class="cmd-line">
+h
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bandwidth Units</strong><br>
+          <ul>
+            <li>b → bits</li>
+            <li>B → bytes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Identify Top Talkers</strong><br>
+          <ul>
+            <li>High usage connections</li>
+            <li>Traffic spikes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DevOps Use Cases</strong><br>
+          <ul>
+            <li>Detect traffic spikes</li>
+            <li>Monitor API traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Use Cases</strong><br>
+          <ul>
+            <li>Detect suspicious IPs</li>
+            <li>Identify data exfiltration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cloud Troubleshooting</strong><br>
+          <ul>
+            <li>Check instance bandwidth usage</li>
+            <li>Debug unexpected traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Monitoring</strong><br>
+          <ul>
+            <li>Monitor container traffic</li>
+            <li>Check service communication</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No output → wrong interface</li>
+            <li>Too much data → use filters</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Combine with tcpdump</strong><br>
+          <ul>
+            <li>iftop → who is using bandwidth</li>
+            <li>tcpdump → what data is flowing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Run iftop
+Identify high traffic
+Filter traffic
+Investigate source
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+High bandwidth = potential bottleneck or attack
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Always monitor production traffic</li>
+            <li>Use filters to focus</li>
+            <li>Combine with other tools</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server slow → high outgoing traffic</li>
+            <li>Unexpected load → unknown IP consuming bandwidth</li>
+            <li>API latency → network congestion</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          iftop provides real-time visibility into network bandwidth usage, making it a powerful tool for monitoring, troubleshooting, and detecting anomalies.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to monitor and analyze real-time bandwidth usage using iftop.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:66">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-66</span>
+    <span class="task-title">nload (Visual Network Traffic Monitoring)</span>
+    <span class="task-meta">90–120 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to monitor incoming and outgoing network traffic visually using nload and interpret real-time bandwidth usage.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is nload</strong><br>
+          nload is a command-line tool that shows real-time incoming and outgoing traffic with a visual graph.
+          <ul>
+            <li>Lightweight and simple</li>
+            <li>Graph-based monitoring</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why nload is Useful</strong><br>
+          <ul>
+            <li>Quick visual understanding of traffic</li>
+            <li>Easy to detect spikes</li>
+            <li>No complex configuration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install nload</strong><br>
+          <pre class="cmd-line">
+sudo apt install nload
+          </pre>
+        </li>
+
+        <li>
+          <strong>Run nload</strong><br>
+          <pre class="cmd-line">
+sudo nload
+          </pre>
+        </li>
+
+        <li>
+          <strong>Select Interface</strong><br>
+          <pre class="cmd-line">
+sudo nload eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Interface Switching</strong><br>
+          Use:
+          <pre class="cmd-line">
+← → (arrow keys)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Output Layout</strong><br>
+          Displays:
+          <ul>
+            <li>Incoming traffic (top graph)</li>
+            <li>Outgoing traffic (bottom graph)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Graph Interpretation</strong><br>
+          <ul>
+            <li>Spikes → sudden traffic increase</li>
+            <li>Flat line → no activity</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Traffic Metrics</strong><br>
+          <ul>
+            <li>Current rate</li>
+            <li>Average rate</li>
+            <li>Maximum rate</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Units</strong><br>
+          <ul>
+            <li>kbit/s</li>
+            <li>Mbit/s</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Refresh Interval</strong><br>
+          <pre class="cmd-line">
+nload -t 500
+          </pre>
+          (refresh every 500ms)
+        </li>
+
+        <li>
+          <strong>Show Multiple Interfaces</strong><br>
+          <pre class="cmd-line">
+nload eth0 wlan0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Hide Traffic Bars</strong><br>
+          <pre class="cmd-line">
+nload -u h
+          </pre>
+        </li>
+
+        <li>
+          <strong>DevOps Use Cases</strong><br>
+          <ul>
+            <li>Quick server bandwidth check</li>
+            <li>Monitor deployments</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Use Cases</strong><br>
+          <ul>
+            <li>Detect unusual traffic spikes</li>
+            <li>Identify possible attacks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cloud Monitoring</strong><br>
+          <ul>
+            <li>Check VM traffic usage</li>
+            <li>Detect abnormal outbound traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Monitoring</strong><br>
+          <ul>
+            <li>Monitor container network load</li>
+            <li>Check microservice communication spikes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>nload vs iftop</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>nload</th>
+              <th>iftop</th>
+            </tr>
+            <tr>
+              <td>View</td>
+              <td>Graph</td>
+              <td>Connections</td>
+            </tr>
+            <tr>
+              <td>Detail</td>
+              <td>Basic</td>
+              <td>Detailed</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No traffic shown → wrong interface</li>
+            <li>Misleading spikes → short bursts</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Combine with Other Tools</strong><br>
+          <ul>
+            <li>nload → overall traffic</li>
+            <li>iftop → per-connection traffic</li>
+            <li>tcpdump → packet-level</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Run nload
+Observe spikes
+Switch interface
+Use iftop for details
+Use tcpdump for deep analysis
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+Traffic spike → investigate source immediately
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Use nload for quick checks</li>
+            <li>Combine with detailed tools</li>
+            <li>Monitor regularly</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Server slow → high outgoing traffic spike</li>
+            <li>Deployment → sudden incoming traffic</li>
+            <li>DDoS attack → continuous high inbound traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          nload provides a simple and visual way to monitor real-time network traffic, making it ideal for quick diagnostics and traffic observation.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to visually monitor network traffic using nload.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:67">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-67</span>
+    <span class="task-title">vnStat (Long-Term Network Usage Monitoring)</span>
+    <span class="task-meta">100–130 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to track and analyze long-term network usage statistics using vnStat for monitoring and capacity planning.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is vnStat</strong><br>
+          vnStat is a network traffic monitor that logs bandwidth usage over time.
+          <ul>
+            <li>Tracks historical data</li>
+            <li>Lightweight and efficient</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why vnStat is Important</strong><br>
+          <ul>
+            <li>Monitor long-term usage</li>
+            <li>Detect trends and patterns</li>
+            <li>Capacity planning</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install vnStat</strong><br>
+          <pre class="cmd-line">
+sudo apt install vnstat
+          </pre>
+        </li>
+
+        <li>
+          <strong>Start vnStat Service</strong><br>
+          <pre class="cmd-line">
+systemctl start vnstat
+systemctl enable vnstat
+          </pre>
+        </li>
+
+        <li>
+          <strong>Initialize Interface</strong><br>
+          <pre class="cmd-line">
+vnstat -u -i eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Summary</strong><br>
+          <pre class="cmd-line">
+vnstat
+          </pre>
+        </li>
+
+        <li>
+          <strong>Hourly Statistics</strong><br>
+          <pre class="cmd-line">
+vnstat -h
+          </pre>
+        </li>
+
+        <li>
+          <strong>Daily Statistics</strong><br>
+          <pre class="cmd-line">
+vnstat -d
+          </pre>
+        </li>
+
+        <li>
+          <strong>Monthly Statistics</strong><br>
+          <pre class="cmd-line">
+vnstat -m
+          </pre>
+        </li>
+
+        <li>
+          <strong>Top Traffic Days</strong><br>
+          <pre class="cmd-line">
+vnstat -t
+          </pre>
+        </li>
+
+        <li>
+          <strong>Live Traffic (vnstat + real-time)</strong><br>
+          <pre class="cmd-line">
+vnstat -l
+          </pre>
+        </li>
+
+        <li>
+          <strong>Specific Interface</strong><br>
+          <pre class="cmd-line">
+vnstat -i eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Reset Database</strong><br>
+          <pre class="cmd-line">
+vnstat --remove -i eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Database Location</strong><br>
+          <pre class="cmd-line">
+/var/lib/vnstat/
+          </pre>
+        </li>
+
+        <li>
+          <strong>Graph Output (Optional)</strong><br>
+          <pre class="cmd-line">
+vnstat -hg
+          </pre>
+        </li>
+
+        <li>
+          <strong>Difference from Other Tools</strong><br>
+          <ul>
+            <li>iftop → real-time connections</li>
+            <li>nload → visual live traffic</li>
+            <li>vnstat → historical tracking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Interpretation</strong><br>
+          <ul>
+            <li>High daily usage → heavy traffic load</li>
+            <li>Consistent growth → scaling needed</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DevOps Use Cases</strong><br>
+          <ul>
+            <li>Monitor server bandwidth over time</li>
+            <li>Plan infrastructure scaling</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cloud Monitoring</strong><br>
+          <ul>
+            <li>Track data transfer costs</li>
+            <li>Monitor egress traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Use Cases</strong><br>
+          <ul>
+            <li>Detect unusual traffic spikes</li>
+            <li>Identify data exfiltration patterns</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Container Monitoring</strong><br>
+          <ul>
+            <li>Monitor host-level traffic</li>
+            <li>Analyze long-term service usage</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No data → not initialized</li>
+            <li>Wrong interface selected</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Combine with Other Tools</strong><br>
+          <ul>
+            <li>vnstat → history</li>
+            <li>iftop → live connections</li>
+            <li>tcpdump → packet analysis</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check vnstat data
+Identify spikes
+Use iftop for live traffic
+Use tcpdump for deep analysis
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+Trend over time reveals real problems
+          </pre>
+        </li>
+
+        <li>
+          <strong>Best Practices</strong><br>
+          <ul>
+            <li>Run vnstat continuously</li>
+            <li>Monitor trends regularly</li>
+            <li>Combine with alerting tools</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Monthly spike → billing issue</li>
+            <li>Gradual increase → scaling needed</li>
+            <li>Unexpected usage → possible security issue</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          vnStat provides long-term network usage statistics, helping engineers monitor trends, optimize performance, and plan infrastructure effectively.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now be able to track and analyze long-term network usage using vnStat.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

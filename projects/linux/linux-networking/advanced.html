@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Linux Networking - Interfaces</title>
+  <link rel="icon" type="image/png" href="../../../assets/linux.png">
+  <link rel="stylesheet" href="../../../css/global.css"/>
+  <link rel="stylesheet" href="../../../pages/projects/projects.css"/>
+  <link rel="stylesheet" href="../basic-commands/style.css">
+</head>
+<body>
+<div id="g-cur"></div>
+<div id="g-cur-r"></div>
+<nav class="g-nav">
+  <a class="g-nav__logo" href="../../../pages/home/home.html">Santhosh<span>.DevOps</span></a>
+  <div class="g-nav__links">
+    <a class="g-nav__link" href="../../../pages/home/home.html"><span class="hnb-ico">&#127968;</span>Home</a>
+    <a class="g-nav__link" href="../../../pages/certs/certs.html"><span class="hnb-ico">&#127942;</span>Certs</a>
+    <a class="g-nav__link" href="../../../pages/projects/projects.html"><span class="hnb-ico">&#128193;</span>Projects</a>
+    <a class="g-nav__link" href="../../../pages/about/about.html"><span class="hnb-ico">&#128100;</span>About</a>
+  </div>
+  <div class="g-nav__badge"><span class="g-dot"></span>Open to Work</div>
+</nav>
+
+<div class="g-page proj-page">
+  <div class="proj-header" style="position:relative;">
+    <div class="proj-bc">
+      <a href="../../../pages/projects/projects.html">projects</a>
+      <span>/</span>
+      <a href="../../../pages/projects/projects.html?concept=linux&project=linux-networking">linux</a>
+      <span>/</span>
+      <span class="proj-bc-cur">linux-networking-interfaces</span>
+    </div>
+    <a class="proj-back-btn" href="index.html">&larr; Back to Fundamentals</a>
+  </div>
+
+  <div class="proj-body">
+    <div class="proj-title-row">
+      <div>
+        <div>
+          <span class="pj-concept-pill">Linux</span>
+        </div>
+        <h1 class="proj-title">Linux Networking - Interfaces</h1>
+        <span class="g-tag tg">&bull;server</span>
+      </div>
+    </div>
+
+<article class="task-card" data-task style="--i:68">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-68</span>
+    <span class="task-title">Linux Bridge (Network Bridging)</span>
+    <span class="task-meta">130–160 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand Linux bridges, how they connect multiple interfaces into a single network, and how they are used in virtualization and containers.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a Linux Bridge</strong><br>
+          A Linux bridge connects multiple network interfaces into a single virtual network.
+          <ul>
+            <li>Acts like a virtual switch</li>
+            <li>Operates at Layer 2 (Data Link)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Bridges are Important</strong><br>
+          <ul>
+            <li>Used in virtualization (VMs)</li>
+            <li>Used in Docker/Kubernetes</li>
+            <li>Connect multiple interfaces</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+eth0 + veth0 → bridge (br0) → same network
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bridge vs Router</strong><br>
+          <ul>
+            <li>Bridge → Layer 2 (no IP routing)</li>
+            <li>Router → Layer 3 (IP routing)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install Bridge Tools</strong><br>
+          <pre class="cmd-line">
+sudo apt install bridge-utils
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create Bridge</strong><br>
+          <pre class="cmd-line">
+ip link add name br0 type bridge
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Bridge Up</strong><br>
+          <pre class="cmd-line">
+ip link set br0 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Interface to Bridge</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 master br0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Remove Interface from Bridge</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 nomaster
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assign IP to Bridge</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.100/24 dev br0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Bridge</strong><br>
+          <pre class="cmd-line">
+brctl show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Modern Alternative</strong><br>
+          <pre class="cmd-line">
+bridge link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Forwarding Database (FDB)</strong><br>
+          <pre class="cmd-line">
+bridge fdb show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Packet Flow</strong><br>
+          <pre class="cmd-line">
+Device → Bridge → Forward to correct interface
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bridge in Virtualization</strong><br>
+          <ul>
+            <li>VM connects to bridge</li>
+            <li>Gets IP from same network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bridge in Docker</strong><br>
+          <ul>
+            <li>docker0 bridge</li>
+            <li>Containers connected via veth pairs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bridge in Kubernetes</strong><br>
+          <ul>
+            <li>Pod networking</li>
+            <li>CNI plugins use bridges</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Advanced: STP (Spanning Tree Protocol)</strong><br>
+          Prevents loops in network.
+        </li>
+
+        <li>
+          <strong>Enable STP</strong><br>
+          <pre class="cmd-line">
+brctl stp br0 on
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bridge with Netplan</strong><br>
+          Example:
+          <pre class="cmd-line">
+network:
+  version: 2
+  bridges:
+    br0:
+      interfaces: [eth0]
+      dhcp4: yes
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>No connectivity → interface not added</li>
+            <li>Loop issues → STP disabled</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+ip link
+bridge link
+bridge fdb show
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check bridge → brctl show
+Check interfaces → ip link
+Check traffic → tcpdump
+          </pre>
+        </li>
+
+        <li>
+          <strong>DevOps Use Cases</strong><br>
+          <ul>
+            <li>VM networking</li>
+            <li>Container networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Cloud Use Cases</strong><br>
+          <ul>
+            <li>Virtual networking</li>
+            <li>Overlay networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Traffic flows freely within bridge</li>
+            <li>Use firewall rules if needed</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If devices are on same bridge → they should communicate directly
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>VM gets IP from same LAN</li>
+            <li>Docker containers communicate via bridge</li>
+            <li>Kubernetes pod networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Linux bridges act as virtual switches, enabling multiple interfaces to operate within the same network, forming the backbone of virtualization and container networking.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure and use Linux bridges in advanced networking environments.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:69">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-69</span>
+    <span class="task-title">Network Bonding (Link Aggregation)</span>
+    <span class="task-meta">130–170 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Learn how to combine multiple network interfaces into a single logical interface for redundancy and performance using bonding.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Network Bonding</strong><br>
+          Network bonding combines multiple network interfaces into one logical interface.
+          <ul>
+            <li>Provides redundancy</li>
+            <li>Improves performance</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Bonding is Important</strong><br>
+          <ul>
+            <li>Failover support</li>
+            <li>Load balancing</li>
+            <li>High availability</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+eth0 + eth1 → bond0 → single logical interface
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bonding Modes</strong><br>
+          <ul>
+            <li>mode=0 → balance-rr (round-robin)</li>
+            <li>mode=1 → active-backup</li>
+            <li>mode=2 → balance-xor</li>
+            <li>mode=4 → 802.3ad (LACP)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Mode Explanation</strong><br>
+          <ul>
+            <li>Active-backup → failover only</li>
+            <li>LACP → load balancing + redundancy</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install Bonding Module</strong><br>
+          <pre class="cmd-line">
+modprobe bonding
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create Bond Interface</strong><br>
+          <pre class="cmd-line">
+ip link add bond0 type bond
+          </pre>
+        </li>
+
+        <li>
+          <strong>Set Bond Mode</strong><br>
+          <pre class="cmd-line">
+echo active-backup > /sys/class/net/bond0/bonding/mode
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Interfaces to Bond</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 master bond0
+ip link set eth1 master bond0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring Interfaces Up</strong><br>
+          <pre class="cmd-line">
+ip link set bond0 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assign IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.1.100/24 dev bond0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Bond Status</strong><br>
+          <pre class="cmd-line">
+cat /proc/net/bonding/bond0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bonding with Netplan</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  bonds:
+    bond0:
+      interfaces: [eth0, eth1]
+      parameters:
+        mode: active-backup
+      dhcp4: yes
+          </pre>
+        </li>
+
+        <li>
+          <strong>LACP (802.3ad)</strong><br>
+          Requires switch support for aggregation.
+        </li>
+
+        <li>
+          <strong>Bonding vs Bridge</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Bonding</th>
+              <th>Bridge</th>
+            </tr>
+            <tr>
+              <td>Purpose</td>
+              <td>Redundancy/Performance</td>
+              <td>Network connection</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Bonding in Virtualization</strong><br>
+          <ul>
+            <li>Host NIC redundancy</li>
+            <li>High availability for VMs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bonding in Cloud</strong><br>
+          <ul>
+            <li>Used in private clouds</li>
+            <li>Limited in public cloud</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Bonding in Kubernetes</strong><br>
+          <ul>
+            <li>Node-level network redundancy</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Failover Testing</strong><br>
+          <pre class="cmd-line">
+ip link set eth0 down
+          </pre>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Interfaces not added correctly</li>
+            <li>Wrong bonding mode</li>
+            <li>Switch not configured (LACP)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging</strong><br>
+          <pre class="cmd-line">
+cat /proc/net/bonding/bond0
+ip link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check bond status
+Check interfaces
+Test failover
+Check switch config
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Considerations</strong><br>
+          <ul>
+            <li>LACP improves throughput</li>
+            <li>Mode selection matters</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Considerations</strong><br>
+          <ul>
+            <li>Ensure proper switch configuration</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If one link fails → traffic should continue
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Data center servers with dual NICs</li>
+            <li>High-availability web servers</li>
+            <li>Storage network redundancy</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Network bonding combines multiple interfaces to provide redundancy and improved performance, making it essential for high-availability systems.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure and use network bonding for redundancy and performance.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:70">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-70</span>
+    <span class="task-title">VLANs (Virtual LAN – Network Segmentation)</span>
+    <span class="task-meta">130–170 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand VLANs, how they segment networks logically, and how to configure and troubleshoot VLANs in Linux and enterprise environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is a VLAN</strong><br>
+          VLAN (Virtual LAN) allows logical segmentation of a network within the same physical infrastructure.
+          <ul>
+            <li>Separates traffic</li>
+            <li>Improves security</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why VLANs are Important</strong><br>
+          <ul>
+            <li>Network isolation</li>
+            <li>Reduced broadcast domains</li>
+            <li>Better performance & security</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Same switch → VLAN 10, VLAN 20 → isolated networks
+          </pre>
+        </li>
+
+        <li>
+          <strong>VLAN ID</strong><br>
+          <ul>
+            <li>Range: 1–4094</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Tagged vs Untagged</strong><br>
+          <ul>
+            <li>Tagged → VLAN ID added to frame</li>
+            <li>Untagged → default VLAN</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Access Port</strong><br>
+          <ul>
+            <li>Single VLAN</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Trunk Port</strong><br>
+          <ul>
+            <li>Carries multiple VLANs</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Install VLAN Package</strong><br>
+          <pre class="cmd-line">
+sudo apt install vlan
+          </pre>
+        </li>
+
+        <li>
+          <strong>Load VLAN Module</strong><br>
+          <pre class="cmd-line">
+modprobe 8021q
+          </pre>
+        </li>
+
+        <li>
+          <strong>Create VLAN Interface</strong><br>
+          <pre class="cmd-line">
+ip link add link eth0 name eth0.10 type vlan id 10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Bring VLAN Interface Up</strong><br>
+          <pre class="cmd-line">
+ip link set eth0.10 up
+          </pre>
+        </li>
+
+        <li>
+          <strong>Assign IP Address</strong><br>
+          <pre class="cmd-line">
+ip addr add 192.168.10.1/24 dev eth0.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check VLAN Interfaces</strong><br>
+          <pre class="cmd-line">
+ip -d link
+          </pre>
+        </li>
+
+        <li>
+          <strong>Delete VLAN</strong><br>
+          <pre class="cmd-line">
+ip link delete eth0.10
+          </pre>
+        </li>
+
+        <li>
+          <strong>VLAN with Netplan</strong><br>
+          <pre class="cmd-line">
+network:
+  version: 2
+  vlans:
+    vlan10:
+      id: 10
+      link: eth0
+      dhcp4: yes
+          </pre>
+        </li>
+
+        <li>
+          <strong>VLAN in Switch</strong><br>
+          <ul>
+            <li>Configure VLAN ID</li>
+            <li>Assign ports</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VLAN in Virtualization</strong><br>
+          <ul>
+            <li>Separate VM networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VLAN in Docker</strong><br>
+          <ul>
+            <li>Macvlan networks</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VLAN in Kubernetes</strong><br>
+          <ul>
+            <li>Used in advanced CNI setups</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Inter-VLAN Routing</strong><br>
+          Requires router or Layer 3 switch.
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Wrong VLAN ID</li>
+            <li>Switch misconfiguration</li>
+            <li>No trunk setup</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debugging VLAN</strong><br>
+          <pre class="cmd-line">
+ip link
+tcpdump -i eth0
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Tagged Traffic</strong><br>
+          <pre class="cmd-line">
+tcpdump -e
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check VLAN interface
+Check switch config
+Check tagging
+Test connectivity
+          </pre>
+        </li>
+
+        <li>
+          <strong>Security Benefits</strong><br>
+          <ul>
+            <li>Isolation between departments</li>
+            <li>Reduce attack surface</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Performance Benefits</strong><br>
+          <ul>
+            <li>Reduced broadcast traffic</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If VLAN mismatch → no communication
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Office → HR VLAN, Dev VLAN</li>
+            <li>Data center → tenant isolation</li>
+            <li>Cloud → virtual network segmentation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          VLANs logically segment networks within the same physical infrastructure, providing isolation, security, and improved performance in modern networking environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to configure and use VLANs for network segmentation.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:71">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-71</span>
+    <span class="task-title">Overlay Networks (Distributed Networking)</span>
+    <span class="task-meta">140–180 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand overlay networks, how they enable communication across distributed systems, and how they are used in Docker Swarm and Kubernetes.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is an Overlay Network</strong><br>
+          An overlay network is a virtual network built on top of another network.
+          <ul>
+            <li>Abstracts physical network</li>
+            <li>Connects distributed nodes</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Why Overlay Networks are Needed</strong><br>
+          <ul>
+            <li>Multiple hosts need to communicate</li>
+            <li>Containers across nodes must connect</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Concept</strong><br>
+          <pre class="cmd-line">
+Container A (Host1) → Overlay → Container B (Host2)
+          </pre>
+        </li>
+
+        <li>
+          <strong>Underlay vs Overlay</strong><br>
+          <ul>
+            <li>Underlay → physical network</li>
+            <li>Overlay → virtual network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Encapsulation</strong><br>
+          Packets are wrapped inside another packet.
+        </li>
+
+        <li>
+          <strong>VXLAN (Key Technology)</strong><br>
+          <ul>
+            <li>Encapsulates Layer 2 over Layer 3</li>
+            <li>Uses UDP port 4789</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>VXLAN Concept</strong><br>
+          <pre class="cmd-line">
+Original Packet → Encapsulation → Transport → Decapsulation
+          </pre>
+        </li>
+
+        <li>
+          <strong>VNI (VXLAN Network Identifier)</strong><br>
+          <ul>
+            <li>Identifies overlay network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay in Docker Swarm</strong><br>
+          <pre class="cmd-line">
+docker network create -d overlay mynet
+          </pre>
+        </li>
+
+        <li>
+          <strong>Attach Service to Overlay</strong><br>
+          <pre class="cmd-line">
+docker service create --network mynet nginx
+          </pre>
+        </li>
+
+        <li>
+          <strong>Overlay in Kubernetes</strong><br>
+          <ul>
+            <li>Pod-to-pod networking</li>
+            <li>CNI plugins (Flannel, Calico)</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay Components</strong><br>
+          <ul>
+            <li>Tunnel endpoints</li>
+            <li>Encapsulation protocol</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Benefits</strong><br>
+          <ul>
+            <li>Scalability</li>
+            <li>Isolation</li>
+            <li>Flexibility</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay vs Bridge</strong><br>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Overlay</th>
+              <th>Bridge</th>
+            </tr>
+            <tr>
+              <td>Scope</td>
+              <td>Multi-host</td>
+              <td>Single host</td>
+            </tr>
+          </table>
+        </li>
+
+        <li>
+          <strong>Overlay vs VLAN</strong><br>
+          <ul>
+            <li>VLAN → Layer 2 segmentation</li>
+            <li>Overlay → virtual cross-host network</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Overlay in Cloud</strong><br>
+          <ul>
+            <li>VPC networking</li>
+            <li>Software-defined networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security</strong><br>
+          <ul>
+            <li>Encrypted tunnels</li>
+            <li>Network isolation</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>MTU mismatch</li>
+            <li>Firewall blocking UDP 4789</li>
+            <li>Encapsulation overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Overlay Networks</strong><br>
+          <pre class="cmd-line">
+ip link
+ip route
+tcpdump -i eth0 udp port 4789
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check VXLAN Interface</strong><br>
+          <pre class="cmd-line">
+ip -d link show
+          </pre>
+        </li>
+
+        <li>
+          <strong>MTU Consideration</strong><br>
+          Reduce MTU to avoid fragmentation.
+        </li>
+
+        <li>
+          <strong>Performance Consideration</strong><br>
+          <ul>
+            <li>Encapsulation adds overhead</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>DevOps Use Cases</strong><br>
+          <ul>
+            <li>Microservices communication</li>
+            <li>Multi-node clusters</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Kubernetes Deep Use Case</strong><br>
+          <ul>
+            <li>Pods communicate across nodes seamlessly</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check overlay network
+Check VXLAN interface
+Check firewall
+Capture packets
+          </pre>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+If overlay fails → check underlying network first
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Docker Swarm services across nodes</li>
+            <li>Kubernetes pod networking</li>
+            <li>Cloud virtual networking</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Overlay networks enable seamless communication across distributed systems by abstracting the underlying physical network, forming the foundation of modern container and cloud networking.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand overlay networks and how they work in distributed systems.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+<article class="task-card" data-task style="--i:72">
+  <button class="task-toggle" type="button">
+    <span class="task-pill">Topic-72</span>
+    <span class="task-title">Advanced Routing (Policy-Based Routing & Traffic Control)</span>
+    <span class="task-meta">140–180 min</span>
+    <span class="task-chevron">&#9662;</span>
+  </button>
+
+  <div class="task-panel">
+    <div class="task-panel-inner">
+
+      <p class="task-goal">
+        <span class="task-goal-label">Goal: </span>
+        Understand advanced routing techniques like policy-based routing, multiple routing tables, and traffic control used in complex network environments.
+      </p>
+
+      <ol class="task-steps-list">
+
+        <li>
+          <strong>What is Advanced Routing</strong><br>
+          Advanced routing allows controlling how traffic flows based on rules instead of just destination IP.
+        </li>
+
+        <li>
+          <strong>Why Advanced Routing is Needed</strong><br>
+          <ul>
+            <li>Multiple network interfaces</li>
+            <li>Traffic segregation</li>
+            <li>Load balancing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Basic Routing Limitation</strong><br>
+          <ul>
+            <li>Uses single routing table</li>
+            <li>Based only on destination</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Policy-Based Routing (PBR)</strong><br>
+          Routing decisions based on:
+          <ul>
+            <li>Source IP</li>
+            <li>Interface</li>
+            <li>Mark</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Multiple Routing Tables</strong><br>
+          Defined in:
+          <pre class="cmd-line">
+/etc/iproute2/rt_tables
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Custom Table</strong><br>
+          <pre class="cmd-line">
+100 custom1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Route to Table</strong><br>
+          <pre class="cmd-line">
+ip route add default via 192.168.1.1 table custom1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Add Rule</strong><br>
+          <pre class="cmd-line">
+ip rule add from 192.168.1.100 table custom1
+          </pre>
+        </li>
+
+        <li>
+          <strong>View Rules</strong><br>
+          <pre class="cmd-line">
+ip rule show
+          </pre>
+        </li>
+
+        <li>
+          <strong>View All Tables</strong><br>
+          <pre class="cmd-line">
+ip route show table all
+          </pre>
+        </li>
+
+        <li>
+          <strong>Source-Based Routing</strong><br>
+          Different source IP → different gateway.
+        </li>
+
+        <li>
+          <strong>Multi-NIC Routing</strong><br>
+          Each interface uses separate route.
+        </li>
+
+        <li>
+          <strong>Load Balancing Routes</strong><br>
+          <pre class="cmd-line">
+ip route add default nexthop via 192.168.1.1 nexthop via 192.168.1.2
+          </pre>
+        </li>
+
+        <li>
+          <strong>Traffic Marking</strong><br>
+          <pre class="cmd-line">
+iptables -t mangle -A PREROUTING -j MARK --set-mark 1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Route Based on Mark</strong><br>
+          <pre class="cmd-line">
+ip rule add fwmark 1 table custom1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Advanced Use Cases</strong><br>
+          <ul>
+            <li>Split traffic across ISPs</li>
+            <li>VPN routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Cloud</strong><br>
+          <ul>
+            <li>Multiple gateways</li>
+            <li>Custom route tables</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Kubernetes</strong><br>
+          <ul>
+            <li>Pod traffic routing</li>
+            <li>Service routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Routing in Containers</strong><br>
+          <ul>
+            <li>Custom network routing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Common Issues</strong><br>
+          <ul>
+            <li>Rule mismatch</li>
+            <li>Wrong table priority</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Debug Routing Rules</strong><br>
+          <pre class="cmd-line">
+ip rule show
+ip route show table custom1
+          </pre>
+        </li>
+
+        <li>
+          <strong>Check Route Selection</strong><br>
+          <pre class="cmd-line">
+ip route get 8.8.8.8
+          </pre>
+        </li>
+
+        <li>
+          <strong>Troubleshooting Workflow</strong><br>
+          <pre class="cmd-line">
+Check rules
+Check tables
+Test routing path
+Capture packets
+          </pre>
+        </li>
+
+        <li>
+          <strong>Performance Consideration</strong><br>
+          <ul>
+            <li>More rules → more processing</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Security Use Cases</strong><br>
+          <ul>
+            <li>Route sensitive traffic via secure path</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Golden Debug Rule</strong><br>
+          <pre class="cmd-line">
+Routing = rules + tables + priority
+          </pre>
+        </li>
+
+        <li>
+          <strong>Real-World Example</strong><br>
+          <ul>
+            <li>Multi-ISP setup</li>
+            <li>VPN split tunneling</li>
+            <li>Traffic isolation in enterprise</li>
+          </ul>
+        </li>
+
+        <li>
+          <strong>Summary</strong><br>
+          Advanced routing enables precise control over traffic flow using rules, multiple routing tables, and policies, making it essential for complex and large-scale network environments.
+        </li>
+
+      </ol>
+
+      <div class="task-check">
+        Completion check: You should now understand how to implement and troubleshoot advanced routing techniques.
+      </div>
+
+    </div>
+  </div>
+</article>
+
+
+
+    </section>
+
+  </div>
+
+  <footer class="g-footer">
+    <span>Santhosh Kumar Raju · Linux</span>
+    <a href="../../../pages/projects/projects.html">&larr; All Projects</a>
+  </footer>
+</div>
+
+<script src="../../../js/nav.js"></script>
+</body>
+</html>

@@ -17,6 +17,7 @@
   var progressMeterEl = document.getElementById('pj-meter-progress');
   var pendingMeterEl = document.getElementById('pj-meter-pending');
   var bannerToggleButton = document.getElementById('pj-banner-toggle');
+  var bannerSummaryEl = document.getElementById('pj-banner-summary');
   var filterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-status-filter]'));
   var envFilterButtons = Array.prototype.slice.call(document.querySelectorAll('[data-env-filter]'));
   var viewButtons = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
@@ -614,6 +615,24 @@
       '<div class="pj-filter-info__count">Showing ' + visibleCount + ' project' + (visibleCount === 1 ? '' : 's') + '</div>';
   }
 
+  function updateBannerSummary(visibleCount) {
+    if (!bannerSummaryEl) return;
+    var statusSelected = statusFilterKeys();
+    var envSelected = envFilterKeys();
+    var viewLabels = hasViewFilter() ? selectedViewLabels() : [];
+
+    var parts = [];
+    parts.push('Showing ' + visibleCount + ' project' + (visibleCount === 1 ? '' : 's'));
+    if (statusSelected.length) parts.push('Status: ' + statusSelected.map(statusLabel).join(', '));
+    if (envSelected.length) parts.push('Env: ' + envSelected.join(', '));
+    if (viewLabels.length) parts.push('View: ' + viewLabels.join(' + '));
+    if (!parts.length) {
+      bannerSummaryEl.textContent = 'Showing all projects • Filters off';
+      return;
+    }
+    bannerSummaryEl.textContent = parts.join(' • ');
+  }
+
   function openFirstVisibleGroup() {
     var firstGroup = null;
     sidebar.querySelectorAll('.cg').forEach(function (group) {
@@ -676,6 +695,7 @@
     updateEnvFilterUi();
     updateFilterUi(visibleProjects);
     renderFilterInfo(visibleProjects);
+    updateBannerSummary(visibleProjects);
     updateSidebarCounts();
 
     if (!visibleProjects) {

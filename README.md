@@ -1,67 +1,163 @@
-# portfolio.in
-This repository showcases projects I built independently in both local and cloud environments. It highlights my ability to design, develop, test, and deploy applications while continuously learning and improving my technical and problem-solving skills as a DevOps Enginner
+# 👋 Hi, I'm Santhosh Kumar Raju
 
+🚀 **DevOps Engineer | AWS | Kubernetes | Terraform | CI/CD Enthusiast**
 
-🌐 Personal Portfolio Website:
+📍 Hyderabad, India
+📧 [dssanthoshraju1999@gmail.com](mailto:dssanthoshraju1999@gmail.com)
+📱 +91 9177093821
 
+🔗 [GitHub](https://github.com/SanthoshKumarRaju)
+🔗 [LinkedIn](https://www.linkedin.com/in/santhosh-kumar-raju-dasararaju-5905a81b3)
+🌐 [Portfolio](https://santhoshkumarraju.github.io/portfolio.in/)
 
-📌 Overview:
+---
 
-This is my personal portfolio website designed to showcase my skills, experience, projects, certifications, and achievements. The website provides a complete overview of my professional journey, technical expertise, and the work I have accomplished.
+## 🧑‍💻 About Me
 
-The goal of this portfolio is to present my profile in a clear, structured, and professional manner.
+DevOps Engineer with **3+ years of experience** designing, automating, and managing scalable AWS infrastructure across development, QA, and production environments.
 
-🏠 Home Page
+✔️ Improved deployment velocity by **50%**
+✔️ Automated **60% of infrastructure workflows**
+✔️ Reduced MTTR by **40%**
+✔️ Maintained **99.9% uptime**
 
-The landing page includes:
+💡 Passionate about automation, reliability, and building resilient systems.
 
-📌A brief professional introduction
-📌Summary of my technical skills
-📌Overview of my work experience
-📌Highlights of my expertise
-📌Key achievements
+---
 
-This section gives visitors a quick understanding of who I am and what I do.
+## ⚙️ Tech Stack
 
-🎓 Certifications & Achievements:
+### ☁️ Cloud & Infrastructure
 
-🔗In this section, I showcase:
-🔗Professional certifications
-🔗Course completions
-🔗Awards and recognitions
-🔗Notable accomplishments
+* AWS (EC2, S3, VPC, IAM, ALB, NLB, Route53, Auto Scaling, CloudWatch, EBS)
 
-This page highlights my continuous learning and professional growth.
+### 🔁 CI/CD
 
-💻 Projects
-This page provides detailed information about the projects I have worked on, including:
+* Jenkins
 
-🎯Project descriptions
-🎯Technologies used
-🎯My role and responsibilities
-🎯Key features and outcomes
-🎯Screenshots or demos (if available)
+### 🐳 Containers & Orchestration
 
-It demonstrates my practical experience and problem-solving abilities.
+* Docker, Docker Compose
+* Kubernetes, Docker Swarm
 
-👤 About Me
-The About page includes:
+### 🏗️ Infrastructure as Code
 
-🧿A detailed introduction about myself
-🧿My background and interests
-🧿Career goals
-🧿Personal values and motivation
+* Terraform, Ansible
 
-This section helps visitors understand me beyond my technical skills.
+### 📊 Monitoring & Logging
 
-🛠️ Technologies Used
+* Prometheus, Grafana, ELK Stack, CloudWatch
 
-HTML
-CSS
-JavaScript
+### 📡 Messaging & Streaming
 
+* RabbitMQ, Apache Pulsar
 
-⭐ Conclusion
+### 🌐 Networking
 
-This portfolio represents my dedication, skills, and continuous learning journey.
-Thank you for visiting!
+* VPC Design, Security Groups, NACLs, Reverse Proxy (Traefik)
+
+### 🗄️ Databases
+
+* MySQL, PostgreSQL
+
+### 💻 OS
+
+* Linux (Ubuntu, CentOS)
+
+---
+
+## 💼 Professional Experience
+
+### 🚀 DevOps Engineer — CstoreIQ
+
+📅 Oct 2024 – Present | Hyderabad
+
+* Architect and manage AWS infrastructure for **100+ microservices**
+* Built reusable Terraform modules → reduced provisioning time by **60%**
+* Designed CI/CD pipelines enabling **zero-downtime deployments**
+* Managed Docker Swarm clusters for scalability
+* Implemented centralized logging using ELK stack
+* Built monitoring dashboards using Prometheus & Grafana
+* Performed RabbitMQ upgrades (v3.13 → v4.2) with zero downtime
+
+---
+
+### ⚙️ TechOps Engineer — YVS
+
+📅 Aug 2024 – Sep 2024
+
+* Improved release stability and deployment coordination
+* Monitored systems using Prometheus & Grafana
+* Troubleshot L2 infrastructure issues
+
+---
+
+### 🐧 Linux Support Engineer — MethodHub
+
+📅 Mar 2023 – Aug 2024
+
+* Managed Linux production environments
+* Performed root cause analysis for failures
+* Improved monitoring visibility and alerting
+
+---
+
+### ☁️ AWS Intern — Conduira
+
+📅 Sep 2022 – Jan 2023
+
+* Designed 2-tier & 3-tier AWS architectures
+* Worked across **10+ AWS services**
+* Implemented S3 static hosting & CloudWatch monitoring
+
+---
+
+## 🏆 Certifications
+
+* 🥇 AWS Certified Cloud Practitioner (Jan 2023)
+
+---
+
+## 📂 Featured Projects
+
+### 🔹 DevOps Automation Platform
+
+* Automated infrastructure provisioning using Terraform
+* CI/CD pipelines using Jenkins
+* Reduced deployment time drastically
+
+### 🔹 Monitoring Stack Setup
+
+* Prometheus + Grafana dashboards
+* Alerting system for production issues
+
+### 🔹 Containerized Microservices
+
+* Dockerized applications
+* Orchestrated using Docker Swarm / Kubernetes
+
+---
+
+## 📈 GitHub Stats
+
+![Santhosh's GitHub stats](https://github-readme-stats.vercel.app/api?username=SanthoshKumarRaju\&show_icons=true\&theme=radical)
+
+---
+
+## 🔥 What I'm Working On
+
+* Kubernetes production-grade setups
+* Advanced Terraform modules
+* Observability & SRE practices
+
+---
+
+## 🤝 Let's Connect
+
+If you're looking for a DevOps Engineer or want to collaborate:
+
+📧 Email me or connect on LinkedIn!
+
+---
+
+⭐ *Feel free to check out my repositories and drop a star if you like my work!*

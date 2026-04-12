@@ -1139,7 +1139,7 @@ window.PDATA = [
       title:'Cloud Computing Fundamentals',
       env:'cloud',
       conceptTag : 'cloud.fundamentals',
-      status:'not_completed',
+      status:'inprogress',
       summary:'Introduction to cloud computing concepts including infrastructure models, deployment models, scalability, and modern cloud architecture.',
       purpose:'Understand how cloud platforms provide scalable infrastructure and how businesses replace traditional data centers with cloud services.',
       overview:[
@@ -1152,7 +1152,7 @@ window.PDATA = [
         'Overview of major cloud providers: AWS, Microsoft Azure, Google Cloud',
         'Cloud-native application architectures'
       ],
-      page:'../../projects/maintenance-page.html'
+      page:'../../projects/cloud/cloud-computing-fundamentals/index.html'
     },
     {
       id:'aws-global-infrastructure',
